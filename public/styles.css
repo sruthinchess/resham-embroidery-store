@@ -633,3 +633,14 @@ input, select, textarea { font: inherit; color: inherit; }
   .bundle { padding: 24px; }
   .bundle-cta { width: 100%; justify-content: space-between; }
 }
+
+/* four-up specs + the paid/upload hand-off */
+.specs.four { grid-template-columns: repeat(4, 1fr); }
+.next-step {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+  background: var(--sage-soft); border: 1px solid rgba(44, 110, 71, .25); border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.next-step b { font-size: 14px; }
+.next-step .btn { flex: none; }
+@media (max-width: 680px) { .specs.four { grid-template-columns: 1fr 1fr; } .next-step .btn { width: 100%; } }

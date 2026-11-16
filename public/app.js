@@ -181,7 +181,7 @@
         <button class="fav ${Store.isWished(d.id) ? 'on' : ''}" data-fav="${d.id}" aria-label="Save ${esc(d.name)}">${Store.isWished(d.id) ? I.heartOn : I.heart}</button>
       </a>
       <div class="body">
-        <span class="meta">${esc(d.hoop)} · ${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${(d.formats || []).length} formats</span>
+        <span class="meta">${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${nf(d.stitchCount)} stitches · ${d.sewMinutes || Math.round(d.stitchCount / 700)} min</span>
         <a href="#/d/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
         <p class="sum">${esc((d.summary || '').slice(0, 92))}${(d.summary || '').length > 92 ? '…' : ''}</p>
         <div class="price"><b>${money(d.price)}</b>${d.mrp > d.price ? `<s>${money(d.mrp)}</s><span class="off">${d.discount}% off</span>` : ''}</div>
@@ -282,8 +282,8 @@
     </div></div>
 
     <div class="marq"><div class="marq-in">
-      ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'HUS · Viking', 'XXX · Singer', 'SEW · Janome',
-      'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'HUS · Viking', 'XXX · Singer', 'SEW · Janome']
+      ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'XXX · Singer', 'SEW · Janome',
+      'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'XXX · Singer', 'SEW · Janome']
         .map(t => `<span>${t}</span>`).join('')}
     </div></div>
 
@@ -300,7 +300,7 @@
       <div class="bundle-copy">
         <span class="eyebrow" style="color:var(--brass-2)">Bundle · save 25%</span>
         <h2>Complete the set</h2>
-        <p>All ${all.designs.length} designs — floral, blossom, magnolia and silhouette — in every format, for ${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))} instead of ${money(all.designs.reduce((s, d) => s + d.price, 0))}.</p>
+        <p>All ${all.designs.length} designs in every format for ${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))} instead of ${money(all.designs.reduce((s, d) => s + d.price, 0))}.</p>
       </div>
       <div class="bundle-cta">
         <div class="bundle-price"><s>${money(all.designs.reduce((s, d) => s + d.price, 0))}</s><b>${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))}</b></div>
@@ -314,7 +314,7 @@
         <div class="grid-3">
           <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">01</span>
             <h3 style="margin:8px 0 6px">Choose your formats</h3>
-            <p class="small muted">Tick what your machine reads — PES for Brother, DST for Tajima, JEF for Janome, and twenty more. They arrive together in one ZIP.</p></div>
+            <p class="small muted">Tick what your machine reads — PES for Brother, DST for Tajima, JEF for Janome and the rest of the main formats. They arrive together in one ZIP.</p></div>
           <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">02</span>
             <h3 style="margin:8px 0 6px">Pay by UPI</h3>
             <p class="small muted">Scan the QR or tap your UPI app — the amount and order code travel inside the link, so nothing is typed by hand.</p></div>
@@ -428,12 +428,14 @@
           <h1>${esc(g.name)}</h1>
           <p class="muted" style="font-size:15px">${esc(g.summary)}</p>
           <div class="price-big"><b>${money(g.price)}</b>${g.mrp > g.price ? `<s>${money(g.mrp)}</s><span class="off">${g.discount}% off</span>` : ''}</div>
-          <p class="small muted" style="margin:0">One-time payment · commercial licence · no subscription</p>
+          <p class="small muted" style="margin:0">
+            ${g.pricePerColour ? `${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} × ${money(g.pricePerColour)} = ${money(g.price)} · ` : ''}one-time payment · commercial licence · no subscription</p>
 
-          <div class="specs">
+          <div class="specs four">
             <div><span>Stitches</span><b>${nf(g.stitchCount)}</b></div>
+            <div><span>Colours</span><b>${g.colorCount}</b></div>
+            <div><span>Sew time</span><b>≈ ${g.sewMinutes || Math.round(g.stitchCount / 700)} min</b></div>
             <div><span>Size</span><b>${g.widthMm} × ${g.heightMm} mm</b></div>
-            <div><span>Trims</span><b>${nf(g.trims)}</b></div>
           </div>
 
           <div class="threads">
@@ -454,6 +456,7 @@
               </button>`).join('')}
             </div>
             ${g.formats.length > 8 ? `<button class="fmt-more" id="fmtMore">Show all ${g.formats.length} formats ↓</button>` : ''}
+            <p class="small muted" style="margin:10px 0 0">We ship the formats nearly every machine reads — PES, DST, JEF, EXP, VP3, XXX and SEW. Tick what yours takes.</p>
             <div class="fmt-links"><button id="fmtAll">Select all ${g.formats.length}</button><button id="fmtNone">Clear</button></div>
           </div>
 
@@ -468,7 +471,7 @@
             <div class="inc-head">${I.file}<b>What you get</b></div>
             <ul>
               <li>All ${g.formats.length} machine formats, or only the ones you pick</li>
-              <li>${nf(g.stitchCount)} stitches · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} · ${nf(g.trims)} trims · ${g.widthMm} × ${g.heightMm} mm</li>
+              <li>${nf(g.stitchCount)} stitches · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} · ${nf(g.trims)} trims · ≈ ${g.sewMinutes || Math.round(g.stitchCount / 700)} min to sew</li>
               <li>The designer's readme with the thread order and stabiliser notes</li>
               <li>One-person commercial licence — sew it on anything you sell</li>
               <li>Download straight after payment, live for ${Store.settings.link_hours} hours</li>
@@ -531,6 +534,7 @@
     if (!Store.cart.length) return `<div class="wrap"><div class="empty" style="margin:44px 0 70px"><h3>Your bag is empty</h3><p class="muted small">Digital designs, no shipping.</p><a class="btn btn-primary" href="#/designs" style="margin-top:8px">Browse designs</a></div></div>`;
     return `<div class="wrap">
       <div class="crumbs"><a href="#/">Home</a> / Bag</div>
+      ${rail(1)}
       <div class="cart-grid">
         <div>
           <h1 style="font-size:1.8rem;margin:12px 0 4px">Your bag (${Store.count})</h1>
@@ -580,11 +584,7 @@
     }, 0);
     return `<div class="wrap co-wrap">
       <div class="crumbs"><a href="#/cart">Bag</a> / Checkout</div>
-      <div class="co-steps">
-        <div class="co-step done"><i>✓</i><span>Bag</span></div><div class="co-rail fill"></div>
-        <div class="co-step on"><i>2</i><span>Details</span></div><div class="co-rail"></div>
-        <div class="co-step"><i>3</i><span>Pay by UPI</span></div>
-      </div>
+      ${rail(2)}
       <div class="co-grid">
         <div class="panel">
           <h3>Where should the receipt go?</h3>
@@ -612,35 +612,57 @@
   }
 
   /* ------------------------------------------------------------- pay view */
-  async function viewPay(code) {
+  async function viewPay(code, step) {
     const d = await api('/api/orders/' + encodeURIComponent(code));
-    setTimeout(() => mountPay(d.order), 0);
+    setTimeout(() => mountPay(d.order, step), 0);
     return `<div class="wrap co-wrap"><div class="crumbs"><a href="#/">Home</a> / Order ${esc(d.order.code)}</div><div id="payRoot"></div></div>`;
   }
 
-  function mountPay(o) {
+  const rail = n => {
+    const steps = [['Bag', 1], ['Details', 2], ['Pay by UPI', 3], ['Screenshot', 4]];
+    return `<div class="co-steps">${steps.map(([label, i], idx) => {
+      const cls = n > i ? 'done' : n === i ? 'on' : '';
+      return `${idx ? `<div class="co-rail ${n > i ? 'fill' : ''}"></div>` : ''}
+        <div class="co-step ${cls}"><i>${n > i ? '✓' : i}</i><span>${label}</span></div>`;
+    }).join('')}</div>`;
+  };
+
+  function mountPay(o, step) {
     const root = $('#payRoot');
     if (!root) return;
     if (o.status === 'paid') { root.innerHTML = paidHTML(o); wirePaid(o); return; }
-    if (o.status === 'submitted') {
-      root.innerHTML = `<div class="panel" style="max-width:600px;margin:0 auto">
-        <div class="ok-hero"><div class="ok-mark" style="background:#eef2f7;color:#35526e">${I.clock}</div>
-          <h2>Screenshot received</h2>
-          <p class="muted">Order <b class="mono">${esc(o.code)}</b> is with the studio for a quick check. Your designs unlock the moment it is approved.</p>
-          <span class="status-chip submitted">Awaiting review</span></div>
-        <p class="small muted center" style="margin-top:16px">Keep this page — <span class="mono">#/pay/${esc(o.code)}</span></p></div>`;
-      return;
-    }
-    const upi = o.upi || { id: Store.settings.upi_id, payee: Store.settings.payee_name, link: '', amount: String(o.amount) };
-    root.innerHTML = `<div class="co-steps">
-        <div class="co-step done"><i>✓</i><span>Bag</span></div><div class="co-rail fill"></div>
-        <div class="co-step done"><i>✓</i><span>Details</span></div><div class="co-rail fill"></div>
-        <div class="co-step on"><i>3</i><span>Pay by UPI</span></div>
+    if (o.status === 'submitted') { root.innerHTML = submittedHTML(o); return; }
+    // once the buyer says they have paid, coming back lands on the upload step
+    const paidFlag = LS.getItem('sd_paid_' + o.code) === '1';
+    const wantUpload = step === 'upload' || (paidFlag && step !== 'pay');
+    if (wantUpload) { root.innerHTML = uploadHTML(o); wireUpload(o); }
+    else { root.innerHTML = payHTML(o); wirePay(o); }
+  }
+
+  function orderAside(o) {
+    return `<aside class="summary">
+      <h3>${o.items.length} design${o.items.length > 1 ? 's' : ''}</h3>
+      ${o.items.map(it => `<div class="mini-line">
+        <div class="pic">${it.preview ? `<img src="${esc(it.preview)}" alt="">` : ''}</div>
+        <div><h4>${esc(it.name)}</h4><div class="meta">${(it.formats || []).map(fmtLabel).join(' · ')}</div></div>
+        <b class="mono small">${money(it.price)}</b></div>`).join('')}
+      <div style="margin-top:10px">
+        <div class="sum-row"><span>Subtotal</span><b>${money(o.subtotal || o.amount)}</b></div>
+        ${o.discount ? `<div class="sum-row discount"><span>Coupon ${esc(o.coupon || '')}</span><b>− ${money(o.discount)}</b></div>` : ''}
+        <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
+        <div class="sum-row total"><span>To pay</span><b>${money(o.amount)}</b></div>
       </div>
+    </aside>`;
+  }
+
+  /* ---- step 3: pay ---- */
+  function payHTML(o) {
+    const upi = o.upi || { id: Store.settings.upi_id, payee: Store.settings.payee_name, link: '', amount: String(o.amount) };
+    return `${rail(3)}
       <div class="co-grid">
         <div class="panel">
           <h3>Pay ${money(o.amount)} by UPI</h3>
-          <p class="sub">Order <b class="mono">${esc(o.code)}</b> · ${o.items.length} design${o.items.length > 1 ? 's' : ''} · amount locked to this order</p>
+          <p class="sub">Order <b class="mono">${esc(o.code)}</b> · ${o.items.length} design${o.items.length > 1 ? 's' : ''} · the amount is locked to this order</p>
 
           <div class="apps-head"><span>Pay with an app</span><span class="line"></span></div>
           <div class="upi-apps" id="upiApps">
@@ -661,8 +683,26 @@
           </div>
 
           <hr class="hairline" style="margin:24px 0">
-          <h3 style="font-size:1.06rem">Then upload the payment screenshot</h3>
-          <p class="sub">Confirmation is automatic — the ZIP unlocks the moment the screenshot is in.</p>
+          <div class="next-step">
+            <div>
+              <b>Paid in your UPI app?</b>
+              <p class="small muted" style="margin:4px 0 0">Come back here and upload the payment screenshot — that is the last step.</p>
+            </div>
+            <button class="btn btn-green" id="paidBtn">I have paid · upload screenshot ${I.arrow}</button>
+          </div>
+          <div class="trust-row"><span>${I.lock} Secure UPI</span><span>${I.clock} Files held ${Store.settings.link_hours}h</span><span>${I.shield} Auto-verified</span></div>
+        </div>
+        ${orderAside(o)}
+      </div>`;
+  }
+
+  /* ---- step 4: upload the screenshot ---- */
+  function uploadHTML(o) {
+    return `${rail(4)}
+      <div class="co-grid">
+        <div class="panel">
+          <h3>Upload the payment screenshot</h3>
+          <p class="sub">Order <b class="mono">${esc(o.code)}</b> · ${money(o.amount)} · confirmation is automatic, so your files unlock the moment the screenshot is in.</p>
 
           <div id="proofArea">
             <label class="upload-zone" id="dropZone" for="proofInput">
@@ -676,43 +716,50 @@
             <button class="btn btn-green btn-block" id="confirmPay" disabled style="margin-top:14px;height:54px">Upload &amp; confirm payment</button>
             <div class="trust-row"><span>${I.lock} Encrypted upload</span><span>${I.clock} Files held ${Store.settings.link_hours}h</span><span>${I.shield} Auto-verified</span></div>
           </div>
+
+          <p class="small muted" style="margin-top:18px">Not paid yet? <a class="link" href="#/pay/${esc(o.code)}/pay" id="backToPay">Go back to payment</a></p>
         </div>
-        <aside class="summary">
-          <h3>${o.items.length} design${o.items.length > 1 ? 's' : ''}</h3>
-          ${o.items.map(it => `<div class="mini-line">
-            <div class="pic">${it.preview ? `<img src="${esc(it.preview)}" alt="">` : ''}</div>
-            <div><h4>${esc(it.name)}</h4><div class="meta">${(it.formats || []).map(fmtLabel).join(' · ')}</div></div>
-            <b class="mono small">${money(it.price)}</b></div>`).join('')}
-          <div style="margin-top:10px">
-            <div class="sum-row"><span>Subtotal</span><b>${money(o.subtotal || o.amount)}</b></div>
-            ${o.discount ? `<div class="sum-row discount"><span>Coupon ${esc(o.coupon || '')}</span><b>− ${money(o.discount)}</b></div>` : ''}
-            <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
-            <div class="sum-row total"><span>To pay</span><b>${money(o.amount)}</b></div>
-          </div>
-        </aside>
+        ${orderAside(o)}
       </div>`;
-    wirePay(o, upi);
   }
 
-  function wirePay(o, upi) {
-    const copy = $('#copyUpi');
+  function submittedHTML(o) {
+    return `${rail(4)}
+      <div class="panel" style="max-width:620px;margin:0 auto">
+        <div class="ok-hero"><div class="ok-mark" style="background:#eef2f7;color:#35526e">${I.clock}</div>
+          <h2>Screenshot received</h2>
+          <p class="muted">Order <b class="mono">${esc(o.code)}</b> is with the studio for a quick check. Your designs unlock the moment it is approved.</p>
+          <span class="status-chip submitted">Awaiting review</span></div>
+        <p class="small muted center" style="margin-top:16px">Keep this page — <span class="mono">#/pay/${esc(o.code)}</span></p>
+      </div>`;
+  }
+
+  function wirePay(o) {
+    const upi = o.upi || { id: Store.settings.upi_id, link: '' };
     const doCopy = async () => {
       try { await navigator.clipboard.writeText(Store.settings.upi_id); toast('UPI ID copied', 'ok'); }
       catch { toast('Copy failed — select the ID manually', 'bad'); }
     };
-    if (copy) copy.onclick = doCopy;
+    const copy = $('#copyUpi'); if (copy) copy.onclick = doCopy;
     const hint = $('#copyHint'); if (hint) hint.onclick = e => { e.preventDefault(); doCopy(); };
-
     $$('#upiApps .upi-app').forEach(b => b.onclick = () => {
       const app = UPI_APPS.find(a => a.id === b.dataset.app);
       if (app) openUpiApp(app, upi);
     });
+    const paidBtn = $('#paidBtn');
+    if (paidBtn) paidBtn.onclick = () => {
+      LS.setItem('sd_paid_' + o.code, '1');
+      location.hash = `#/pay/${o.code}/upload`;
+    };
+  }
 
+  function wireUpload(o) {
     const input = $('#proofInput');
     const zone = $('#dropZone');
+    const back = $('#backToPay');
+    if (back) back.onclick = () => { LS.removeItem('sd_paid_' + o.code); };
     if (!input) return;
     let file = null;
-
     const showPreview = f => {
       file = f;
       const url = URL.createObjectURL(f);
@@ -737,7 +784,6 @@
         showPreview(f);
       };
     }
-
     const btn = $('#confirmPay');
     if (btn) btn.onclick = () => {
       if (!file) return toast('Attach the payment screenshot first.', 'bad');
@@ -747,8 +793,9 @@
       reader.onload = async () => {
         try {
           const res = await api(`/api/orders/${encodeURIComponent(o.code)}/proof`, { method: 'POST', body: { screenshot: reader.result, ref: ($('#upiRef') || {}).value || '' } });
+          LS.removeItem('sd_paid_' + o.code);
           if (res.autoConfirmed) {
-            Store.cart = []; Store.save();
+            Store.cart = []; Store.coupon = null; Store.save();
             toast('Payment confirmed — your files are downloading', 'ok');
             mountPay({ ...o, ...res.order, status: 'paid' });
           } else {
@@ -926,7 +973,7 @@
       else if (seg === 'cart') view = await viewCart();
       else if (seg === 'saved') { view = await viewSaved(); active = 'saved'; }
       else if (seg === 'checkout') view = await viewCheckout();
-      else if (seg === 'pay') view = await viewPay(parts[1]);
+      else if (seg === 'pay') view = await viewPay(parts[1], parts[2]);
       else if (seg === 'order') { view = await viewOrderLookup({ ...params, code: parts[1] }); active = 'order'; }
       else view = `<div class="wrap"><div class="empty" style="margin:50px 0"><h3>Page not found</h3><a class="btn btn-primary" href="#/" style="margin-top:8px">Go home</a></div></div>`;
     } catch (e) {
@@ -1011,10 +1058,10 @@
       });
       Store.save();
       try {
-        const r = await api('/api/coupons/validate', { method: 'POST', body: { code: 'SET4', subtotal: Store.subtotal } });
+        const r = await api('/api/coupons/validate', { method: 'POST', body: { code: 'SET25', subtotal: Store.subtotal } });
         Store.coupon = { ...r.coupon, discount: r.discount };
         Store.save();
-        toast(`Bundle added — ${money(r.discount)} off with SET4`, 'ok');
+        toast(`Bundle added — ${money(r.discount)} off with SET25`, 'ok');
       } catch (err) { toast('Bundle added to your bag', 'ok'); }
       location.hash = '#/cart';
     };

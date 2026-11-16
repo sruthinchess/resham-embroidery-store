@@ -19,14 +19,25 @@ const path = require('path');
 const { readDst } = require('../src/dst.js');
 
 const ROOT = path.join(__dirname, '..');
+const P = require('../src/pack.js');
+const SETTINGS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src/data/settings.json'), 'utf8'));
+const RATE = Number(SETTINGS.price_per_colour || 60);
+const MIN = Number(SETTINGS.min_price || 60);
+const MAX = Number(SETTINGS.max_price || 500);
+/** price = colours x rate, kept inside the shop's floor and ceiling */
+const priceFor = colours => Math.max(MIN, Math.min(MAX, Math.round(colours * RATE)));
 const OUT_DIR = path.join(ROOT, 'src', 'designs');
 const IMG_DIR = path.join(ROOT, 'public', 'img');
 
-const PRICES = {
-  'floral-spray': { price: 699, mrp: 1199, featured: 1, badge: 'Bestseller', tags: ['floral', 'botanical', 'hoop'] },
-  'blue-blossom': { price: 649, mrp: 999, featured: 1, badge: null, tags: ['floral', 'hoop', 'cushion'] },
-  'magnolia-branch': { price: 749, mrp: 1199, featured: 0, badge: null, tags: ['floral', 'botanical', 'border'] },
-  'silhouette-10': { price: 399, mrp: 699, featured: 0, badge: 'New', tags: ['sport', 'jersey', 'kids'] }
+const META = {
+  'floral-spray': { featured: 1, badge: 'Bestseller', tags: ['floral', 'botanical', 'hoop'] },
+  'blue-blossom': { featured: 1, badge: null, tags: ['floral', 'hoop', 'cushion'] },
+  'magnolia-branch': { featured: 0, badge: null, tags: ['floral', 'botanical', 'border'] },
+  'silhouette-10': { featured: 0, badge: null, tags: ['sport', 'jersey', 'kids'] },
+  'folk-floral-spray': { featured: 1, badge: 'New', tags: ['floral', 'folk', 'hoop'] },
+  'gamer-wordmark': { featured: 0, badge: null, tags: ['wordmark', 'jersey', 'kids'] },
+  'jai-shree-ram': { featured: 1, badge: 'New', tags: ['devotional', 'portrait', 'hoop'] },
+  'peony-bloom': { featured: 1, badge: 'Couture', tags: ['floral', 'peony', 'cushion'] }
 };
 
 const COPY = {
@@ -105,7 +116,7 @@ for (const pack of packs) {
     const formatFiles = [];
     for (const f of files) {
       const ext = path.extname(f).toLowerCase().replace('.', '');
-      if (!FORMAT_NOTE[ext]) continue;                       // formats only, not the pngs
+      if (!FORMAT_NOTE[ext] || !P.MAIN.includes(ext)) continue;   // main formats only
       fs.copyFileSync(path.join(dir, f), path.join(dest, f));
       formatFiles.push({ key: ext, file: f, bytes: fs.statSync(path.join(dest, f)).size });
     }
@@ -124,7 +135,9 @@ for (const pack of packs) {
     if (artName) shrink(path.join(dir, artName), path.join(IMG_DIR, `${slug}.png`), 720, 96);
     if (stitchName) shrink(path.join(dir, stitchName), path.join(IMG_DIR, `${slug}-stitch.png`), 800, 128);
 
-    const p = PRICES[slug] || { price: 499, mrp: 899, featured: 0, badge: null, tags: ['floral'] };
+    const p = META[slug] || { featured: 0, badge: null, tags: ['floral'] };
+    const price = priceFor(meta.colors || 1);
+    const mrp = Math.round(price * 1.7);
     const formats = formatFiles
       .map(f => ({ key: f.key, label: f.key.toUpperCase(), note: (meta.formats.find(x => x.key === f.key) || {}).note || FORMAT_NOTE[f.key] || '', file: f.file, bytes: f.bytes }))
       .sort((a, b) => {
@@ -139,7 +152,8 @@ for (const pack of packs) {
       dir: `src/designs/${slug}`,
       previewImg: `img/${slug}.png`,
       stitchImg: stitchName ? `img/${slug}-stitch.png` : null,
-      price: p.price, mrp: p.mrp, badge: p.badge, featured: p.featured, tags: p.tags,
+      price, mrp, pricePerColour: RATE, badge: p.badge, featured: p.featured, tags: p.tags,
+      sewMinutes: Math.max(1, Math.round((meta.stitchCount || 0) / 700)),
       summary: (COPY[slug] || meta.artwork || '').split('. ')[0] + '.',
       description: COPY[slug] || '',
       hoop: meta.hoop, stitchCount: meta.stitchCount, widthMm: meta.widthMm, heightMm: meta.heightMm,

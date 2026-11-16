@@ -7,7 +7,7 @@
     "auto_approve": "1",
     "link_hours": "72",
     "support_email": "hello@sandyaembdesigns.com",
-    "announcement": "Instant download · 24 machine formats · pay by UPI",
+    "announcement": "Instant download · PES DST JEF EXP VP3 XXX SEW · pay by UPI",
     "admin_password": "252525",
     "logo_url": "img/logo.png",
     "logo_mark_url": "img/logo-mark.png",
@@ -17,35 +17,38 @@
         "code": "SANDYA10",
         "type": "percent",
         "value": 10,
-        "min_order": 999,
+        "min_order": 499,
         "max_uses": 0,
-        "note": "10% off orders over ₹999"
+        "note": "10% off orders over ₹499"
       },
       {
         "code": "FIRST100",
         "type": "flat",
         "value": 100,
-        "min_order": 499,
+        "min_order": 399,
         "max_uses": 0,
         "note": "₹100 off your first order"
       },
       {
-        "code": "SET4",
+        "code": "SET25",
         "type": "percent",
         "value": 25,
         "min_order": 0,
         "max_uses": 0,
-        "note": "Complete the set — all four designs"
+        "note": "Complete the set — every design"
       },
       {
         "code": "FESTIVE15",
         "type": "percent",
         "value": 15,
-        "min_order": 1499,
+        "min_order": 799,
         "max_uses": 100,
         "note": "Festive offer"
       }
-    ]
+    ],
+    "price_per_colour": 60,
+    "min_price": 60,
+    "max_price": 500
   },
   "designs": [
     {
@@ -55,8 +58,9 @@
       "dir": "src/designs/floral-spray",
       "previewImg": "img/floral-spray.png",
       "stitchImg": "img/floral-spray-stitch.png",
-      "price": 699,
-      "mrp": 1199,
+      "price": 300,
+      "mrp": 510,
+      "pricePerColour": 60,
       "badge": "Bestseller",
       "featured": 1,
       "tags": [
@@ -64,6 +68,7 @@
         "botanical",
         "hoop"
       ],
+      "sewMinutes": 8,
       "summary": "A five-flower spray — green stem and leaves, a purple bell, a teal bloom, a salmon bloom and a white linework layer.",
       "description": "A five-flower spray — green stem and leaves, a purple bell, a teal bloom, a salmon bloom and a white linework layer. Tatami fill at 0.4 mm with an edge-run underlay under every shape; 366 trims keep the layers clean on medium-weight woven fabric.",
       "hoop": "4 × 4 in",
@@ -148,125 +153,6 @@
           "note": "Janome (older models)",
           "file": "Floral-Spray.sew",
           "bytes": 21022
-        },
-        {
-          "key": "dsb",
-          "label": "DSB",
-          "note": "Barudan",
-          "file": "Floral-Spray.dsb",
-          "bytes": 20426
-        },
-        {
-          "key": "dsz",
-          "label": "DSZ",
-          "note": "ZSK",
-          "file": "Floral-Spray.dsz",
-          "bytes": 20423
-        },
-        {
-          "key": "emd",
-          "label": "EMD",
-          "note": "Elna / Melco",
-          "file": "Floral-Spray.emd",
-          "bytes": 14248
-        },
-        {
-          "key": "gt",
-          "label": "GT",
-          "note": "Gold Thread",
-          "file": "Floral-Spray.gt",
-          "bytes": 20423
-        },
-        {
-          "key": "inb",
-          "label": "INB",
-          "note": "Inbro",
-          "file": "Floral-Spray.inb",
-          "bytes": 27008
-        },
-        {
-          "key": "jpx",
-          "label": "JPX",
-          "note": "Janome JPX",
-          "file": "Floral-Spray.jpx",
-          "bytes": 13558
-        },
-        {
-          "key": "new",
-          "label": "NEW",
-          "note": "NEC / New Home",
-          "file": "Floral-Spray.new",
-          "bytes": 18818
-        },
-        {
-          "key": "pcd",
-          "label": "PCD",
-          "note": "Pfaff PCD",
-          "file": "Floral-Spray.pcd",
-          "bytes": 56465
-        },
-        {
-          "key": "pcm",
-          "label": "PCM",
-          "note": "Pfaff PCM",
-          "file": "Floral-Spray.pcm",
-          "bytes": 56455
-        },
-        {
-          "key": "pcq",
-          "label": "PCQ",
-          "note": "Pfaff Creative MAXI",
-          "file": "Floral-Spray.pcq",
-          "bytes": 56465
-        },
-        {
-          "key": "pcs",
-          "label": "PCS",
-          "note": "Pfaff (large hoop)",
-          "file": "Floral-Spray.pcs",
-          "bytes": 56465
-        },
-        {
-          "key": "pec",
-          "label": "PEC",
-          "note": "Brother (colour-only variant of PES)",
-          "file": "Floral-Spray.pec",
-          "bytes": 15011
-        },
-        {
-          "key": "stx",
-          "label": "STX",
-          "note": "Data Stitch",
-          "file": "Floral-Spray.stx",
-          "bytes": 14962
-        },
-        {
-          "key": "tap",
-          "label": "TAP",
-          "note": "Happy",
-          "file": "Floral-Spray.tap",
-          "bytes": 19917
-        },
-        {
-          "key": "tbf",
-          "label": "TBF",
-          "note": "Tajima (barudan-style blocks)",
-          "file": "Floral-Spray.tbf",
-          "bytes": 21082
-        },
-        {
-          "key": "u01",
-          "label": "U01",
-          "note": "Barudan",
-          "file": "Floral-Spray.u01",
-          "bytes": 19789
-        },
-        {
-          "key": "zxy",
-          "label": "ZXY",
-          "note": "ZSK (ZXY)",
-          "file": "Floral-Spray.zxy",
-          "bytes": 18819
         }
       ],
       "defaultFormats": [
@@ -283,8 +169,9 @@
       "dir": "src/designs/blue-blossom",
       "previewImg": "img/blue-blossom.png",
       "stitchImg": "img/blue-blossom-stitch.png",
-      "price": 649,
-      "mrp": 999,
+      "price": 180,
+      "mrp": 306,
+      "pricePerColour": 60,
       "badge": null,
       "featured": 1,
       "tags": [
@@ -292,6 +179,7 @@
         "hoop",
         "cushion"
       ],
+      "sewMinutes": 7,
       "summary": "A five-petal blossom with a blue gradient and a yellow centre.",
       "description": "A five-petal blossom with a blue gradient and a yellow centre. Three thread changes, only 33 trims, and a soft tatami fill — the quickest sew of the four and the easiest to place on a cushion or a placket.",
       "hoop": "4 × 4 in",
@@ -366,125 +254,6 @@
           "note": "Janome (older)",
           "file": "Blue-Blossom.sew",
           "bytes": 17892
-        },
-        {
-          "key": "dsb",
-          "label": "DSB",
-          "note": "Barudan",
-          "file": "Blue-Blossom.dsb",
-          "bytes": 15983
-        },
-        {
-          "key": "dsz",
-          "label": "DSZ",
-          "note": "ZSK",
-          "file": "Blue-Blossom.dsz",
-          "bytes": 15980
-        },
-        {
-          "key": "emd",
-          "label": "EMD",
-          "note": "Elna / Melco",
-          "file": "Blue-Blossom.emd",
-          "bytes": 10454
-        },
-        {
-          "key": "gt",
-          "label": "GT",
-          "note": "Gold Thread",
-          "file": "Blue-Blossom.gt",
-          "bytes": 15980
-        },
-        {
-          "key": "inb",
-          "label": "INB",
-          "note": "Inbro",
-          "file": "Blue-Blossom.inb",
-          "bytes": 23564
-        },
-        {
-          "key": "jpx",
-          "label": "JPX",
-          "note": "Janome JPX",
-          "file": "Blue-Blossom.jpx",
-          "bytes": 10424
-        },
-        {
-          "key": "new",
-          "label": "NEW",
-          "note": "NEC / New Home",
-          "file": "Blue-Blossom.new",
-          "bytes": 15374
-        },
-        {
-          "key": "pcd",
-          "label": "PCD",
-          "note": "Pfaff PCD",
-          "file": "Blue-Blossom.pcd",
-          "bytes": 46129
-        },
-        {
-          "key": "pcm",
-          "label": "PCM",
-          "note": "Pfaff PCM",
-          "file": "Blue-Blossom.pcm",
-          "bytes": 46121
-        },
-        {
-          "key": "pcq",
-          "label": "PCQ",
-          "note": "Pfaff Creative MAXI",
-          "file": "Blue-Blossom.pcq",
-          "bytes": 46129
-        },
-        {
-          "key": "pcs",
-          "label": "PCS",
-          "note": "Pfaff large hoop",
-          "file": "Blue-Blossom.pcs",
-          "bytes": 46129
-        },
-        {
-          "key": "pec",
-          "label": "PEC",
-          "note": "Brother (colour block only)",
-          "file": "Blue-Blossom.pec",
-          "bytes": 11978
-        },
-        {
-          "key": "stx",
-          "label": "STX",
-          "note": "Data Stitch",
-          "file": "Blue-Blossom.stx",
-          "bytes": 10500
-        },
-        {
-          "key": "tap",
-          "label": "TAP",
-          "note": "Happy",
-          "file": "Blue-Blossom.tap",
-          "bytes": 15474
-        },
-        {
-          "key": "tbf",
-          "label": "TBF",
-          "note": "Tajima block format",
-          "file": "Blue-Blossom.tbf",
-          "bytes": 16981
-        },
-        {
-          "key": "u01",
-          "label": "U01",
-          "note": "Barudan",
-          "file": "Blue-Blossom.u01",
-          "bytes": 15691
-        },
-        {
-          "key": "zxy",
-          "label": "ZXY",
-          "note": "ZSK (ZXY)",
-          "file": "Blue-Blossom.zxy",
-          "bytes": 15375
         }
       ],
       "defaultFormats": [
@@ -501,8 +270,9 @@
       "dir": "src/designs/magnolia-branch",
       "previewImg": "img/magnolia-branch.png",
       "stitchImg": "img/magnolia-branch-stitch.png",
-      "price": 749,
-      "mrp": 1199,
+      "price": 300,
+      "mrp": 510,
+      "pricePerColour": 60,
       "badge": null,
       "featured": 0,
       "tags": [
@@ -510,6 +280,7 @@
         "botanical",
         "border"
       ],
+      "sewMinutes": 8,
       "summary": "A magnolia branch: pink flowers, olive leaves and a dark outline that holds the shape together.",
       "description": "A magnolia branch: pink flowers, olive leaves and a dark outline that holds the shape together. Tall and narrow, so it sits well on a kurta placket, a stole end or a sleeve.",
       "hoop": "4 × 4 in",
@@ -594,125 +365,6 @@
           "note": "Janome (older)",
           "file": "Magnolia-Branch.sew",
           "bytes": 19848
-        },
-        {
-          "key": "dsb",
-          "label": "DSB",
-          "note": "Barudan",
-          "file": "Magnolia-Branch.dsb",
-          "bytes": 18929
-        },
-        {
-          "key": "dsz",
-          "label": "DSZ",
-          "note": "ZSK",
-          "file": "Magnolia-Branch.dsz",
-          "bytes": 18926
-        },
-        {
-          "key": "emd",
-          "label": "EMD",
-          "note": "Elna / Melco",
-          "file": "Magnolia-Branch.emd",
-          "bytes": 12834
-        },
-        {
-          "key": "gt",
-          "label": "GT",
-          "note": "Gold Thread",
-          "file": "Magnolia-Branch.gt",
-          "bytes": 18926
-        },
-        {
-          "key": "inb",
-          "label": "INB",
-          "note": "Inbro",
-          "file": "Magnolia-Branch.inb",
-          "bytes": 25868
-        },
-        {
-          "key": "jpx",
-          "label": "JPX",
-          "note": "Janome JPX",
-          "file": "Magnolia-Branch.jpx",
-          "bytes": 12388
-        },
-        {
-          "key": "new",
-          "label": "NEW",
-          "note": "NEC / New Home",
-          "file": "Magnolia-Branch.new",
-          "bytes": 17678
-        },
-        {
-          "key": "pcd",
-          "label": "PCD",
-          "note": "Pfaff PCD",
-          "file": "Magnolia-Branch.pcd",
-          "bytes": 53049
-        },
-        {
-          "key": "pcm",
-          "label": "PCM",
-          "note": "Pfaff PCM",
-          "file": "Magnolia-Branch.pcm",
-          "bytes": 53037
-        },
-        {
-          "key": "pcq",
-          "label": "PCQ",
-          "note": "Pfaff Creative MAXI",
-          "file": "Magnolia-Branch.pcq",
-          "bytes": 53049
-        },
-        {
-          "key": "pcs",
-          "label": "PCS",
-          "note": "Pfaff large hoop",
-          "file": "Magnolia-Branch.pcs",
-          "bytes": 53049
-        },
-        {
-          "key": "pec",
-          "label": "PEC",
-          "note": "Brother (colour block only)",
-          "file": "Magnolia-Branch.pec",
-          "bytes": 14420
-        },
-        {
-          "key": "stx",
-          "label": "STX",
-          "note": "Data Stitch",
-          "file": "Magnolia-Branch.stx",
-          "bytes": 13312
-        },
-        {
-          "key": "tap",
-          "label": "TAP",
-          "note": "Happy",
-          "file": "Magnolia-Branch.tap",
-          "bytes": 18420
-        },
-        {
-          "key": "tbf",
-          "label": "TBF",
-          "note": "Tajima block format",
-          "file": "Magnolia-Branch.tbf",
-          "bytes": 19762
-        },
-        {
-          "key": "u01",
-          "label": "U01",
-          "note": "Barudan",
-          "file": "Magnolia-Branch.u01",
-          "bytes": 18466
-        },
-        {
-          "key": "zxy",
-          "label": "ZXY",
-          "note": "ZSK (ZXY)",
-          "file": "Magnolia-Branch.zxy",
-          "bytes": 17679
         }
       ],
       "defaultFormats": [
@@ -729,15 +381,17 @@
       "dir": "src/designs/silhouette-10",
       "previewImg": "img/silhouette-10.png",
       "stitchImg": "img/silhouette-10-stitch.png",
-      "price": 399,
-      "mrp": 699,
-      "badge": "New",
+      "price": 60,
+      "mrp": 102,
+      "pricePerColour": 60,
+      "badge": null,
       "featured": 0,
       "tags": [
         "sport",
         "jersey",
         "kids"
       ],
+      "sewMinutes": 4,
       "summary": "A single-colour silhouette figure holding the number 10 — one thread, ten trims, 3,111 stitches.",
       "description": "A single-colour silhouette figure holding the number 10 — one thread, ten trims, 3,111 stitches. Made for jerseys, caps and bags where a clean solid shape is the whole point.",
       "hoop": "4 × 4 in",
@@ -802,125 +456,420 @@
           "note": "Janome (older)",
           "file": "Silhouette-10.sew",
           "bytes": 13886
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "folk-floral-spray",
+      "name": "Folk Floral Spray",
+      "source": "pack",
+      "dir": "src/designs/folk-floral-spray",
+      "previewImg": "img/folk-floral-spray.png",
+      "stitchImg": "img/folk-floral-spray-stitch.png",
+      "price": 360,
+      "mrp": 612,
+      "pricePerColour": 60,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "folk",
+        "hoop"
+      ],
+      "sewMinutes": 7,
+      "summary": "Folk art floral spray with pink blooms, three greens and ochre centres.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4736,
+      "widthMm": 54.8,
+      "heightMm": 90,
+      "colorCount": 6,
+      "trims": 136,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f46382",
+          "stitches": 1071
         },
         {
-          "key": "dsb",
-          "label": "DSB",
-          "note": "Barudan",
-          "file": "Silhouette-10.dsb",
-          "bytes": 9965
+          "name": "",
+          "hex": "#506a0a",
+          "stitches": 1014
         },
         {
-          "key": "dsz",
-          "label": "DSZ",
-          "note": "ZSK",
-          "file": "Silhouette-10.dsz",
-          "bytes": 9962
+          "name": "",
+          "hex": "#5b6d53",
+          "stitches": 423
         },
         {
-          "key": "emd",
-          "label": "EMD",
-          "note": "Elna / Melco",
-          "file": "Silhouette-10.emd",
-          "bytes": 6406
+          "name": "",
+          "hex": "#dba35d",
+          "stitches": 246
         },
         {
-          "key": "gt",
-          "label": "GT",
-          "note": "Gold Thread",
-          "file": "Silhouette-10.gt",
-          "bytes": 9962
+          "name": "",
+          "hex": "#ad777f",
+          "stitches": 650
         },
         {
-          "key": "inb",
-          "label": "INB",
-          "note": "Inbro",
-          "file": "Silhouette-10.inb",
-          "bytes": 17615
+          "name": "",
+          "hex": "#2b4024",
+          "stitches": 1332
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Folk-Floral-Spray.pes",
+          "bytes": 34895
         },
         {
-          "key": "jpx",
-          "label": "JPX",
-          "note": "Janome JPX",
-          "file": "Silhouette-10.jpx",
-          "bytes": 6410
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Folk-Floral-Spray.dst",
+          "bytes": 16361
         },
         {
-          "key": "new",
-          "label": "NEW",
-          "note": "NEC / New Home",
-          "file": "Silhouette-10.new",
-          "bytes": 9425
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Folk-Floral-Spray.jef",
+          "bytes": 10742
         },
         {
-          "key": "pcd",
-          "label": "PCD",
-          "note": "Pfaff PCD",
-          "file": "Silhouette-10.pcd",
-          "bytes": 28274
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Folk-Floral-Spray.exp",
+          "bytes": 11112
         },
         {
-          "key": "pcm",
-          "label": "PCM",
-          "note": "Pfaff PCM",
-          "file": "Silhouette-10.pcm",
-          "bytes": 28270
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Folk-Floral-Spray.vp3",
+          "bytes": 10790
         },
         {
-          "key": "pcq",
-          "label": "PCQ",
-          "note": "Pfaff Creative MAXI",
-          "file": "Silhouette-10.pcq",
-          "bytes": 28274
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Folk-Floral-Spray.xxx",
+          "bytes": 11026
         },
         {
-          "key": "pcs",
-          "label": "PCS",
-          "note": "Pfaff large hoop",
-          "file": "Silhouette-10.pcs",
-          "bytes": 28274
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Folk-Floral-Spray.sew",
+          "bytes": 17740
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "gamer-wordmark",
+      "name": "Gamer Wordmark",
+      "source": "pack",
+      "dir": "src/designs/gamer-wordmark",
+      "previewImg": "img/gamer-wordmark.png",
+      "stitchImg": "img/gamer-wordmark-stitch.png",
+      "price": 60,
+      "mrp": 102,
+      "pricePerColour": 60,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "wordmark",
+        "jersey",
+        "kids"
+      ],
+      "sewMinutes": 2,
+      "summary": "GAMER wordmark, white letters inside a black outline with ink splatter.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 1232,
+      "widthMm": 90,
+      "heightMm": 25,
+      "colorCount": 1,
+      "trims": 18,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#1c1515",
+          "stitches": 1232
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Gamer-Wordmark.pes",
+          "bytes": 9252
         },
         {
-          "key": "pec",
-          "label": "PEC",
-          "note": "Brother (colour block only)",
-          "file": "Silhouette-10.pec",
-          "bytes": 7490
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Gamer-Wordmark.dst",
+          "bytes": 4403
         },
         {
-          "key": "stx",
-          "label": "STX",
-          "note": "Data Stitch",
-          "file": "Silhouette-10.stx",
-          "bytes": 6402
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Gamer-Wordmark.jef",
+          "bytes": 2714
         },
         {
-          "key": "tap",
-          "label": "TAP",
-          "note": "Happy",
-          "file": "Silhouette-10.tap",
-          "bytes": 9456
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Gamer-Wordmark.exp",
+          "bytes": 2652
         },
         {
-          "key": "tbf",
-          "label": "TBF",
-          "note": "Tajima block format",
-          "file": "Silhouette-10.tbf",
-          "bytes": 10978
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Gamer-Wordmark.vp3",
+          "bytes": 2880
         },
         {
-          "key": "u01",
-          "label": "U01",
-          "note": "Barudan",
-          "file": "Silhouette-10.u01",
-          "bytes": 9694
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Gamer-Wordmark.xxx",
+          "bytes": 2874
         },
         {
-          "key": "zxy",
-          "label": "ZXY",
-          "note": "ZSK (ZXY)",
-          "file": "Silhouette-10.zxy",
-          "bytes": 9426
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Gamer-Wordmark.sew",
+          "bytes": 10080
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "jai-shree-ram",
+      "name": "Jai Shree Ram",
+      "source": "pack",
+      "dir": "src/designs/jai-shree-ram",
+      "previewImg": "img/jai-shree-ram.png",
+      "stitchImg": "img/jai-shree-ram-stitch.png",
+      "price": 60,
+      "mrp": 102,
+      "pricePerColour": 60,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "portrait",
+        "hoop"
+      ],
+      "sewMinutes": 6,
+      "summary": "Line art portrait of Shri Ram with flag and arrows, with Jai Shree Ram lettering.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3936,
+      "widthMm": 66.2,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 76,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#040404",
+          "stitches": 3936
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Jai-Shree-Ram.pes",
+          "bytes": 27100
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Jai-Shree-Ram.dst",
+          "bytes": 13310
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Jai-Shree-Ram.jef",
+          "bytes": 8710
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Jai-Shree-Ram.exp",
+          "bytes": 8880
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Jai-Shree-Ram.vp3",
+          "bytes": 8572
+        },
+        {
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Jai-Shree-Ram.xxx",
+          "bytes": 8986
+        },
+        {
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Jai-Shree-Ram.sew",
+          "bytes": 15960
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "peony-bloom",
+      "name": "Peony Bloom",
+      "source": "pack",
+      "dir": "src/designs/peony-bloom",
+      "previewImg": "img/peony-bloom.png",
+      "stitchImg": "img/peony-bloom-stitch.png",
+      "price": 360,
+      "mrp": 612,
+      "pricePerColour": 60,
+      "badge": "Couture",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "peony",
+        "cushion"
+      ],
+      "sewMinutes": 11,
+      "summary": "Pink peony in bloom with yellow stamens and green leaves.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 7653,
+      "widthMm": 90,
+      "heightMm": 72.5,
+      "colorCount": 6,
+      "trims": 126,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fcc2d2",
+          "stitches": 2578
+        },
+        {
+          "name": "",
+          "hex": "#a3424f",
+          "stitches": 1693
+        },
+        {
+          "name": "",
+          "hex": "#ef8ba8",
+          "stitches": 1077
+        },
+        {
+          "name": "",
+          "hex": "#76ac41",
+          "stitches": 504
+        },
+        {
+          "name": "",
+          "hex": "#f4c532",
+          "stitches": 268
+        },
+        {
+          "name": "",
+          "hex": "#050504",
+          "stitches": 1533
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Peony-Bloom.pes",
+          "bytes": 52117
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Peony-Bloom.dst",
+          "bytes": 24935
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Peony-Bloom.jef",
+          "bytes": 16432
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Peony-Bloom.exp",
+          "bytes": 16762
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Peony-Bloom.vp3",
+          "bytes": 16490
+        },
+        {
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Peony-Bloom.xxx",
+          "bytes": 16704
+        },
+        {
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Peony-Bloom.sew",
+          "bytes": 23458
         }
       ],
       "defaultFormats": [

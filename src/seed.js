@@ -38,15 +38,16 @@ function run() {
 
     const ins = db.prepare(`INSERT OR IGNORE INTO designs
       (slug,name,source,dir,preview_img,stitch_img,price,mrp,summary,description,hoop,stitch_count,width_mm,height_mm,
-       color_count,trims,threads,formats,default_formats,tags,featured,badge)
+       color_count,trims,sew_minutes,price_per_colour,threads,formats,default_formats,tags,featured,badge)
       VALUES (@slug,@name,@source,@dir,@preview_img,@stitch_img,@price,@mrp,@summary,@description,@hoop,@stitch_count,
-       @width_mm,@height_mm,@color_count,@trims,@threads,@formats,@default_formats,@tags,@featured,@badge)`);
+       @width_mm,@height_mm,@color_count,@trims,@sew_minutes,@price_per_colour,@threads,@formats,@default_formats,@tags,@featured,@badge)`);
     for (const d of seed.designs) {
       ins.run({
         slug: d.slug, name: d.name, source: d.source || 'pack', dir: d.dir, preview_img: d.previewImg, stitch_img: d.stitchImg,
         price: d.price, mrp: d.mrp, summary: d.summary, description: d.description, hoop: d.hoop,
         stitch_count: d.stitchCount, width_mm: d.widthMm, height_mm: d.heightMm,
         color_count: d.colorCount, trims: d.trims,
+        sew_minutes: d.sewMinutes || Math.round((d.stitchCount || 0) / 700), price_per_colour: d.pricePerColour || 60,
         threads: JSON.stringify(d.threads || []), formats: JSON.stringify(d.formats || []),
         default_formats: JSON.stringify(d.defaultFormats || []), tags: JSON.stringify(d.tags || []),
         featured: d.featured ? 1 : 0, badge: d.badge || null

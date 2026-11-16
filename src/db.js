@@ -44,6 +44,8 @@ CREATE TABLE IF NOT EXISTS designs (
   height_mm REAL DEFAULT 0,
   color_count INTEGER DEFAULT 0,
   trims INTEGER DEFAULT 0,
+  sew_minutes INTEGER DEFAULT 0,
+  price_per_colour REAL DEFAULT 0,
   threads TEXT DEFAULT '[]',
   formats TEXT DEFAULT '[]',
   default_formats TEXT DEFAULT '[]',

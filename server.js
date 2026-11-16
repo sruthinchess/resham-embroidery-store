@@ -37,6 +37,8 @@ function designOut(row) {
     summary: row.summary, description: row.description, hoop: row.hoop,
     stitchCount: row.stitch_count, widthMm: row.width_mm, heightMm: row.height_mm,
     colorCount: row.color_count, trims: row.trims,
+    sewMinutes: row.sew_minutes || Math.max(1, Math.round((row.stitch_count || 0) / 700)),
+    pricePerColour: row.price_per_colour || 0,
     threads: jparse(row.threads, []),
     preview: row.preview_img ? `/${row.preview_img}` : null,
     stitchPreview: row.stitch_img ? `/${row.stitch_img}` : null,
@@ -147,6 +149,7 @@ app.get('/api/settings', (req, res) => {
     store_name: s.store_name, tagline: s.tagline, announcement: s.announcement,
     support_email: s.support_email, upi_id: s.upi_id, payee_name: s.payee_name,
     link_hours: num(s.link_hours, 72), auto_approve: s.auto_approve === '1',
+    price_per_colour: num(s.price_per_colour, 60), min_price: num(s.min_price, 60), max_price: num(s.max_price, 500),
     logo_url: s.logo_url || 'img/logo.png', logo_mark_url: s.logo_mark_url || 'img/logo-mark.png',
     favicon_url: s.favicon_url || 'img/favicon.png'
   } });
@@ -456,7 +459,7 @@ app.get('/api/admin/settings', requireAdmin, (req, res) => {
   ok(res, { settings: s });
 });
 app.put('/api/admin/settings', requireAdmin, (req, res) => {
-  const allowed = ['store_name', 'tagline', 'announcement', 'support_email', 'upi_id', 'payee_name', 'link_hours', 'auto_approve'];
+  const allowed = ['store_name', 'tagline', 'announcement', 'support_email', 'upi_id', 'payee_name', 'link_hours', 'auto_approve', 'price_per_colour', 'min_price', 'max_price'];
   for (const k of allowed) if (req.body[k] !== undefined) setSetting(k, req.body[k]);
   ok(res, { message: 'Settings saved.' });
 });

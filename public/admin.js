@@ -296,6 +296,12 @@
               <div class="field"><label>UPI ID</label><input class="input mono" name="upi_id" value="${esc(settings.upi_id || '')}"></div>
               <div class="field"><label>Payee name</label><input class="input" name="payee_name" value="${esc(settings.payee_name || '')}"></div>
             </div>
+            <div class="grid-3">
+              <div class="field"><label>Price per colour (₹)</label><input class="input" name="price_per_colour" type="number" min="1" value="${settings.price_per_colour || 60}"></div>
+              <div class="field"><label>Min price (₹)</label><input class="input" name="min_price" type="number" min="0" value="${settings.min_price || 60}"></div>
+              <div class="field"><label>Max price (₹)</label><input class="input" name="max_price" type="number" min="1" value="${settings.max_price || 500}"></div>
+            </div>
+            <p class="small muted" style="margin:-6px 0 0">A design costs colours × rate, kept between the min and max. Run <code class="mono">node tools/import-designs.js</code> after changing the rate to reprice the catalogue.</p>
             <div class="grid-2">
               <div class="field"><label>Link valid (hours)</label><input class="input" name="link_hours" type="number" min="1" value="${settings.link_hours || 72}"></div>
               <div class="field"><label>Store name</label><input class="input" name="store_name" value="${esc(settings.store_name || '')}"></div>
@@ -444,7 +450,9 @@
         await adminApi('/api/admin/settings', { method: 'PUT', body: {
           upi_id: f.get('upi_id'), payee_name: f.get('payee_name'), link_hours: Number(f.get('link_hours')),
           store_name: f.get('store_name'), support_email: f.get('support_email'),
-          announcement: f.get('announcement'), auto_approve: f.get('auto_approve') ? '1' : '0'
+          announcement: f.get('announcement'), auto_approve: f.get('auto_approve') ? '1' : '0',
+          price_per_colour: Number(f.get('price_per_colour') || 60), min_price: Number(f.get('min_price') || 60),
+          max_price: Number(f.get('max_price') || 500)
         } });
         const s = await adminApi('/api/settings'); Store.settings = { ...Store.settings, ...s.settings };
         window.toast('Settings saved', 'ok'); rerender();

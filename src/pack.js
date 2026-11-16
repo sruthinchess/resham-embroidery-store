@@ -36,7 +36,10 @@ const FORMATS = {
   tbf: { label: 'TBF', note: 'Tajima blocks' },
   u01: { label: 'U01', note: 'Barudan' }
 };
-const POPULAR = ['pes', 'dst', 'jef', 'exp', 'vp3', 'hus', 'xxx', 'sew'];
+/** What the shop sells: the formats almost every machine reads. The rest of the
+ *  24 files stay in the pack on disk but are not offered. */
+const MAIN = ['pes', 'dst', 'jef', 'exp', 'vp3', 'hus', 'xxx', 'sew'];
+const POPULAR = MAIN;
 
 /* ------------------------------------------------------------- zip writer */
 let CRC_TABLE = null;
@@ -113,4 +116,4 @@ function packDesign(design, formats) {
   return toZip(files);
 }
 
-module.exports = { FORMATS, POPULAR, toZip, packDesign };
+module.exports = { FORMATS, MAIN, POPULAR, toZip, packDesign };

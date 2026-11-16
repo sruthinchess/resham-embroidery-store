@@ -6,7 +6,7 @@
   "auto_approve": "1",
   "link_hours": "72",
   "support_email": "hello@sandyaembdesigns.com",
-  "announcement": "Instant download \u00b7 24 machine formats \u00b7 pay by UPI",
+  "announcement": "Instant download \u00b7 PES DST JEF EXP VP3 XXX SEW \u00b7 pay by UPI",
   "admin_password": "252525",
   "logo_url": "img/logo.png",
   "logo_mark_url": "img/logo-mark.png",
@@ -16,33 +16,36 @@
       "code": "SANDYA10",
       "type": "percent",
       "value": 10,
-      "min_order": 999,
+      "min_order": 499,
       "max_uses": 0,
-      "note": "10% off orders over \u20b9999"
+      "note": "10% off orders over \u20b9499"
     },
     {
       "code": "FIRST100",
       "type": "flat",
       "value": 100,
-      "min_order": 499,
+      "min_order": 399,
       "max_uses": 0,
       "note": "\u20b9100 off your first order"
     },
     {
-      "code": "SET4",
+      "code": "SET25",
       "type": "percent",
       "value": 25,
       "min_order": 0,
       "max_uses": 0,
-      "note": "Complete the set \u2014 all four designs"
+      "note": "Complete the set \u2014 every design"
     },
     {
       "code": "FESTIVE15",
       "type": "percent",
       "value": 15,
-      "min_order": 1499,
+      "min_order": 799,
       "max_uses": 100,
       "note": "Festive offer"
     }
-  ]
+  ],
+  "price_per_colour": 60,
+  "min_price": 60,
+  "max_price": 500
 }
