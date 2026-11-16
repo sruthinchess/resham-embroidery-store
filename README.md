@@ -171,6 +171,38 @@ and staff.
   handler body with a gateway call (Razorpay/Stripe), return the gateway order id
   and set `payment_status` from the webhook.
 
+## Deploying the Node app
+
+### Vercel (serverless)
+
+The repo ships a function entrypoint (`api/index.js`) and `vercel.json`, so it deploys as-is:
+
+1. **vercel.com → Add New → Project → import this repo.** Framework preset: *Other*.
+2. Leave the build settings alone — `vercel-build` is a no-op and the API is a single function.
+3. Deploy. No environment variables are needed to boot.
+
+`vercel.json` rewrites every path to the function and includes `public/` in the
+bundle, so the SPA, the API and the product files are all served by that one function.
+
+**Two things to know before you rely on it:**
+
+- **Storage is ephemeral.** Vercel's filesystem is read-only apart from `/tmp`, so the app
+  detects `VERCEL` and puts the database in `/tmp`. Data survives while an instance is
+  warm and disappears when it recycles — fine for a demo, not for real orders.
+- **Node 22 is pinned** in `engines` and `better-sqlite3` is `^12.11.1`, which ships a prebuilt
+  binary for every Node from 22 to 26. Older pins compile from source and fail on Node 26 with
+  `v8::Object has no member named 'GetPrototype'`.
+
+**For real use**, host the app where it has a disk — Render, Railway, Fly.io or a VPS — and
+point `DATA_DIR` at a persistent volume:
+
+```bash
+DATA_DIR=/var/data npm start
+```
+
+Or swap SQLite for Postgres/Neon/Supabase: the queries all live in `server.js` and `src/db.js`,
+so only those two files change.
+
 ## Static build & deployment
 
 `docs/index.html` is a single-file build of the same UI with the API swapped for

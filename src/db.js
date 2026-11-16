@@ -8,8 +8,20 @@ const fs = require('fs');
 const crypto = require('crypto');
 const Database = require('better-sqlite3');
 
-const DATA_DIR = path.join(__dirname, '..', 'data');
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+/**
+ * Where the database lives.
+ *  - local / VPS: ./data next to the code
+ *  - serverless (Vercel, Netlify, Lambda): the bundle is read-only, only /tmp is
+ *    writable, so we fall back to /tmp. Override with DATA_DIR for a mounted disk.
+ */
+const PROJECT_DATA = path.join(__dirname, '..', 'data');
+const SERVERLESS = !!(process.env.VERCEL || process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const DATA_DIR = process.env.DATA_DIR || (SERVERLESS ? path.join('/tmp', 'resham-data') : PROJECT_DATA);
+try {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+} catch (e) {
+  throw new Error(`Cannot write to the data directory (${DATA_DIR}): ${e.message}. Set DATA_DIR to a writable path.`);
+}
 const DB_FILE = process.env.DB_FILE || path.join(DATA_DIR, 'resham.db');
 
 const db = new Database(DB_FILE);

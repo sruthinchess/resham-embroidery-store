@@ -544,8 +544,11 @@ app.use((err, req, res, next) => {
 });
 
 /* ------------------------------------------------------------------- start */
+/* Seed on first boot — works for `node server.js` and for a serverless cold start. */
+try { require('./src/seed'); }
+catch (e) { console.error('[seed] skipped:', e.message); }
+
 if (require.main === module) {
-  require('./src/seed'); // idempotent — only seeds an empty catalogue
   app.listen(PORT, () => {
     console.log(`\n  Resham & Co. running at http://localhost:${PORT}`);
     console.log(`  Storefront  →  http://localhost:${PORT}`);

@@ -8,13 +8,14 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "seed": "node src/seed.js",
-    "reset": "node src/seed.js --force"
+    "reset": "node src/seed.js --force",
+    "vercel-build": "echo \"static + serverless function \u2014 nothing to build\""
   },
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "dependencies": {
-    "better-sqlite3": "^11.0.0",
+    "better-sqlite3": "^12.11.1",
     "express": "^4.19.2"
   }
 }
