@@ -290,7 +290,7 @@
       <img class="hero-logo" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}">
       <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
       <h1>Embroidery designs,<br>ready for <em>your machine</em>.</h1>
-      <p class="lede">Hand-digitised designs for commercial and home machines, in ${fmtCount} machine formats. Pick the one your machine reads — PES, DST, JEF, EXP or VP3 — and the ZIP lands the moment your UPI payment clears.</p>
+      <p class="lede">Hand-digitised designs for commercial and home machines, in ${fmtCount} machine formats. Pick the one your machine reads and the ZIP lands the moment your UPI payment clears.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#/designs">Browse ${all.designs.length} designs ${I.arrow}</a>
         <a class="btn btn-ghost" href="#/downloads">My downloads</a>
