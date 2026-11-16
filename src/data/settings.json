@@ -1,11 +1,14 @@
 {
-  "store_name": "Resham Atelier",
+  "store_name": "Sandya Emb Designs",
   "tagline": "Machine embroidery designs, digitised by hand.",
   "upi_id": "6301928345@fam",
-  "payee_name": "Resham Atelier",
+  "payee_name": "Sandya Emb Designs",
   "auto_approve": "1",
   "link_hours": "72",
-  "support_email": "hello@resham.studio",
-  "announcement": "Instant download \u00b7 pay by UPI \u00b7 choose your machine format at checkout",
-  "admin_password": "252525"
+  "support_email": "hello@sandyaembdesigns.com",
+  "announcement": "Instant download \u00b7 24 machine formats \u00b7 pay by UPI",
+  "admin_password": "252525",
+  "logo_url": "img/logo.png",
+  "logo_mark_url": "img/logo-mark.png",
+  "favicon_url": "img/favicon.png"
 }

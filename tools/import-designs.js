@@ -112,9 +112,17 @@ for (const pack of packs) {
     const readmeOut = path.join(dest, 'README.txt');
     fs.copyFileSync(path.join(dir, readmeName), readmeOut);
 
-    // stitch preview → public/img
-    const previewName = files.find(f => /stitch-preview\.png$/i.test(f)) || files.find(f => /\.png$/i.test(f));
-    if (previewName) fs.copyFileSync(path.join(dir, previewName), path.join(IMG_DIR, `${slug}.png`));
+    // images: the clean artwork is the shop image, the stitch-out is the proof
+    const artName = files.find(f => /-transparent\.png$/i.test(f));
+    const stitchName = files.find(f => /-stitch-preview\.png$/i.test(f));
+    const shrink = (src, out, max, colors) => {
+      try {
+        require('child_process').execFileSync('python3',
+          [path.join(__dirname, 'prepare-images.py'), src, out, String(max), String(colors)], { stdio: 'ignore' });
+      } catch { fs.copyFileSync(src, out); }
+    };
+    if (artName) shrink(path.join(dir, artName), path.join(IMG_DIR, `${slug}.png`), 720, 96);
+    if (stitchName) shrink(path.join(dir, stitchName), path.join(IMG_DIR, `${slug}-stitch.png`), 800, 128);
 
     const p = PRICES[slug] || { price: 499, mrp: 899, featured: 0, badge: null, tags: ['floral'] };
     const formats = formatFiles
@@ -130,6 +138,7 @@ for (const pack of packs) {
       source: 'pack',
       dir: `src/designs/${slug}`,
       previewImg: `img/${slug}.png`,
+      stitchImg: stitchName ? `img/${slug}-stitch.png` : null,
       price: p.price, mrp: p.mrp, badge: p.badge, featured: p.featured, tags: p.tags,
       summary: (COPY[slug] || meta.artwork || '').split('. ')[0] + '.',
       description: COPY[slug] || '',

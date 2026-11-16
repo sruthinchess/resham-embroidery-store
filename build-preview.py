@@ -9,9 +9,10 @@ PUB, OUT = ROOT / 'public', ROOT / 'docs' / 'index.html'
 from PIL import Image
 imgdir = ROOT / 'build' / 'img'
 imgdir.mkdir(parents=True, exist_ok=True)
+LIMITS = {'logo': 300, 'logo-mark': 128, 'favicon': 64}
 for src in (ROOT / 'public' / 'img').glob('*.png'):
     im = Image.open(src).convert('RGBA')
-    im.thumbnail((640, 640), Image.LANCZOS)
+    im.thumbnail((LIMITS.get(src.stem, 560),) * 2, Image.LANCZOS)
     im.save(imgdir / src.name, optimize=True)
 
 subprocess.run(['node', str(ROOT / 'tools' / 'build-assets.js')], check=True, cwd=ROOT)

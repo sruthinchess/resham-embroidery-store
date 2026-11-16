@@ -1,9 +1,12 @@
-# Resham Atelier — embroidery designs, sold as files
+# Sandya Emb Designs — embroidery designs, sold as files
 
 A store for **real machine embroidery designs**. Each product is a finished pack
 with **24 machine formats**; buyers tick the ones their machine reads, pay by
 UPI, upload the payment screenshot, and the ZIP — containing exactly those files
 — downloads itself.
+
+The house logo (the embroidered "Sandya / Emb Designs" lockup) is used in the
+header, the footer, the admin panel and as the favicon — see `public/img/`.
 
 ```
 Storefront  →  http://localhost:3000
@@ -53,8 +56,11 @@ node tools/import-designs.js /path/to/pack
 npm run reset
 ```
 
-It copies the formats into `src/designs/<slug>/`, the preview into
-`public/img/<slug>.png`, and rewrites `src/data/designs.json`. Set prices in the
+It copies the formats into `src/designs/<slug>/`, the artwork into
+`public/img/<slug>.png`, the stitch-out into `public/img/<slug>-stitch.png`
+(both downscaled and palette-optimised by `tools/prepare-images.py`), and
+rewrites `src/data/designs.json`. Product cards use the artwork; the design page
+shows both, artwork first, stitch-out as the second shot. Set prices in the
 `PRICES` map at the top of the script.
 
 A download is built at request time by `src/pack.js`: the chosen format files

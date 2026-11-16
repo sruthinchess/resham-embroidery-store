@@ -1,14 +1,17 @@
 {
   "settings": {
-    "store_name": "Resham Atelier",
+    "store_name": "Sandya Emb Designs",
     "tagline": "Machine embroidery designs, digitised by hand.",
     "upi_id": "6301928345@fam",
-    "payee_name": "Resham Atelier",
+    "payee_name": "Sandya Emb Designs",
     "auto_approve": "1",
     "link_hours": "72",
-    "support_email": "hello@resham.studio",
-    "announcement": "Instant download · pay by UPI · choose your machine format at checkout",
-    "admin_password": "252525"
+    "support_email": "hello@sandyaembdesigns.com",
+    "announcement": "Instant download · 24 machine formats · pay by UPI",
+    "admin_password": "252525",
+    "logo_url": "img/logo.png",
+    "logo_mark_url": "img/logo-mark.png",
+    "favicon_url": "img/favicon.png"
   },
   "designs": [
     {
@@ -17,6 +20,7 @@
       "source": "pack",
       "dir": "src/designs/floral-spray",
       "previewImg": "img/floral-spray.png",
+      "stitchImg": "img/floral-spray-stitch.png",
       "price": 699,
       "mrp": 1199,
       "badge": "Bestseller",
@@ -244,6 +248,7 @@
       "source": "pack",
       "dir": "src/designs/blue-blossom",
       "previewImg": "img/blue-blossom.png",
+      "stitchImg": "img/blue-blossom-stitch.png",
       "price": 649,
       "mrp": 999,
       "badge": null,
@@ -461,6 +466,7 @@
       "source": "pack",
       "dir": "src/designs/magnolia-branch",
       "previewImg": "img/magnolia-branch.png",
+      "stitchImg": "img/magnolia-branch-stitch.png",
       "price": 749,
       "mrp": 1199,
       "badge": null,
@@ -688,6 +694,7 @@
       "source": "pack",
       "dir": "src/designs/silhouette-10",
       "previewImg": "img/silhouette-10.png",
+      "stitchImg": "img/silhouette-10-stitch.png",
       "price": 399,
       "mrp": 699,
       "badge": "New",

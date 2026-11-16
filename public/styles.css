@@ -144,7 +144,17 @@ input, select, textarea { font: inherit; color: inherit; }
 .hdr.scrolled { box-shadow: 0 12px 30px -26px rgba(20, 17, 14, .8); }
 .hdr-in { height: var(--hdr); display: flex; align-items: center; gap: 24px; }
 .logo { display: flex; align-items: center; gap: 11px; font-family: var(--display); font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
-.logo .mark { width: 32px; height: 32px; flex: none; }
+.logo .mark { width: 38px; height: 38px; flex: none; object-fit: contain; }
+.foot-logo img { width: 122px; height: auto; display: block; }
+.side .brand img { width: 26px; height: 26px; object-fit: contain; }
+.login-card .brand-logo { width: 96px; height: auto; margin: 0 auto 10px; display: block; }
+
+/* product gallery */
+.gal { display: flex; gap: 10px; margin-top: 12px; }
+.gthumb { width: 76px; height: 76px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); padding: 4px; transition: .2s var(--ease); }
+.gthumb img { width: 100%; height: 100%; object-fit: contain; }
+.gthumb:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.gthumb.on { border-color: var(--maroon); box-shadow: inset 0 0 0 1px var(--maroon); }
 .logo small { display: block; font-family: var(--sans); font-size: 8.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass); font-weight: 700; margin-top: 4px; }
 .nav { display: flex; gap: 2px; margin-left: 8px; }
 .nav a { padding: 9px 13px; font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); position: relative; }
@@ -276,7 +286,12 @@ input, select, textarea { font: inherit; color: inherit; }
 
 
 /* real stitch previews */
-.dcard .stage img, .pdp .stage img, .stitch-stage img { width: 100%; height: 100%; object-fit: contain; transition: transform .6s var(--ease); }
+/* the image sits in an absolutely positioned frame, so percentages have a
+   definite height to resolve against (aspect-ratio boxes do not provide one) */
+.stage .shot, .stitch-stage .shot { position: absolute; inset: 20px; display: block; }
+.pdp .stage .shot { inset: 36px; }
+.stitch-stage .shot { inset: 34px; }
+.shot img { width: 100%; height: 100%; object-fit: contain; }
 .dcard:hover .stage img { transform: scale(1.04); }
 .mini-line .pic img, .cart-line .pic img { width: 100%; height: 100%; object-fit: contain; }
 

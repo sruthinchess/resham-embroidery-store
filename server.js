@@ -39,6 +39,7 @@ function designOut(row) {
     colorCount: row.color_count, trims: row.trims,
     threads: jparse(row.threads, []),
     preview: row.preview_img ? `/${row.preview_img}` : null,
+    stitchPreview: row.stitch_img ? `/${row.stitch_img}` : null,
     formats: formats.map(f => ({ key: f.key, label: f.label || (P.FORMATS[f.key] || {}).label || f.key.toUpperCase(),
       note: f.note || (P.FORMATS[f.key] || {}).note || '', bytes: f.bytes || 0 })),
     defaultFormats: jparse(row.default_formats, []),
@@ -117,7 +118,9 @@ app.get('/api/settings', (req, res) => {
   ok(res, { settings: {
     store_name: s.store_name, tagline: s.tagline, announcement: s.announcement,
     support_email: s.support_email, upi_id: s.upi_id, payee_name: s.payee_name,
-    link_hours: num(s.link_hours, 72), auto_approve: s.auto_approve === '1'
+    link_hours: num(s.link_hours, 72), auto_approve: s.auto_approve === '1',
+    logo_url: s.logo_url || 'img/logo.png', logo_mark_url: s.logo_mark_url || 'img/logo-mark.png',
+    favicon_url: s.favicon_url || 'img/favicon.png'
   } });
 });
 

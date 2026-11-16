@@ -31,7 +31,7 @@
   function loginView(msg = '') {
     return `<div class="admin-login"><div class="login-card">
       <div style="text-align:center">
-        <div style="width:42px;height:42px;margin:0 auto 12px;border-radius:50%;border:2px dashed var(--brass);display:grid;place-items:center;color:var(--maroon)">✳</div>
+        <img class="brand-logo" src="${esc(Store.settings.logo_url || 'img/logo.png')}" alt="">
         <span class="eyebrow" style="justify-content:center">Studio admin</span>
         <h1 style="margin-top:8px">${esc(Store.settings.store_name)}</h1>
         <p class="small muted">Enter the 6-digit studio password.</p>
@@ -78,7 +78,7 @@
   function shell(section) {
     return `<div class="admin">
       <aside class="side">
-        <div class="brand"><span></span>${esc(Store.settings.store_name)}</div>
+        <div class="brand"><img src="${esc(Store.settings.logo_mark_url || 'img/logo-mark.png')}" alt="">${esc(String(Store.settings.store_name || '').split(' ')[0])}</div>
         ${MENU.map(([k, label, ic]) => `<a href="#/admin/${k}" class="${section === k ? 'on' : ''}"><span style="width:14px;text-align:center">${ic}</span>${label}</a>`).join('')}
         <div class="sep"></div>
         <a href="#/"><span style="width:14px;text-align:center">↗</span>View store</a>

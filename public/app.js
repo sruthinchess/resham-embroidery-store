@@ -107,19 +107,19 @@
   window.openUpiApp = openUpiApp;
 
   /* ------------------------------------------------------------ components */
-  const LOGO = `<svg class="mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <circle cx="20" cy="20" r="17.5" fill="none" stroke="#7E2B33" stroke-width="1.6"/>
-    <circle cx="20" cy="20" r="12" fill="none" stroke="#B4884B" stroke-width="1.2" stroke-dasharray="3 3"/>
-    <g fill="#7E2B33"><circle cx="20" cy="8" r="2"/><circle cx="28" cy="14" r="2"/><circle cx="28" cy="26" r="2"/><circle cx="20" cy="32" r="2"/><circle cx="12" cy="26" r="2"/><circle cx="12" cy="14" r="2"/></g>
-    <circle cx="20" cy="20" r="3.4" fill="#B4884B"/>
-  </svg>`;
+  const logoMark = () => Store.settings.logo_mark_url || 'img/logo-mark.png';
+  const logoFull = () => Store.settings.logo_url || 'img/logo.png';
+  const brandWords = () => {
+    const parts = String(Store.settings.store_name || 'Sandya Emb Designs').split(' ');
+    return { first: parts[0], rest: parts.slice(1).join(' ') };
+  };
 
   const fmtLabel = k => (k || '').toUpperCase();
 
   function designCard(d) {
     return `<article class="dcard reveal">
       <a class="stage" href="#/d/${esc(d.slug)}" aria-label="${esc(d.name)}">
-        ${d.preview ? `<img src="${esc(d.preview)}" alt="${esc(d.name)} stitch preview" loading="lazy">` : ''}
+        ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy"></span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
       </a>
@@ -141,7 +141,7 @@
     return `<div class="announce">${esc(Store.settings.announcement)}</div>
     <header class="hdr" id="hdr"><div class="wrap hdr-in">
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
-      <a class="logo" href="#/">${LOGO}<span>${esc(Store.settings.store_name)}<small>Embroidery designs</small></span></a>
+      <a class="logo" href="#/"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)} logo"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
       <nav class="nav">
         <a href="#/designs" class="${a('designs')}">All designs</a>
         <a href="#/designs?tag=floral" class="${a('floral')}">Floral</a>
@@ -164,7 +164,7 @@
     return `<footer class="foot"><div class="wrap">
       <div class="foot-grid">
         <div>
-          <a class="logo" href="#/">${LOGO}<span>${esc(Store.settings.store_name)}<small>Embroidery designs</small></span></a>
+          <a class="logo foot-logo" href="#/"><img src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}"></a>
           <p class="small" style="margin-top:12px;max-width:34ch;color:#b8b1a3">${esc(Store.settings.tagline)} Every design is digitised by hand, sold once, and delivered the moment your UPI payment is confirmed.</p>
         </div>
         <div><h4>Designs</h4><ul>
@@ -217,7 +217,7 @@
         </div>
       </div>
       <div class="hero-art">
-        <div class="stitch-stage">${hero && hero.preview ? `<img src="${esc(hero.preview)}" alt="${esc(hero.name)}">` : ''}</div>
+        <div class="stitch-stage">${hero && hero.preview ? `<span class="shot"><img src="${esc(hero.preview)}" alt="${esc(hero.name)}"></span>` : ''}</div>
         <div class="hero-tag t1">${I.needle}<div>Machine ready<small>DST &amp; EXP</small></div></div>
         <div class="hero-tag t2">${I.zap}<div>Instant download<small>UPI · auto-confirmed</small></div></div>
       </div>
@@ -317,6 +317,13 @@
         Store.cart = [{ id: g.id, slug: g.slug, name: g.name, price: g.price, preview: g.preview, formats: state.formats.slice() }];
         Store.save(); location.hash = '#/checkout';
       };
+      // gallery
+      $$('.gthumb').forEach(b => b.onclick = () => {
+        const main = $('#pdpMain');
+        if (main && b.dataset.shot) main.src = b.dataset.shot;
+        $$('.gthumb').forEach(x => x.classList.toggle('on', x === b));
+      });
+
       // sticky bar
       const bar = $('#stickybar');
       const buybox = $('#buybox');
@@ -337,7 +344,13 @@
     return `<div class="wrap">
       <div class="crumbs"><a href="#/">Home</a> / <a href="#/designs">Designs</a> / ${esc(g.name)}</div>
       <div class="pdp">
-        <div class="stage">${g.preview ? `<img src="${esc(g.preview)}" alt="${esc(g.name)} stitch preview">` : ''}</div>
+        <div>
+          <div class="stage">${g.preview ? `<span class="shot"><img id="pdpMain" src="${esc(g.preview)}" alt="${esc(g.name)} embroidery design"></span>` : ''}</div>
+          <div class="gal">
+            <button class="gthumb on" data-shot="${esc(g.preview || '')}"><img src="${esc(g.preview || '')}" alt="artwork"></button>
+            ${g.stitchPreview ? `<button class="gthumb" data-shot="${esc(g.stitchPreview)}"><img src="${esc(g.stitchPreview)}" alt="stitch preview"></button>` : ''}
+          </div>
+        </div>
         <div>
           <span class="eyebrow">${esc(g.hoop)} hoop · ${g.colorCount} thread colours</span>
           <h1>${esc(g.name)}</h1>

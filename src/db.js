@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS designs (
   source TEXT NOT NULL DEFAULT 'pack',
   dir TEXT,
   preview_img TEXT,
+  stitch_img TEXT,
   price REAL NOT NULL,
   mrp REAL NOT NULL,
   summary TEXT,
