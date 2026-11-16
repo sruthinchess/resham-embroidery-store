@@ -1,0 +1,598 @@
+{
+  "settings": {
+    "store_name": "Resham & Co.",
+    "tagline": "Hand-embroidered heirlooms, stitched slowly.",
+    "support_email": "care@resham.co",
+    "support_phone": "+91 98450 11223",
+    "announcement": "Free shipping across India on orders above ₹2,999 · Every piece hand-stitched by our karigars",
+    "free_shipping_threshold": 2999,
+    "shipping_fee": 99,
+    "cod_fee": 49,
+    "currency": "₹",
+    "admin_password": "252525"
+  },
+  "categories": [
+    {
+      "slug": "sarees",
+      "name": "Sarees",
+      "icon": "drape",
+      "description": "Hand-embroidered drapes in silk, organza and cotton."
+    },
+    {
+      "slug": "kurtis",
+      "name": "Kurtis",
+      "icon": "shirt",
+      "description": "Everyday chikankari, kantha and mirror work."
+    },
+    {
+      "slug": "dupattas",
+      "name": "Dupattas & Stoles",
+      "icon": "scarf",
+      "description": "Phulkari, aari and sozni stitched wraps."
+    },
+    {
+      "slug": "lehengas",
+      "name": "Bridal Lehengas",
+      "icon": "crown",
+      "description": "Zardozi and dabka couture for the big day."
+    },
+    {
+      "slug": "hoop-art",
+      "name": "Hoop Art",
+      "icon": "hoop",
+      "description": "Framed thread paintings for your walls."
+    },
+    {
+      "slug": "home",
+      "name": "Home & Living",
+      "icon": "home",
+      "description": "Cushions, runners and table linen."
+    },
+    {
+      "slug": "accessories",
+      "name": "Accessories",
+      "icon": "bag",
+      "description": "Clutches, potlis and embroidered belts."
+    },
+    {
+      "slug": "kids",
+      "name": "Kids",
+      "icon": "star",
+      "description": "Soft cotton pieces for little ones."
+    },
+    {
+      "slug": "kits",
+      "name": "DIY Kits",
+      "icon": "needle",
+      "description": "Thread, needles and patterns to start at home."
+    }
+  ],
+  "coupons": [
+    {
+      "code": "WELCOME10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 999,
+      "max_uses": 500,
+      "active": 1
+    },
+    {
+      "code": "THREAD500",
+      "type": "flat",
+      "value": 500,
+      "min_order": 4999,
+      "max_uses": 200,
+      "active": 1
+    },
+    {
+      "code": "FESTIVE15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 9999,
+      "max_uses": 100,
+      "active": 1
+    }
+  ],
+  "products": [
+    {
+      "slug": "meera-hand-embroidered-saree",
+      "name": "Meera Hand-Embroidered Saree",
+      "category": "sarees",
+      "price": 8499,
+      "mrp": 11999,
+      "stock": 8,
+      "featured": 1,
+      "badge": "Bestseller",
+      "fabric": "Pure Chanderi silk",
+      "pattern": "floral",
+      "palette": [
+        "#8c2f39",
+        "#c8a24a",
+        "#f6ecdd"
+      ],
+      "colors": [
+        "Ivory",
+        "Maroon",
+        "Indigo"
+      ],
+      "sizes": [
+        "Free Size"
+      ],
+      "rating": 4.8,
+      "rating_count": 126,
+      "description": "A six-yard Chanderi saree with a hand-embroidered floral vine running along the pallu. Each bloom is worked in silk floss with a fine gold zari outline — roughly 42 hours of needlework per piece."
+    },
+    {
+      "slug": "kutch-mirror-work-blouse",
+      "name": "Kutch Mirror-Work Blouse",
+      "category": "sarees",
+      "price": 3499,
+      "mrp": 4599,
+      "stock": 14,
+      "featured": 1,
+      "badge": null,
+      "fabric": "Handloom cotton",
+      "pattern": "geometric",
+      "palette": [
+        "#2f4858",
+        "#c8a24a",
+        "#efe3cf"
+      ],
+      "colors": [
+        "Indigo",
+        "Black",
+        "Rust"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "rating": 4.6,
+      "rating_count": 88,
+      "description": "Rabari-style mirror work set into a geometric grid, finished with a tie-up back. Made by the Vankar family in Bhujodi."
+    },
+    {
+      "slug": "chikankari-cotton-kurti",
+      "name": "Chikankari Cotton Kurti",
+      "category": "kurtis",
+      "price": 2299,
+      "mrp": 2999,
+      "stock": 26,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Mulmul cotton",
+      "pattern": "floral",
+      "palette": [
+        "#6b7f5e",
+        "#f4ead6",
+        "#b98b4a"
+      ],
+      "colors": [
+        "Sage",
+        "White",
+        "Peach"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "rating": 4.7,
+      "rating_count": 203,
+      "description": "Lucknowi chikankari in six classic stitches — bakhiya, murri, phanda, jaali, tepchi and hathkati — on breathable mulmul."
+    },
+    {
+      "slug": "phulkari-dupatta",
+      "name": "Phulkari Dupatta",
+      "category": "dupattas",
+      "price": 1899,
+      "mrp": 2499,
+      "stock": 31,
+      "featured": 1,
+      "badge": "New",
+      "fabric": "Khaddar cotton",
+      "pattern": "mandala",
+      "palette": [
+        "#b5442e",
+        "#e8b53a",
+        "#f7efe0"
+      ],
+      "colors": [
+        "Red",
+        "Mustard",
+        "Magenta"
+      ],
+      "sizes": [
+        "2.5 m"
+      ],
+      "rating": 4.5,
+      "rating_count": 74,
+      "description": "Punjabi phulkari worked in darning stitch from the reverse of the cloth, so the front reads as a flat field of colour."
+    },
+    {
+      "slug": "zardozi-clutch",
+      "name": "Zardozi Clutch",
+      "category": "accessories",
+      "price": 2799,
+      "mrp": 3499,
+      "stock": 12,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Raw silk & brass",
+      "pattern": "zari",
+      "palette": [
+        "#2a1f1a",
+        "#c8a24a",
+        "#8c2f39"
+      ],
+      "colors": [
+        "Black",
+        "Deep Red",
+        "Emerald"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "rating": 4.4,
+      "rating_count": 41,
+      "description": "A structured evening clutch with dabka and sequin zardozi over raw silk, lined in cotton and closed with a magnetic clasp."
+    },
+    {
+      "slug": "kashmiri-aari-stole",
+      "name": "Kashmiri Aari Stole",
+      "category": "dupattas",
+      "price": 4299,
+      "mrp": 5799,
+      "stock": 9,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Pashmina blend",
+      "pattern": "paisley",
+      "palette": [
+        "#5a3a5e",
+        "#c8a24a",
+        "#efe6f0"
+      ],
+      "colors": [
+        "Plum",
+        "Ivory",
+        "Teal"
+      ],
+      "sizes": [
+        "2 m"
+      ],
+      "rating": 4.9,
+      "rating_count": 57,
+      "description": "Fine aari hook embroidery in a repeating boteh (paisley) motif, with a hand-knotted fringe along both edges."
+    },
+    {
+      "slug": "hoop-art-monstera-bloom",
+      "name": "Hoop Art — Monstera Bloom",
+      "category": "hoop-art",
+      "price": 1499,
+      "mrp": 1899,
+      "stock": 22,
+      "featured": 1,
+      "badge": "Bestseller",
+      "fabric": "Linen in beech hoop",
+      "pattern": "hoop",
+      "palette": [
+        "#3f6b4f",
+        "#c8a24a",
+        "#f6ecdd"
+      ],
+      "colors": [
+        "Natural",
+        "Sage"
+      ],
+      "sizes": [
+        "6 inch",
+        "8 inch"
+      ],
+      "rating": 4.8,
+      "rating_count": 167,
+      "description": "A single monstera leaf worked in satin and fishbone stitch, stretched in a 6-inch beech hoop. Ready to hang, no frame needed."
+    },
+    {
+      "slug": "hoop-art-peacock-court",
+      "name": "Hoop Art — Peacock Court",
+      "category": "hoop-art",
+      "price": 1899,
+      "mrp": 2399,
+      "stock": 15,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Cotton in beech hoop",
+      "pattern": "peacock",
+      "palette": [
+        "#1f6f78",
+        "#c8a24a",
+        "#8c2f39"
+      ],
+      "colors": [
+        "Teal",
+        "Indigo"
+      ],
+      "sizes": [
+        "8 inch"
+      ],
+      "rating": 4.7,
+      "rating_count": 62,
+      "description": "Two mirrored peacocks in long-and-short stitch with French-knot eyes, ringed by a running-stitch border."
+    },
+    {
+      "slug": "suzani-cushion-cover",
+      "name": "Cushion Cover — Suzani Garden",
+      "category": "home",
+      "price": 1299,
+      "mrp": 1699,
+      "stock": 40,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Cotton canvas",
+      "pattern": "mandala",
+      "palette": [
+        "#8c2f39",
+        "#6b7f5e",
+        "#f4e7d3"
+      ],
+      "colors": [
+        "Maroon",
+        "Sage",
+        "Ochre"
+      ],
+      "sizes": [
+        "16x16 in",
+        "18x18 in"
+      ],
+      "rating": 4.5,
+      "rating_count": 94,
+      "description": "A suzani-style circular vine in chain stitch on heavy cotton canvas, with a concealed zip and piped edge."
+    },
+    {
+      "slug": "kantha-table-runner",
+      "name": "Kantha Table Runner",
+      "category": "home",
+      "price": 1599,
+      "mrp": 1999,
+      "stock": 18,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Handwoven cotton",
+      "pattern": "kantha",
+      "palette": [
+        "#a8865c",
+        "#f4ead6",
+        "#8c2f39"
+      ],
+      "colors": [
+        "Natural",
+        "Indigo"
+      ],
+      "sizes": [
+        "14x72 in"
+      ],
+      "rating": 4.6,
+      "rating_count": 38,
+      "description": "Three layers of cotton held together by a field of running stitches — the classic Bengali kantha — with a stitched border."
+    },
+    {
+      "slug": "kids-embroidered-frock",
+      "name": "Kids' Embroidered Frock",
+      "category": "kids",
+      "price": 1799,
+      "mrp": 2299,
+      "stock": 20,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Organic cotton",
+      "pattern": "floral",
+      "palette": [
+        "#e28fa0",
+        "#c8a24a",
+        "#fdf3e6"
+      ],
+      "colors": [
+        "Blush",
+        "Sky",
+        "Butter"
+      ],
+      "sizes": [
+        "2-3Y",
+        "4-5Y",
+        "6-7Y"
+      ],
+      "rating": 4.7,
+      "rating_count": 51,
+      "description": "A gathered cotton frock with lazy-daisy flowers along the yoke, lined at the bodice and finished with wooden buttons."
+    },
+    {
+      "slug": "bridal-lehenga-zardosi",
+      "name": "Bridal Lehenga — Zardozi Court",
+      "category": "lehengas",
+      "price": 24999,
+      "mrp": 32999,
+      "stock": 3,
+      "featured": 1,
+      "badge": "Couture",
+      "fabric": "Silk velvet & zardozi",
+      "pattern": "zari",
+      "palette": [
+        "#7a1f2b",
+        "#c8a24a",
+        "#e9d6a8"
+      ],
+      "colors": [
+        "Deep Red",
+        "Wine",
+        "Midnight"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "rating": 5.0,
+      "rating_count": 19,
+      "description": "Our heaviest piece: 96 hours of zardozi, dabka and kora work on silk velvet, with a scalloped hem and hand-finished blouse. Made to order in 6–8 weeks."
+    },
+    {
+      "slug": "thread-needle-starter-kit",
+      "name": "Thread & Needle Starter Kit",
+      "category": "kits",
+      "price": 899,
+      "mrp": 1199,
+      "stock": 55,
+      "featured": 0,
+      "badge": "New",
+      "fabric": "Cotton, floss & wood",
+      "pattern": "geometric",
+      "palette": [
+        "#2f4858",
+        "#c8a24a",
+        "#f4e7d3"
+      ],
+      "colors": [
+        "Classic"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "rating": 4.4,
+      "rating_count": 112,
+      "description": "24 skeins of cotton floss, 6 needles, a 5-inch hoop, printed cotton and a stitch dictionary booklet with 12 illustrated stitches."
+    },
+    {
+      "slug": "embroidered-potli-bag",
+      "name": "Embroidered Potli Bag",
+      "category": "accessories",
+      "price": 1199,
+      "mrp": 1599,
+      "stock": 27,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Brocade & silk",
+      "pattern": "paisley",
+      "palette": [
+        "#8c2f39",
+        "#c8a24a",
+        "#f2e2c8"
+      ],
+      "colors": [
+        "Maroon",
+        "Gold",
+        "Green"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "rating": 4.3,
+      "rating_count": 66,
+      "description": "A drawstring potli in brocade with a paisley worked in gold thread and a beaded tassel."
+    },
+    {
+      "slug": "peacock-panel-cushion",
+      "name": "Peacock Panel Cushion",
+      "category": "home",
+      "price": 2199,
+      "mrp": 2899,
+      "stock": 11,
+      "featured": 0,
+      "badge": null,
+      "fabric": "Silk dupion",
+      "pattern": "peacock",
+      "palette": [
+        "#1f6f78",
+        "#8c2f39",
+        "#c8a24a"
+      ],
+      "colors": [
+        "Teal",
+        "Wine"
+      ],
+      "sizes": [
+        "18x18 in"
+      ],
+      "rating": 4.6,
+      "rating_count": 29,
+      "description": "A single peacock in silk floss and metallic thread on dupion, mounted as a cushion face with a cotton back."
+    },
+    {
+      "slug": "kantha-quilt-throw",
+      "name": "Kantha Quilt Throw",
+      "category": "home",
+      "price": 4999,
+      "mrp": 6499,
+      "stock": 6,
+      "featured": 1,
+      "badge": null,
+      "fabric": "Recycled cotton",
+      "pattern": "kantha",
+      "palette": [
+        "#6b7f5e",
+        "#a8865c",
+        "#f4ead6"
+      ],
+      "colors": [
+        "Sage",
+        "Ochre"
+      ],
+      "sizes": [
+        "Single",
+        "Double"
+      ],
+      "rating": 4.8,
+      "rating_count": 45,
+      "description": "A lightweight throw of layered vintage cotton, quilted with thousands of running stitches in contrasting thread."
+    }
+  ],
+  "reviews": [
+    {
+      "product": "meera-hand-embroidered-saree",
+      "name": "Ananya R.",
+      "rating": 5,
+      "title": "Heirloom quality",
+      "body": "The pallu work is finer than anything I have bought in a store. It came wrapped in muslin with a note from the karigar."
+    },
+    {
+      "product": "meera-hand-embroidered-saree",
+      "name": "Divya M.",
+      "rating": 4,
+      "title": "Beautiful, slightly heavy",
+      "body": "Gorgeous for an evening function. The zari outline makes it a little stiff to drape at first but it softens."
+    },
+    {
+      "product": "chikankari-cotton-kurti",
+      "name": "Ritika S.",
+      "rating": 5,
+      "title": "Perfect for Chennai summers",
+      "body": "The mulmul is genuinely breathable and the jaali work does not itch at all. Bought a second one in white."
+    },
+    {
+      "product": "hoop-art-monstera-bloom",
+      "name": "Kavya N.",
+      "rating": 5,
+      "title": "Looks lovely on the wall",
+      "body": "Smaller than I expected but honestly better for it. The fishbone stitch on the leaf is really neat."
+    },
+    {
+      "product": "phulkari-dupatta",
+      "name": "Simran K.",
+      "rating": 4,
+      "title": "Colours are rich",
+      "body": "The reverse side is a lovely mess of thread, exactly how real phulkari should look. Slight colour variation from the photo."
+    },
+    {
+      "product": "suzani-cushion-cover",
+      "name": "Meghna T.",
+      "rating": 5,
+      "title": "Stitching is tight and even",
+      "body": "Bought two for the living room. The zip is concealed properly and the piping is a nice touch."
+    }
+  ]
+}
