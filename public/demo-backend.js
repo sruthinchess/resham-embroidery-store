@@ -68,7 +68,7 @@
     const designs = (seed.designs || []).map((d, i) => ({ ...d, id: i + 1, downloads: 0, active: 1, created_at: now() }));
     const settings = { ...(seed.settings || {}) };
     settings.admin_password = '252525';
-    const coupons = (seed.settings.coupons || []).map((c, i) => ({
+    const coupons = ((seed.settings && seed.settings.coupons) || []).map((c, i) => ({
       id: i + 1, code: c.code, type: c.type, value: c.value, min_order: c.min_order || 0,
       max_uses: c.max_uses || 0, used: 0, active: 1, expires_at: c.expires_at || null, note: c.note || ''
     }));
@@ -192,6 +192,19 @@
     return { ok: true, design: d, related: S.designs.filter(x => x.active && x.id !== d.id).sort((a, b) => b.featured - a.featured).slice(0, 3) };
   });
 
+  R('GET', '/api/promos', () => {
+    const cfg = (S.settings && S.settings.flash) || {};
+    const now = new Date();
+    const ends = new Date(now);
+    ends.setDate(now.getDate() + ((7 - now.getDay()) % 7));
+    ends.setHours(23, 59, 59, 999);
+    const flash = { active: !!cfg.active, live: !!cfg.active && ends > now, percent: cfg.percent || 0,
+                    label: cfg.label || 'Flash sale', note: cfg.note || '', ends_at: ends.toISOString() };
+    return { ok: true, flash, bulk: (S.settings && S.settings.bulk) || [],
+             gift: (S.settings && S.settings.gift) || {}, vip: (S.settings && S.settings.vip) || {},
+             designs: S.designs.length, from_price: Math.min(...S.designs.map(d => d.price)) };
+  });
+
   R('GET', '/api/coupons', () => ({ ok: true, coupons: S.coupons.filter(c => c.active).map(cOut) }));
   R('POST', '/api/coupons/validate', (m, q, p, b) => {
     const sub = Number(b.subtotal || 0);
@@ -217,9 +230,24 @@
       lines.push({ designId: d.id, slug: d.slug, name: d.name, price: linePrice, unitPrice: d.price, formats, stitchCount: d.stitchCount, hoop: d.hoop, preview: d.preview });
     }
     const subtotal = Math.round(amount * 100) / 100;
-    let discount = 0, couponCode = null;
+    const fcfg = (S.settings && S.settings.flash) || {};
+    const flashPct = fcfg.active ? (fcfg.percent || 0) : 0;
+    const flashDiscount = Math.round(subtotal * flashPct) / 100;
+    const tiers = (S.settings && S.settings.bulk) || [];
+    const tier = tiers.slice().sort((a, b2) => b2.qty - a.qty).find(t => lines.length >= t.qty);
+    const bulkDiscount = tier ? Math.round((subtotal - flashDiscount) * tier.percent) / 100 : 0;
+    const autoDiscount = Math.round((flashDiscount + bulkDiscount) * 100) / 100;
+    const gc = (S.settings && S.settings.gift) || {};
+    if (gc.min_subtotal && subtotal >= gc.min_subtotal) {
+      const gift = S.designs.filter(d => d.active).slice().sort((a, b2) => a.price - b2.price)
+        .find(d => !lines.some(l => l.designId === d.id));
+      if (gift) lines.push({ designId: gift.id, slug: gift.slug, name: gift.name, price: 0, unitPrice: 0, gift: true,
+        formats: (gift.defaultFormats && gift.defaultFormats.length) ? gift.defaultFormats.slice() : (gift.formats || []).map(f => f.key).slice(0, 1),
+        stitchCount: gift.stitchCount, hoop: gift.hoop, preview: gift.preview });
+    }
+    let discount = autoDiscount, couponCode = null;
     if (b.coupon) {
-      const r = checkCoupon(b.coupon, subtotal);
+      const r = checkCoupon(b.coupon, Math.max(0, subtotal - autoDiscount));
       // first-order codes are one per customer, matched on the email
       if (FIRST_ORDER_CODES.has(r.coupon.code)) {
         const used = S.orders.some(o => String(o.email).toLowerCase() === String(b.email).trim().toLowerCase()
@@ -227,7 +255,7 @@
           && ['awaiting', 'submitted', 'paid'].includes(o.status));
         if (used) throw fail(`${r.coupon.code} is a first-order code — it has already been used with this email. Try another code.`);
       }
-      discount = r.discount; couponCode = r.coupon.code; r.coupon.used++;
+      discount = Math.round((discount + r.discount) * 100) / 100; couponCode = r.coupon.code; r.coupon.used++;
     }
     const o = {
       id: ++S.seq.order,

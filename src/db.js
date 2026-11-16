@@ -111,7 +111,13 @@ function verifyPassword(password, hash, salt) {
 }
 const token = () => crypto.randomBytes(24).toString('hex');
 const getSetting = (k, d = null) => { const r = db.prepare('SELECT value FROM settings WHERE key=?').get(k); return r ? r.value : d; };
-const setSetting = (k, v) => db.prepare('INSERT INTO settings(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value').run(k, String(v));
+const setSetting = (k, v) => db.prepare('INSERT INTO settings(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value')
+  .run(k, typeof v === 'string' ? v : JSON.stringify(v));
+const getJSON = (k, d = null) => {
+  const r = db.prepare('SELECT value FROM settings WHERE key=?').get(k);
+  if (!r) return d;
+  try { return JSON.parse(r.value); } catch { return d; }
+};
 const settingsMap = () => { const o = {}; for (const r of db.prepare('SELECT key,value FROM settings').all()) o[r.key] = r.value; return o; };
 
-module.exports = { db, DB_FILE, DATA_DIR, UPLOAD_DIR, hashPassword, verifyPassword, token, getSetting, setSetting, settingsMap };
+module.exports = { db, DB_FILE, DATA_DIR, UPLOAD_DIR, hashPassword, verifyPassword, token, getSetting, getJSON, setSetting, settingsMap };

@@ -816,5 +816,51 @@
   "min_price": 60,
   "max_price": 500,
   "price_per_1k_stitches": 50,
-  "welcome_once": true
+  "welcome_once": true,
+  "flash": {
+    "active": true,
+    "percent": 15,
+    "label": "Weekend flash sale",
+    "note": "15% off every design, automatically applied"
+  },
+  "bulk": [
+    {
+      "qty": 3,
+      "percent": 5
+    },
+    {
+      "qty": 5,
+      "percent": 10
+    },
+    {
+      "qty": 10,
+      "percent": 20
+    }
+  ],
+  "gift": {
+    "min_subtotal": 999,
+    "label": "Free design unlocked"
+  },
+  "vip": {
+    "plans": [
+      {
+        "id": "monthly",
+        "name": "Monthly",
+        "price": 199,
+        "note": "Billed every month, cancel any time"
+      },
+      {
+        "id": "quarterly",
+        "name": "Quarterly",
+        "price": 499,
+        "note": "Three months, save \u20b998"
+      },
+      {
+        "id": "yearly",
+        "name": "Yearly",
+        "price": 1499,
+        "note": "Twelve months, save \u20b9889"
+      }
+    ]
+  }
 }

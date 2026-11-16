@@ -9,7 +9,7 @@ const fs = require('fs');
 const express = require('express');
 const D = require('./src/db');
 const P = require('./src/pack');
-const { db, UPLOAD_DIR, hashPassword, verifyPassword, token, getSetting, setSetting, settingsMap } = D;
+const { db, UPLOAD_DIR, hashPassword, verifyPassword, token, getSetting, getJSON, setSetting, settingsMap } = D;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -72,6 +72,36 @@ function couponOut(row) {
 }
 
 const FIRST_ORDER_CODES = new Set(['WELCOME', 'FIRST50', 'FIRST100', 'HELLO15']);
+
+/* ---- promotions ------------------------------------------------------- */
+function flashConfig() {
+  const cfg = getJSON('flash', {}) || {};
+  const now = new Date();
+  // the campaign runs to the end of the coming Sunday, IST
+  const ist = new Date(now.getTime() + (5.5 * 60 - now.getTimezoneOffset()) * 60000);
+  const daysToSunday = (7 - ist.getDay()) % 7;
+  const ends = new Date(ist);
+  ends.setDate(ist.getDate() + (daysToSunday === 0 ? 0 : daysToSunday));
+  ends.setHours(23, 59, 59, 999);
+  const endsUtc = new Date(ends.getTime() - (5.5 * 60 - now.getTimezoneOffset()) * 60000);
+  const live = !!cfg.active && endsUtc > now;
+  return { active: !!cfg.active, live, percent: num(cfg.percent, 0), label: cfg.label || 'Flash sale',
+           note: cfg.note || '', ends_at: endsUtc.toISOString() };
+}
+
+function bulkConfig() {
+  const list = getJSON('bulk', []);
+  return (Array.isArray(list) ? list : []).filter(b => b && b.qty > 0).sort((a, b) => b.qty - a.qty);
+}
+
+function bulkPercentFor(count) {
+  const tier = bulkConfig().find(b => count >= b.qty);
+  return tier ? num(tier.percent, 0) : 0;
+}
+
+function giftConfig() {
+  return getJSON('gift', {}) || {};
+}
 
 function checkCoupon(code, subtotal) {
   const raw = String(code || '').trim().toUpperCase();
@@ -193,6 +223,18 @@ app.post('/api/coupons/validate', (req, res) => {
   ok(res, { coupon: r.coupon, discount: r.discount, total: Math.max(0, num(subtotal, 0) - r.discount) });
 });
 
+app.get('/api/promos', (req, res) => {
+  const rows = db.prepare('SELECT price FROM designs WHERE active = 1').all();
+  ok(res, {
+    flash: flashConfig(),
+    bulk: bulkConfig(),
+    gift: giftConfig(),
+    vip: getJSON('vip', {}),
+    designs: rows.length,
+    from_price: rows.length ? Math.min(...rows.map(r => r.price)) : 0
+  });
+});
+
 app.get('/api/coupons', (req, res) => {
   const rows = db.prepare('SELECT * FROM coupons WHERE active=1 ORDER BY id').all()
     .map(couponOut).filter(c => !c.expired && !c.exhausted);
@@ -225,9 +267,28 @@ app.post('/api/orders', (req, res) => {
     });
   }
   const subtotal = Math.round(amount * 100) / 100;
+  // automatic promotions: flash sale first, then buy-more-save-more
+  const fl = flashConfig();
+  const flashDiscount = fl.live ? Math.round(subtotal * fl.percent) / 100 : 0;
+  const afterFlash = Math.max(0, subtotal - flashDiscount);
+  const bulkPercent = bulkPercentFor(lines.length);
+  const bulkDiscount = Math.round(afterFlash * bulkPercent) / 100;
+  const autoDiscount = Math.round((flashDiscount + bulkDiscount) * 100) / 100;
+  // a free design once the bag is big enough
+  const gc = giftConfig();
+  if (gc.min_subtotal && subtotal >= num(gc.min_subtotal, 0)) {
+    const gift = db.prepare('SELECT * FROM designs WHERE active = 1 ORDER BY price ASC').all()
+      .find(d => !lines.some(l => l.designId === d.id));
+    if (gift) {
+      const gFormats = jparse(gift.default_formats, []).length ? jparse(gift.default_formats, []) : jparse(gift.formats, []).map(f => f.key).slice(0, 1);
+      lines.push({ designId: gift.id, slug: gift.slug, name: gift.name, price: 0, unitPrice: 0, gift: true,
+        formats: gFormats, stitchCount: gift.stitch_count, hoop: gift.hoop,
+        preview: gift.preview_img ? `/${gift.preview_img}` : null });
+    }
+  }
   let discount = 0, couponCode = null;
   if (req.body.coupon) {
-    const r = checkCoupon(req.body.coupon, subtotal);
+    const r = checkCoupon(req.body.coupon, Math.max(0, subtotal - autoDiscount));
     if (r.error) return fail(res, 400, r.error);
     // welcome / first-order codes are one per customer, matched on the email
     if (FIRST_ORDER_CODES.has(r.coupon.code)) {
@@ -239,6 +300,7 @@ app.post('/api/orders', (req, res) => {
     couponCode = r.coupon.code;
     db.prepare('UPDATE coupons SET used = used + 1 WHERE id=?').run(r.coupon.id);
   }
+  discount = Math.round((discount + autoDiscount) * 100) / 100;
   amount = Math.max(0, Math.round((subtotal - discount) * 100) / 100);
   const code = 'SDY-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100);
   const info = db.prepare(`INSERT INTO orders(code,name,email,phone,items,amount,subtotal,discount,coupon_code,status)

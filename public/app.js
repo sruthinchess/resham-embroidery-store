@@ -38,14 +38,24 @@
     /** local estimate of the coupon — the server recomputes it when the order is created */
     totals() {
       const subtotal = this.subtotal;
+      // automatic promotions run before any code, exactly as the server does it
+      const flash = (PROMOS && PROMOS.flash && PROMOS.flash.live) ? PROMOS.flash.percent : 0;
+      const flashDiscount = Math.round(subtotal * flash) / 100;
+      const afterFlash = Math.max(0, subtotal - flashDiscount);
+      const tiers = (PROMOS && PROMOS.bulk) || [];
+      const tier = tiers.find(b => this.count >= b.qty);
+      const bulkDiscount = tier ? Math.round(afterFlash * tier.percent) / 100 : 0;
+      const auto = Math.round((flashDiscount + bulkDiscount) * 100) / 100;
+      const base = Math.max(0, subtotal - auto);
       let discount = 0;
       const c = this.coupon;
       if (c) {
-        const stillOk = (!c.minOrder || subtotal >= c.minOrder) && (!c.maxUses || c.used < c.maxUses);
+        const stillOk = (!c.minOrder || base >= c.minOrder) && (!c.maxUses || c.used < c.maxUses);
         if (!stillOk) { this.coupon = null; this.save(); }
-        else discount = Math.min(subtotal, Math.round((c.type === 'percent' ? subtotal * c.value / 100 : c.value) * 100) / 100);
+        else discount = Math.min(base, Math.round((c.type === 'percent' ? base * c.value / 100 : c.value) * 100) / 100);
       }
-      return { subtotal, discount, total: Math.max(0, Math.round((subtotal - discount) * 100) / 100) };
+      return { subtotal, flashDiscount, bulkDiscount, auto, discount,
+               total: Math.max(0, Math.round((subtotal - auto - discount) * 100) / 100) };
     },
     isWished(id) { return this.wish.includes(id); },
     toggleWish(id) {
@@ -193,9 +203,21 @@
     <button type="button" class="btn btn-gold btn-block offers-cta" id="offersBtn">${I.tag} View all offers &amp; coupons</button>`;
   }
 
+  function bulkTier() {
+    const tiers = (PROMOS && PROMOS.bulk) || [];
+    return tiers.find(b => Store.count >= b.qty) || null;
+  }
+
   function summaryRows(showPayment) {
     const t = Store.totals();
+    const tier = bulkTier();
+    const next = ((PROMOS && PROMOS.bulk) || []).slice().reverse().find(b => Store.count < b.qty);
+    const gift = (PROMOS && PROMOS.gift) || {};
     return `<div class="sum-row"><span>${Store.count} design${Store.count > 1 ? 's' : ''}</span><b>${money(t.subtotal)}</b></div>
+      ${t.flashDiscount ? `<div class="sum-row discount"><span>Flash sale · ${PROMOS.flash.percent}% off</span><b>− ${money(t.flashDiscount)}</b></div>` : ''}
+      ${t.bulkDiscount ? `<div class="sum-row discount"><span>Bundle ${tier.qty}+ · ${tier.percent}% off</span><b>− ${money(t.bulkDiscount)}</b></div>` : ''}
+      ${!tier && next ? `<div class="sum-row hint"><span>Add ${next.qty - Store.count} more → ${next.percent}% off</span><b></b></div>` : ''}
+      ${gift.min_subtotal && t.subtotal >= gift.min_subtotal ? `<div class="sum-row"><span>Free design</span><b style="color:var(--green)">Unlocked</b></div>` : ''}
       ${t.discount ? `<div class="sum-row discount"><span>Coupon ${esc(Store.coupon.code)}</span><b>− ${money(t.discount)}</b></div>` : ''}
       <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
       ${showPayment ? `<div class="sum-row"><span>Payment</span><b>UPI</b></div>` : ''}
@@ -235,8 +257,9 @@
         <a href="#/" class="${a('home')}">Home</a>
         <a href="#/designs" class="${a('designs')}">Designs</a>
         <a href="#/categories" class="${a('categories')}">Categories</a>
+        <a href="#/offers" class="${a('offers')}">Offers</a>
+        <a href="#/vip" class="${a('vip')}">VIP</a>
         <a href="#/about" class="${a('about')}">About</a>
-        <a href="#/contact" class="${a('contact')}">Contact</a>
       </nav>
       <form class="searchbar" id="searchform" role="search">
         <span style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--ink-mute)">${I.search}</span>
@@ -263,51 +286,119 @@
   function footer() {
     return `<footer class="foot"><div class="wrap">
       <div class="foot-grid">
-        <div>
+        <div class="foot-brand">
           <a class="logo foot-logo" href="#/"><img src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}"></a>
-          <p class="small" style="margin-top:12px;max-width:34ch;color:#b8b1a3">${esc(Store.settings.tagline)} Every design is digitised by hand, sold once, and delivered the moment your UPI payment is confirmed.</p>
+          <p class="small foot-about">${esc(Store.settings.tagline)} Every design is digitised by hand, sold once, and delivered the moment your UPI payment is confirmed.</p>
+          <div class="foot-pay"><span>UPI</span><b class="mono">${esc(Store.settings.upi_id)}</b></div>
         </div>
-        <div><h4>Designs</h4><ul>
-          <li><a href="#/designs?tag=floral">Floral</a></li>
-          <li><a href="#/designs?tag=border">Borders</a></li>
-          <li><a href="#/designs?tag=bridal">Bridal</a></li>
-          <li><a href="#/designs?tag=monogram">Monograms</a></li>
-          <li><a href="#/designs">Everything</a></li></ul></div>
+        <div><h4>Shop</h4><ul>
+          <li><a href="#/designs">All designs</a></li>
+          <li><a href="#/categories">Categories</a></li>
+          <li><a href="#/offers">Offers &amp; coupons</a></li>
+          <li><a href="#/vip">Sandya VIP</a></li></ul></div>
         <div><h4>Help</h4><ul>
           <li><a href="#/downloads">My downloads</a></li>
-          <li><a href="#/designs">Which format do I need?</a></li>
-          <li><a href="#/designs">Licence</a></li>
-          <li><a href="#/admin">Studio admin</a></li></ul></div>
-        <div><h4>Payments</h4><ul>
-          <li class="mono" style="font-size:12px">${esc(Store.settings.upi_id)}</li>
-          <li>GPay · PhonePe · Paytm · BHIM</li>
-          <li>${esc(Store.settings.support_email)}</li>
-          <li>Downloads live ${Store.settings.link_hours} hours</li></ul></div>
+          <li><a href="#/saved">Saved designs</a></li>
+          <li><a href="#/contact">Contact the studio</a></li>
+          <li><a href="#/about">About</a></li></ul></div>
+        <div><h4>Studio</h4><ul>
+          <li><a href="#/contact">Custom digitising</a></li>
+          <li><a href="#/contact">Bulk &amp; bulk orders</a></li>
+          <li><a href="#/admin">Studio admin</a></li>
+          <li class="mono" style="font-size:12px">${esc(Store.settings.support_email)}</li></ul></div>
       </div>
       <div class="foot-bot">
-        <span>© ${new Date().getFullYear()} ${esc(Store.settings.store_name)}</span>
-        <span>Digital files — all sales final</span>
+        <span>© ${new Date().getFullYear()} ${esc(Store.settings.store_name)} · Digitised by hand in India</span>
+        <span>Digital files — all sales final · Downloads live ${Store.settings.link_hours} hours</span>
       </div>
     </div></footer>`;
   }
 
   /* ------------------------------------------------------------------ views */
+  let PROMOS = null;
+  async function promos() {
+    if (PROMOS) return PROMOS;
+    try { PROMOS = await api('/api/promos'); } catch (e) { PROMOS = { flash: {}, bulk: [], gift: {}, vip: {} }; }
+    return PROMOS;
+  }
+
+  function countdown(iso) {
+    const end = new Date(iso).getTime();
+    const left = Math.max(0, end - Date.now());
+    const d = Math.floor(left / 86400000);
+    const h = Math.floor(left / 3600000) % 24;
+    const m = Math.floor(left / 60000) % 60;
+    const sec = Math.floor(left / 1000) % 60;
+    const pad = n => String(n).padStart(2, '0');
+    return d > 0 ? `${d}d ${pad(h)}h ${pad(m)}m` : `${pad(h)}:${pad(m)}:${pad(sec)}`;
+  }
+
+  function startCountdowns() {
+    if (window.__cdTimer) clearInterval(window.__cdTimer);
+    const tick = () => {
+      const els = $$('[data-ends]');
+      if (!els.length) { clearInterval(window.__cdTimer); return; }
+      els.forEach(el => { el.textContent = countdown(el.dataset.ends); });
+    };
+    tick();
+    window.__cdTimer = setInterval(tick, 1000);
+  }
+
   const HOME_BATCH = 8;
   let HOME_LIST = [];
 
   async function viewHome() {
-    const all = await api('/api/designs?' + qs({ sort: 'newest' }));
+    const [all, pr] = await Promise.all([api('/api/designs?' + qs({ sort: 'newest' })), promos()]);
     HOME_LIST = all.designs;
-    const fmtCount = Math.max(5, ...all.designs.map(d => (d.formats || []).length), 0);
+    const flash = pr.flash || {};
+    const bulk = pr.bulk || [];
+    const gift = pr.gift || {};
+    const cartIdle = abandonedCart();
     return `<div class="hero"><div class="wrap hero-in solo">
+      ${cartIdle ? `<div class="resume-bar">
+        <span>${I.bag} You left ${cartIdle} design${cartIdle > 1 ? 's' : ''} in your bag.</span>
+        <a class="btn btn-primary btn-sm" href="#/cart">Finish the order ${I.arrow}</a>
+        <button class="icon-btn" id="resumeDismiss" aria-label="Dismiss">✕</button>
+      </div>` : ''}
       <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
-      <h1>Beautiful embroidery designs<br>for <em>every creation</em>.</h1>
-      <p class="lede">Hand-digitised motifs for home and commercial machines, in ${fmtCount} machine formats. Choose what your machine reads, pay by UPI, and the files land in your downloads.</p>
+      <h1>Beautiful designs.<br><em>Perfect stitches</em>.</h1>
+      <p class="lede">Hand-digitised motifs for home and commercial machines. Pick the format your machine reads, pay by UPI, and the files are yours in seconds.</p>
+      <form class="hero-search" id="heroSearch" role="search">
+        <span class="hs-ic">${I.search}</span>
+        <input name="q" placeholder="Search floral, peacock, jersey, kids…" autocomplete="off" aria-label="Search designs">
+        <button class="btn btn-primary">Search</button>
+      </form>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#/designs">Shop now ${I.arrow}</a>
-        <a class="btn btn-ghost" href="#/categories">Browse categories</a>
+        <a class="btn btn-gold" href="#/designs">Shop all ${all.designs.length} designs ${I.arrow}</a>
+        <a class="btn btn-ghost" href="#/categories">Explore collections</a>
       </div>
+      ${flash.live ? `<div class="flash-strip">
+        <span class="flash-dot"></span>
+        <b>${esc(flash.label || 'Flash sale')}</b>
+        <span>${flash.percent}% off every design, applied automatically</span>
+        <span class="flash-clock">ends in <b data-ends="${esc(flash.ends_at)}">—</b></span>
+      </div>` : ''}
     </div></div>
+
+    <section class="section tight"><div class="wrap">
+      <div class="promo-row">
+        ${flash.live ? `<a class="promo-card flash" href="#/offers">
+          <span class="eyebrow">Limited time</span>
+          <b>${flash.percent}% off everything</b>
+          <span class="small">Automatic — no code needed. Ends in <b data-ends="${esc(flash.ends_at)}">—</b></span>
+        </a>` : ''}
+        <a class="promo-card" href="#/offers">
+          <span class="eyebrow">Buy more, save more</span>
+          <b>${bulk.length ? `Up to ${bulk[0].percent}% off` : 'Bundle discount'}</b>
+          <span class="small">${bulk.slice().reverse().map(b => `Buy ${b.qty} → ${b.percent}%`).join(' · ') || 'Add designs to save'}</span>
+        </a>
+        <a class="promo-card" href="#/vip">
+          <span class="eyebrow">Sandya VIP</span>
+          <b>From ₹199 a month</b>
+          <span class="small">Monthly packs, member prices, early access</span>
+        </a>
+      </div>
+    </div></section>
 
     <section class="section"><div class="wrap">
       <div class="sec-head reveal">
@@ -316,18 +407,26 @@
         <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
       </div>
       <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
-      <div id="homeSentinel" class="center">
-        <span class="small muted">Loading more designs…</span>
-      </div>
+      <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
     </div></section>`;
   }
 
+  /* how long the bag has been sitting there */
+  function abandonedCart() {
+    const raw = LS.getItem('sd_cart_at');
+    if (!Store.cart.length || !raw) return 0;
+    const idle = Date.now() - Number(raw);
+    return idle > 20 * 60 * 1000 ? Store.cart.length : 0;
+  }
+
   const PAGE = 12;
+  let SHOP_LIST = [];
 
   async function viewShop(params) {
     const data = await api('/api/designs?' + qs({ q: params.q || '', tag: params.tag || 'all', sort: params.sort || 'newest' }));
     const shown = Number(params.show || PAGE);
     const visible = data.designs.slice(0, shown);
+    SHOP_LIST = data.designs;
     return `<div class="wrap">
       <div class="crumbs"><a href="#/">Home</a> / Designs</div>
       <div class="sec-head" style="margin-top:16px">
@@ -344,10 +443,8 @@
         ${data.tags.length > 9 ? `<button class="filter-chip more" id="chipsMore">+${data.tags.length - 9} more</button>` : ''}
         ${data.tags.slice(9).map(t => `<a class="filter-chip extra hide ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
       </div>
-      ${data.designs.length ? `<div class="pgrid" style="padding:26px 0 12px">${visible.map(d => designCard(d)).join('')}</div>
-        ${data.designs.length > visible.length ? `<div class="center" style="padding-bottom:52px">
-          <button class="btn btn-ghost" id="loadMore">Show ${Math.min(PAGE, data.designs.length - visible.length)} more of ${data.designs.length}</button>
-        </div>` : '<div style="height:50px"></div>'}`
+      ${data.designs.length ? `<div class="pgrid" id="shopGrid" style="padding:26px 0 12px">${visible.map(d => designCard(d)).join('')}</div>
+        <div id="shopSentinel" class="center"><span class="small muted">${data.designs.length > visible.length ? 'Loading more designs…' : ''}</span></div>`
         : `<div class="empty" style="margin:26px 0 62px"><h3>Nothing here</h3><p class="muted small">Try another tag or clear the search.</p><a class="btn btn-primary" href="#/designs" style="margin-top:8px">See everything</a></div>`}
     </div>`;
   }
@@ -614,6 +711,107 @@
       </div>
       <a class="btn btn-ghost" href="#/downloads" style="margin-top:22px">Find an order</a>
     </div>`;
+  }
+
+  async function viewOffers() {
+    const [pr, cps] = await Promise.all([promos(), api('/api/coupons')]);
+    const flash = pr.flash || {}, bulk = pr.bulk || [], gift = pr.gift || {};
+    const picks = cps.coupons.filter(c => ['WELCOME', 'FESTIVE15', 'DIWALI20', 'REFER15', 'SAVE10', 'THANKYOO10', 'THANKYOU10'].includes(c.code));
+    const ref = referralCode();
+    return `<div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a> / Offers</div>
+      <div class="sec-head" style="margin-top:14px">
+        <div><span class="eyebrow">Save more</span><h1 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-top:6px">Offers &amp; coupons</h1>
+          <p>Automatic discounts apply on their own. Codes are applied at checkout.</p></div>
+      </div>
+
+      <div class="offer-hero-grid">
+        ${flash.live ? `<div class="card offer-big flash">
+          <span class="eyebrow">Flash sale · limited time</span>
+          <h3>${flash.percent}% off every design</h3>
+          <p class="small muted">${esc(flash.note || '')}</p>
+          <div class="flash-clock big">Ends in <b data-ends="${esc(flash.ends_at)}">—</b></div>
+          <a class="btn btn-gold" href="#/designs">Shop the sale ${I.arrow}</a>
+        </div>` : ''}
+        <div class="card offer-big">
+          <span class="eyebrow">Buy more, save more</span>
+          <h3>Up to ${bulk.length ? bulk[0].percent : 20}% off</h3>
+          <ul class="tick-list">${bulk.slice().reverse().map(b => `<li>Buy ${b.qty} designs → <b>${b.percent}% off</b></li>`).join('')}</ul>
+          <a class="btn btn-ghost" href="#/designs">Build a bundle</a>
+        </div>
+        <div class="card offer-big">
+          <span class="eyebrow">Free gift</span>
+          <h3>Free design from ${money(gift.min_subtotal || 999)}</h3>
+          <p class="small muted">Spend ${money(gift.min_subtotal || 999)} and the cheapest design in the shop is added to your ZIP at no cost.</p>
+          <a class="btn btn-ghost" href="#/designs">Start a bag</a>
+        </div>
+      </div>
+
+      <div class="card offer-big" style="margin-top:16px">
+        <span class="eyebrow">Spin &amp; win</span>
+        <h3>Try your luck once a day</h3>
+        <p class="small muted">One spin per day, one code, straight into your bag.</p>
+        <button class="btn btn-primary" id="spinBtn">${I.tag} Spin the wheel</button>
+        <span class="small muted" id="spinResult" style="margin-left:10px"></span>
+      </div>
+
+      <div class="card offer-big" style="margin-top:16px">
+        <span class="eyebrow">Refer a friend</span>
+        <h3>Give 15%, get 15%</h3>
+        <p class="small muted">Share your link. They save 15% with <b class="mono">REFER15</b>, and you both keep the savings.</p>
+        <div class="ref-row"><input class="input mono" id="refLink" readonly value="${esc(location.origin + BASE + '?ref=' + ref)}"><button class="btn btn-ghost" id="refCopy">Copy link</button></div>
+      </div>
+
+      <h3 class="offer-head" style="margin-top:26px">Coupon codes</h3>
+      <div class="promo-row" style="padding-bottom:12px">
+        ${picks.map(c => `<div class="promo-card">
+          <span class="eyebrow">${esc(c.code)}</span>
+          <b>${c.type === 'percent' ? c.value + '% off' : money(c.value) + ' off'}</b>
+          <span class="small">${esc(c.note || '')}${c.minOrder ? ` · min ${money(c.minOrder)}` : ''}</span>
+        </div>`).join('')}
+      </div>
+      <div class="center" style="padding:10px 0 60px"><a class="btn btn-ghost" href="#/designs">See all ${cps.coupons.length} codes at checkout ${I.arrow}</a></div>
+    </div>`;
+  }
+
+  async function viewVip() {
+    const pr = await promos();
+    const plans = (pr.vip && pr.vip.plans) || [];
+    const perks = [
+      ['Exclusive collections', 'Designs that never reach the public shop'],
+      ['Member-only prices', 'An extra 10% off every order, on top of any code'],
+      ['Monthly design packs', 'Three new designs land in your downloads each month'],
+      ['Early access', 'New drops open to members 48 hours early'],
+      ['Bundle pricing', 'Any five designs for one flat member price']
+    ];
+    return `<div class="wrap narrow">
+      <div class="crumbs"><a href="#/">Home</a> / Sandya VIP</div>
+      <span class="eyebrow">Membership</span>
+      <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:8px 0 12px">Sandya Emb VIP</h1>
+      <p class="prose">A small studio subscription for people who sew often. Cancel any time — nothing is locked, and the designs you have already downloaded stay yours.</p>
+      <ul class="tick-list big">${perks.map(([t, s]) => `<li><b>${t}</b><span>${s}</span></li>`).join('')}</ul>
+      <div class="plan-grid">
+        ${plans.map(p => `<div class="card plan ${p.id === 'quarterly' ? 'best' : ''}">
+          ${p.id === 'quarterly' ? '<span class="plan-flag">Most popular</span>' : ''}
+          <h3>${esc(p.name)}</h3>
+          <div class="plan-price"><b>${money(p.price)}</b></div>
+          <p class="small muted">${esc(p.note || '')}</p>
+          <button class="btn ${p.id === 'quarterly' ? 'btn-primary' : 'btn-ghost'} btn-block" data-plan="${esc(p.id)}">Join ${esc(p.name)}</button>
+        </div>`).join('')}
+      </div>
+      <p class="small muted" style="margin-top:18px">Memberships are activated by the studio within 24 hours of the UPI payment — you will get a confirmation on your order page.</p>
+      <div class="center" style="padding:22px 0 60px"><a class="btn btn-ghost" href="#/contact">Questions? Talk to us</a></div>
+    </div>`;
+  }
+
+  /* a stable referral code for this browser */
+  function referralCode() {
+    let id = LS.getItem('sd_ref_id');
+    if (!id) {
+      id = Math.random().toString(36).slice(2, 8).toUpperCase();
+      LS.setItem('sd_ref_id', id);
+    }
+    return 'SANDYA' + id;
   }
 
   async function viewSaved() {
@@ -1029,6 +1227,57 @@
     if (w) { w.textContent = Store.wish.length; w.style.display = Store.wish.length ? 'grid' : 'none'; }
   }
 
+  const SPIN_POOL = ['SAVE5', 'THANKYOU10', 'FLAT50', 'SAVE10', 'REFER15', 'FLAT75'];
+
+  async function spinWin() {
+    const today = new Date().toISOString().slice(0, 10);
+    if (LS.getItem('sd_spin_day') === today) {
+      const won = LS.getItem('sd_spin_code');
+      toast(won ? `Today's code is ${won} — spin again tomorrow.` : 'You have spun today. Come back tomorrow.', '');
+      const out = $('#spinResult'); if (out && won) out.innerHTML = `Today: <b class="mono">${esc(won)}</b>`;
+      return;
+    }
+    const btn = $('#spinBtn');
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Spinning…'; }
+    const out = $('#spinResult');
+    let ticks = 0;
+    const roll = setInterval(() => { if (out) out.textContent = SPIN_POOL[ticks % SPIN_POOL.length]; ticks++; }, 90);
+    await new Promise(r => setTimeout(r, 1400));
+    clearInterval(roll);
+    const won = SPIN_POOL[Math.floor(Math.random() * SPIN_POOL.length)];
+    LS.setItem('sd_spin_day', today);
+    LS.setItem('sd_spin_code', won);
+    if (out) out.innerHTML = `You won <b class="mono">${esc(won)}</b> — apply it at checkout.`;
+    if (btn) { btn.disabled = false; btn.innerHTML = `${I.tag} Spin again tomorrow`; }
+    toast(`You won ${won}`, 'ok');
+  }
+
+  async function joinVip(planId) {
+    const pr = await promos();
+    const plan = ((pr.vip && pr.vip.plans) || []).find(p => p.id === planId);
+    if (!plan) return;
+    const m = $('#modal');
+    m.innerHTML = `<div class="modal">
+      <header><div><span class="eyebrow">Sandya VIP</span><h3 style="margin-top:2px">${esc(plan.name)} membership</h3></div>
+        <button class="icon-btn" id="mClose" aria-label="Close">✕</button></header>
+      <p class="small muted">Pay ${money(plan.price)} by UPI with the note <b class="mono">VIP ${esc(plan.name).toUpperCase()}</b>. The studio activates it within 24 hours.</p>
+      <div class="qr-frame" id="vipQr"></div>
+      <p class="small mono" style="text-align:center;margin:12px 0 4px">${esc(Store.settings.upi_id)}</p>
+      <p class="small muted" style="text-align:center">Amount ${money(plan.price)} · ${esc(plan.note || '')}</p>
+      <button class="btn btn-ghost btn-block" id="vipCopy">Copy UPI ID</button>
+    </div>`;
+    m.classList.add('on');
+    $('#mClose').onclick = () => m.classList.remove('on');
+    $('#vipCopy').onclick = async () => {
+      try { await navigator.clipboard.writeText(Store.settings.upi_id); toast('UPI ID copied', 'ok'); }
+      catch { toast('Copy failed — long press the ID above.', 'bad'); }
+    };
+    const upi = Store.settings.upi_id;
+    const link = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent(Store.settings.store_name)}&am=${plan.price.toFixed(2)}&cu=INR&tn=${encodeURIComponent('VIP ' + plan.name)}`;
+    const box = $('#vipQr');
+    if (box) { try { box.innerHTML = qrSvg(link, 6); } catch (e) { box.textContent = upi; } }
+  }
+
   function openDrawer() {
     const dr = $('#drawer');
     dr.innerHTML = `<header><h3>Your bag (${Store.count})</h3><button class="icon-btn" id="closeDrawer">${I.close}</button></header>
@@ -1143,6 +1392,7 @@
 
   async function render() {
     progress(true);
+    await promos();
     const { parts, params } = parseHash();
     const app = $('#app');
     const seg = parts[0] || 'home';
@@ -1157,6 +1407,8 @@
       else if (seg === 'saved') { view = await viewSaved(); active = 'saved'; }
       else if (seg === 'downloads') { view = await viewDownloads(); active = 'downloads'; }
       else if (seg === 'categories') { view = await viewCategories(); active = 'categories'; }
+      else if (seg === 'offers') { view = await viewOffers(); active = 'offers'; }
+      else if (seg === 'vip') { view = await viewVip(); active = 'vip'; }
       else if (seg === 'about') { view = await viewAbout(); active = 'about'; }
       else if (seg === 'contact') { view = await viewContact(); active = 'contact'; }
       else if (seg === 'checkout') view = await viewCheckout();
@@ -1190,7 +1442,9 @@
       m.innerHTML = `<div class="modal"><header><h3>Menu</h3><button class="icon-btn" id="mClose">${I.close}</button></header>
         <div class="stack">
           <a class="btn btn-ghost btn-block" href="#/">Home</a>
-          <a class="btn btn-ghost btn-block" href="#/designs">All designs</a>
+          <a class="btn btn-ghost btn-block" href="#/categories">Categories</a>
+          <a class="btn btn-ghost btn-block" href="#/offers">Offers</a>
+          <a class="btn btn-ghost btn-block" href="#/vip">Sandya VIP</a>
           <a class="btn btn-ghost btn-block" href="#/downloads">My downloads</a>
           <a class="btn btn-ghost btn-block" href="#/saved">Saved designs</a>
         </div></div>`;
@@ -1200,6 +1454,54 @@
     };
     wireFavDelegation();
     wirePage();
+
+    const hs = $('#heroSearch');
+    if (hs) hs.onsubmit = e => {
+      e.preventDefault();
+      const q = new FormData(hs).get('q').trim();
+      go(q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs');
+    };
+    startCountdowns();
+
+    const rd = $('#resumeDismiss');
+    if (rd) rd.onclick = () => { LS.removeItem('sd_cart_at'); const bar = rd.closest('.resume-bar'); if (bar) bar.remove(); };
+
+    const spin = $('#spinBtn');
+    if (spin) spin.onclick = () => spinWin();
+
+    const refCopy = $('#refCopy');
+    if (refCopy) refCopy.onclick = async () => {
+      const el = $('#refLink');
+      try { await navigator.clipboard.writeText(el.value); toast('Referral link copied', 'ok'); }
+      catch { el.select(); toast('Referral link copied', 'ok'); }
+    };
+
+    $$('[data-plan]').forEach(b => b.onclick = () => joinVip(b.dataset.plan));
+
+    const shopSentinel = $('#shopSentinel');
+    if (shopSentinel && SHOP_LIST.length) {
+      let shown = PAGE, busy = false;
+      const grid = $('#shopGrid');
+      const done = () => { shopSentinel.innerHTML = `<span class="small muted">That is all ${SHOP_LIST.length} designs.</span>`; };
+      const loadBatch = () => {
+        if (busy) return;
+        if (shown >= SHOP_LIST.length) { done(); return; }
+        busy = true;
+        const next = SHOP_LIST.slice(shown, shown + PAGE);
+        grid.insertAdjacentHTML('beforeend', next.map(d => designCard(d)).join(''));
+        wirePage();
+        shown += next.length;
+        busy = false;
+        if (shown >= SHOP_LIST.length) done();
+      };
+      if (window.__shopIO) window.__shopIO.disconnect();
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) loadBatch(); }, { rootMargin: '500px 0px' });
+        io.observe(shopSentinel);
+        window.__shopIO = io;
+      }
+      if (SHOP_LIST.length <= PAGE) done();
+    }
 
     const loadMore = $('#loadMore');
     if (loadMore) loadMore.onclick = () => {

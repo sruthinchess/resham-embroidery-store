@@ -817,7 +817,53 @@
   "min_price": 60,
   "max_price": 500,
   "price_per_1k_stitches": 50,
-  "welcome_once": true
+  "welcome_once": true,
+  "flash": {
+   "active": true,
+   "percent": 15,
+   "label": "Weekend flash sale",
+   "note": "15% off every design, automatically applied"
+  },
+  "bulk": [
+   {
+    "qty": 3,
+    "percent": 5
+   },
+   {
+    "qty": 5,
+    "percent": 10
+   },
+   {
+    "qty": 10,
+    "percent": 20
+   }
+  ],
+  "gift": {
+   "min_subtotal": 999,
+   "label": "Free design unlocked"
+  },
+  "vip": {
+   "plans": [
+    {
+     "id": "monthly",
+     "name": "Monthly",
+     "price": 199,
+     "note": "Billed every month, cancel any time"
+    },
+    {
+     "id": "quarterly",
+     "name": "Quarterly",
+     "price": 499,
+     "note": "Three months, save \u20b998"
+    },
+    {
+     "id": "yearly",
+     "name": "Yearly",
+     "price": 1499,
+     "note": "Twelve months, save \u20b9889"
+    }
+   ]
+  }
  },
  "designs": [
   {
@@ -6908,6 +6954,747 @@
      "note": "Pfaff \u00b7 Husqvarna Viking",
      "file": "Sun-Flame.vp3",
      "bytes": 6292
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "blossom-girl",
+   "name": "Blossom Girl",
+   "source": "pack",
+   "dir": "src/designs/blossom-girl",
+   "previewImg": "img/blossom-girl.png",
+   "stitchImg": "img/blossom-girl-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "character",
+    "kids",
+    "hoop"
+   ],
+   "sewMinutes": 11,
+   "summary": "Cartoon girl with blonde pigtails, big blue eyes and blue dress.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7533,
+   "widthMm": 80.3,
+   "heightMm": 90,
+   "colorCount": 7,
+   "trims": 297,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#fdd140",
+     "stitches": 787
+    },
+    {
+     "name": "",
+     "hex": "#f8dcca",
+     "stitches": 624
+    },
+    {
+     "name": "",
+     "hex": "#f8fafa",
+     "stitches": 644
+    },
+    {
+     "name": "",
+     "hex": "#95afd1",
+     "stitches": 741
+    },
+    {
+     "name": "",
+     "hex": "#e9cc6b",
+     "stitches": 741
+    },
+    {
+     "name": "",
+     "hex": "#39332d",
+     "stitches": 2220
+    },
+    {
+     "name": "",
+     "hex": "#080607",
+     "stitches": 1776
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Blossom-Girl.pes",
+     "bytes": 56448
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Blossom-Girl.dst",
+     "bytes": 26636
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Blossom-Girl.jef",
+     "bytes": 17504
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Blossom-Girl.exp",
+     "bytes": 18510
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Blossom-Girl.vp3",
+     "bytes": 17294
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "koi-yinyang",
+   "name": "Koi YinYang",
+   "source": "pack",
+   "dir": "src/designs/koi-yinyang",
+   "previewImg": "img/koi-yinyang.png",
+   "stitchImg": "img/koi-yinyang-stitch.png",
+   "price": 100,
+   "mrp": 170,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "symbol",
+    "koi",
+    "cushion"
+   ],
+   "sewMinutes": 3,
+   "summary": "Two koi fish circling to form a yin yang, solid black.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 1982,
+   "widthMm": 73.8,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 15,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#070707",
+     "stitches": 1982
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Koi-YinYang.pes",
+     "bytes": 13668
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Koi-YinYang.dst",
+     "bytes": 6647
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Koi-YinYang.jef",
+     "bytes": 4226
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Koi-YinYang.exp",
+     "bytes": 4152
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Koi-YinYang.vp3",
+     "bytes": 4392
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "om-sunburst",
+   "name": "Om Sunburst",
+   "source": "pack",
+   "dir": "src/designs/om-sunburst",
+   "previewImg": "img/om-sunburst.png",
+   "stitchImg": "img/om-sunburst-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "devotional",
+    "om",
+    "jersey"
+   ],
+   "sewMinutes": 4,
+   "summary": "Om symbol inside a ring with a radiating sunburst of flames.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2697,
+   "widthMm": 90,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 27,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#030303",
+     "stitches": 2697
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Om-Sunburst.pes",
+     "bytes": 18294
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Om-Sunburst.dst",
+     "bytes": 8915
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Om-Sunburst.jef",
+     "bytes": 5720
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Om-Sunburst.exp",
+     "bytes": 5694
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Om-Sunburst.vp3",
+     "bytes": 5852
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "pumpkin-lantern",
+   "name": "Pumpkin Lantern",
+   "source": "pack",
+   "dir": "src/designs/pumpkin-lantern",
+   "previewImg": "img/pumpkin-lantern.png",
+   "stitchImg": "img/pumpkin-lantern-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "halloween",
+    "kids",
+    "cushion"
+   ],
+   "sewMinutes": 10,
+   "summary": "Halloween jack-o-lantern pumpkin with a green stalk.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7196,
+   "widthMm": 90,
+   "heightMm": 87.7,
+   "colorCount": 3,
+   "trims": 95,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#e28642",
+     "stitches": 2933
+    },
+    {
+     "name": "",
+     "hex": "#7a754e",
+     "stitches": 989
+    },
+    {
+     "name": "",
+     "hex": "#0e0604",
+     "stitches": 3274
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Pumpkin-Lantern.pes",
+     "bytes": 47718
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Pumpkin-Lantern.dst",
+     "bytes": 23336
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Pumpkin-Lantern.jef",
+     "bytes": 15418
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Pumpkin-Lantern.exp",
+     "bytes": 15648
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Pumpkin-Lantern.vp3",
+     "bytes": 15310
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "red-bird",
+   "name": "Red Bird",
+   "source": "pack",
+   "dir": "src/designs/red-bird",
+   "previewImg": "img/red-bird.png",
+   "stitchImg": "img/red-bird-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "bird",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 11,
+   "summary": "Round red bird character with cream belly and yellow beak.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7719,
+   "widthMm": 79.6,
+   "heightMm": 90,
+   "colorCount": 6,
+   "trims": 258,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#cb0526",
+     "stitches": 2190
+    },
+    {
+     "name": "",
+     "hex": "#e4c9ae",
+     "stitches": 574
+    },
+    {
+     "name": "",
+     "hex": "#f3b20c",
+     "stitches": 310
+    },
+    {
+     "name": "",
+     "hex": "#5c3533",
+     "stitches": 2610
+    },
+    {
+     "name": "",
+     "hex": "#f8f8f8",
+     "stitches": 245
+    },
+    {
+     "name": "",
+     "hex": "#141010",
+     "stitches": 1790
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Red-Bird.pes",
+     "bytes": 56209
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Red-Bird.dst",
+     "bytes": 27425
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Red-Bird.jef",
+     "bytes": 18476
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Red-Bird.exp",
+     "bytes": 19334
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Red-Bird.vp3",
+     "bytes": 17720
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "spider-chibi",
+   "name": "Spider Chibi",
+   "source": "pack",
+   "dir": "src/designs/spider-chibi",
+   "previewImg": "img/spider-chibi.png",
+   "stitchImg": "img/spider-chibi-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 10,
+   "summary": "Chibi spider hero hanging from a web strand, red and blue.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7281,
+   "widthMm": 56.6,
+   "heightMm": 90,
+   "colorCount": 5,
+   "trims": 323,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#a92725",
+     "stitches": 1552
+    },
+    {
+     "name": "",
+     "hex": "#3f97c5",
+     "stitches": 370
+    },
+    {
+     "name": "",
+     "hex": "#353534",
+     "stitches": 1221
+    },
+    {
+     "name": "",
+     "hex": "#531716",
+     "stitches": 2088
+    },
+    {
+     "name": "",
+     "hex": "#140e0e",
+     "stitches": 2050
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Spider-Chibi.pes",
+     "bytes": 55134
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Spider-Chibi.dst",
+     "bytes": 26033
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Spider-Chibi.jef",
+     "bytes": 16992
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Spider-Chibi.exp",
+     "bytes": 18118
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Spider-Chibi.vp3",
+     "bytes": 16710
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "tweety-bird",
+   "name": "Tweety Bird",
+   "source": "pack",
+   "dir": "src/designs/tweety-bird",
+   "previewImg": "img/tweety-bird.png",
+   "stitchImg": "img/tweety-bird-stitch.png",
+   "price": 300,
+   "mrp": 510,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "bird",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 7,
+   "summary": "Yellow canary character with orange feet and blue eyes.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 5070,
+   "widthMm": 56,
+   "heightMm": 90,
+   "colorCount": 5,
+   "trims": 253,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#fdf106",
+     "stitches": 1155
+    },
+    {
+     "name": "",
+     "hex": "#f19526",
+     "stitches": 476
+    },
+    {
+     "name": "",
+     "hex": "#f0e936",
+     "stitches": 1404
+    },
+    {
+     "name": "",
+     "hex": "#78947f",
+     "stitches": 501
+    },
+    {
+     "name": "",
+     "hex": "#1c140b",
+     "stitches": 1534
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Tweety-Bird.pes",
+     "bytes": 39912
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Tweety-Bird.dst",
+     "bytes": 18845
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Tweety-Bird.jef",
+     "bytes": 12374
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Tweety-Bird.exp",
+     "bytes": 13220
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Tweety-Bird.vp3",
+     "bytes": 12064
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "yellow-bird",
+   "name": "Yellow Bird",
+   "source": "pack",
+   "dir": "src/designs/yellow-bird",
+   "previewImg": "img/yellow-bird.png",
+   "stitchImg": "img/yellow-bird-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "bird",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 7,
+   "summary": "Triangular yellow bird character with red brows and orange beak.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4945,
+   "widthMm": 89.6,
+   "heightMm": 90,
+   "colorCount": 5,
+   "trims": 63,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#ecdc14",
+     "stitches": 1805
+    },
+    {
+     "name": "",
+     "hex": "#fefefd",
+     "stitches": 518
+    },
+    {
+     "name": "",
+     "hex": "#ae3425",
+     "stitches": 347
+    },
+    {
+     "name": "",
+     "hex": "#f2ae1c",
+     "stitches": 379
+    },
+    {
+     "name": "",
+     "hex": "#131512",
+     "stitches": 1896
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Yellow-Bird.pes",
+     "bytes": 33842
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Yellow-Bird.dst",
+     "bytes": 16148
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Yellow-Bird.jef",
+     "bytes": 10604
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Yellow-Bird.exp",
+     "bytes": 10690
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Yellow-Bird.vp3",
+     "bytes": 10792
     }
    ],
    "defaultFormats": [

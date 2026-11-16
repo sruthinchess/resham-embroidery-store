@@ -100,7 +100,15 @@ const META = {
   'midnight-floral': { featured: 1, badge: 'New', tags: ['floral', 'cushion', 'hoop'] },
   'ornament-mandala': { featured: 0, badge: 'New', tags: ['mandala', 'ornament', 'home'] },
   'shanku-namam-chakra': { featured: 0, badge: 'New', tags: ['devotional', 'symbol', 'jersey'] },
-  'sun-flame': { featured: 0, badge: 'New', tags: ['geometric', 'sun', 'jersey'] }
+  'sun-flame': { featured: 0, badge: 'New', tags: ['geometric', 'sun', 'jersey'] },
+  'blossom-girl': { featured: 1, badge: 'New', tags: ['character', 'kids', 'hoop'] },
+  'koi-yinyang': { featured: 0, badge: 'New', tags: ['symbol', 'koi', 'cushion'] },
+  'om-sunburst': { featured: 0, badge: 'New', tags: ['devotional', 'om', 'jersey'] },
+  'pumpkin-lantern': { featured: 0, badge: 'New', tags: ['halloween', 'kids', 'cushion'] },
+  'red-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] },
+  'spider-chibi': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'tweety-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] },
+  'yellow-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] }
 };
 
 const COPY = {
