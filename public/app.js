@@ -199,11 +199,13 @@
     ]);
     const hero = feat.designs[0] || all.designs[0];
     const stitches = all.designs.reduce((s, d) => s + d.stitchCount, 0);
+    // how many formats this build actually serves (the static build carries the common ones)
+    const fmtCount = Math.max(0, ...all.designs.map(d => (d.formats || []).length));
     return `<div class="hero"><div class="wrap hero-in">
       <div>
         <span class="eyebrow">Digitised by hand · India</span>
         <h1>Embroidery designs,<br>ready for <em>your machine</em>.</h1>
-        <p class="lede">Hand-digitised designs for commercial and home machines, in 24 machine formats. Pick PES, DST, JEF, EXP or any of the others at checkout — you get exactly the files you choose, in one ZIP, the moment your UPI payment clears.</p>
+        <p class="lede">Hand-digitised designs for commercial and home machines, in ${fmtCount} machine formats. Pick PES, DST, JEF, EXP or any of the others at checkout — you get exactly the files you choose, in one ZIP, the moment your UPI payment clears.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#/designs">Browse ${all.designs.length} designs ${I.arrow}</a>
           <a class="btn btn-ghost" href="#/order">I already paid — get my files</a>
@@ -211,7 +213,7 @@
         <div class="hero-stats">
           <div><b>${all.designs.length} designs</b><span>in the library</span></div>
           <div><b>${nf(stitches)}</b><span>stitches digitised</span></div>
-          <div><b>24 formats</b><span>PES · DST · JEF · EXP · VP3 · XXX…</span></div>
+          <div><b>${fmtCount} formats</b><span>PES · DST · JEF · EXP · VP3 · XXX…</span></div>
         </div>
       </div>
       <div class="hero-art">
