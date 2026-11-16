@@ -249,7 +249,9 @@
 
   function header(active) {
     const a = k => (active === k ? 'on' : '');
-    return `<div class="announce">${esc(Store.settings.announcement)}</div>
+    const note = XMAS_LIVE && PROMOS && PROMOS.christmas && PROMOS.christmas.announcement
+      ? PROMOS.christmas.announcement : Store.settings.announcement;
+    return `<div class="announce ${XMAS_LIVE ? 'xmas' : ''}">${esc(note)}</div>
     <header class="hdr" id="hdr"><div class="wrap hdr-in">
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
       <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)}"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
@@ -316,6 +318,7 @@
 
   /* ------------------------------------------------------------------ views */
   let PROMOS = null;
+  let XMAS_LIVE = false;
   async function promos() {
     if (PROMOS) return PROMOS;
     try { PROMOS = await api('/api/promos'); } catch (e) { PROMOS = { flash: {}, bulk: [], gift: {}, vip: {} }; }
@@ -331,6 +334,50 @@
     const sec = Math.floor(left / 1000) % 60;
     const pad = n => String(n).padStart(2, '0');
     return d > 0 ? `${d}d ${pad(h)}h ${pad(m)}m` : `${pad(h)}:${pad(m)}:${pad(sec)}`;
+  }
+
+  function countdownParts(iso) {
+    const left = Math.max(0, new Date(iso).getTime() - Date.now());
+    return {
+      d: Math.floor(left / 86400000),
+      h: Math.floor(left / 3600000) % 24,
+      m: Math.floor(left / 60000) % 60,
+      s: Math.floor(left / 1000) % 60
+    };
+  }
+
+  function startXmasCountdown() {
+    if (window.__xmasTimer) clearInterval(window.__xmasTimer);
+    const tick = () => {
+      const box = document.getElementById('xmasClock');
+      if (!box) { clearInterval(window.__xmasTimer); return; }
+      const p = countdownParts(box.dataset.xmasEnd);
+      const set = (sel, v) => { const el = box.querySelector(sel); if (el) el.textContent = String(v).padStart(2, '0'); };
+      set('[data-d]', p.d); set('[data-h]', p.h); set('[data-m]', p.m); set('[data-s]', p.s);
+    };
+    tick();
+    window.__xmasTimer = setInterval(tick, 1000);
+  }
+
+  function snowLayer(n = 26) {
+    let out = '';
+    for (let i = 0; i < n; i++) {
+      const left = Math.round((i * 97) % 100);
+      const delay = ((i * 7) % 12) / 2;
+      const dur = 9 + ((i * 5) % 9);
+      const size = 3 + (i % 4);
+      out += `<span class="flake" style="left:${left}%;animation-delay:-${delay}s;animation-duration:${dur}s;width:${size}px;height:${size}px"></span>`;
+    }
+    return out;
+  }
+
+  function xmasLights() {
+    let out = '';
+    for (let i = 0; i < 22; i++) {
+      const hue = i % 3;
+      out += `<span class="bulb b${hue}" style="animation-delay:${(i % 6) * 0.25}s"></span>`;
+    }
+    return `<div class="lights" aria-hidden="true">${out}</div>`;
   }
 
   function startCountdowns() {
@@ -354,6 +401,56 @@
     const bulk = pr.bulk || [];
     const gift = pr.gift || {};
     const cartIdle = abandonedCart();
+    const xmas = pr.christmas || {};
+    XMAS_LIVE = !!xmas.live;
+    if (xmas.live) {
+      const picks = all.designs.filter(d => (d.tags || []).includes('christmas')).slice(0, 6);
+      return `<div class="hero xmas">
+        ${snowLayer()}
+        ${xmasLights()}
+        <div class="wrap hero-in solo xmas-in">
+          ${cartIdle ? `<div class="resume-bar">
+            <span>${I.bag} You left ${cartIdle} design${cartIdle > 1 ? 's' : ''} in your bag.</span>
+            <a class="btn btn-primary btn-sm" href="#/cart">Finish the order ${I.arrow}</a>
+          </div>` : ''}
+          <span class="xmas-tag"><svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align:-2px;margin-right:6px"><path d="M12 2 17 10h-3l4 6h-4l4 5H6l4-5H6l4-6H7z" fill="#e8c98d"/><rect x="11" y="21" width="2" height="2" fill="#c9a063"/></svg>${esc(xmas.headline)}</span>
+          <h1 class="xmas-h1">${esc(xmas.sub)}</h1>
+          <div class="xmas-offer">${esc(xmas.offer)}</div>
+          <div class="xmas-clock" id="xmasClock" data-xmas-end="${esc(xmas.end)}">
+            <div><b data-d>00</b><span>days</span></div>
+            <div><b data-h>00</b><span>hours</span></div>
+            <div><b data-m>00</b><span>min</span></div>
+            <div><b data-s>00</b><span>sec</span></div>
+          </div>
+          <div class="hero-cta">
+            <a class="btn xmas-btn" href="#/designs?tag=christmas">Shop Christmas sale ${I.arrow}</a>
+            <a class="btn xmas-ghost" href="#/designs">Explore designs</a>
+          </div>
+        </div>
+        <div class="xmas-trees" aria-hidden="true">
+          <svg viewBox="0 0 120 90"><path d="M60 6 92 50H74l14 24H32l14-24H28z" fill="#0f3d2e"/><rect x="56" y="74" width="8" height="12" fill="#5a3a1e"/></svg>
+          <svg viewBox="0 0 120 90"><path d="M60 6 92 50H74l14 24H32l14-24H28z" fill="#0c3226"/><rect x="56" y="74" width="8" height="12" fill="#5a3a1e"/></svg>
+        </div>
+      </div>
+
+      <section class="section tight"><div class="wrap">
+        <div class="sec-head reveal">
+          <div><span class="eyebrow">Christmas special</span><h2>Christmas embroidery collection</h2>
+            <p>Wreaths, ornaments, damask and florals that suit the season — ${xmas.percent}% off while the sale runs.</p></div>
+          <a class="btn btn-ghost btn-sm" href="#/designs?tag=christmas">See all ${all.designs.filter(d => (d.tags || []).includes('christmas')).length} ${I.arrow}</a>
+        </div>
+        <div class="pgrid two">${picks.map(d => designCard(d, { noBuy: true })).join('')}</div>
+      </div></section>
+
+      <section class="section"><div class="wrap">
+        <div class="sec-head reveal">
+          <div><span class="eyebrow">The library</span><h2>All designs</h2></div>
+          <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
+        </div>
+        <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
+        <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
+      </div></section>`;
+    }
     return `<div class="hero"><div class="wrap hero-in solo">
       ${cartIdle ? `<div class="resume-bar">
         <span>${I.bag} You left ${cartIdle} design${cartIdle > 1 ? 's' : ''} in your bag.</span>
@@ -1392,6 +1489,7 @@
 
   async function render() {
     progress(true);
+    if (window.__xmasTimer) { clearInterval(window.__xmasTimer); window.__xmasTimer = null; }
     await promos();
     const { parts, params } = parseHash();
     const app = $('#app');
@@ -1462,6 +1560,7 @@
       go(q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs');
     };
     startCountdowns();
+    startXmasCountdown();
 
     const rd = $('#resumeDismiss');
     if (rd) rd.onclick = () => { LS.removeItem('sd_cart_at'); const bar = rd.closest('.resume-bar'); if (bar) bar.remove(); };

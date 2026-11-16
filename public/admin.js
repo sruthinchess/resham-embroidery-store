@@ -297,6 +297,10 @@
               <div class="field"><label>Payee name</label><input class="input" name="payee_name" value="${esc(settings.payee_name || '')}"></div>
             </div>
             <div class="grid-3">
+              <div class="field"><label>Christmas sale · start</label><input class="input" name="christmas_start" value="${esc(settings.christmas_start || (settings.christmas && settings.christmas.start) || '')}" placeholder="2026-12-01T00:00:00+05:30"></div>
+              <div class="field"><label>Christmas sale · end</label><input class="input" name="christmas_end" value="${esc(settings.christmas_end || (settings.christmas && settings.christmas.end) || '')}" placeholder="2026-12-30T23:59:59+05:30"></div>
+              <div class="field"><label>Christmas sale · % off</label><input class="input" name="christmas_percent" type="number" min="0" max="90" value="${esc(settings.christmas_percent || (settings.christmas && settings.christmas.percent) || 20)}"></div>
+              <div class="field"><label>Christmas sale · enabled</label><select class="select" name="christmas_enabled"><option value="true" ${String(settings.christmas_enabled ?? (settings.christmas && settings.christmas.enabled)) === 'true' ? 'selected' : ''}>On — runs automatically between the dates</option><option value="false" ${String(settings.christmas_enabled ?? (settings.christmas && settings.christmas.enabled)) === 'false' ? 'selected' : ''}>Off</option></select></div>
               <div class="field"><label>Price per 1,000 stitches (₹)</label><input class="input" name="price_per_1k_stitches" type="number" min="1" value="${settings.price_per_1k_stitches || 50}"></div>
               <div class="field"><label>Min price (₹)</label><input class="input" name="min_price" type="number" min="0" value="${settings.min_price || 60}"></div>
               <div class="field"><label>Max price (₹)</label><input class="input" name="max_price" type="number" min="1" value="${settings.max_price || 500}"></div>

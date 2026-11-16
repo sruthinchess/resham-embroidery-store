@@ -84,9 +84,47 @@ function flashConfig() {
   ends.setDate(ist.getDate() + (daysToSunday === 0 ? 0 : daysToSunday));
   ends.setHours(23, 59, 59, 999);
   const endsUtc = new Date(ends.getTime() - (5.5 * 60 - now.getTimezoneOffset()) * 60000);
-  const live = !!cfg.active && endsUtc > now;
+  const live = !!cfg.active && endsUtc > now && !christmasLive();
   return { active: !!cfg.active, live, percent: num(cfg.percent, 0), label: cfg.label || 'Flash sale',
            note: cfg.note || '', ends_at: endsUtc.toISOString() };
+}
+
+function christmasLive() {
+  const cfg = getJSON('christmas', {}) || {};
+  const sStart = getSetting('christmas_start', null);
+  const sEnd = getSetting('christmas_end', null);
+  const sOn = getSetting('christmas_enabled', null);
+  const start = new Date(sStart || cfg.start || 0).getTime();
+  const end = new Date(sEnd || cfg.end || 0).getTime();
+  const on = (sOn === null || sOn === undefined || sOn === '') ? !!cfg.enabled : (String(sOn) === 'true' || String(sOn) === '1');
+  const now = Date.now();
+  return on && start && end && now >= start && now <= end;
+}
+
+/* Christmas runs by itself between the dates in settings, Asia/Kolkata */
+function christmasConfig() {
+  const cfg = getJSON('christmas', {}) || {};
+  const sStart = getSetting('christmas_start', null);
+  const sEnd = getSetting('christmas_end', null);
+  const sPct = getSetting('christmas_percent', null);
+  const sOn = getSetting('christmas_enabled', null);
+  if (sStart) cfg.start = sStart;
+  if (sEnd) cfg.end = sEnd;
+  if (sPct) cfg.percent = Number(sPct);
+  if (sOn !== null && sOn !== undefined && sOn !== '') cfg.enabled = String(sOn) === 'true' || String(sOn) === '1';
+  const now = Date.now();
+  const start = cfg.start ? new Date(cfg.start).getTime() : 0;
+  const end = cfg.end ? new Date(cfg.end).getTime() : 0;
+  const live = !!cfg.enabled && !!start && !!end && now >= start && now <= end;
+  return {
+    enabled: !!cfg.enabled, live, start: cfg.start || null, end: cfg.end || null,
+    percent: num(cfg.percent, 20), collection_percent: num(cfg.collection_percent, 30),
+    bundle_percent: num(cfg.bundle_percent, 50),
+    headline: cfg.headline || 'Christmas Mega Sale',
+    sub: cfg.sub || 'Celebrate Christmas with beautiful embroidery designs',
+    offer: cfg.offer || 'Up to 50% off',
+    announcement: cfg.announcement || ''
+  };
 }
 
 function bulkConfig() {
@@ -227,6 +265,7 @@ app.get('/api/promos', (req, res) => {
   const rows = db.prepare('SELECT price FROM designs WHERE active = 1').all();
   ok(res, {
     flash: flashConfig(),
+    christmas: christmasConfig(),
     bulk: bulkConfig(),
     gift: giftConfig(),
     vip: getJSON('vip', {}),
@@ -258,11 +297,14 @@ app.post('/api/orders', (req, res) => {
     let formats = Array.isArray(raw.formats) ? raw.formats.filter(f => allowed.includes(f)) : [];
     if (!formats.length) formats = jparse(row.default_formats, []).length ? jparse(row.default_formats, []) : allowed.slice();
     // one price per machine format — two formats cost twice as much
-    const linePrice = Math.round(row.price * formats.length * 100) / 100;
+    let linePrice = Math.round(row.price * formats.length * 100) / 100;
+    const xmas = christmasConfig();
+    const isXmas = xmas.live && jparse(row.tags, []).includes('christmas');
+    if (isXmas) linePrice = Math.round(linePrice * (1 - xmas.percent / 100) * 100) / 100;
     amount += linePrice;
     lines.push({
       designId: row.id, slug: row.slug, name: row.name, price: linePrice, unitPrice: row.price,
-      formats, stitchCount: row.stitch_count, hoop: row.hoop,
+      formats, stitchCount: row.stitch_count, hoop: row.hoop, christmas: isXmas,
       preview: row.preview_img ? `/${row.preview_img}` : null
     });
   }
@@ -532,7 +574,8 @@ app.get('/api/admin/settings', requireAdmin, (req, res) => {
   ok(res, { settings: s });
 });
 app.put('/api/admin/settings', requireAdmin, (req, res) => {
-  const allowed = ['store_name', 'tagline', 'announcement', 'support_email', 'upi_id', 'payee_name', 'link_hours', 'auto_approve', 'price_per_1k_stitches', 'min_price', 'max_price'];
+  const allowed = ['store_name', 'tagline', 'announcement', 'support_email', 'upi_id', 'payee_name', 'link_hours', 'auto_approve', 'price_per_1k_stitches', 'min_price', 'max_price',
+                     'christmas_start', 'christmas_end', 'christmas_percent', 'christmas_enabled'];
   for (const k of allowed) if (req.body[k] !== undefined) setSetting(k, req.body[k]);
   ok(res, { message: 'Settings saved.' });
 });

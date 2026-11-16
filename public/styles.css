@@ -1249,3 +1249,94 @@ a.body h3 { margin: 0; }
   .resume-bar { font-size: 12px; }
   .plan-price b { font-size: 1.7rem; }
 }
+
+/* =========================================================================
+   Christmas campaign — only rendered while the sale is live
+   ========================================================================= */
+.hero.xmas {
+  position: relative; overflow: hidden; color: #fdf7ec;
+  background:
+    radial-gradient(900px 420px at 50% -10%, rgba(212, 175, 106, .22), transparent 70%),
+    linear-gradient(180deg, #0b2a20 0%, #0d3527 45%, #0a241b 100%);
+}
+.hero.xmas::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(600px 300px at 50% 120%, rgba(212, 175, 106, .14), transparent 70%);
+}
+.xmas-in { position: relative; z-index: 2; padding: 44px 0 40px; }
+.xmas-tag {
+  display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .22em;
+  text-transform: uppercase; color: #f3d9a4; border: 1px solid rgba(212, 175, 106, .45);
+  padding: 7px 14px; border-radius: 999px; background: rgba(0, 0, 0, .2);
+}
+.xmas-h1 {
+  color: #fff8ea; font-size: clamp(1.9rem, 5vw, 3.1rem); line-height: 1.1;
+  margin: 16px auto 10px; max-width: 18ch; text-wrap: balance;
+}
+.xmas-offer {
+  display: inline-block; margin: 6px 0 16px; padding: 9px 20px; border-radius: 999px;
+  background: linear-gradient(180deg, #e8c98d, #c9a063); color: #241d12;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
+}
+.xmas-clock { display: flex; gap: 10px; justify-content: center; margin: 6px 0 22px; }
+.xmas-clock div {
+  min-width: 66px; padding: 10px 8px; border-radius: 12px; text-align: center;
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(212, 175, 106, .3);
+  backdrop-filter: blur(4px);
+}
+.xmas-clock b { display: block; font-family: var(--mono); font-size: 1.35rem; color: #fff8ea; }
+.xmas-clock span { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: #cbb98f; }
+.xmas-btn {
+  background: linear-gradient(180deg, #f0d9a8, #d0a969); color: #241d12;
+  box-shadow: 0 18px 34px -20px rgba(212, 175, 106, .9);
+}
+.xmas-ghost { background: transparent; border: 1px solid rgba(255, 248, 234, .45); color: #fff8ea; }
+.xmas-ghost:hover { background: rgba(255, 255, 255, .1); }
+
+/* string of lights */
+.lights {
+  position: absolute; top: 0; left: 0; right: 0; height: 26px; z-index: 3;
+  display: flex; justify-content: space-between; padding: 0 12px;
+  border-top: 2px solid rgba(212, 175, 106, .35);
+  border-radius: 0 0 50% 50% / 0 0 14px 14px;
+}
+.bulb {
+  width: 8px; height: 11px; border-radius: 50% 50% 45% 45%; margin-top: 3px;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.bulb.b0 { background: #d94f4f; box-shadow: 0 0 10px 2px rgba(217, 79, 79, .7); }
+.bulb.b1 { background: #e8c98d; box-shadow: 0 0 10px 2px rgba(232, 201, 141, .7); }
+.bulb.b2 { background: #57a06f; box-shadow: 0 0 10px 2px rgba(87, 160, 111, .7); }
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* snowfall */
+.flake {
+  position: absolute; top: -12px; border-radius: 50%; background: #fff; opacity: .75; z-index: 1;
+  animation-name: fall; animation-timing-function: linear; animation-iteration-count: infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(-20px) translateX(0); opacity: 0; }
+  10% { opacity: .8; }
+  100% { transform: translateY(560px) translateX(26px); opacity: 0; }
+}
+.xmas-trees {
+  position: absolute; bottom: -6px; left: 0; right: 0; display: flex; justify-content: space-between;
+  padding: 0 14px; opacity: .55; z-index: 1; pointer-events: none;
+}
+.xmas-trees svg { width: 92px; height: 70px; }
+@media (max-width: 900px) {
+  .xmas-in { padding: 34px 0 30px; }
+  .xmas-clock div { min-width: 54px; padding: 8px 6px; }
+  .xmas-clock b { font-size: 1.1rem; }
+  .xmas-trees svg { width: 58px; height: 46px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flake, .bulb { animation: none; }
+  .flake { display: none; }
+}
+
+/* christmas hero fixes */
+.hero.xmas h1.xmas-h1, .hero h1.xmas-h1 { color: #fff8ea !important; }
+.hero.xmas { min-height: 0; }
+.xmas-clock div b { color: #fff8ea; }
+.announce.xmas { background: #0b2a20; color: #f3d9a4; border-bottom-color: #1d4a37; }

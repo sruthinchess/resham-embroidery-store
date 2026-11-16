@@ -862,5 +862,17 @@
         "note": "Twelve months, save \u20b9889"
       }
     ]
+  },
+  "christmas": {
+    "enabled": true,
+    "start": "2026-12-01T00:00:00+05:30",
+    "end": "2026-12-30T23:59:59+05:30",
+    "percent": 20,
+    "collection_percent": 30,
+    "bundle_percent": 50,
+    "headline": "Christmas Mega Sale",
+    "sub": "Celebrate Christmas with beautiful embroidery designs",
+    "offer": "Up to 50% off",
+    "announcement": "CHRISTMAS MEGA SALE \u00b7 20-50% OFF \u00b7 1-30 DECEMBER"
   }
 }

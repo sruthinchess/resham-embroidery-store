@@ -15,6 +15,7 @@
  * Re-runnable: the catalogue is rebuilt from scratch each time.
  */
 const fs = require('fs');
+const crypto = require('crypto');
 const path = require('path');
 const { readDst } = require('../src/dst.js');
 
@@ -28,6 +29,10 @@ const MAX = Number(SETTINGS.max_price || 500);
 const priceFor = stitches => Math.max(MIN, Math.min(MAX, Math.ceil((stitches || 0) / 1000) * RATE));
 const OUT_DIR = path.join(ROOT, 'src', 'designs');
 const IMG_DIR = path.join(ROOT, 'public', 'img');
+
+const CHRISTMAS = new Set(['autumn-wreath', 'ornament-mandala', 'teal-damask', 'ornamental-spray',
+  'damask-ornament', 'pinwheel-burst', 'midnight-floral', 'floral-sprig', 'tulip', 'koi-yinyang',
+  'red-bird', 'yellow-bird', 'blue-bird-logo', 'squirrel', 'snow']);
 
 const META = {
   'floral-spray': { featured: 1, badge: 'Bestseller', tags: ['floral', 'botanical', 'hoop'] },
@@ -108,7 +113,17 @@ const META = {
   'red-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] },
   'spider-chibi': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
   'tweety-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] },
-  'yellow-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] }
+  'yellow-bird': { featured: 0, badge: 'New', tags: ['bird', 'kids', 'jersey'] },
+  'blue-bird-logo': { featured: 0, badge: 'New', tags: ['logo', 'bird', 'jersey'] },
+  'ghost-headphones': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'lingam-trishul': { featured: 1, badge: 'New', tags: ['devotional', 'shiv', 'hoop'] },
+  'mahadev-word': { featured: 0, badge: 'New', tags: ['devotional', 'mahadev', 'jersey'] },
+  'ornamental-spray': { featured: 0, badge: 'New', tags: ['floral', 'ornament', 'cushion'] },
+  'ram-archer': { featured: 1, badge: 'New', tags: ['devotional', 'ram', 'hoop'] },
+  'sasuke-chibi': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'squirrel': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'hoop'] },
+  'teal-damask': { featured: 0, badge: 'New', tags: ['damask', 'ornament', 'home'] },
+  'tulip': { featured: 0, badge: 'New', tags: ['floral', 'tulip', 'hoop'] }
 };
 
 const COPY = {
@@ -223,7 +238,8 @@ for (const pack of packs) {
       dir: `src/designs/${slug}`,
       previewImg: `img/${slug}.png`,
       stitchImg: stitchName ? `img/${slug}-stitch.png` : null,
-      price, mrp, pricePer1k: RATE, badge: p.badge, featured: p.featured, tags: p.tags,
+      price, mrp, pricePer1k: RATE, badge: p.badge, featured: p.featured,
+      tags: CHRISTMAS.has(slug) ? [...p.tags, 'christmas'] : p.tags,
       sewMinutes: Math.max(1, Math.round((meta.stitchCount || 0) / 700)),
       summary: (COPY[slug] || meta.artwork || '').split('. ')[0] + '.',
       description: COPY[slug] || '',

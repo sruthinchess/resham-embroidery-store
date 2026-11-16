@@ -863,6 +863,18 @@
      "note": "Twelve months, save \u20b9889"
     }
    ]
+  },
+  "christmas": {
+   "enabled": true,
+   "start": "2026-12-01T00:00:00+05:30",
+   "end": "2026-12-30T23:59:59+05:30",
+   "percent": 20,
+   "collection_percent": 30,
+   "bundle_percent": 50,
+   "headline": "Christmas Mega Sale",
+   "sub": "Celebrate Christmas with beautiful embroidery designs",
+   "offer": "Up to 50% off",
+   "announcement": "CHRISTMAS MEGA SALE \u00b7 20-50% OFF \u00b7 1-30 DECEMBER"
   }
  },
  "designs": [
@@ -2656,7 +2668,8 @@
    "tags": [
     "ornament",
     "damask",
-    "home"
+    "home",
+    "christmas"
    ],
    "sewMinutes": 7,
    "summary": "Symmetrical damask ornament in green and red.",
@@ -3444,7 +3457,8 @@
    "tags": [
     "floral",
     "wreath",
-    "home"
+    "home",
+    "christmas"
    ],
    "sewMinutes": 6,
    "summary": "Circular wreath of brown and orange blooms with blue leaves.",
@@ -5857,7 +5871,8 @@
    "tags": [
     "geometric",
     "pinwheel",
-    "kids"
+    "kids",
+    "christmas"
    ],
    "sewMinutes": 5,
    "summary": "Twelve blade pinwheel sunburst, solid black.",
@@ -6247,7 +6262,8 @@
    "tags": [
     "floral",
     "sprig",
-    "border"
+    "border",
+    "christmas"
    ],
    "sewMinutes": 5,
    "summary": "Climbing sprig with blue and red daisies, buds and green leaves.",
@@ -6605,7 +6621,8 @@
    "tags": [
     "floral",
     "cushion",
-    "hoop"
+    "hoop",
+    "christmas"
    ],
    "sewMinutes": 10,
    "summary": "Navy and magenta blooms with teal leaves on a cream ground.",
@@ -6712,7 +6729,8 @@
    "tags": [
     "mandala",
     "ornament",
-    "home"
+    "home",
+    "christmas"
    ],
    "sewMinutes": 9,
    "summary": "Symmetrical mandala with brown scrolls, coral flowers and teal leaves.",
@@ -7085,7 +7103,8 @@
    "tags": [
     "symbol",
     "koi",
-    "cushion"
+    "cushion",
+    "christmas"
    ],
    "sewMinutes": 3,
    "summary": "Two koi fish circling to form a yin yang, solid black.",
@@ -7326,7 +7345,8 @@
    "tags": [
     "bird",
     "kids",
-    "jersey"
+    "jersey",
+    "christmas"
    ],
    "sewMinutes": 11,
    "summary": "Round red bird character with cream belly and yellow beak.",
@@ -7622,7 +7642,8 @@
    "tags": [
     "bird",
     "kids",
-    "jersey"
+    "jersey",
+    "christmas"
    ],
    "sewMinutes": 7,
    "summary": "Triangular yellow bird character with red brows and orange beak.",
@@ -7695,6 +7716,886 @@
      "note": "Pfaff \u00b7 Husqvarna Viking",
      "file": "Yellow-Bird.vp3",
      "bytes": 10792
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "blue-bird-logo",
+   "name": "Blue Bird Logo",
+   "source": "pack",
+   "dir": "src/designs/blue-bird-logo",
+   "previewImg": "img/blue-bird-logo.png",
+   "stitchImg": "img/blue-bird-logo-stitch.png",
+   "price": 300,
+   "mrp": 510,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "logo",
+    "bird",
+    "jersey",
+    "christmas"
+   ],
+   "sewMinutes": 7,
+   "summary": "Bird in flight with a leaf sprig, cyan and navy.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 5198,
+   "widthMm": 90,
+   "heightMm": 83.8,
+   "colorCount": 3,
+   "trims": 210,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#08a7fa",
+     "stitches": 1598
+    },
+    {
+     "name": "",
+     "hex": "#b8ddeb",
+     "stitches": 2389
+    },
+    {
+     "name": "",
+     "hex": "#0a1d24",
+     "stitches": 1211
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Blue-Bird-Logo.pes",
+     "bytes": 38950
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Blue-Bird-Logo.dst",
+     "bytes": 18614
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Blue-Bird-Logo.jef",
+     "bytes": 12166
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Blue-Bird-Logo.exp",
+     "bytes": 12856
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Blue-Bird-Logo.vp3",
+     "bytes": 12036
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "ghost-headphones",
+   "name": "Ghost Headphones",
+   "source": "pack",
+   "dir": "src/designs/ghost-headphones",
+   "previewImg": "img/ghost-headphones.png",
+   "stitchImg": "img/ghost-headphones-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 3,
+   "summary": "Ghost wearing headphones with a scowling face.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2293,
+   "widthMm": 89.4,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 18,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#0b0d0e",
+     "stitches": 2293
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Ghost-Headphones.pes",
+     "bytes": 15618
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Ghost-Headphones.dst",
+     "bytes": 7634
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Ghost-Headphones.jef",
+     "bytes": 4892
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Ghost-Headphones.exp",
+     "bytes": 4830
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Ghost-Headphones.vp3",
+     "bytes": 5026
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "lingam-trishul",
+   "name": "Lingam Trishul",
+   "source": "pack",
+   "dir": "src/designs/lingam-trishul",
+   "previewImg": "img/lingam-trishul.png",
+   "stitchImg": "img/lingam-trishul-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "devotional",
+    "shiv",
+    "hoop"
+   ],
+   "sewMinutes": 4,
+   "summary": "Shiva lingam on its base with trishul, damaru and Om symbol.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3104,
+   "widthMm": 49.5,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 25,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#0b0b0b",
+     "stitches": 3104
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Lingam-Trishul.pes",
+     "bytes": 20680
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Lingam-Trishul.dst",
+     "bytes": 10100
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Lingam-Trishul.jef",
+     "bytes": 6510
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Lingam-Trishul.exp",
+     "bytes": 6476
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Lingam-Trishul.vp3",
+     "bytes": 6644
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "mahadev-word",
+   "name": "Mahadev Word",
+   "source": "pack",
+   "dir": "src/designs/mahadev-word",
+   "previewImg": "img/mahadev-word.png",
+   "stitchImg": "img/mahadev-word-stitch.png",
+   "price": 100,
+   "mrp": 170,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "devotional",
+    "mahadev",
+    "jersey"
+   ],
+   "sewMinutes": 3,
+   "summary": "The word Mahadev with a trishul above and a red dot.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 1989,
+   "widthMm": 90,
+   "heightMm": 61.5,
+   "colorCount": 3,
+   "trims": 31,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#8a8989",
+     "stitches": 189
+    },
+    {
+     "name": "",
+     "hex": "#ef2e14",
+     "stitches": 24
+    },
+    {
+     "name": "",
+     "hex": "#080807",
+     "stitches": 1776
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Mahadev-Word.pes",
+     "bytes": 14684
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Mahadev-Word.dst",
+     "bytes": 6842
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Mahadev-Word.jef",
+     "bytes": 4360
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Mahadev-Word.exp",
+     "bytes": 4334
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Mahadev-Word.vp3",
+     "bytes": 4570
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "ornamental-spray",
+   "name": "Ornamental Spray",
+   "source": "pack",
+   "dir": "src/designs/ornamental-spray",
+   "previewImg": "img/ornamental-spray.png",
+   "stitchImg": "img/ornamental-spray-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "floral",
+    "ornament",
+    "cushion",
+    "christmas"
+   ],
+   "sewMinutes": 10,
+   "summary": "Symmetrical floral spray with red blooms, sage leaves and an orange bud.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7337,
+   "widthMm": 49.6,
+   "heightMm": 90,
+   "colorCount": 7,
+   "trims": 304,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#b9c397",
+     "stitches": 1328
+    },
+    {
+     "name": "",
+     "hex": "#c41705",
+     "stitches": 670
+    },
+    {
+     "name": "",
+     "hex": "#649281",
+     "stitches": 1045
+    },
+    {
+     "name": "",
+     "hex": "#8faa8c",
+     "stitches": 1833
+    },
+    {
+     "name": "",
+     "hex": "#d1421f",
+     "stitches": 1071
+    },
+    {
+     "name": "",
+     "hex": "#e47840",
+     "stitches": 873
+    },
+    {
+     "name": "",
+     "hex": "#efaa6a",
+     "stitches": 517
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Ornamental-Spray.pes",
+     "bytes": 55468
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Ornamental-Spray.dst",
+     "bytes": 25964
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Ornamental-Spray.jef",
+     "bytes": 16948
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Ornamental-Spray.exp",
+     "bytes": 17982
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Ornamental-Spray.vp3",
+     "bytes": 16772
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "ram-archer",
+   "name": "Ram Archer",
+   "source": "pack",
+   "dir": "src/designs/ram-archer",
+   "previewImg": "img/ram-archer.png",
+   "stitchImg": "img/ram-archer-stitch.png",
+   "price": 100,
+   "mrp": 170,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "devotional",
+    "ram",
+    "hoop"
+   ],
+   "sewMinutes": 2,
+   "summary": "Silhouette of Ram drawing a bow while standing on a rock.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 1654,
+   "widthMm": 56.7,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 13,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#040404",
+     "stitches": 1654
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Ram-Archer.pes",
+     "bytes": 11644
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Ram-Archer.dst",
+     "bytes": 5624
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Ram-Archer.jef",
+     "bytes": 3538
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Ram-Archer.exp",
+     "bytes": 3456
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Ram-Archer.vp3",
+     "bytes": 3714
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "sasuke-chibi",
+   "name": "Sasuke Chibi",
+   "source": "pack",
+   "dir": "src/designs/sasuke-chibi",
+   "previewImg": "img/sasuke-chibi.png",
+   "stitchImg": "img/sasuke-chibi-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 6,
+   "summary": "Chibi ninja with spiky dark hair, blue outfit and lightning in hand.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3988,
+   "widthMm": 50.9,
+   "heightMm": 90,
+   "colorCount": 4,
+   "trims": 67,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#085aaa",
+     "stitches": 608
+    },
+    {
+     "name": "",
+     "hex": "#fbcbb4",
+     "stitches": 396
+    },
+    {
+     "name": "",
+     "hex": "#d0846b",
+     "stitches": 296
+    },
+    {
+     "name": "",
+     "hex": "#131d2d",
+     "stitches": 2688
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Sasuke-Chibi.pes",
+     "bytes": 27949
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Sasuke-Chibi.dst",
+     "bytes": 13253
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Sasuke-Chibi.jef",
+     "bytes": 8634
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Sasuke-Chibi.exp",
+     "bytes": 8744
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Sasuke-Chibi.vp3",
+     "bytes": 8820
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "squirrel",
+   "name": "Squirrel",
+   "source": "pack",
+   "dir": "src/designs/squirrel",
+   "previewImg": "img/squirrel.png",
+   "stitchImg": "img/squirrel-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "animal",
+    "kids",
+    "hoop",
+    "christmas"
+   ],
+   "sewMinutes": 3,
+   "summary": "Squirrel holding an acorn, solid black with cut-out detail.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2427,
+   "widthMm": 57.1,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 28,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#010101",
+     "stitches": 2427
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Squirrel.pes",
+     "bytes": 16702
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Squirrel.dst",
+     "bytes": 8117
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Squirrel.jef",
+     "bytes": 5188
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Squirrel.exp",
+     "bytes": 5166
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Squirrel.vp3",
+     "bytes": 5326
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "teal-damask",
+   "name": "Teal Damask",
+   "source": "pack",
+   "dir": "src/designs/teal-damask",
+   "previewImg": "img/teal-damask.png",
+   "stitchImg": "img/teal-damask-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "damask",
+    "ornament",
+    "home",
+    "christmas"
+   ],
+   "sewMinutes": 6,
+   "summary": "Tall damask medallion in red and teal.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4359,
+   "widthMm": 38.9,
+   "heightMm": 90,
+   "colorCount": 3,
+   "trims": 89,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#c5413d",
+     "stitches": 1997
+    },
+    {
+     "name": "",
+     "hex": "#3c5153",
+     "stitches": 1642
+    },
+    {
+     "name": "",
+     "hex": "#b9a2a0",
+     "stitches": 720
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Teal-Damask.pes",
+     "bytes": 30528
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Teal-Damask.dst",
+     "bytes": 14699
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Teal-Damask.jef",
+     "bytes": 9608
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Teal-Damask.exp",
+     "bytes": 9814
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Teal-Damask.vp3",
+     "bytes": 9606
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "tulip",
+   "name": "Tulip",
+   "source": "pack",
+   "dir": "src/designs/tulip",
+   "previewImg": "img/tulip.png",
+   "stitchImg": "img/tulip-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "floral",
+    "tulip",
+    "hoop",
+    "christmas"
+   ],
+   "sewMinutes": 4,
+   "summary": "Single pink tulip with two green leaves.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2516,
+   "widthMm": 58.6,
+   "heightMm": 90,
+   "colorCount": 7,
+   "trims": 47,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#ef606d",
+     "stitches": 508
+    },
+    {
+     "name": "",
+     "hex": "#619849",
+     "stitches": 449
+    },
+    {
+     "name": "",
+     "hex": "#97cb78",
+     "stitches": 474
+    },
+    {
+     "name": "",
+     "hex": "#f39595",
+     "stitches": 261
+    },
+    {
+     "name": "",
+     "hex": "#d52a4a",
+     "stitches": 281
+    },
+    {
+     "name": "",
+     "hex": "#3c723a",
+     "stitches": 252
+    },
+    {
+     "name": "",
+     "hex": "#f5cec9",
+     "stitches": 291
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Tulip.pes",
+     "bytes": 19346
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Tulip.dst",
+     "bytes": 8693
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Tulip.jef",
+     "bytes": 5698
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Tulip.exp",
+     "bytes": 5704
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Tulip.vp3",
+     "bytes": 6016
     }
    ],
    "defaultFormats": [
