@@ -119,12 +119,12 @@
   function designCard(d) {
     return `<article class="dcard reveal">
       <a class="stage" href="#/d/${esc(d.slug)}" aria-label="${esc(d.name)}">
-        ${d.preview || ''}
+        ${d.preview ? `<img src="${esc(d.preview)}" alt="${esc(d.name)} stitch preview" loading="lazy">` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
       </a>
       <div class="body">
-        <span class="meta">${esc(d.hoop)} · ${d.colorCount} colours</span>
+        <span class="meta">${esc(d.hoop)} · ${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${(d.formats || []).length} formats</span>
         <a href="#/d/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
         <p class="sum">${esc((d.summary || '').slice(0, 92))}${(d.summary || '').length > 92 ? '…' : ''}</p>
         <div class="price"><b>${money(d.price)}</b>${d.mrp > d.price ? `<s>${money(d.mrp)}</s><span class="off">${d.discount}% off</span>` : ''}</div>
@@ -203,7 +203,7 @@
       <div>
         <span class="eyebrow">Digitised by hand · India</span>
         <h1>Embroidery designs,<br>ready for <em>your machine</em>.</h1>
-        <p class="lede">Hand-digitised motifs for commercial and home machines. Choose DST, EXP, SVG, PNG or PDF at checkout — you get exactly the formats you pick, in one ZIP, the moment your UPI payment clears.</p>
+        <p class="lede">Hand-digitised designs for commercial and home machines, in 24 machine formats. Pick PES, DST, JEF, EXP or any of the others at checkout — you get exactly the files you choose, in one ZIP, the moment your UPI payment clears.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#/designs">Browse ${all.designs.length} designs ${I.arrow}</a>
           <a class="btn btn-ghost" href="#/order">I already paid — get my files</a>
@@ -211,18 +211,19 @@
         <div class="hero-stats">
           <div><b>${all.designs.length} designs</b><span>in the library</span></div>
           <div><b>${nf(stitches)}</b><span>stitches digitised</span></div>
-          <div><b>5 formats</b><span>DST · EXP · SVG · PNG · PDF</span></div>
+          <div><b>24 formats</b><span>PES · DST · JEF · EXP · VP3 · XXX…</span></div>
         </div>
       </div>
       <div class="hero-art">
-        <div class="stitch-stage">${hero ? hero.preview : ''}</div>
+        <div class="stitch-stage">${hero && hero.preview ? `<img src="${esc(hero.preview)}" alt="${esc(hero.name)}">` : ''}</div>
         <div class="hero-tag t1">${I.needle}<div>Machine ready<small>DST &amp; EXP</small></div></div>
         <div class="hero-tag t2">${I.zap}<div>Instant download<small>UPI · auto-confirmed</small></div></div>
       </div>
     </div></div>
 
     <div class="marq"><div class="marq-in">
-      ${['DST · Tajima', 'EXP · Melco', 'SVG · vector', 'PNG · stitch-out', 'PDF · design sheet', 'DST · Tajima', 'EXP · Melco', 'SVG · vector', 'PNG · stitch-out', 'PDF · design sheet']
+      ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'HUS · Viking', 'XXX · Singer', 'SEW · Janome',
+      'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'HUS · Viking', 'XXX · Singer', 'SEW · Janome']
         .map(t => `<span>${t}</span>`).join('')}
     </div></div>
 
@@ -241,7 +242,7 @@
         <div class="grid-3">
           <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">01</span>
             <h3 style="margin:8px 0 6px">Choose your formats</h3>
-            <p class="small muted">Tick the formats your machine reads — DST and EXP for most, plus SVG, PNG and a PDF sheet. They arrive together in one ZIP.</p></div>
+            <p class="small muted">Tick what your machine reads — PES for Brother, DST for Tajima, JEF for Janome, and twenty more. They arrive together in one ZIP.</p></div>
           <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">02</span>
             <h3 style="margin:8px 0 6px">Pay by UPI</h3>
             <p class="small muted">Scan the QR or tap your UPI app — the amount and order code travel inside the link, so nothing is typed by hand.</p></div>
@@ -282,8 +283,9 @@
   async function viewDesign(slug) {
     const d = await api('/api/designs/' + encodeURIComponent(slug));
     const g = d.design;
-    const chosen = (g.formats.includes('dst') ? ['dst'] : []).concat(g.formats.includes('exp') ? ['exp'] : []);
-    const state = { formats: chosen.length ? chosen : [g.formats[0]] };
+    const keys = (g.formats || []).map(f => f.key);
+    const chosen = (g.defaultFormats || []).filter(k => keys.includes(k));
+    const state = { formats: chosen.length ? chosen : keys.slice(0, 2) };
 
     setTimeout(() => {
       const box = $('#fmtBox');
@@ -294,12 +296,17 @@
         $('#fmtCount').textContent = n ? `${n} format${n > 1 ? 's' : ''} · ${n} file${n > 1 ? 's' : ''} in one ZIP` : 'Pick at least one format';
         $('#buyNow').disabled = !n;
       };
+      const showAll = $('#fmtMore');
+      if (showAll) showAll.onclick = () => {
+        $$('#fmtBox .fmt.extra').forEach(b => b.classList.remove('hide'));
+        showAll.style.display = 'none';
+      };
       box.querySelectorAll('[data-fmt]').forEach(b => b.onclick = () => {
         const f = b.dataset.fmt;
         state.formats = state.formats.includes(f) ? state.formats.filter(x => x !== f) : state.formats.concat(f);
         refresh();
       });
-      $('#fmtAll').onclick = () => { state.formats = g.formats.slice(); refresh(); };
+      $('#fmtAll').onclick = () => { state.formats = keys.slice(); $$('#fmtBox .fmt.extra').forEach(b => b.classList.remove('hide')); if ($('#fmtMore')) $('#fmtMore').style.display = 'none'; refresh(); };
       $('#fmtNone').onclick = () => { state.formats = []; refresh(); };
       refresh();
       const add = () => addToCart(g, state.formats);
@@ -328,7 +335,7 @@
     return `<div class="wrap">
       <div class="crumbs"><a href="#/">Home</a> / <a href="#/designs">Designs</a> / ${esc(g.name)}</div>
       <div class="pdp">
-        <div class="stage">${g.preview}</div>
+        <div class="stage">${g.preview ? `<img src="${esc(g.preview)}" alt="${esc(g.name)} stitch preview">` : ''}</div>
         <div>
           <span class="eyebrow">${esc(g.hoop)} hoop · ${g.colorCount} thread colours</span>
           <h1>${esc(g.name)}</h1>
@@ -339,25 +346,28 @@
           <div class="specs">
             <div><span>Stitches</span><b>${nf(g.stitchCount)}</b></div>
             <div><span>Size</span><b>${g.widthMm} × ${g.heightMm} mm</b></div>
-            <div><span>Colours</span><b>${g.colorCount} · ${g.colors.map(c => `<span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${c};vertical-align:middle;margin-left:2px"></span>`).join('')}</b></div>
+            <div><span>Trims</span><b>${nf(g.trims)}</b></div>
+          </div>
+
+          <div class="threads">
+            <span class="th-lab">Thread order</span>
+            <div class="th-list">
+              ${g.threads.map((t, i) => `<div class="th" title="${esc(t.name || '')} — ${nf(t.stitches)} stitches">
+                <i style="background:${esc(t.hex)}"></i><span>${i + 1}</span><b class="mono">${nf(t.stitches)}</b></div>`).join('')}
+            </div>
           </div>
 
           <div class="fmt-box" id="fmtBox">
             <div class="fb-head"><h3>Choose your formats</h3><span class="small mono" id="fmtCount"></span></div>
             <p class="fb-sub">Tick everything your machine or software can read — they all come in one ZIP.</p>
             <div class="fmts">
-              ${g.formats.map(f => `<button class="fmt" data-fmt="${f}">
+              ${g.formats.map((f, i) => `<button class="fmt ${i >= 8 ? 'extra hide' : ''}" data-fmt="${f.key}">
                 <span class="box">${I.tick}</span>
-                <span><b>${fmtLabel(f)}</b><span>${{
-                  dst: 'Tajima — most commercial machines',
-                  exp: 'Melco · Bernina · Janome',
-                  svg: 'Vector stitch paths',
-                  png: 'Stitch-out preview',
-                  pdf: 'Printable design sheet'
-                }[f] || ''}</span></span>
+                <span><b>${esc(f.label)}</b><span>${esc(f.note)}</span></span>
               </button>`).join('')}
             </div>
-            <div class="fmt-links"><button id="fmtAll">Select all</button><button id="fmtNone">Clear</button></div>
+            ${g.formats.length > 8 ? `<button class="fmt-more" id="fmtMore">Show all ${g.formats.length} formats ↓</button>` : ''}
+            <div class="fmt-links"><button id="fmtAll">Select all ${g.formats.length}</button><button id="fmtNone">Clear</button></div>
           </div>
 
           <div class="buybox" id="buybox">
@@ -403,7 +413,7 @@
           <h1 style="font-size:1.8rem;margin:12px 0 4px">Your bag (${Store.count})</h1>
           <p class="muted small">Each design arrives as one ZIP containing the formats you chose.</p>
           <div>${Store.cart.map(l => `<div class="cart-line">
-            <div class="pic">${l.preview || ''}</div>
+            <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
             <div><h4>${esc(l.name)}</h4>
               <div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div>
               <button class="btn btn-xs btn-ghost" data-remove="${l.id}" style="margin-top:7px">Remove</button></div>
@@ -470,7 +480,7 @@
         <aside class="summary">
           <h3>${Store.count} design${Store.count > 1 ? 's' : ''}</h3>
           ${Store.cart.map(l => `<div class="mini-line">
-            <div class="pic">${l.preview || ''}</div>
+            <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
             <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(l.price)}</b></div>`).join('')}
           <div class="sum-row" style="margin-top:10px"><span>Subtotal</span><b>${money(Store.subtotal)}</b></div>
@@ -547,7 +557,8 @@
         </div>
         <aside class="summary">
           <h3>${o.items.length} design${o.items.length > 1 ? 's' : ''}</h3>
-          ${o.items.map(it => `<div class="mini-line" style="grid-template-columns:1fr auto">
+          ${o.items.map(it => `<div class="mini-line">
+            <div class="pic">${it.preview ? `<img src="${esc(it.preview)}" alt="">` : ''}</div>
             <div><h4>${esc(it.name)}</h4><div class="meta">${(it.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(it.price)}</b></div>`).join('')}
           <div class="sum-row" style="margin-top:10px"><span>Subtotal</span><b>${money(o.amount)}</b></div>
@@ -705,7 +716,9 @@
   /* --------------------------------------------------------- interactions */
   function addToCart(d, formats) {
     if (Store.cart.some(l => l.id === d.id)) { toast('Already in your bag'); return; }
-    Store.cart.push({ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview, formats: formats && formats.length ? formats : (d.formats || ['dst']) });
+    const keys = (d.formats || []).map(f => f.key);
+    const pick = (formats && formats.length ? formats : (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : keys.slice(0, 2)));
+    Store.cart.push({ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview, formats: pick });
     Store.save(); toast(`${d.name} added`, 'ok'); openDrawer();
   }
   window.addToCart = addToCart;
@@ -719,7 +732,7 @@
     const dr = $('#drawer');
     dr.innerHTML = `<header><h3>Your bag (${Store.count})</h3><button class="icon-btn" id="closeDrawer">${I.close}</button></header>
       <div class="items">${Store.cart.length ? Store.cart.map(l => `<div class="mini-line">
-          <div class="pic">${l.preview || ''}</div>
+          <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
           <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div>
             <button class="btn btn-xs btn-ghost" data-drem="${l.id}" style="margin-top:5px">Remove</button></div>
           <b class="mono small">${money(l.price)}</b></div>`).join('')
@@ -835,7 +848,8 @@
       e.preventDefault(); e.stopPropagation();
       const d = await findDesign(Number(b.dataset.buy));
       if (!d) return;
-      Store.cart = [{ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview, formats: (d.formats || ['dst']).slice(0, 2) }];
+      Store.cart = [{ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview,
+        formats: (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : (d.formats || []).map(f => f.key).slice(0, 2)) }];
       Store.save(); location.hash = '#/checkout';
     });
     $$('[data-remove]').forEach(b => b.onclick = () => {

@@ -187,12 +187,12 @@
   async function sectionDesigns() {
     const { designs } = await adminApi('/api/admin/designs');
     return `<div class="ahead"><div><h1>Designs</h1><p class="muted small" style="margin:2px 0 0">${designs.filter(d => d.active).length} live · ${designs.filter(d => !d.active).length} hidden</p></div>
-        <button class="btn btn-primary btn-sm" id="newDesign">+ Add design</button></div>
+        <span class="small muted">New packs: <code class="mono">node tools/import-designs.js &lt;folder&gt;</code></span></div>
       <div class="card"><div class="tbl-wrap"><table class="tbl">
         <thead><tr><th></th><th>Design</th><th class="num">Stitches</th><th class="num">Size</th><th class="num">Price</th><th class="num">Sold</th><th>Status</th><th></th></tr></thead>
         <tbody>${designs.map(d => `<tr>
-          <td><div style="width:52px;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;padding:3px">${d.preview || ''}</div></td>
-          <td><b>${esc(d.name)}</b><div class="small muted">${esc(d.hoop || '')} · ${(d.formats || []).map(f => f.toUpperCase()).join(' ')}</div></td>
+          <td><div style="width:52px;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;padding:3px">${d.preview ? `<img src="${esc(d.preview)}" alt="" style="width:100%;height:100%;object-fit:contain">` : ''}</div></td>
+          <td><b>${esc(d.name)}</b><div class="small muted">${esc(d.hoop || '')} · ${(d.formats || []).length} formats · ${nf(d.trims)} trims</div></td>
           <td class="num">${nf(d.stitchCount)}</td>
           <td class="num small">${d.widthMm}×${d.heightMm}mm</td>
           <td class="num">${money(d.price)}</td>
@@ -204,31 +204,29 @@
   }
 
   function designForm(d) {
-    return `<div class="modal" style="width:min(680px,100%)">
-      <header><div><span class="eyebrow">${d.id ? 'Edit' : 'New'} design</span><h3 style="margin-top:2px">${esc(d.name || 'Untitled')}</h3></div>
+    return `<div class="modal" style="width:min(620px,100%)">
+      <header><div><span class="eyebrow">Edit design</span><h3 style="margin-top:2px">${esc(d.name || '')}</h3></div>
         <button class="icon-btn" id="mClose">✕</button></header>
       <form id="dForm" class="stack">
         <div class="grid-2">
           <div class="field"><label>Name</label><input class="input" name="name" value="${esc(d.name || '')}" required></div>
-          <div class="field"><label>Hoop size</label><input class="input" name="hoop" value="${esc(d.hoop || '')}" placeholder="4 × 4 in"></div>
+          <div class="field"><label>Hoop</label><input class="input" name="hoop" value="${esc(d.hoop || '')}"></div>
         </div>
-        <div class="grid-3">
+        <div class="grid-2">
           <div class="field"><label>Price (₹)</label><input class="input" name="price" type="number" min="1" value="${d.price || ''}" required></div>
           <div class="field"><label>MRP (₹)</label><input class="input" name="mrp" type="number" min="0" value="${d.mrp || ''}"></div>
-          <div class="field"><label>Motif</label><select class="select" name="motif">
-            ${['petalRing', 'medallion', 'paisley', 'border', 'wreath', 'vine', 'dots'].map(m => `<option value="${m}" ${d.motif === m ? 'selected' : ''}>${m}</option>`).join('')}
-          </select></div>
         </div>
         <div class="field"><label>Summary</label><input class="input" name="summary" value="${esc(d.summary || '')}"></div>
         <div class="field"><label>Description</label><textarea class="textarea" name="description">${esc(d.description || '')}</textarea></div>
         <div class="grid-2">
-          <div class="field"><label>Tags (comma separated)</label><input class="input" name="tags" value="${esc((d.tags || []).join(', '))}"></div>
+          <div class="field"><label>Tags</label><input class="input" name="tags" value="${esc((d.tags || []).join(', '))}"></div>
           <div class="field"><label>Badge</label><input class="input" name="badge" value="${esc(d.badge || '')}" placeholder="New / Bestseller"></div>
         </div>
         <label class="row small"><input type="checkbox" name="featured" ${d.featured ? 'checked' : ''}> Feature on the home page</label>
-        <div class="row"><button class="btn btn-primary">${d.id ? 'Save changes' : 'Create design'}</button>
+        <label class="row small"><input type="checkbox" name="active" ${d.active !== false ? 'checked' : ''}> Visible in the store</label>
+        <div class="row"><button class="btn btn-primary">Save changes</button>
           <button type="button" class="btn btn-ghost" id="mCancel">Cancel</button></div>
-        <p class="small muted" style="margin:0">Stitch count, size and the stitch preview are regenerated from the motif when you save.</p>
+        <p class="small muted" style="margin:0">${nf(d.stitchCount)} stitches · ${d.widthMm}×${d.heightMm} mm · ${d.colorCount} colours · ${nf(d.trims)} trims · ${(d.formats || []).length} machine formats — all read from the design files.</p>
       </form></div>`;
   }
 
@@ -333,18 +331,16 @@
         const f = new FormData(e.target);
         const payload = {
           name: f.get('name'), hoop: f.get('hoop'), price: Number(f.get('price')), mrp: Number(f.get('mrp') || f.get('price')),
-          motif: f.get('motif'), summary: f.get('summary'), description: f.get('description'),
+          summary: f.get('summary'), description: f.get('description'), active: !!f.get('active'),
           tags: String(f.get('tags') || '').split(',').map(s => s.trim()).filter(Boolean),
           badge: f.get('badge') || null, featured: !!f.get('featured')
         };
         try {
-          if (d && d.id) await adminApi('/api/admin/designs/' + d.id, { method: 'PUT', body: payload });
-          else await adminApi('/api/admin/designs', { method: 'POST', body: payload });
+          await adminApi('/api/admin/designs/' + d.id, { method: 'PUT', body: payload });
           window.toast(d && d.id ? 'Design saved' : 'Design created', 'ok'); closeModal(); rerender();
         } catch (err) { window.toast(err.message, 'bad'); }
       };
     };
-    const nd = $('#newDesign'); if (nd) nd.onclick = () => addDesign(null);
     body.querySelectorAll('[data-edit]').forEach(b => b.onclick = async () => {
       const { designs } = await adminApi('/api/admin/designs');
       addDesign(designs.find(d => d.id === Number(b.dataset.edit)));

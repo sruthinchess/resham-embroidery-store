@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const D = require('./src/db');
-const E = require('./src/embroidery');
+const P = require('./src/pack');
 const { db, UPLOAD_DIR, hashPassword, verifyPassword, token, getSetting, setSetting, settingsMap } = D;
 
 const app = express();
@@ -25,28 +25,27 @@ const jparse = (s, d) => { try { return JSON.parse(s); } catch { return d; } };
 const nowISO = () => new Date().toISOString();
 const slugify = s => String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70);
 
-const FORMAT_KEYS = Object.keys(E.FORMATS);
+const FORMAT_KEYS = Object.keys(P.FORMATS);
 
 function designOut(row) {
   if (!row) return null;
   const price = row.price, mrp = row.mrp || row.price;
+  const formats = jparse(row.formats, []);
   return {
-    id: row.id, slug: row.slug, name: row.name, motif: row.motif,
+    id: row.id, slug: row.slug, name: row.name, source: row.source,
     price, mrp, discount: mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0,
     summary: row.summary, description: row.description, hoop: row.hoop,
     stitchCount: row.stitch_count, widthMm: row.width_mm, heightMm: row.height_mm,
-    colorCount: row.color_count, colors: jparse(row.colors, []),
-    preview: row.preview_svg, formats: jparse(row.formats, FORMAT_KEYS),
+    colorCount: row.color_count, trims: row.trims,
+    threads: jparse(row.threads, []),
+    preview: row.preview_img ? `/${row.preview_img}` : null,
+    formats: formats.map(f => ({ key: f.key, label: f.label || (P.FORMATS[f.key] || {}).label || f.key.toUpperCase(),
+      note: f.note || (P.FORMATS[f.key] || {}).note || '', bytes: f.bytes || 0 })),
+    defaultFormats: jparse(row.default_formats, []),
     tags: jparse(row.tags, []), featured: !!row.featured, badge: row.badge,
     downloads: row.downloads, active: !!row.active, createdAt: row.created_at
   };
 }
-
-/** The row shape the embroidery engine needs. */
-const asDesign = row => ({
-  slug: row.slug, name: row.name, motif: row.motif,
-  params: jparse(row.params, {}), colors: jparse(row.colors, [])
-});
 
 function upiPayload(code, amount) {
   const pa = getSetting('upi_id', '6301928345@fam');
@@ -123,7 +122,7 @@ app.get('/api/settings', (req, res) => {
 });
 
 app.get('/api/formats', (req, res) => {
-  ok(res, { formats: FORMAT_KEYS.map(k => ({ key: k, ...E.FORMATS[k] })) });
+  ok(res, { formats: FORMAT_KEYS.map(k => ({ key: k, ...P.FORMATS[k], popular: P.POPULAR.includes(k) })) });
 });
 
 app.get('/api/designs', (req, res) => {
@@ -164,13 +163,14 @@ app.post('/api/orders', (req, res) => {
     const row = db.prepare('SELECT * FROM designs WHERE (id = ? OR slug = ?) AND active = 1').get(num(key, -1), String(key));
     if (!row) return fail(res, 400, 'One of the designs is no longer for sale.');
     if (lines.some(l => l.designId === row.id)) continue;
-    const allowed = jparse(row.formats, FORMAT_KEYS);
+    const allowed = jparse(row.formats, []).map(f => f.key);
     let formats = Array.isArray(raw.formats) ? raw.formats.filter(f => allowed.includes(f)) : [];
-    if (!formats.length) formats = allowed.slice();       // default: everything
+    if (!formats.length) formats = jparse(row.default_formats, []).length ? jparse(row.default_formats, []) : allowed.slice();
     amount += row.price;
     lines.push({
       designId: row.id, slug: row.slug, name: row.name, price: row.price,
-      formats, stitchCount: row.stitch_count, hoop: row.hoop
+      formats, stitchCount: row.stitch_count, hoop: row.hoop,
+      preview: row.preview_img ? `/${row.preview_img}` : null
     });
   }
   amount = Math.round(amount * 100) / 100;
@@ -231,7 +231,7 @@ app.get('/api/download/:token', (req, res) => {
   if (!row) return fail(res, 404, 'That design no longer exists.');
   const formats = jparse(t.formats, ['dst']);
   let zip;
-  try { zip = E.packDesign(asDesign(row), formats); }
+  try { zip = P.packDesign({ dir: row.dir, formats: jparse(row.formats, []) }, formats); }
   catch (e) { console.error('[pack]', e.message); return fail(res, 500, 'Could not generate the files — please contact support.'); }
 
   db.prepare('UPDATE download_tokens SET hits = hits + 1 WHERE token=?').run(t.token);
@@ -323,46 +323,34 @@ app.get('/api/admin/screenshot/:code', requireAdmin, (req, res) => {
 });
 
 app.get('/api/admin/designs', requireAdmin, (req, res) => {
-  ok(res, { designs: db.prepare('SELECT * FROM designs ORDER BY id DESC').all().map(designOut), formats: FORMAT_KEYS.map(k => ({ key: k, ...E.FORMATS[k] })) });
+  ok(res, { designs: db.prepare('SELECT * FROM designs ORDER BY id DESC').all().map(designOut), formats: FORMAT_KEYS.map(k => ({ key: k, ...P.FORMATS[k] })) });
 });
 
+/** Editable metadata. Format files come from tools/import-designs.js, not the panel. */
 function designPayload(b) {
-  const params = b.params && typeof b.params === 'object' ? b.params : jparse(b.params, {});
-  const geo = E.build({ motif: b.motif || 'petalRing', params, colors: b.colors || ['#8C2F39', '#C8A24A', '#2F4858'] });
   return {
-    name: String(b.name || '').trim(), slug: slugify(b.slug || b.name || ''),
-    motif: b.motif || 'petalRing', params: JSON.stringify(params),
-    colors: JSON.stringify(Array.isArray(b.colors) ? b.colors : jparse(b.colors, ['#8C2F39', '#C8A24A', '#2F4858'])),
+    name: String(b.name || '').trim(),
     price: num(b.price, 0), mrp: num(b.mrp, num(b.price, 0)),
     summary: String(b.summary || ''), description: String(b.description || ''),
-    hoop: String(b.hoop || ''), stitch_count: geo.stitches.length,
-    width_mm: Math.round(geo.width) / 10, height_mm: Math.round(geo.height) / 10,
-    color_count: geo.colors.length, preview_svg: E.toSvgPreview(geo),
-    formats: JSON.stringify(Array.isArray(b.formats) && b.formats.length ? b.formats.filter(f => FORMAT_KEYS.includes(f)) : FORMAT_KEYS),
+    hoop: String(b.hoop || ''),
     tags: JSON.stringify(Array.isArray(b.tags) ? b.tags : String(b.tags || '').split(',').map(s => s.trim()).filter(Boolean)),
     featured: b.featured ? 1 : 0, badge: b.badge || null, active: b.active === false ? 0 : 1
   };
 }
 
 app.post('/api/admin/designs', requireAdmin, (req, res) => {
-  const p = designPayload(req.body || {});
-  if (!p.name) return fail(res, 400, 'Design name is required.');
-  if (p.price <= 0) return fail(res, 400, 'Price must be more than zero.');
-  if (db.prepare('SELECT id FROM designs WHERE slug=?').get(p.slug)) p.slug = `${p.slug}-${Date.now().toString(36).slice(-4)}`;
-  const info = db.prepare(`INSERT INTO designs(slug,name,motif,params,colors,price,mrp,summary,description,hoop,stitch_count,width_mm,height_mm,color_count,preview_svg,formats,tags,featured,badge,active)
-    VALUES (@slug,@name,@motif,@params,@colors,@price,@mrp,@summary,@description,@hoop,@stitch_count,@width_mm,@height_mm,@color_count,@preview_svg,@formats,@tags,@featured,@badge,@active)`).run(p);
-  ok(res, { design: designOut(db.prepare('SELECT * FROM designs WHERE id=?').get(info.lastInsertRowid)) });
+  return fail(res, 400, 'New designs are imported with their machine files — run `node tools/import-designs.js <pack-folder>` and restart. The panel edits the catalogue.');
 });
 
 app.put('/api/admin/designs/:id', requireAdmin, (req, res) => {
   const id = num(req.params.id, -1);
   if (!db.prepare('SELECT id FROM designs WHERE id=?').get(id)) return fail(res, 404, 'Design not found.');
-  const p = designPayload({ ...(req.body || {}), slug: (req.body || {}).slug || 'x' });
+  const p = designPayload(req.body || {});
+  if (!p.name) return fail(res, 400, 'Design name is required.');
+  if (p.price <= 0) return fail(res, 400, 'Price must be more than zero.');
   p.id = id;
-  db.prepare(`UPDATE designs SET name=@name,motif=@motif,params=@params,colors=@colors,price=@price,mrp=@mrp,
-    summary=@summary,description=@description,hoop=@hoop,stitch_count=@stitch_count,width_mm=@width_mm,height_mm=@height_mm,
-    color_count=@color_count,preview_svg=@preview_svg,formats=@formats,tags=@tags,featured=@featured,badge=@badge,active=@active
-    WHERE id=@id`).run(p);
+  db.prepare(`UPDATE designs SET name=@name,price=@price,mrp=@mrp,summary=@summary,description=@description,
+    hoop=@hoop,tags=@tags,featured=@featured,badge=@badge,active=@active WHERE id=@id`).run(p);
   ok(res, { design: designOut(db.prepare('SELECT * FROM designs WHERE id=?').get(id)) });
 });
 

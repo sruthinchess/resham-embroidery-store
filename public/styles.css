@@ -274,6 +274,25 @@ input, select, textarea { font: inherit; color: inherit; }
 .specs span { display: block; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 3px; font-weight: 700; }
 .specs b { font-size: 13px; font-weight: 600; }
 
+
+/* real stitch previews */
+.dcard .stage img, .pdp .stage img, .stitch-stage img { width: 100%; height: 100%; object-fit: contain; transition: transform .6s var(--ease); }
+.dcard:hover .stage img { transform: scale(1.04); }
+.mini-line .pic img, .cart-line .pic img { width: 100%; height: 100%; object-fit: contain; }
+
+/* thread order */
+.threads { margin: 18px 0 4px; }
+.th-lab { font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-mute); font-weight: 700; }
+.th-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.th { display: flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px 4px 5px; background: var(--paper); }
+.th i { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(20,17,14,.15); flex: none; }
+.th span { font-size: 10px; color: var(--ink-mute); font-weight: 700; }
+.th b { font-size: 10.5px; color: var(--ink-soft); font-weight: 600; }
+
+/* show-all formats */
+.fmt-more { margin-top: 10px; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--maroon); font-weight: 700; border-bottom: 1px solid rgba(126,43,51,.3); }
+.fmt-more:hover { border-color: var(--maroon); }
+
 /* format picker */
 .fmt-box { background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 20px; margin: 22px 0; }
 .fmt-box .fb-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }

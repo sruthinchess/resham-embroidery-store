@@ -1,9 +1,9 @@
 # Resham Atelier — embroidery designs, sold as files
 
-A store for **machine embroidery designs**. Buyers pick the machine format they
-need (DST, EXP, SVG, PNG, PDF), pay by UPI, upload the payment screenshot, and
-the ZIP is generated on the fly and downloads itself — containing exactly the
-formats they chose.
+A store for **real machine embroidery designs**. Each product is a finished pack
+with **24 machine formats**; buyers tick the ones their machine reads, pay by
+UPI, upload the payment screenshot, and the ZIP — containing exactly those files
+— downloads itself.
 
 ```
 Storefront  →  http://localhost:3000
@@ -17,40 +17,49 @@ UPI ID      →  6301928345@fam  (change in Admin → Settings)
 
 ```bash
 npm install
-npm start            # seeds 8 designs, serves on :3000
+npm start            # seeds the catalogue, serves on :3000
 ```
 
 ```bash
 npm run reset        # wipe designs + orders and re-seed
+node tools/import-designs.js <pack-folder>   # add or replace design packs
 npm run build        # rebuild the single-file static bundle (docs/index.html)
 PORT=8080 npm start
 ```
 
 ---
 
-## The formats are real files, not placeholders
+## The catalogue is real design files
 
-Every download is generated at request time by `src/embroidery.js`:
+Four packs ship with the store — **Floral Spray** (5,805 stitches, 5 colours,
+366 trims), **Blue Blossom** (5,074 · 3 · 33), **Magnolia Branch** (5,632 · 5 ·
+247) and **Silhouette 10** (3,111 · 1 · 10) — each in 24 machine formats:
 
-| Format | What it is |
-|---|---|
-| **DST** | Tajima binary — 512-byte ASCII header + 3-byte records (jump, colour change, end), y-axis flipped as the format requires |
-| **EXP** | Melco binary — 2 bytes per stitch, `0x80`-prefixed jump/colour commands, long moves split into jump runs |
-| **SVG** | Vector stitch paths, one path per thread colour |
-| **PNG** | Rasterised stitch-out, drawn stitch by stitch |
-| **PDF** | Printable design sheet: stitch count, size, colour sequence, licence |
+```
+PES DST JEF EXP VP3 HUS XXX SEW PEC DSB DSZ ZXY EMD GT
+INB NEW JPX PCD PCM PCQ PCS STX TAP TBF U01
+```
 
-Stitch data comes from a small geometry engine (`src/embroidery.js`) — each
-design is a motif (`petalRing`, `medallion`, `paisley`, `border`, `wreath`,
-`vine`, `dots`) sampled into 0.6 mm stitches, with satin fills where a digitizer
-would lay them. **The stitch count, size in mm and preview on the page are
-computed from the same stitches that go into the files**, so they always match.
+Every number on a product page is read from the files, not typed by hand:
+`tools/import-designs.js` parses each `.DST` with `src/dst.js` and cross-checks
+the stitch count against the designer's readme — all four match exactly
+(5,805 / 5,074 / 5,632 / 3,111).
 
-Both binaries were verified against [pyembroidery](https://github.com/EmbroidePy/pyembroidery)
-as an independent reference: every record's absolute position reads back
-identical to the source, with the right colour changes and bounds.
+**Adding a pack:** drop the folder (one sub-folder per design, each with its
+formats, a `*-stitch-preview.png` and a `README.txt`) and run:
 
----
+```bash
+node tools/import-designs.js /path/to/pack
+npm run reset
+```
+
+It copies the formats into `src/designs/<slug>/`, the preview into
+`public/img/<slug>.png`, and rewrites `src/data/designs.json`. Set prices in the
+`PRICES` map at the top of the script.
+
+A download is built at request time by `src/pack.js`: the chosen format files
+plus the designer's readme, zipped. Nothing is generated or faked — if a format
+is not in the pack, it is not offered.
 
 ## How checkout works
 
@@ -169,5 +178,6 @@ binaries for Node 22–26 (older pins fail to compile on Node 26).
   admin — run against both the live API and the static build.
 - **15 browser checks** — the QR on the page screenshotted and decoded back to
   the exact UPI link; all four app deep links inspected in the DOM; the ZIP
-  confirmed **on disk in the Downloads folder**, containing exactly the chosen
-  formats, and its DST parsed by pyembroidery (3,532 stitches, 12 colour changes).
+  confirmed **on disk in the Downloads folder** (`FLORAL-SPRAY-PES+DST.zip`) and
+  opened with pyembroidery: the DST inside carries 6,539 records / 4 colour
+  changes, the PES 5 threads.

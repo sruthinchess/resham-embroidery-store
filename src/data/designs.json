@@ -12,215 +12,881 @@
   },
   "designs": [
     {
-      "slug": "mughal-bloom",
-      "name": "Mughal Bloom",
-      "motif": "petalRing",
-      "params": {
-        "petals": 12,
-        "r": 380,
-        "pr": 122
-      },
-      "colors": [
-        "#8C2F39",
-        "#C8A24A",
-        "#2F4858"
-      ],
-      "price": 749,
-      "mrp": 1299,
-      "featured": 1,
+      "slug": "floral-spray",
+      "name": "Floral Spray",
+      "source": "pack",
+      "dir": "src/designs/floral-spray",
+      "previewImg": "img/floral-spray.png",
+      "price": 699,
+      "mrp": 1199,
       "badge": "Bestseller",
-      "summary": "A twelve-petal rosette with a satin centre — the motif every mughal jaali borrows from.",
-      "description": "Drawn from a 17th-century jaali in Fatehpur Sikri and redigitised for a 4-inch hoop. Petals are satin-stitched with a running underlay so they sit proud of the fabric without puckering. Sews cleanly on cotton, silk and organza.",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "botanical",
+        "hoop"
+      ],
+      "summary": "A five-flower spray — green stem and leaves, a purple bell, a teal bloom, a salmon bloom and a white linework layer.",
+      "description": "A five-flower spray — green stem and leaves, a purple bell, a teal bloom, a salmon bloom and a white linework layer. Tatami fill at 0.4 mm with an edge-run underlay under every shape; 366 trims keep the layers clean on medium-weight woven fabric.",
       "hoop": "4 × 4 in",
+      "stitchCount": 5805,
+      "widthMm": 69.7,
+      "heightMm": 89.8,
+      "colorCount": 5,
+      "trims": 366,
+      "threads": [
+        {
+          "name": "Green leaves & stem",
+          "hex": "#4e962e",
+          "stitches": 2160
+        },
+        {
+          "name": "Purple bell flower",
+          "hex": "#8e74c2",
+          "stitches": 712
+        },
+        {
+          "name": "Teal flower",
+          "hex": "#1e96a5",
+          "stitches": 1035
+        },
+        {
+          "name": "Salmon flower",
+          "hex": "#f29b78",
+          "stitches": 986
+        },
+        {
+          "name": "White linework",
+          "hex": "#ffffff",
+          "stitches": 912
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina (most common home machines)",
+          "file": "Floral-Spray.pes",
+          "bytes": 47255
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - industry standard, commercial machines",
+          "file": "Floral-Spray.dst",
+          "bytes": 22325
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Floral-Spray.jef",
+          "bytes": 14604
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Floral-Spray.exp",
+          "bytes": 15910
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Floral-Spray.vp3",
+          "bytes": 14214
+        },
+        {
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Floral-Spray.xxx",
+          "bytes": 15220
+        },
+        {
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older models)",
+          "file": "Floral-Spray.sew",
+          "bytes": 21022
+        },
+        {
+          "key": "dsb",
+          "label": "DSB",
+          "note": "Barudan",
+          "file": "Floral-Spray.dsb",
+          "bytes": 20426
+        },
+        {
+          "key": "dsz",
+          "label": "DSZ",
+          "note": "ZSK",
+          "file": "Floral-Spray.dsz",
+          "bytes": 20423
+        },
+        {
+          "key": "emd",
+          "label": "EMD",
+          "note": "Elna / Melco",
+          "file": "Floral-Spray.emd",
+          "bytes": 14248
+        },
+        {
+          "key": "gt",
+          "label": "GT",
+          "note": "Gold Thread",
+          "file": "Floral-Spray.gt",
+          "bytes": 20423
+        },
+        {
+          "key": "inb",
+          "label": "INB",
+          "note": "Inbro",
+          "file": "Floral-Spray.inb",
+          "bytes": 27008
+        },
+        {
+          "key": "jpx",
+          "label": "JPX",
+          "note": "Janome JPX",
+          "file": "Floral-Spray.jpx",
+          "bytes": 13558
+        },
+        {
+          "key": "new",
+          "label": "NEW",
+          "note": "NEC / New Home",
+          "file": "Floral-Spray.new",
+          "bytes": 18818
+        },
+        {
+          "key": "pcd",
+          "label": "PCD",
+          "note": "Pfaff PCD",
+          "file": "Floral-Spray.pcd",
+          "bytes": 56465
+        },
+        {
+          "key": "pcm",
+          "label": "PCM",
+          "note": "Pfaff PCM",
+          "file": "Floral-Spray.pcm",
+          "bytes": 56455
+        },
+        {
+          "key": "pcq",
+          "label": "PCQ",
+          "note": "Pfaff Creative MAXI",
+          "file": "Floral-Spray.pcq",
+          "bytes": 56465
+        },
+        {
+          "key": "pcs",
+          "label": "PCS",
+          "note": "Pfaff (large hoop)",
+          "file": "Floral-Spray.pcs",
+          "bytes": 56465
+        },
+        {
+          "key": "pec",
+          "label": "PEC",
+          "note": "Brother (colour-only variant of PES)",
+          "file": "Floral-Spray.pec",
+          "bytes": 15011
+        },
+        {
+          "key": "stx",
+          "label": "STX",
+          "note": "Data Stitch",
+          "file": "Floral-Spray.stx",
+          "bytes": 14962
+        },
+        {
+          "key": "tap",
+          "label": "TAP",
+          "note": "Happy",
+          "file": "Floral-Spray.tap",
+          "bytes": 19917
+        },
+        {
+          "key": "tbf",
+          "label": "TBF",
+          "note": "Tajima (barudan-style blocks)",
+          "file": "Floral-Spray.tbf",
+          "bytes": 21082
+        },
+        {
+          "key": "u01",
+          "label": "U01",
+          "note": "Barudan",
+          "file": "Floral-Spray.u01",
+          "bytes": 19789
+        },
+        {
+          "key": "zxy",
+          "label": "ZXY",
+          "note": "ZSK (ZXY)",
+          "file": "Floral-Spray.zxy",
+          "bytes": 18819
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "blue-blossom",
+      "name": "Blue Blossom",
+      "source": "pack",
+      "dir": "src/designs/blue-blossom",
+      "previewImg": "img/blue-blossom.png",
+      "price": 649,
+      "mrp": 999,
+      "badge": null,
+      "featured": 1,
       "tags": [
         "floral",
         "hoop",
         "cushion"
-      ]
-    },
-    {
-      "slug": "peacock-court",
-      "name": "Peacock Court",
-      "motif": "medallion",
-      "params": {
-        "rings": 3,
-        "r": 420
-      },
-      "colors": [
-        "#1F6F78",
-        "#C8A24A",
-        "#8C2F39"
       ],
-      "price": 899,
-      "mrp": 1499,
-      "featured": 1,
-      "badge": null,
-      "summary": "Concentric rings with sixteen radiating spokes — a court medallion for lehengas and table linen.",
-      "description": "Built for the centre of a lehenga panel or a large cushion face. Three rings of satin and a sixteen-spoke lattice give it the density of a woven brocade without the weight. Best on dupion or raw silk.",
-      "hoop": "6 × 6 in",
-      "tags": [
-        "medallion",
-        "bridal",
-        "home"
-      ]
-    },
-    {
-      "slug": "paisley-vine",
-      "name": "Paisley Vine",
-      "motif": "paisley",
-      "params": {
-        "size": 430
-      },
-      "colors": [
-        "#5A3A5E",
-        "#C8A24A",
-        "#E8DCE8"
-      ],
-      "price": 649,
-      "mrp": 999,
-      "featured": 0,
-      "badge": null,
-      "summary": "A single boteh with an inner curl and five seed dots — the Kashmiri paisley, digitised.",
-      "description": "The outline runs in a bean stitch for a raised edge, the inner curl in satin, and five seed dots finish the tail. Scales cleanly from a kurta placket to a stole border.",
+      "summary": "A five-petal blossom with a blue gradient and a yellow centre.",
+      "description": "A five-petal blossom with a blue gradient and a yellow centre. Three thread changes, only 33 trims, and a soft tatami fill — the quickest sew of the four and the easiest to place on a cushion or a placket.",
       "hoop": "4 × 4 in",
-      "tags": [
-        "paisley",
-        "stole",
-        "border"
+      "stitchCount": 5074,
+      "widthMm": 90,
+      "heightMm": 84.6,
+      "colorCount": 3,
+      "trims": 33,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#cad4ee",
+          "stitches": 3313
+        },
+        {
+          "name": "",
+          "hex": "#4466bc",
+          "stitches": 1341
+        },
+        {
+          "name": "",
+          "hex": "#ecd06b",
+          "stitches": 420
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Blue-Blossom.pes",
+          "bytes": 33250
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Blue-Blossom.dst",
+          "bytes": 16148
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Blue-Blossom.jef",
+          "bytes": 10586
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Blue-Blossom.exp",
+          "bytes": 10568
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Blue-Blossom.vp3",
+          "bytes": 10768
+        },
+        {
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Blue-Blossom.xxx",
+          "bytes": 10754
+        },
+        {
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Blue-Blossom.sew",
+          "bytes": 17892
+        },
+        {
+          "key": "dsb",
+          "label": "DSB",
+          "note": "Barudan",
+          "file": "Blue-Blossom.dsb",
+          "bytes": 15983
+        },
+        {
+          "key": "dsz",
+          "label": "DSZ",
+          "note": "ZSK",
+          "file": "Blue-Blossom.dsz",
+          "bytes": 15980
+        },
+        {
+          "key": "emd",
+          "label": "EMD",
+          "note": "Elna / Melco",
+          "file": "Blue-Blossom.emd",
+          "bytes": 10454
+        },
+        {
+          "key": "gt",
+          "label": "GT",
+          "note": "Gold Thread",
+          "file": "Blue-Blossom.gt",
+          "bytes": 15980
+        },
+        {
+          "key": "inb",
+          "label": "INB",
+          "note": "Inbro",
+          "file": "Blue-Blossom.inb",
+          "bytes": 23564
+        },
+        {
+          "key": "jpx",
+          "label": "JPX",
+          "note": "Janome JPX",
+          "file": "Blue-Blossom.jpx",
+          "bytes": 10424
+        },
+        {
+          "key": "new",
+          "label": "NEW",
+          "note": "NEC / New Home",
+          "file": "Blue-Blossom.new",
+          "bytes": 15374
+        },
+        {
+          "key": "pcd",
+          "label": "PCD",
+          "note": "Pfaff PCD",
+          "file": "Blue-Blossom.pcd",
+          "bytes": 46129
+        },
+        {
+          "key": "pcm",
+          "label": "PCM",
+          "note": "Pfaff PCM",
+          "file": "Blue-Blossom.pcm",
+          "bytes": 46121
+        },
+        {
+          "key": "pcq",
+          "label": "PCQ",
+          "note": "Pfaff Creative MAXI",
+          "file": "Blue-Blossom.pcq",
+          "bytes": 46129
+        },
+        {
+          "key": "pcs",
+          "label": "PCS",
+          "note": "Pfaff large hoop",
+          "file": "Blue-Blossom.pcs",
+          "bytes": 46129
+        },
+        {
+          "key": "pec",
+          "label": "PEC",
+          "note": "Brother (colour block only)",
+          "file": "Blue-Blossom.pec",
+          "bytes": 11978
+        },
+        {
+          "key": "stx",
+          "label": "STX",
+          "note": "Data Stitch",
+          "file": "Blue-Blossom.stx",
+          "bytes": 10500
+        },
+        {
+          "key": "tap",
+          "label": "TAP",
+          "note": "Happy",
+          "file": "Blue-Blossom.tap",
+          "bytes": 15474
+        },
+        {
+          "key": "tbf",
+          "label": "TBF",
+          "note": "Tajima block format",
+          "file": "Blue-Blossom.tbf",
+          "bytes": 16981
+        },
+        {
+          "key": "u01",
+          "label": "U01",
+          "note": "Barudan",
+          "file": "Blue-Blossom.u01",
+          "bytes": 15691
+        },
+        {
+          "key": "zxy",
+          "label": "ZXY",
+          "note": "ZSK (ZXY)",
+          "file": "Blue-Blossom.zxy",
+          "bytes": 15375
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
       ]
     },
     {
-      "slug": "phulkari-border",
-      "name": "Phulkari Border",
-      "motif": "border",
-      "params": {
-        "width": 760,
-        "height": 150,
-        "scallops": 6
-      },
-      "colors": [
-        "#B5442E",
-        "#E8B53A",
-        "#F7EFE0"
-      ],
-      "price": 549,
-      "mrp": 899,
-      "featured": 0,
-      "badge": "New",
-      "summary": "Six scallops with a double running rule — repeat it along a dupatta or a hem.",
-      "description": "A repeating border designed to be hooped end to end: the first and last stitch land on the same baseline, so consecutive repeats join without a visible seam. Includes seed-dot accents.",
-      "hoop": "5 × 7 in",
-      "tags": [
-        "border",
-        "dupatta",
-        "repeat"
-      ]
-    },
-    {
-      "slug": "laurel-monogram",
-      "name": "Laurel Monogram",
-      "motif": "wreath",
-      "params": {
-        "r": 340,
-        "leaves": 14
-      },
-      "colors": [
-        "#2F4858",
-        "#C8A24A",
-        "#8C2F39"
-      ],
-      "price": 799,
+      "slug": "magnolia-branch",
+      "name": "Magnolia Branch",
+      "source": "pack",
+      "dir": "src/designs/magnolia-branch",
+      "previewImg": "img/magnolia-branch.png",
+      "price": 749,
       "mrp": 1199,
-      "featured": 1,
       "badge": null,
-      "summary": "A laurel wreath with a star crown — leave the centre empty for initials or a motif.",
-      "description": "Fourteen laurel leaves set along a satin ring, with a five-point star at the crown. The centre is deliberately clear so your monogram or a small motif can be dropped in.",
-      "hoop": "5 × 5 in",
-      "tags": [
-        "monogram",
-        "gift",
-        "wreath"
-      ]
-    },
-    {
-      "slug": "bandhani-dot-field",
-      "name": "Bandhani Dot Field",
-      "motif": "dots",
-      "params": {
-        "cols": 7,
-        "rows": 5,
-        "gap": 96
-      },
-      "colors": [
-        "#8C2F39",
-        "#E8B84B",
-        "#F4E7D3"
-      ],
-      "price": 449,
-      "mrp": 749,
       "featured": 0,
-      "badge": null,
-      "summary": "Thirty-five tie-dye dots in three thread colours — an all-over fill that tiles.",
-      "description": "The dotted ground of a bandhani, stitched rather than tied. Rows and columns are evenly pitched so the field tiles across a kurta or a quilt without matching seams.",
+      "tags": [
+        "floral",
+        "botanical",
+        "border"
+      ],
+      "summary": "A magnolia branch: pink flowers, olive leaves and a dark outline that holds the shape together.",
+      "description": "A magnolia branch: pink flowers, olive leaves and a dark outline that holds the shape together. Tall and narrow, so it sits well on a kurta placket, a stole end or a sleeve.",
       "hoop": "4 × 4 in",
-      "tags": [
-        "allover",
-        "dot",
-        "fill"
+      "stitchCount": 5632,
+      "widthMm": 47.3,
+      "heightMm": 90,
+      "colorCount": 5,
+      "trims": 247,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f6a4b8",
+          "stitches": 1335
+        },
+        {
+          "name": "",
+          "hex": "#68493d",
+          "stitches": 2318
+        },
+        {
+          "name": "",
+          "hex": "#e0748d",
+          "stitches": 1146
+        },
+        {
+          "name": "",
+          "hex": "#879f3f",
+          "stitches": 509
+        },
+        {
+          "name": "",
+          "hex": "#251711",
+          "stitches": 324
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Magnolia-Branch.pes",
+          "bytes": 43116
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Magnolia-Branch.dst",
+          "bytes": 20231
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Magnolia-Branch.jef",
+          "bytes": 13194
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Magnolia-Branch.exp",
+          "bytes": 14016
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Magnolia-Branch.vp3",
+          "bytes": 12834
+        },
+        {
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Magnolia-Branch.xxx",
+          "bytes": 13574
+        },
+        {
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Magnolia-Branch.sew",
+          "bytes": 19848
+        },
+        {
+          "key": "dsb",
+          "label": "DSB",
+          "note": "Barudan",
+          "file": "Magnolia-Branch.dsb",
+          "bytes": 18929
+        },
+        {
+          "key": "dsz",
+          "label": "DSZ",
+          "note": "ZSK",
+          "file": "Magnolia-Branch.dsz",
+          "bytes": 18926
+        },
+        {
+          "key": "emd",
+          "label": "EMD",
+          "note": "Elna / Melco",
+          "file": "Magnolia-Branch.emd",
+          "bytes": 12834
+        },
+        {
+          "key": "gt",
+          "label": "GT",
+          "note": "Gold Thread",
+          "file": "Magnolia-Branch.gt",
+          "bytes": 18926
+        },
+        {
+          "key": "inb",
+          "label": "INB",
+          "note": "Inbro",
+          "file": "Magnolia-Branch.inb",
+          "bytes": 25868
+        },
+        {
+          "key": "jpx",
+          "label": "JPX",
+          "note": "Janome JPX",
+          "file": "Magnolia-Branch.jpx",
+          "bytes": 12388
+        },
+        {
+          "key": "new",
+          "label": "NEW",
+          "note": "NEC / New Home",
+          "file": "Magnolia-Branch.new",
+          "bytes": 17678
+        },
+        {
+          "key": "pcd",
+          "label": "PCD",
+          "note": "Pfaff PCD",
+          "file": "Magnolia-Branch.pcd",
+          "bytes": 53049
+        },
+        {
+          "key": "pcm",
+          "label": "PCM",
+          "note": "Pfaff PCM",
+          "file": "Magnolia-Branch.pcm",
+          "bytes": 53037
+        },
+        {
+          "key": "pcq",
+          "label": "PCQ",
+          "note": "Pfaff Creative MAXI",
+          "file": "Magnolia-Branch.pcq",
+          "bytes": 53049
+        },
+        {
+          "key": "pcs",
+          "label": "PCS",
+          "note": "Pfaff large hoop",
+          "file": "Magnolia-Branch.pcs",
+          "bytes": 53049
+        },
+        {
+          "key": "pec",
+          "label": "PEC",
+          "note": "Brother (colour block only)",
+          "file": "Magnolia-Branch.pec",
+          "bytes": 14420
+        },
+        {
+          "key": "stx",
+          "label": "STX",
+          "note": "Data Stitch",
+          "file": "Magnolia-Branch.stx",
+          "bytes": 13312
+        },
+        {
+          "key": "tap",
+          "label": "TAP",
+          "note": "Happy",
+          "file": "Magnolia-Branch.tap",
+          "bytes": 18420
+        },
+        {
+          "key": "tbf",
+          "label": "TBF",
+          "note": "Tajima block format",
+          "file": "Magnolia-Branch.tbf",
+          "bytes": 19762
+        },
+        {
+          "key": "u01",
+          "label": "U01",
+          "note": "Barudan",
+          "file": "Magnolia-Branch.u01",
+          "bytes": 18466
+        },
+        {
+          "key": "zxy",
+          "label": "ZXY",
+          "note": "ZSK (ZXY)",
+          "file": "Magnolia-Branch.zxy",
+          "bytes": 17679
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
       ]
     },
     {
-      "slug": "chikankari-vine",
-      "name": "Chikankari Vine",
-      "motif": "vine",
-      "params": {
-        "len": 800,
-        "amp": 150,
-        "leaves": 7
-      },
-      "colors": [
-        "#6B7F5E",
-        "#F4EAD6",
-        "#B98B4A"
-      ],
-      "price": 699,
-      "mrp": 1099,
-      "featured": 1,
-      "badge": null,
-      "summary": "A climbing vine with seven paired leaves — the Lucknow running vine, light enough for mulmul.",
-      "description": "Worked in a fine running stitch with leaf loops, so the density stays low enough for summer mulmul. Seven leaves per repeat, alternating sides, mirrored so pairs read as one motif.",
-      "hoop": "5 × 7 in",
-      "tags": [
-        "vine",
-        "kurti",
-        "light"
-      ]
-    },
-    {
-      "slug": "lotus-medallion",
-      "name": "Lotus Medallion",
-      "motif": "petalRing",
-      "params": {
-        "petals": 8,
-        "r": 300,
-        "pr": 150
-      },
-      "colors": [
-        "#7E2B33",
-        "#D6B177",
-        "#2B3F4D"
-      ],
-      "price": 899,
-      "mrp": 1399,
+      "slug": "silhouette-10",
+      "name": "Silhouette 10",
+      "source": "pack",
+      "dir": "src/designs/silhouette-10",
+      "previewImg": "img/silhouette-10.png",
+      "price": 399,
+      "mrp": 699,
+      "badge": "New",
       "featured": 0,
-      "badge": "Couture",
-      "summary": "Eight broad lotus petals around a dense satin core — heavy enough for a blouse back.",
-      "description": "Broad petals with a dense satin core, built for a blouse back or a bridal panel. Higher stitch density than the Mughal Bloom; use a cut-away stabiliser on stretch fabric.",
-      "hoop": "6 × 6 in",
       "tags": [
-        "lotus",
-        "blouse",
-        "bridal"
+        "sport",
+        "jersey",
+        "kids"
+      ],
+      "summary": "A single-colour silhouette figure holding the number 10 — one thread, ten trims, 3,111 stitches.",
+      "description": "A single-colour silhouette figure holding the number 10 — one thread, ten trims, 3,111 stitches. Made for jerseys, caps and bags where a clean solid shape is the whole point.",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3111,
+      "widthMm": 88.3,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 10,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#010101",
+          "stitches": 3111
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Silhouette-10.pes",
+          "bytes": 20302
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Silhouette-10.dst",
+          "bytes": 10010
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Silhouette-10.jef",
+          "bytes": 6492
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Silhouette-10.exp",
+          "bytes": 6398
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Silhouette-10.vp3",
+          "bytes": 6640
+        },
+        {
+          "key": "xxx",
+          "label": "XXX",
+          "note": "Singer",
+          "file": "Silhouette-10.xxx",
+          "bytes": 6648
+        },
+        {
+          "key": "sew",
+          "label": "SEW",
+          "note": "Janome (older)",
+          "file": "Silhouette-10.sew",
+          "bytes": 13886
+        },
+        {
+          "key": "dsb",
+          "label": "DSB",
+          "note": "Barudan",
+          "file": "Silhouette-10.dsb",
+          "bytes": 9965
+        },
+        {
+          "key": "dsz",
+          "label": "DSZ",
+          "note": "ZSK",
+          "file": "Silhouette-10.dsz",
+          "bytes": 9962
+        },
+        {
+          "key": "emd",
+          "label": "EMD",
+          "note": "Elna / Melco",
+          "file": "Silhouette-10.emd",
+          "bytes": 6406
+        },
+        {
+          "key": "gt",
+          "label": "GT",
+          "note": "Gold Thread",
+          "file": "Silhouette-10.gt",
+          "bytes": 9962
+        },
+        {
+          "key": "inb",
+          "label": "INB",
+          "note": "Inbro",
+          "file": "Silhouette-10.inb",
+          "bytes": 17615
+        },
+        {
+          "key": "jpx",
+          "label": "JPX",
+          "note": "Janome JPX",
+          "file": "Silhouette-10.jpx",
+          "bytes": 6410
+        },
+        {
+          "key": "new",
+          "label": "NEW",
+          "note": "NEC / New Home",
+          "file": "Silhouette-10.new",
+          "bytes": 9425
+        },
+        {
+          "key": "pcd",
+          "label": "PCD",
+          "note": "Pfaff PCD",
+          "file": "Silhouette-10.pcd",
+          "bytes": 28274
+        },
+        {
+          "key": "pcm",
+          "label": "PCM",
+          "note": "Pfaff PCM",
+          "file": "Silhouette-10.pcm",
+          "bytes": 28270
+        },
+        {
+          "key": "pcq",
+          "label": "PCQ",
+          "note": "Pfaff Creative MAXI",
+          "file": "Silhouette-10.pcq",
+          "bytes": 28274
+        },
+        {
+          "key": "pcs",
+          "label": "PCS",
+          "note": "Pfaff large hoop",
+          "file": "Silhouette-10.pcs",
+          "bytes": 28274
+        },
+        {
+          "key": "pec",
+          "label": "PEC",
+          "note": "Brother (colour block only)",
+          "file": "Silhouette-10.pec",
+          "bytes": 7490
+        },
+        {
+          "key": "stx",
+          "label": "STX",
+          "note": "Data Stitch",
+          "file": "Silhouette-10.stx",
+          "bytes": 6402
+        },
+        {
+          "key": "tap",
+          "label": "TAP",
+          "note": "Happy",
+          "file": "Silhouette-10.tap",
+          "bytes": 9456
+        },
+        {
+          "key": "tbf",
+          "label": "TBF",
+          "note": "Tajima block format",
+          "file": "Silhouette-10.tbf",
+          "bytes": 10978
+        },
+        {
+          "key": "u01",
+          "label": "U01",
+          "note": "Barudan",
+          "file": "Silhouette-10.u01",
+          "bytes": 9694
+        },
+        {
+          "key": "zxy",
+          "label": "ZXY",
+          "note": "ZSK (ZXY)",
+          "file": "Silhouette-10.zxy",
+          "bytes": 9426
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
       ]
     }
   ]

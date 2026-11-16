@@ -1,40 +1,44 @@
 'use strict';
-/** Emits the catalogue + per-format files as JSON for the single-file static build. */
+/** Emits catalogue + per-format files (data URIs) for the single-file static build. */
 const fs = require('fs');
 const path = require('path');
-const E = require('../src/embroidery.js');
-const seed = require('../src/data/designs.json');
+const P = require('../src/pack.js');
 
-const MIME = { dst: 'application/octet-stream', exp: 'application/octet-stream', svg: 'image/svg+xml', png: 'image/png', pdf: 'application/pdf' };
-const settings = { ...seed.settings };
-delete settings.admin_password;
+const ROOT = path.join(__dirname, '..');
+const seed = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/designs.json'), 'utf8'));
+const POPULAR = ['pes', 'dst', 'jef', 'exp', 'vp3', 'hus', 'xxx', 'sew', 'pec'];
+const MIME = { png: 'image/png', pes: 'application/octet-stream', dst: 'application/octet-stream' };
 
 const designs = [];
 const files = {};
 for (const d of seed.designs) {
-  const geo = E.build(d);
-  const price = d.price, mrp = d.mrp || d.price;
+  // the demo build carries the common formats; the server has all 24
+  const formats = d.formats.filter(f => POPULAR.includes(f.key));
+  const imgPath = path.join(ROOT, 'build', 'img', `${d.slug}.png`);
+  const preview = fs.existsSync(imgPath)
+    ? `data:image/png;base64,${fs.readFileSync(imgPath).toString('base64')}`
+    : null;
   designs.push({
-    slug: d.slug, name: d.name, motif: d.motif, hoop: d.hoop, tags: d.tags || [],
-    price, mrp, discount: mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0,
+    slug: d.slug, name: d.name, hoop: d.hoop, tags: d.tags, price: d.price, mrp: d.mrp,
+    discount: d.mrp > d.price ? Math.round(((d.mrp - d.price) / d.mrp) * 100) : 0,
     summary: d.summary, description: d.description,
-    colors: d.colors, colorCount: geo.colors.length,
-    stitchCount: geo.stitches.length,
-    widthMm: Math.round(geo.width) / 10, heightMm: Math.round(geo.height) / 10,
-    preview: E.toSvgPreview(geo),
-    formats: Object.keys(E.FORMATS),
+    stitchCount: d.stitchCount, widthMm: d.widthMm, heightMm: d.heightMm,
+    colorCount: d.colorCount, trims: d.trims, threads: d.threads,
+    preview, formats: formats.map(f => ({ key: f.key, label: f.label, note: f.note })),
+    defaultFormats: d.defaultFormats.filter(k => formats.some(f => f.key === k)),
     featured: d.featured ? 1 : 0, badge: d.badge || null
   });
-  const packed = {
-    dst: E.toDst(geo), exp: E.toExp(geo), svg: Buffer.from(E.toSvg(geo), 'utf8'),
-    png: E.toPng(geo, 720), pdf: E.toPdf(geo, d, ['DST', 'EXP', 'SVG', 'PNG', 'PDF'])
-  };
   files[d.slug] = {};
-  for (const [k, buf] of Object.entries(packed)) files[d.slug][k] = `data:${MIME[k]};base64,${buf.toString('base64')}`;
+  for (const f of formats) {
+    const abs = path.join(ROOT, d.dir, f.file);
+    if (!fs.existsSync(abs)) continue;
+    files[d.slug][f.key] = { name: f.file, data: `data:${MIME[f.key] || 'application/octet-stream'};base64,${fs.readFileSync(abs).toString('base64')}` };
+  }
 }
 
-const out = { settings, designs, files };
-fs.mkdirSync(path.join(__dirname, '..', 'build'), { recursive: true });
-fs.writeFileSync(path.join(__dirname, '..', 'build', 'assets.json'), JSON.stringify(out));
-const bytes = fs.statSync(path.join(__dirname, '..', 'build', 'assets.json')).size;
-console.log('assets.json', (bytes / 1024).toFixed(0), 'KB ·', designs.length, 'designs');
+fs.mkdirSync(path.join(ROOT, 'build'), { recursive: true });
+const payload = { settings: seed.settings, designs, files };
+delete payload.settings.admin_password;
+fs.writeFileSync(path.join(ROOT, 'build', 'assets.json'), JSON.stringify(payload));
+console.log('assets.json', (fs.statSync(path.join(ROOT, 'build', 'assets.json')).size / 1024).toFixed(0), 'KB ·', designs.length, 'designs ·',
+  designs.reduce((s, d) => s + d.formats.length, 0), 'format files embedded');

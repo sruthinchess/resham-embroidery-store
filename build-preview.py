@@ -5,6 +5,15 @@ import json, pathlib, re, subprocess
 ROOT = pathlib.Path(__file__).resolve().parent
 PUB, OUT = ROOT / 'public', ROOT / 'docs' / 'index.html'
 
+# shrink the stitch previews for the single-file build
+from PIL import Image
+imgdir = ROOT / 'build' / 'img'
+imgdir.mkdir(parents=True, exist_ok=True)
+for src in (ROOT / 'public' / 'img').glob('*.png'):
+    im = Image.open(src).convert('RGBA')
+    im.thumbnail((640, 640), Image.LANCZOS)
+    im.save(imgdir / src.name, optimize=True)
+
 subprocess.run(['node', str(ROOT / 'tools' / 'build-assets.js')], check=True, cwd=ROOT)
 assets = json.loads((ROOT / 'build' / 'assets.json').read_text())
 

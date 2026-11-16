@@ -99,8 +99,8 @@
       const chosen = t.formats || [];
       const parts = [];
       for (const f of chosen) {
-        const dataUrl = set[f];
-        if (dataUrl) parts.push({ name: `${String(it.slug).toUpperCase()}.${f === 'png' ? 'png' : f === 'pdf' ? 'pdf' : f}`, data: b64ToU8(dataUrl.split(',')[1]) });
+        const entry = set[f];
+        if (entry) parts.push({ name: entry.name, data: b64ToU8(entry.data.split(',')[1]) });
       }
       parts.push({ name: 'READ ME.txt', data: u8(
         `${it.name}\n\nStitch count : ${it.stitchCount}\nFormats here : ${chosen.map(f => f.toUpperCase()).join(', ')}\n\nOpen the DST or EXP in your machine software.\nOne-person commercial licence.\n\nResham Atelier\n`) });
@@ -172,11 +172,11 @@
       const d = S.designs.find(x => x.active && (String(x.id) === String(raw.id) || x.slug === raw.slug));
       if (!d) throw fail('One of the designs is no longer for sale.');
       if (lines.some(l => l.designId === d.id)) continue;
-      const allowed = d.formats || ['dst'];
+      const allowed = (d.formats || []).map(f => f.key);
       let formats = Array.isArray(raw.formats) ? raw.formats.filter(f => allowed.includes(f)) : [];
-      if (!formats.length) formats = allowed.slice();
+      if (!formats.length) formats = (d.defaultFormats && d.defaultFormats.length) ? d.defaultFormats.slice() : allowed.slice();
       amount += d.price;
-      lines.push({ designId: d.id, slug: d.slug, name: d.name, price: d.price, formats, stitchCount: d.stitchCount, hoop: d.hoop });
+      lines.push({ designId: d.id, slug: d.slug, name: d.name, price: d.price, formats, stitchCount: d.stitchCount, hoop: d.hoop, preview: d.preview });
     }
     const o = {
       id: ++S.seq.order,
@@ -271,19 +271,7 @@
     return { ok: true, order: oOut(o, { admin: true, withLinks: true }) };
   });
   R('GET', '/api/admin/designs', () => { guard(); return { ok: true, designs: S.designs.slice().reverse() }; });
-  R('POST', '/api/admin/designs', (m, q, p, b) => {
-    guard();
-    if (!String(b.name || '').trim()) throw fail('Design name is required.');
-    if (!(Number(b.price) > 0)) throw fail('Price must be more than zero.');
-    const d = { id: ++S.seq.design, slug: (b.name || 'design').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      name: b.name.trim(), motif: b.motif || 'petalRing', price: Number(b.price), mrp: Number(b.mrp || b.price),
-      summary: b.summary || '', description: b.description || '', hoop: b.hoop || '', stitchCount: 0,
-      widthMm: 0, heightMm: 0, colorCount: 3, colors: b.colors || ['#8C2F39', '#C8A24A', '#2F4858'],
-      preview: '', formats: b.formats && b.formats.length ? b.formats : ['dst', 'exp', 'svg', 'png', 'pdf'],
-      tags: b.tags || [], featured: b.featured ? 1 : 0, badge: b.badge || null, downloads: 0, active: 1, created_at: now() };
-    S.designs.push(d); save();
-    return { ok: true, design: d };
-  });
+  R('POST', '/api/admin/designs', () => { guard(); throw fail('New designs are imported with their machine files — run the import script.', 400); });
   R('PUT', '/api/admin/designs/:id', (m, q, p, b) => {
     guard();
     const d = S.designs.find(x => String(x.id) === String(p.id));
