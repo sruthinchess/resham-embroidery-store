@@ -7,12 +7,20 @@
     "auto_approve": "1",
     "link_hours": "72",
     "support_email": "hello@sandyaembdesigns.com",
-    "announcement": "Instant download · PES DST JEF EXP VP3 XXX SEW · pay by UPI",
+    "announcement": "Instant download · PES DST JEF EXP VP3 · pay by UPI",
     "admin_password": "252525",
     "logo_url": "img/logo.png",
     "logo_mark_url": "img/logo-mark.png",
     "favicon_url": "img/favicon.png",
     "coupons": [
+      {
+        "code": "WELCOME",
+        "type": "percent",
+        "value": 10,
+        "min_order": 0,
+        "max_uses": 0,
+        "note": "Welcome — 10% off your first order"
+      },
       {
         "code": "SANDYA10",
         "type": "percent",
@@ -44,6 +52,22 @@
         "min_order": 799,
         "max_uses": 100,
         "note": "Festive offer"
+      },
+      {
+        "code": "PEONY50",
+        "type": "flat",
+        "value": 50,
+        "min_order": 300,
+        "max_uses": 0,
+        "note": "₹50 off floral orders"
+      },
+      {
+        "code": "MONOGRAM5",
+        "type": "percent",
+        "value": 5,
+        "min_order": 0,
+        "max_uses": 0,
+        "note": "5% off any design"
       }
     ],
     "price_per_colour": 60,
@@ -139,20 +163,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Floral-Spray.vp3",
           "bytes": 14214
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Floral-Spray.xxx",
-          "bytes": 15220
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older models)",
-          "file": "Floral-Spray.sew",
-          "bytes": 21022
         }
       ],
       "defaultFormats": [
@@ -240,20 +250,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Blue-Blossom.vp3",
           "bytes": 10768
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Blue-Blossom.xxx",
-          "bytes": 10754
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Blue-Blossom.sew",
-          "bytes": 17892
         }
       ],
       "defaultFormats": [
@@ -351,20 +347,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Magnolia-Branch.vp3",
           "bytes": 12834
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Magnolia-Branch.xxx",
-          "bytes": 13574
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Magnolia-Branch.sew",
-          "bytes": 19848
         }
       ],
       "defaultFormats": [
@@ -442,20 +424,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Silhouette-10.vp3",
           "bytes": 6640
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Silhouette-10.xxx",
-          "bytes": 6648
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Silhouette-10.sew",
-          "bytes": 13886
         }
       ],
       "defaultFormats": [
@@ -558,20 +526,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Folk-Floral-Spray.vp3",
           "bytes": 10790
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Folk-Floral-Spray.xxx",
-          "bytes": 11026
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Folk-Floral-Spray.sew",
-          "bytes": 17740
         }
       ],
       "defaultFormats": [
@@ -649,20 +603,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Gamer-Wordmark.vp3",
           "bytes": 2880
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Gamer-Wordmark.xxx",
-          "bytes": 2874
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Gamer-Wordmark.sew",
-          "bytes": 10080
         }
       ],
       "defaultFormats": [
@@ -740,20 +680,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Jai-Shree-Ram.vp3",
           "bytes": 8572
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Jai-Shree-Ram.xxx",
-          "bytes": 8986
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Jai-Shree-Ram.sew",
-          "bytes": 15960
         }
       ],
       "defaultFormats": [
@@ -856,20 +782,6 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Peony-Bloom.vp3",
           "bytes": 16490
-        },
-        {
-          "key": "xxx",
-          "label": "XXX",
-          "note": "Singer",
-          "file": "Peony-Bloom.xxx",
-          "bytes": 16704
-        },
-        {
-          "key": "sew",
-          "label": "SEW",
-          "note": "Janome (older)",
-          "file": "Peony-Bloom.sew",
-          "bytes": 23458
         }
       ],
       "defaultFormats": [

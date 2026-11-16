@@ -6,12 +6,20 @@
   "auto_approve": "1",
   "link_hours": "72",
   "support_email": "hello@sandyaembdesigns.com",
-  "announcement": "Instant download \u00b7 PES DST JEF EXP VP3 XXX SEW \u00b7 pay by UPI",
+  "announcement": "Instant download \u00b7 PES DST JEF EXP VP3 \u00b7 pay by UPI",
   "admin_password": "252525",
   "logo_url": "img/logo.png",
   "logo_mark_url": "img/logo-mark.png",
   "favicon_url": "img/favicon.png",
   "coupons": [
+    {
+      "code": "WELCOME",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "Welcome \u2014 10% off your first order"
+    },
     {
       "code": "SANDYA10",
       "type": "percent",
@@ -43,6 +51,22 @@
       "min_order": 799,
       "max_uses": 100,
       "note": "Festive offer"
+    },
+    {
+      "code": "PEONY50",
+      "type": "flat",
+      "value": 50,
+      "min_order": 300,
+      "max_uses": 0,
+      "note": "\u20b950 off floral orders"
+    },
+    {
+      "code": "MONOGRAM5",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any design"
     }
   ],
   "price_per_colour": 60,

@@ -38,7 +38,7 @@ const FORMATS = {
 };
 /** What the shop sells: the formats almost every machine reads. The rest of the
  *  24 files stay in the pack on disk but are not offered. */
-const MAIN = ['pes', 'dst', 'jef', 'exp', 'vp3', 'hus', 'xxx', 'sew'];
+const MAIN = ['pes', 'dst', 'jef', 'exp', 'vp3'];
 const POPULAR = MAIN;
 
 /* ------------------------------------------------------------- zip writer */

@@ -53,6 +53,17 @@
       this.save();
       return this.wish.includes(id);
     },
+    orders: JSON.parse(LS.getItem('sd_orders') || '[]'),
+    rememberOrder(o) {
+      if (!o || o.status !== 'paid') return;
+      const entry = {
+        code: o.code, email: o.email, amount: o.amount, paidAt: o.paidAt || new Date().toISOString(),
+        items: (o.items || []).map(i => ({ name: i.name, formats: i.formats, preview: i.preview })),
+        downloads: (o.downloads || []).map(d => ({ name: d.name, fileName: d.fileName, url: d.url }))
+      };
+      this.orders = [entry].concat(this.orders.filter(x => x.code !== o.code)).slice(0, 50);
+      LS.setItem('sd_orders', JSON.stringify(this.orders));
+    },
     pushRecent(slug) {
       this.recent = [slug].concat(this.recent.filter(x => x !== slug)).slice(0, 4);
       this.save();
@@ -157,10 +168,10 @@
       return `<div class="coupon-on">${I.tag}<b>${esc(c.code)}</b><span>${esc(c.label || '')}</span>
         <button type="button" id="couponRemove" aria-label="Remove coupon">✕</button></div>`;
     }
-    return `<form id="couponForm" class="coupon-form">
+    return `<div id="couponForm" class="coupon-form">
       <input class="input" name="code" placeholder="Coupon code" autocomplete="off" style="text-transform:uppercase">
-      <button class="btn btn-dark btn-sm" type="submit">Apply</button>
-    </form>`;
+      <button class="btn btn-dark btn-sm" type="button" id="couponApply">Apply</button>
+    </div>`;
   }
 
   function summaryRows(showPayment) {
@@ -200,19 +211,18 @@
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
       <a class="logo" href="#/"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)} logo"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
       <nav class="nav">
+        <a href="#/" class="${a('home')}">Home</a>
         <a href="#/designs" class="${a('designs')}">All designs</a>
-        <a href="#/designs?tag=floral" class="${a('floral')}">Floral</a>
-        <a href="#/designs?tag=border" class="${a('border')}">Borders</a>
-        <a href="#/designs?tag=bridal" class="${a('bridal')}">Bridal</a>
-        <a href="#/order" class="${a('order')}">My order</a>
+        <a href="#/downloads" class="${a('downloads')}">My downloads</a>
+        <a href="#/saved" class="${a('saved')}">Saved</a>
       </nav>
       <form class="searchbar" id="searchform" role="search">
         <span style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--ink-mute)">${I.search}</span>
         <input name="q" placeholder="Search designs, hoops, motifs…" autocomplete="off">
       </form>
       <div class="hdr-tools">
+        <a class="icon-btn" href="#/downloads" aria-label="My downloads">${I.dl}</a>
         <a class="icon-btn" href="#/saved" aria-label="Saved designs">${I.heart}<span class="dot" id="wishDot" style="background:var(--brass)">${Store.wish.length}</span></a>
-        <a class="icon-btn" href="#/order" aria-label="Find my order">${I.user}</a>
         <button class="icon-btn" id="openCart" aria-label="Bag">${I.bag}<span class="dot" id="cartDot">${Store.count}</span></button>
       </div>
     </div></header>`;
@@ -232,7 +242,7 @@
           <li><a href="#/designs?tag=monogram">Monograms</a></li>
           <li><a href="#/designs">Everything</a></li></ul></div>
         <div><h4>Help</h4><ul>
-          <li><a href="#/order">Find my order</a></li>
+          <li><a href="#/downloads">My downloads</a></li>
           <li><a href="#/designs">Which format do I need?</a></li>
           <li><a href="#/designs">Licence</a></li>
           <li><a href="#/admin">Studio admin</a></li></ul></div>
@@ -271,7 +281,7 @@
         <div class="hero-stats">
           <div><b>${all.designs.length} designs</b><span>in the library</span></div>
           <div><b>${nf(stitches)}</b><span>stitches digitised</span></div>
-          <div><b>${fmtCount} formats</b><span>PES · DST · JEF · EXP · VP3 · XXX…</span></div>
+          <div><b>${fmtCount} formats</b><span>PES · DST · JEF · EXP · VP3</span></div>
         </div>
       </div>
       <div class="hero-art">
@@ -281,9 +291,18 @@
       </div>
     </div></div>
 
+    ${LS.getItem('sd_welcome_off') ? '' : `<div class="welcome">
+      <div class="wrap welcome-in">
+        <span class="w-tag">${I.tag} Welcome offer</span>
+        <p><b>10% off your first order</b> with code <span class="mono">WELCOME</span></p>
+        <button class="btn btn-gold btn-sm" id="welcomeApply">Apply WELCOME</button>
+        <button class="icon-btn w-close" id="welcomeClose" aria-label="Dismiss">✕</button>
+      </div>
+    </div>`}
+
     <div class="marq"><div class="marq-in">
-      ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'XXX · Singer', 'SEW · Janome',
-      'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff', 'XXX · Singer', 'SEW · Janome']
+      ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff',
+      'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff']
         .map(t => `<span>${t}</span>`).join('')}
     </div></div>
 
@@ -456,7 +475,7 @@
               </button>`).join('')}
             </div>
             ${g.formats.length > 8 ? `<button class="fmt-more" id="fmtMore">Show all ${g.formats.length} formats ↓</button>` : ''}
-            <p class="small muted" style="margin:10px 0 0">We ship the formats nearly every machine reads — PES, DST, JEF, EXP, VP3, XXX and SEW. Tick what yours takes.</p>
+            <p class="small muted" style="margin:10px 0 0">We ship the five formats nearly every machine reads — PES, DST, JEF, EXP and VP3. Tick what yours takes.</p>
             <div class="fmt-links"><button id="fmtAll">Select all ${g.formats.length}</button><button id="fmtNone">Clear</button></div>
           </div>
 
@@ -515,6 +534,40 @@
     if (!others.length) return '';
     return `<section class="section tight"><div class="sec-head"><div><span class="eyebrow">Recently viewed</span><h2 style="font-size:1.5rem">Still thinking about these</h2></div></div>
       <div class="pgrid">${others.map(designCard).join('')}</div></section>`;
+  }
+
+  async function viewDownloads() {
+    const list = Store.orders || [];
+    return `<div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a> / My downloads</div>
+      <div class="sec-head" style="margin-top:16px">
+        <div><h1 style="font-size:clamp(1.7rem,3vw,2.3rem)">My downloads</h1>
+          <p>Everything you have bought in this browser — download again any time.</p></div>
+      </div>
+      ${list.length ? `<div class="dl-orders">${list.map(o => `
+        <div class="card dl-order">
+          <div class="between" style="margin-bottom:10px">
+            <div><b class="mono">${esc(o.code)}</b>
+              <div class="small muted">${dt(o.paidAt)} · ${money(o.amount)} · ${esc(o.email || '')}</div></div>
+            <span class="status-chip paid">Paid</span>
+          </div>
+          <div class="dl-list">
+            ${o.downloads.map((d, i) => `<div class="dl-row" data-dl="${i}">
+              <div class="f-ic">${I.file}</div>
+              <div><b>${esc(d.fileName)}</b><div class="fmeta">${esc(d.name)}</div></div>
+              <a class="btn btn-green btn-sm" href="${esc(d.url)}" download="${esc(d.fileName)}">Download</a>
+            </div>`).join('')}
+          </div>
+        </div>`).join('')}</div>`
+      : `<div class="empty" style="margin:20px 0 62px">
+          <h3>No downloads yet</h3>
+          <p class="muted small">Your paid orders appear here automatically. Bought on another device?</p>
+          <form id="findForm" class="row" style="justify-content:center;margin-top:12px;gap:8px;flex-wrap:wrap">
+            <input class="input mono" name="code" placeholder="SDY-XXXXXX" style="max-width:220px">
+            <button class="btn btn-primary btn-sm">Find my order</button>
+          </form>
+        </div>`}
+    </div>`;
   }
 
   async function viewSaved() {
@@ -595,6 +648,11 @@
               <div class="field"><label>Mobile (optional)</label><input class="input" name="phone" inputmode="numeric" placeholder="10-digit"></div>
             </div>
             <div class="field"><label>Email</label><input class="input" type="email" name="email" placeholder="you@example.com" required></div>
+            <div class="field">
+              <label>Coupon code</label>
+              ${couponBox()}
+              <button type="button" class="offers-link" id="offersBtn">${I.tag} View all offers</button>
+            </div>
             <button class="btn btn-primary" type="submit" style="height:54px;margin-top:6px">Continue to UPI payment ${I.arrow}</button>
             <p class="small muted" style="margin:0">By paying you accept the one-person commercial licence. Files are delivered instantly — sales are final.</p>
           </form>
@@ -606,7 +664,6 @@
             <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(l.price)}</b></div>`).join('')}
           <div style="margin-top:10px">${summaryRows(false)}</div>
-          <div class="coupon-wrap">${couponBox()}</div>
         </aside>
       </div></div>`;
   }
@@ -838,6 +895,7 @@
   }
 
   function wirePaid(o) {
+    Store.rememberOrder(o);
     const links = o.downloads || [];
     links.forEach((l, i) => setTimeout(() => triggerDownload(l, i), 400 + i * 900));
     const all = $('#dlAll');
@@ -972,6 +1030,7 @@
       else if (seg === 'd') view = await viewDesign(parts[1]);
       else if (seg === 'cart') view = await viewCart();
       else if (seg === 'saved') { view = await viewSaved(); active = 'saved'; }
+      else if (seg === 'downloads') { view = await viewDownloads(); active = 'downloads'; }
       else if (seg === 'checkout') view = await viewCheckout();
       else if (seg === 'pay') view = await viewPay(parts[1], parts[2]);
       else if (seg === 'order') { view = await viewOrderLookup({ ...params, code: parts[1] }); active = 'order'; }
@@ -997,9 +1056,10 @@
       const m = $('#modal');
       m.innerHTML = `<div class="modal"><header><h3>Menu</h3><button class="icon-btn" id="mClose">${I.close}</button></header>
         <div class="stack">
+          <a class="btn btn-ghost btn-block" href="#/">Home</a>
           <a class="btn btn-ghost btn-block" href="#/designs">All designs</a>
-          ${(Store.tags || []).slice(0, 5).map(t => `<a class="btn btn-ghost btn-block" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)}</a>`).join('')}
-          <a class="btn btn-ghost btn-block" href="#/order">Find my order</a>
+          <a class="btn btn-ghost btn-block" href="#/downloads">My downloads</a>
+          <a class="btn btn-ghost btn-block" href="#/saved">Saved designs</a>
         </div></div>`;
       m.classList.add('on');
       $('#mClose').onclick = () => m.classList.remove('on');
@@ -1030,11 +1090,46 @@
       catch { toast('Copy the address bar to share', 'bad'); }
     };
 
+    // offers sheet — the codes on offer, like any shopping app
+    const offersBtn = $('#offersBtn');
+    if (offersBtn) offersBtn.onclick = async () => {
+      const m = $('#modal');
+      m.innerHTML = `<div class="modal"><header><div><span class="eyebrow">Offers</span><h3 style="margin-top:2px">Coupon codes</h3></div>
+        <button class="icon-btn" id="mClose">✕</button></header>
+        <p class="small muted" style="margin:0 0 12px">Tap a code to apply it to this order.</p>
+        <div id="offerList" class="offer-list"><p class="small muted">Loading…</p></div></div>`;
+      m.classList.add('on');
+      $('#mClose').onclick = () => m.classList.remove('on');
+      try {
+        const r = await api('/api/coupons');
+        const sub = Store.subtotal;
+        $('#offerList').innerHTML = r.coupons.map(c => {
+          const usable = sub >= (c.minOrder || 0);
+          return `<div class="offer ${usable ? '' : 'off'}">
+            <div class="offer-code mono">${esc(c.code)}</div>
+            <div class="offer-copy"><b>${esc(c.note || c.label)}</b>
+              <span class="small muted">${c.type === 'percent' ? `${c.value}% off` : `₹${c.value} off`}${c.minOrder ? ` · min ${money(c.minOrder)}` : ''}${c.maxUses ? ` · ${Math.max(0, c.maxUses - c.used)} left` : ''}</span></div>
+            <button class="btn btn-xs ${usable ? 'btn-primary' : 'btn-ghost'}" data-apply="${esc(c.code)}" ${usable ? '' : 'disabled'}>${usable ? 'Apply' : 'Add more'}</button>
+          </div>`;
+        }).join('') || '<p class="small muted">No codes live right now.</p>';
+        $$('[data-apply]').forEach(b => b.onclick = async () => {
+          try {
+            const res = await api('/api/coupons/validate', { method: 'POST', body: { code: b.dataset.apply, subtotal: Store.subtotal } });
+            Store.coupon = { ...res.coupon, discount: res.discount };
+            Store.save();
+            m.classList.remove('on');
+            toast(`${res.coupon.code} applied — you saved ${money(res.discount)}`, 'ok');
+            render();
+          } catch (err) { toast(err.message, 'bad'); }
+        });
+      } catch (e) { $('#offerList').innerHTML = `<p class="small muted">${esc(e.message)}</p>`; }
+    };
+
     // coupon
     const cf = $('#couponForm');
-    if (cf) cf.onsubmit = async e => {
-      e.preventDefault();
-      const code = new FormData(cf).get('code').trim();
+    const applyCoupon = async () => {
+      const input = cf && cf.querySelector('[name=code]');
+      const code = (input ? input.value : '').trim();
       if (!code) return toast('Enter a coupon code', 'bad');
       try {
         const r = await api('/api/coupons/validate', { method: 'POST', body: { code, subtotal: Store.subtotal } });
@@ -1044,8 +1139,28 @@
         render();
       } catch (err) { toast(err.message, 'bad'); }
     };
+    if (cf) {
+      const btn = $('#couponApply');
+      if (btn) btn.onclick = applyCoupon;
+      const input = cf.querySelector('[name=code]');
+      if (input) input.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); } };
+    }
     const cr = $('#couponRemove');
     if (cr) cr.onclick = () => { Store.coupon = null; Store.save(); toast('Coupon removed'); render(); };
+
+    // welcome coupon
+    const welcomeApply = $('#welcomeApply');
+    if (welcomeApply) welcomeApply.onclick = async () => {
+      if (!Store.cart.length) { toast('Add a design first, then apply WELCOME', 'bad'); location.hash = '#/designs'; return; }
+      try {
+        const r = await api('/api/coupons/validate', { method: 'POST', body: { code: 'WELCOME', subtotal: Store.subtotal } });
+        Store.coupon = { ...r.coupon, discount: r.discount }; Store.save();
+        toast(`WELCOME applied — ${money(r.discount)} off`, 'ok');
+        location.hash = '#/cart';
+      } catch (err) { toast(err.message, 'bad'); }
+    };
+    const welcomeClose = $('#welcomeClose');
+    if (welcomeClose) welcomeClose.onclick = () => { LS.setItem('sd_welcome_off', '1'); render(); };
 
     // bundle
     const bundleAdd = $('#bundleAdd');

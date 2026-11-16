@@ -432,6 +432,7 @@ app.post('/api/admin/coupons', requireAdmin, (req, res) => {
   if (!['percent', 'flat'].includes(b.type)) return fail(res, 400, 'Type must be percent or flat.');
   if (!(num(b.value, 0) > 0)) return fail(res, 400, 'Value must be more than zero.');
   if (db.prepare('SELECT id FROM coupons WHERE upper(code)=upper(?)').get(code)) return fail(res, 400, 'That code already exists.');
+  if (db.prepare('SELECT COUNT(*) c FROM coupons').get().c >= 100) return fail(res, 400, 'You have reached the 100 coupon limit — delete one first.');
   const info = db.prepare(`INSERT INTO coupons(code,type,value,min_order,max_uses,active,expires_at,note)
     VALUES (?,?,?,?,?,?,?,?)`).run(code, b.type, num(b.value), num(b.minOrder, 0), num(b.maxUses, 0),
     b.active === false ? 0 : 1, b.expiresAt || null, String(b.note || ''));
