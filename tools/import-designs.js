@@ -91,7 +91,16 @@ const META = {
   'pinwheel-burst': { featured: 0, badge: 'New', tags: ['geometric', 'pinwheel', 'kids'] },
   'ram-sita': { featured: 1, badge: 'New', tags: ['devotional', 'ram', 'hoop'] },
   'shiv-triskel': { featured: 0, badge: 'New', tags: ['devotional', 'shiv', 'jersey'] },
-  'trishul-damaru': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'border'] }
+  'trishul-damaru': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'border'] },
+  'durga-linework': { featured: 1, badge: 'New', tags: ['devotional', 'durga', 'hoop'] },
+  'floral-sprig': { featured: 0, badge: 'New', tags: ['floral', 'sprig', 'border'] },
+  'mahadev-silhouette': { featured: 1, badge: 'New', tags: ['devotional', 'mahadev', 'jersey'] },
+  'mickey-color-peek': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'mickey-peek': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'midnight-floral': { featured: 1, badge: 'New', tags: ['floral', 'cushion', 'hoop'] },
+  'ornament-mandala': { featured: 0, badge: 'New', tags: ['mandala', 'ornament', 'home'] },
+  'shanku-namam-chakra': { featured: 0, badge: 'New', tags: ['devotional', 'symbol', 'jersey'] },
+  'sun-flame': { featured: 0, badge: 'New', tags: ['geometric', 'sun', 'jersey'] }
 };
 
 const COPY = {

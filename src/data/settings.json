@@ -18,95 +18,7 @@
       "value": 10,
       "min_order": 0,
       "max_uses": 0,
-      "note": "Welcome \u2014 10% off your first order"
-    },
-    {
-      "code": "SANDYA10",
-      "type": "percent",
-      "value": 10,
-      "min_order": 499,
-      "max_uses": 0,
-      "note": "10% off orders over \u20b9499"
-    },
-    {
-      "code": "FIRST100",
-      "type": "flat",
-      "value": 100,
-      "min_order": 399,
-      "max_uses": 0,
-      "note": "\u20b9100 off your first order"
-    },
-    {
-      "code": "SET25",
-      "type": "percent",
-      "value": 25,
-      "min_order": 0,
-      "max_uses": 0,
-      "note": "Complete the set \u2014 every design"
-    },
-    {
-      "code": "FESTIVE15",
-      "type": "percent",
-      "value": 15,
-      "min_order": 799,
-      "max_uses": 100,
-      "note": "Festive offer"
-    },
-    {
-      "code": "PEONY50",
-      "type": "flat",
-      "value": 50,
-      "min_order": 300,
-      "max_uses": 0,
-      "note": "\u20b950 off floral orders"
-    },
-    {
-      "code": "MONOGRAM5",
-      "type": "percent",
-      "value": 5,
-      "min_order": 0,
-      "max_uses": 0,
-      "note": "5% off any design"
-    },
-    {
-      "code": "NEW20",
-      "type": "percent",
-      "value": 20,
-      "min_order": 0,
-      "max_uses": 50,
-      "note": "20% off \u2014 new arrivals"
-    },
-    {
-      "code": "FLAT75",
-      "type": "flat",
-      "value": 75,
-      "min_order": 500,
-      "max_uses": 0,
-      "note": "\u20b975 off orders over \u20b9500"
-    },
-    {
-      "code": "SPORT10",
-      "type": "percent",
-      "value": 10,
-      "min_order": 0,
-      "max_uses": 0,
-      "note": "10% off jerseys and sport"
-    },
-    {
-      "code": "BULK30",
-      "type": "percent",
-      "value": 30,
-      "min_order": 1200,
-      "max_uses": 0,
-      "note": "30% off bulk orders over \u20b91,200"
-    },
-    {
-      "code": "BRIDAL15",
-      "type": "percent",
-      "value": 15,
-      "min_order": 0,
-      "max_uses": 0,
-      "note": "15% off bridal and couture"
+      "note": "First order \u00b7 10% off, one per customer"
     },
     {
       "code": "FIRST50",
@@ -114,26 +26,795 @@
       "value": 50,
       "min_order": 199,
       "max_uses": 0,
-      "note": "\u20b950 off your first order"
+      "note": "First order \u00b7 \u20b950 off, one per customer"
     },
     {
-      "code": "WEEKEND12",
+      "code": "FIRST100",
+      "type": "flat",
+      "value": 100,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "First order \u00b7 \u20b9100 off, one per customer"
+    },
+    {
+      "code": "HELLO15",
       "type": "percent",
-      "value": 12,
-      "min_order": 0,
-      "max_uses": 200,
-      "note": "Weekend offer \u2014 12% off"
+      "value": 15,
+      "min_order": 299,
+      "max_uses": 0,
+      "note": "First order \u00b7 15% off over \u20b9299"
     },
     {
-      "code": "LOYAL20",
+      "code": "SAVE5",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SAVE10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 499,
+      "max_uses": 0,
+      "note": "10% off over \u20b9499"
+    },
+    {
+      "code": "SAVE15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SAVE20",
+      "type": "percent",
+      "value": 20,
+      "min_order": 999,
+      "max_uses": 0,
+      "note": "20% off over \u20b9999"
+    },
+    {
+      "code": "SAVE25",
+      "type": "percent",
+      "value": 25,
+      "min_order": 1499,
+      "max_uses": 0,
+      "note": "25% off over \u20b91,499"
+    },
+    {
+      "code": "SAVE30",
+      "type": "percent",
+      "value": 30,
+      "min_order": 1999,
+      "max_uses": 0,
+      "note": "30% off over \u20b91,999"
+    },
+    {
+      "code": "FLAT20",
       "type": "flat",
       "value": 20,
       "min_order": 0,
       "max_uses": 0,
-      "note": "\u20b920 off \u2014 thank you for coming back"
+      "note": "\u20b920 off orders over \u20b90"
+    },
+    {
+      "code": "FLAT50",
+      "type": "flat",
+      "value": 50,
+      "min_order": 199,
+      "max_uses": 0,
+      "note": "\u20b950 off orders over \u20b9199"
+    },
+    {
+      "code": "FLAT75",
+      "type": "flat",
+      "value": 75,
+      "min_order": 300,
+      "max_uses": 0,
+      "note": "\u20b975 off orders over \u20b9300"
+    },
+    {
+      "code": "FLAT100",
+      "type": "flat",
+      "value": 100,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "\u20b9100 off orders over \u20b9399"
+    },
+    {
+      "code": "FLAT150",
+      "type": "flat",
+      "value": 150,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "\u20b9150 off orders over \u20b9599"
+    },
+    {
+      "code": "FLAT200",
+      "type": "flat",
+      "value": 200,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "\u20b9200 off orders over \u20b9799"
+    },
+    {
+      "code": "FLAT250",
+      "type": "flat",
+      "value": 250,
+      "min_order": 999,
+      "max_uses": 0,
+      "note": "\u20b9250 off orders over \u20b9999"
+    },
+    {
+      "code": "FLAT300",
+      "type": "flat",
+      "value": 300,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "\u20b9300 off orders over \u20b91199"
+    },
+    {
+      "code": "FLORAL10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "10% off floral designs"
+    },
+    {
+      "code": "BRIDAL15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "15% off bridal designs"
+    },
+    {
+      "code": "SPORT10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "10% off sport and club designs"
+    },
+    {
+      "code": "KIDS10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "10% off kids and jersey designs"
+    },
+    {
+      "code": "DEVOTIONAL12",
+      "type": "percent",
+      "value": 12,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "12% off devotional designs"
+    },
+    {
+      "code": "PEACOCK15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "15% off peacock designs"
+    },
+    {
+      "code": "MANDALA12",
+      "type": "percent",
+      "value": 12,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "12% off mandala and ornament designs"
+    },
+    {
+      "code": "FOLK10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "10% off folk and traditional designs"
+    },
+    {
+      "code": "BORDER10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "10% off border designs designs"
+    },
+    {
+      "code": "LOGO12",
+      "type": "percent",
+      "value": 12,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "12% off wordmarks and logos designs"
+    },
+    {
+      "code": "FESTIVE15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 100,
+      "note": "Festive offer \u00b7 15% off over \u20b9799"
+    },
+    {
+      "code": "FESTIVE25",
+      "type": "percent",
+      "value": 25,
+      "min_order": 1499,
+      "max_uses": 60,
+      "note": "Festive offer \u00b7 25% off over \u20b91,499"
+    },
+    {
+      "code": "WEEKEND10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 200,
+      "note": "Weekend offer \u00b7 10% off"
+    },
+    {
+      "code": "WEEKEND15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 899,
+      "max_uses": 150,
+      "note": "Weekend offer \u00b7 15% off over \u20b9899"
+    },
+    {
+      "code": "MONSOON12",
+      "type": "percent",
+      "value": 12,
+      "min_order": 499,
+      "max_uses": 100,
+      "note": "Monsoon offer \u00b7 12% off over \u20b9499"
+    },
+    {
+      "code": "DIWALI20",
+      "type": "percent",
+      "value": 20,
+      "min_order": 999,
+      "max_uses": 100,
+      "note": "Diwali offer \u00b7 20% off over \u20b9999"
+    },
+    {
+      "code": "PONGAL15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 699,
+      "max_uses": 80,
+      "note": "Pongal offer \u00b7 15% off over \u20b9699"
+    },
+    {
+      "code": "ONAM12",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 80,
+      "note": "Onam offer \u00b7 12% off over \u20b9599"
+    },
+    {
+      "code": "NEWYEAR20",
+      "type": "percent",
+      "value": 20,
+      "min_order": 899,
+      "max_uses": 60,
+      "note": "New year offer \u00b7 20% off over \u20b9899"
+    },
+    {
+      "code": "SUMMER10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 150,
+      "note": "Summer offer \u00b7 10% off"
+    },
+    {
+      "code": "BULK25",
+      "type": "percent",
+      "value": 25,
+      "min_order": 1999,
+      "max_uses": 0,
+      "note": "Bulk order \u00b7 25% off over \u20b91,999"
+    },
+    {
+      "code": "BULK30",
+      "type": "percent",
+      "value": 30,
+      "min_order": 2499,
+      "max_uses": 0,
+      "note": "Bulk order \u00b7 30% off over \u20b92,499"
+    },
+    {
+      "code": "STUDIO20",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1499,
+      "max_uses": 0,
+      "note": "Studio rate \u00b7 20% off over \u20b91,499"
+    },
+    {
+      "code": "SET25",
+      "type": "percent",
+      "value": 25,
+      "min_order": 999,
+      "max_uses": 0,
+      "note": "Complete the set \u00b7 25% off over \u20b9999"
+    },
+    {
+      "code": "LOYAL20",
+      "type": "percent",
+      "value": 20,
+      "min_order": 699,
+      "max_uses": 0,
+      "note": "Loyal customer \u00b7 20% off over \u20b9699"
+    },
+    {
+      "code": "THANKYOU10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "Thank you \u00b7 10% off any order"
+    },
+    {
+      "code": "REFER15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 499,
+      "max_uses": 0,
+      "note": "Referral \u00b7 15% off over \u20b9499"
+    },
+    {
+      "code": "INSTA10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 299,
+      "max_uses": 100,
+      "note": "Instagram offer \u00b7 10% off over \u20b9299"
+    },
+    {
+      "code": "WHATSAPP10",
+      "type": "percent",
+      "value": 10,
+      "min_order": 299,
+      "max_uses": 100,
+      "note": "WhatsApp offer \u00b7 10% off over \u20b9299"
+    },
+    {
+      "code": "REPEAT15",
+      "type": "percent",
+      "value": 15,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "Come back \u00b7 15% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA01",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA02",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA03",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA04",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA05",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA06",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA07",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA08",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA09",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA10",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA11",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA12",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA13",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA14",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA15",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA16",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA17",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA18",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA19",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA20",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA21",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA22",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA23",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA24",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA25",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA26",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA27",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA28",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA29",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA30",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA31",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA32",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA33",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA34",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA35",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA36",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA37",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA38",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA39",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA40",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA41",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA42",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA43",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA44",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA45",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA46",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA47",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
+    },
+    {
+      "code": "SANDYA48",
+      "type": "percent",
+      "value": 15,
+      "min_order": 799,
+      "max_uses": 0,
+      "note": "15% off over \u20b9799"
+    },
+    {
+      "code": "SANDYA49",
+      "type": "percent",
+      "value": 20,
+      "min_order": 1199,
+      "max_uses": 0,
+      "note": "20% off over \u20b91199"
+    },
+    {
+      "code": "SANDYA50",
+      "type": "percent",
+      "value": 5,
+      "min_order": 0,
+      "max_uses": 0,
+      "note": "5% off any order"
+    },
+    {
+      "code": "SANDYA51",
+      "type": "percent",
+      "value": 10,
+      "min_order": 399,
+      "max_uses": 0,
+      "note": "10% off over \u20b9399"
+    },
+    {
+      "code": "SANDYA52",
+      "type": "percent",
+      "value": 12,
+      "min_order": 599,
+      "max_uses": 0,
+      "note": "12% off over \u20b9599"
     }
   ],
   "min_price": 60,
   "max_price": 500,
-  "price_per_1k_stitches": 50
+  "price_per_1k_stitches": 50,
+  "welcome_once": true
 }

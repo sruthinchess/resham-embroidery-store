@@ -71,6 +71,8 @@ function couponOut(row) {
   };
 }
 
+const FIRST_ORDER_CODES = new Set(['WELCOME', 'FIRST50', 'FIRST100', 'HELLO15']);
+
 function checkCoupon(code, subtotal) {
   const raw = String(code || '').trim().toUpperCase();
   if (!raw) return { error: 'Enter a coupon code.' };
@@ -227,6 +229,12 @@ app.post('/api/orders', (req, res) => {
   if (req.body.coupon) {
     const r = checkCoupon(req.body.coupon, subtotal);
     if (r.error) return fail(res, 400, r.error);
+    // welcome / first-order codes are one per customer, matched on the email
+    if (FIRST_ORDER_CODES.has(r.coupon.code)) {
+      const used = db.prepare(`SELECT 1 FROM orders WHERE lower(email)=lower(?) AND upper(coupon_code)=upper(?)
+        AND status IN ('awaiting','submitted','paid') LIMIT 1`).get(String(email).trim(), r.coupon.code);
+      if (used) return fail(res, 400, `${r.coupon.code} is a first-order code — it has already been used with this email. Try another code.`);
+    }
     discount = r.discount;
     couponCode = r.coupon.code;
     db.prepare('UPDATE coupons SET used = used + 1 WHERE id=?').run(r.coupon.id);

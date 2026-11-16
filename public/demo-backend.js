@@ -85,6 +85,8 @@
   function reset() { S = freshState(); save(); }
   const fail = (msg, code) => { const e = new Error(msg); e.__code = code || 400; return e; };
 
+  const FIRST_ORDER_CODES = new Set(['WELCOME', 'FIRST50', 'FIRST100', 'HELLO15']);
+
   function checkCoupon(code, subtotal) {
     const raw = String(code || '').trim().toUpperCase();
     if (!raw) throw fail('Enter a coupon code.');
@@ -218,6 +220,13 @@
     let discount = 0, couponCode = null;
     if (b.coupon) {
       const r = checkCoupon(b.coupon, subtotal);
+      // first-order codes are one per customer, matched on the email
+      if (FIRST_ORDER_CODES.has(r.coupon.code)) {
+        const used = S.orders.some(o => String(o.email).toLowerCase() === String(b.email).trim().toLowerCase()
+          && String(o.coupon_code || '').toUpperCase() === r.coupon.code
+          && ['awaiting', 'submitted', 'paid'].includes(o.status));
+        if (used) throw fail(`${r.coupon.code} is a first-order code — it has already been used with this email. Try another code.`);
+      }
       discount = r.discount; couponCode = r.coupon.code; r.coupon.used++;
     }
     const o = {

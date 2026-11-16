@@ -184,13 +184,13 @@
     if (c) {
       return `<div class="coupon-on">${I.tag}<b>${esc(c.code)}</b><span>${esc(c.label || '')}</span>
         <button type="button" id="couponRemove" aria-label="Remove coupon">✕</button></div>
-        <button type="button" class="offers-link" id="offersBtn">View all offers</button>`;
+        <button type="button" class="btn btn-gold btn-block offers-cta" id="offersBtn">${I.tag} View all offers &amp; coupons</button>`;
     }
     return `<div id="couponForm" class="coupon-form">
       <input class="input" name="code" placeholder="Coupon code" autocomplete="off" style="text-transform:uppercase">
       <button class="btn btn-dark btn-sm" type="button" id="couponApply">Apply</button>
     </div>
-    <button type="button" class="offers-link" id="offersBtn">${I.tag} View all offers</button>`;
+    <button type="button" class="btn btn-gold btn-block offers-cta" id="offersBtn">${I.tag} View all offers &amp; coupons</button>`;
   }
 
   function summaryRows(showPayment) {
@@ -316,7 +316,7 @@
         <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
       </div>
       <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
-      <div id="homeSentinel" class="center" style="padding:30px 0 64px">
+      <div id="homeSentinel" class="center">
         <span class="small muted">Loading more designs…</span>
       </div>
     </div></section>`;
@@ -690,7 +690,7 @@
           <p class="sub">No account needed — just an email so you can find your files again.</p>
           <form id="coForm" class="stack" novalidate>
             <div class="grid-2">
-              <div class="field"><label>Your name</label><input class="input" name="name" placeholder="Sruthin Chess" required></div>
+              <div class="field"><label>Your name</label><input class="input" name="name" placeholder="Your full name" required></div>
               <div class="field"><label>Mobile (optional)</label><input class="input" name="phone" inputmode="numeric" placeholder="10-digit"></div>
             </div>
             <div class="field"><label>Email</label><input class="input" type="email" name="email" placeholder="you@example.com" required></div>
@@ -1251,28 +1251,48 @@
       catch { toast('Copy the address bar to share', 'bad'); }
     };
 
-    // offers sheet — the codes on offer, like any shopping app
+    // offers sheet — big, plain-spoken and thumb-friendly
     const offersBtn = $('#offersBtn');
     if (offersBtn) offersBtn.onclick = async () => {
       const m = $('#modal');
-      m.innerHTML = `<div class="modal"><header><div><span class="eyebrow">Offers</span><h3 style="margin-top:2px">Coupon codes</h3></div>
-        <button class="icon-btn" id="mClose">✕</button></header>
-        <p class="small muted" style="margin:0 0 12px">Tap a code to apply it to this order.</p>
-        <div id="offerList" class="offer-list"><p class="small muted">Loading…</p></div></div>`;
+      m.innerHTML = `<div class="modal offers-modal">
+        <header><div><span class="eyebrow">Offers</span><h3 style="margin-top:2px">Coupons &amp; offers</h3></div>
+          <button class="icon-btn" id="mClose" aria-label="Close">✕</button></header>
+        <p class="small muted offers-intro">Tap any code to apply it to your order. Your bag is ${money(Store.subtotal)}.</p>
+        <div class="offer-search"><input class="input mono" id="offerFilter" placeholder="Search a code" autocomplete="off"></div>
+        <div id="offerList" class="offer-list"><p class="small muted">Loading…</p></div>
+      </div>`;
       m.classList.add('on');
       $('#mClose').onclick = () => m.classList.remove('on');
-      try {
-        const r = await api('/api/coupons');
+
+      const draw = (codes) => {
         const sub = Store.subtotal;
-        $('#offerList').innerHTML = r.coupons.map(c => {
-          const usable = sub >= (c.minOrder || 0);
-          return `<div class="offer ${usable ? '' : 'off'}">
-            <div class="offer-code mono">${esc(c.code)}</div>
-            <div class="offer-copy"><b>${esc(c.note || c.label)}</b>
-              <span class="small muted">${c.type === 'percent' ? `${c.value}% off` : `₹${c.value} off`}${c.minOrder ? ` · min ${money(c.minOrder)}` : ''}${c.maxUses ? ` · ${Math.max(0, c.maxUses - c.used)} left` : ''}</span></div>
-            <button class="btn btn-xs ${usable ? 'btn-primary' : 'btn-ghost'}" data-apply="${esc(c.code)}" ${usable ? '' : 'disabled'}>${usable ? 'Apply' : 'Add more'}</button>
+        const usable = codes.filter(c => sub >= (c.minOrder || 0));
+        const rest = codes.filter(c => sub < (c.minOrder || 0));
+        const row = (c) => {
+          const ok = sub >= (c.minOrder || 0);
+          const value = c.type === 'percent' ? `${c.value}% off` : `${money(c.value)} off`;
+          const left = c.maxUses ? `${Math.max(0, c.maxUses - c.used)} uses left` : 'No use limit';
+          const first = ['WELCOME', 'FIRST50', 'FIRST100', 'HELLO15'].includes(c.code);
+          return `<div class="offer ${ok ? '' : 'off'}">
+            <div class="offer-top">
+              <div class="offer-code mono">${esc(c.code)}</div>
+              <div class="offer-value">${value}</div>
+            </div>
+            <p class="offer-note">${esc(c.note || '')}</p>
+            <div class="offer-meta">
+              <span>${c.minOrder ? `Min order ${money(c.minOrder)}` : 'No minimum'}</span>
+              <span>${esc(left)}</span>
+              ${first ? '<span class="offer-badge">First order · once per customer</span>' : ''}
+            </div>
+            <button class="btn ${ok ? 'btn-primary' : 'btn-ghost'} btn-block offer-apply" data-apply="${esc(c.code)}" ${ok ? '' : 'disabled'}>
+              ${ok ? 'Apply this code' : `Add ${money((c.minOrder || 0) - sub)} more to use`}
+            </button>
           </div>`;
-        }).join('') || '<p class="small muted">No codes live right now.</p>';
+        };
+        $('#offerList').innerHTML = `
+          ${usable.length ? `<h4 class="offer-head">Ready to use</h4>${usable.map(row).join('')}` : ''}
+          ${rest.length ? `<h4 class="offer-head">Needs a bigger order</h4>${rest.map(row).join('')}` : ''}`;
         $$('[data-apply]').forEach(b => b.onclick = async () => {
           try {
             const res = await api('/api/coupons/validate', { method: 'POST', body: { code: b.dataset.apply, subtotal: Store.subtotal } });
@@ -1283,6 +1303,21 @@
             render();
           } catch (err) { toast(err.message, 'bad'); }
         });
+      };
+
+      try {
+        const r = await api('/api/coupons');
+        const all = r.coupons.slice().sort((a, b) => {
+          const av = a.type === 'percent' ? a.value : a.value / 5;
+          const bv = b.type === 'percent' ? b.value : b.value / 5;
+          return bv - av;
+        });
+        draw(all);
+        const filter = $('#offerFilter');
+        if (filter) filter.oninput = () => {
+          const q = filter.value.trim().toLowerCase();
+          draw(all.filter(c => !q || c.code.toLowerCase().includes(q) || (c.note || '').toLowerCase().includes(q)));
+        };
       } catch (e) { $('#offerList').innerHTML = `<p class="small muted">${esc(e.message)}</p>`; }
     };
 
