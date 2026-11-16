@@ -54,12 +54,28 @@ CREATE TABLE IF NOT EXISTS designs (
   active INTEGER DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now'))
 );
+CREATE TABLE IF NOT EXISTS coupons (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  code TEXT UNIQUE NOT NULL,
+  type TEXT NOT NULL DEFAULT 'percent',
+  value REAL NOT NULL,
+  min_order REAL DEFAULT 0,
+  max_uses INTEGER DEFAULT 0,
+  used INTEGER DEFAULT 0,
+  active INTEGER DEFAULT 1,
+  expires_at TEXT,
+  note TEXT,
+  created_at TEXT DEFAULT (datetime('now'))
+);
 CREATE TABLE IF NOT EXISTS orders (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   code TEXT UNIQUE NOT NULL,
   name TEXT, email TEXT, phone TEXT,
   items TEXT NOT NULL,
   amount REAL NOT NULL,
+  subtotal REAL DEFAULT 0,
+  discount REAL DEFAULT 0,
+  coupon_code TEXT,
   upi_ref TEXT,
   screenshot TEXT,
   status TEXT NOT NULL DEFAULT 'awaiting',

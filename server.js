@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Resham Atelier — API server.
+ * Sandya Emb Designs — API server.
  * Embroidery designs: format selection → UPI payment → screenshot proof →
  * auto-confirm → the ZIP is generated on the fly with exactly the formats bought.
  */
@@ -50,10 +50,37 @@ function designOut(row) {
 
 function upiPayload(code, amount) {
   const pa = getSetting('upi_id', '6301928345@fam');
-  const pn = getSetting('payee_name', 'Resham Atelier');
+  const pn = getSetting('payee_name', 'Sandya Emb Designs');
   // hand-built: UPI apps expect pa=name@bank un-encoded, free text is escaped
   const link = `upi://pay?pa=${pa}&pn=${encodeURIComponent(pn)}&am=${money2(amount)}&cu=INR&tn=${encodeURIComponent(code)}&tr=${encodeURIComponent(code)}`;
   return { id: pa, payee: pn, amount: money2(amount), currency: 'INR', link };
+}
+
+/** Coupons: percent or flat, with a minimum order, a use cap and an expiry. */
+function couponOut(row) {
+  if (!row) return null;
+  return {
+    id: row.id, code: row.code, type: row.type, value: row.value,
+    minOrder: row.min_order, maxUses: row.max_uses, used: row.used,
+    active: !!row.active, expiresAt: row.expires_at, note: row.note,
+    label: row.type === 'percent' ? `${row.value}% off` : `₹${num(row.value)} off`,
+    expired: !!(row.expires_at && new Date(row.expires_at) < new Date()),
+    exhausted: !!(row.max_uses && row.used >= row.max_uses)
+  };
+}
+
+function checkCoupon(code, subtotal) {
+  const raw = String(code || '').trim().toUpperCase();
+  if (!raw) return { error: 'Enter a coupon code.' };
+  const row = db.prepare('SELECT * FROM coupons WHERE upper(code)=upper(?)').get(raw);
+  if (!row) return { error: `“${raw}” is not a valid coupon.` };
+  const c = couponOut(row);
+  if (!c.active) return { error: 'That coupon is no longer available.' };
+  if (c.expired) return { error: 'That coupon has expired.' };
+  if (c.exhausted) return { error: 'That coupon has been fully claimed.' };
+  if (subtotal < c.minOrder) return { error: `Add ₹${money2(c.minOrder - subtotal)} more to use ${c.code}.`, coupon: c };
+  const discount = Math.min(subtotal, Math.round((c.type === 'percent' ? subtotal * c.value / 100 : c.value) * 100) / 100);
+  return { coupon: c, discount };
 }
 
 function linksFor(order, fresh = true) {
@@ -82,6 +109,7 @@ function orderOut(row, opts = {}) {
   const out = {
     id: row.id, code: row.code, name: row.name, email: row.email, phone: row.phone,
     items: jparse(row.items, []), amount: row.amount, status: row.status, note: row.note,
+    subtotal: row.subtotal ?? row.amount, discount: row.discount || 0, coupon: row.coupon_code || null,
     upiRef: row.upi_ref, hasProof: !!row.screenshot,
     createdAt: row.created_at, paidAt: row.paid_at,
     upi: row.status === 'awaiting' ? upiPayload(row.code, row.amount) : null
@@ -153,6 +181,19 @@ app.get('/api/designs/:key', (req, res) => {
 });
 
 /* ----------------------------------------------------------------- orders */
+app.post('/api/coupons/validate', (req, res) => {
+  const { code, subtotal } = req.body || {};
+  const r = checkCoupon(code, num(subtotal, 0));
+  if (r.error) return fail(res, 400, r.error);
+  ok(res, { coupon: r.coupon, discount: r.discount, total: Math.max(0, num(subtotal, 0) - r.discount) });
+});
+
+app.get('/api/coupons', (req, res) => {
+  const rows = db.prepare('SELECT * FROM coupons WHERE active=1 ORDER BY id').all()
+    .map(couponOut).filter(c => !c.expired && !c.exhausted);
+  ok(res, { coupons: rows });
+});
+
 app.post('/api/orders', (req, res) => {
   const { items = [], name = '', email = '', phone = '' } = req.body || {};
   if (!Array.isArray(items) || !items.length) return fail(res, 400, 'Your bag is empty.');
@@ -176,10 +217,20 @@ app.post('/api/orders', (req, res) => {
       preview: row.preview_img ? `/${row.preview_img}` : null
     });
   }
-  amount = Math.round(amount * 100) / 100;
-  const code = 'RSM-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100);
-  const info = db.prepare(`INSERT INTO orders(code,name,email,phone,items,amount,status) VALUES (?,?,?,?,?,?,'awaiting')`)
-    .run(code, String(name).trim(), String(email).trim(), String(phone).trim(), JSON.stringify(lines), amount);
+  const subtotal = Math.round(amount * 100) / 100;
+  let discount = 0, couponCode = null;
+  if (req.body.coupon) {
+    const r = checkCoupon(req.body.coupon, subtotal);
+    if (r.error) return fail(res, 400, r.error);
+    discount = r.discount;
+    couponCode = r.coupon.code;
+    db.prepare('UPDATE coupons SET used = used + 1 WHERE id=?').run(r.coupon.id);
+  }
+  amount = Math.max(0, Math.round((subtotal - discount) * 100) / 100);
+  const code = 'SDY-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100);
+  const info = db.prepare(`INSERT INTO orders(code,name,email,phone,items,amount,subtotal,discount,coupon_code,status)
+    VALUES (?,?,?,?,?,?,?,?,?,'awaiting')`)
+    .run(code, String(name).trim(), String(email).trim(), String(phone).trim(), JSON.stringify(lines), amount, subtotal, discount, couponCode);
   ok(res, { order: orderOut(db.prepare('SELECT * FROM orders WHERE id=?').get(info.lastInsertRowid)) });
 });
 
@@ -292,6 +343,9 @@ app.get('/api/admin/stats', requireAdmin, (req, res) => {
     designs: db.prepare('SELECT COUNT(*) c FROM designs WHERE active=1').get().c,
     series, topDesigns: Object.values(sold).sort((a, b) => b.units - a.units).slice(0, 5),
     formats: Object.entries(fmt).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, n })),
+    coupons: db.prepare("SELECT coupon_code code, COUNT(*) n, SUM(discount) discount FROM orders WHERE status='paid' AND coupon_code IS NOT NULL GROUP BY coupon_code ORDER BY n DESC").all(),
+    discounted: paid.filter(o => o.coupon_code).length,
+    couponsLive: db.prepare('SELECT COUNT(*) c FROM coupons WHERE active=1').get().c,
     recent: orders.slice(0, 8).map(o => orderOut(o, { admin: true, token: bearer(req) }))
   } });
 });
@@ -362,6 +416,40 @@ app.delete('/api/admin/designs/:id', requireAdmin, (req, res) => {
   ok(res, { message: 'Design hidden from the store.' });
 });
 
+app.get('/api/admin/coupons', requireAdmin, (req, res) => {
+  const rows = db.prepare('SELECT * FROM coupons ORDER BY id DESC').all().map(couponOut);
+  const usage = db.prepare("SELECT coupon_code code, COUNT(*) n, SUM(discount) d FROM orders WHERE status='paid' AND coupon_code IS NOT NULL GROUP BY coupon_code").all();
+  ok(res, { coupons: rows, usage });
+});
+
+app.post('/api/admin/coupons', requireAdmin, (req, res) => {
+  const b = req.body || {};
+  const code = String(b.code || '').trim().toUpperCase();
+  if (!/^[A-Z0-9_-]{3,20}$/.test(code)) return fail(res, 400, 'Code must be 3–20 letters, numbers, - or _.');
+  if (!['percent', 'flat'].includes(b.type)) return fail(res, 400, 'Type must be percent or flat.');
+  if (!(num(b.value, 0) > 0)) return fail(res, 400, 'Value must be more than zero.');
+  if (db.prepare('SELECT id FROM coupons WHERE upper(code)=upper(?)').get(code)) return fail(res, 400, 'That code already exists.');
+  const info = db.prepare(`INSERT INTO coupons(code,type,value,min_order,max_uses,active,expires_at,note)
+    VALUES (?,?,?,?,?,?,?,?)`).run(code, b.type, num(b.value), num(b.minOrder, 0), num(b.maxUses, 0),
+    b.active === false ? 0 : 1, b.expiresAt || null, String(b.note || ''));
+  ok(res, { coupon: couponOut(db.prepare('SELECT * FROM coupons WHERE id=?').get(info.lastInsertRowid)) });
+});
+
+app.put('/api/admin/coupons/:id', requireAdmin, (req, res) => {
+  const id = num(req.params.id, -1);
+  if (!db.prepare('SELECT id FROM coupons WHERE id=?').get(id)) return fail(res, 404, 'Coupon not found.');
+  const b = req.body || {};
+  db.prepare(`UPDATE coupons SET type=?, value=?, min_order=?, max_uses=?, active=?, expires_at=?, note=? WHERE id=?`)
+    .run(b.type === 'flat' ? 'flat' : 'percent', num(b.value), num(b.minOrder, 0), num(b.maxUses, 0),
+      b.active === false ? 0 : 1, b.expiresAt || null, String(b.note || ''), id);
+  ok(res, { coupon: couponOut(db.prepare('SELECT * FROM coupons WHERE id=?').get(id)) });
+});
+
+app.delete('/api/admin/coupons/:id', requireAdmin, (req, res) => {
+  db.prepare('DELETE FROM coupons WHERE id=?').run(num(req.params.id, -1));
+  ok(res, { message: 'Coupon deleted.' });
+});
+
 app.get('/api/admin/settings', requireAdmin, (req, res) => {
   const s = settingsMap();
   delete s.admin_password_hash; delete s.admin_password_salt;
@@ -399,7 +487,7 @@ catch (e) { console.error('[seed] skipped:', e.message); }
 
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`\n  Resham Atelier → http://localhost:${PORT}`);
+    console.log(`\n  Sandya Emb Designs → http://localhost:${PORT}`);
     console.log(`  Admin          → http://localhost:${PORT}/#/admin   (password 252525)`);
     console.log(`  UPI            → ${getSetting('upi_id')}\n`);
   });

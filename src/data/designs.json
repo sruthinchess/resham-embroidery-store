@@ -11,7 +11,41 @@
     "admin_password": "252525",
     "logo_url": "img/logo.png",
     "logo_mark_url": "img/logo-mark.png",
-    "favicon_url": "img/favicon.png"
+    "favicon_url": "img/favicon.png",
+    "coupons": [
+      {
+        "code": "SANDYA10",
+        "type": "percent",
+        "value": 10,
+        "min_order": 999,
+        "max_uses": 0,
+        "note": "10% off orders over ₹999"
+      },
+      {
+        "code": "FIRST100",
+        "type": "flat",
+        "value": 100,
+        "min_order": 499,
+        "max_uses": 0,
+        "note": "₹100 off your first order"
+      },
+      {
+        "code": "SET4",
+        "type": "percent",
+        "value": 25,
+        "min_order": 0,
+        "max_uses": 0,
+        "note": "Complete the set — all four designs"
+      },
+      {
+        "code": "FESTIVE15",
+        "type": "percent",
+        "value": 15,
+        "min_order": 1499,
+        "max_uses": 100,
+        "note": "Festive offer"
+      }
+    ]
   },
   "designs": [
     {

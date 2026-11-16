@@ -21,8 +21,8 @@ function run() {
 
   const tx = db.transaction(() => {
     if (force) {
-      db.exec(`DELETE FROM download_tokens; DELETE FROM orders; DELETE FROM designs;
-               DELETE FROM sqlite_sequence WHERE name IN ('designs','orders');`);
+      db.exec(`DELETE FROM download_tokens; DELETE FROM orders; DELETE FROM designs; DELETE FROM coupons;
+               DELETE FROM sqlite_sequence WHERE name IN ('designs','orders','coupons');`);
     }
     for (const [k, v] of Object.entries(seed.settings || {})) {
       if (k === 'admin_password') {
@@ -31,6 +31,11 @@ function run() {
         setSetting('admin_password_salt', salt);
       } else setSetting(k, v);
     }
+    // coupons
+    const insC = db.prepare(`INSERT OR IGNORE INTO coupons(code,type,value,min_order,max_uses,active,note)
+      VALUES (@code,@type,@value,@min_order,@max_uses,1,@note)`);
+    for (const c of seed.settings.coupons || []) insC.run(c);
+
     const ins = db.prepare(`INSERT OR IGNORE INTO designs
       (slug,name,source,dir,preview_img,stitch_img,price,mrp,summary,description,hoop,stitch_count,width_mm,height_mm,
        color_count,trims,threads,formats,default_formats,tags,featured,badge)
@@ -50,7 +55,8 @@ function run() {
   });
   tx();
   const n = db.prepare('SELECT COUNT(*) c FROM designs').get().c;
-  console.log(`[seed] done — ${n} designs, ${(seed.designs || []).reduce((s, d) => s + (d.formats || []).length, 0)} format files`);
+  const c = db.prepare('SELECT COUNT(*) c FROM coupons').get().c;
+  console.log(`[seed] done — ${n} designs, ${(seed.designs || []).reduce((s, d) => s + (d.formats || []).length, 0)} format files, ${c} coupons`);
 }
 
 run();

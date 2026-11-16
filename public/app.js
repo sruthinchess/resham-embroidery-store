@@ -1,5 +1,5 @@
 /* =========================================================================
-   Resham Atelier — storefront
+   Sandya Emb Designs — storefront
    Embroidery designs · machine-format selection · UPI QR + app deep links
    ========================================================================= */
 (function () {
@@ -20,12 +20,43 @@
 
   /* ------------------------------------------------------------------ state */
   const Store = {
-    settings: { store_name: 'Resham Atelier', upi_id: '6301928345@fam', payee_name: 'Resham Atelier', auto_approve: true, link_hours: 72 },
+    settings: { store_name: 'Sandya Emb Designs', upi_id: '6301928345@fam', payee_name: 'Sandya Emb Designs', auto_approve: true, link_hours: 72 },
     designs: [], tags: [], formats: [], demo: false,
-    cart: JSON.parse(LS.getItem('ra_cart') || '[]'),
-    save() { LS.setItem('ra_cart', JSON.stringify(this.cart)); paintBadges(); },
+    cart: JSON.parse(LS.getItem('sd_cart') || LS.getItem('ra_cart') || '[]'),
+    coupon: JSON.parse(LS.getItem('sd_coupon') || 'null'),
+    wish: JSON.parse(LS.getItem('sd_wish') || '[]'),
+    recent: JSON.parse(LS.getItem('sd_recent') || '[]'),
+    save() {
+      LS.setItem('sd_cart', JSON.stringify(this.cart));
+      LS.setItem('sd_coupon', JSON.stringify(this.coupon));
+      LS.setItem('sd_wish', JSON.stringify(this.wish));
+      LS.setItem('sd_recent', JSON.stringify(this.recent));
+      paintBadges();
+    },
     get count() { return this.cart.length; },
-    get subtotal() { return this.cart.reduce((s, l) => s + l.price, 0); }
+    get subtotal() { return this.cart.reduce((s, l) => s + l.price, 0); },
+    /** local estimate of the coupon — the server recomputes it when the order is created */
+    totals() {
+      const subtotal = this.subtotal;
+      let discount = 0;
+      const c = this.coupon;
+      if (c) {
+        const stillOk = (!c.minOrder || subtotal >= c.minOrder) && (!c.maxUses || c.used < c.maxUses);
+        if (!stillOk) { this.coupon = null; this.save(); }
+        else discount = Math.min(subtotal, Math.round((c.type === 'percent' ? subtotal * c.value / 100 : c.value) * 100) / 100);
+      }
+      return { subtotal, discount, total: Math.max(0, Math.round((subtotal - discount) * 100) / 100) };
+    },
+    isWished(id) { return this.wish.includes(id); },
+    toggleWish(id) {
+      this.wish = this.wish.includes(id) ? this.wish.filter(x => x !== id) : this.wish.concat(id);
+      this.save();
+      return this.wish.includes(id);
+    },
+    pushRecent(slug) {
+      this.recent = [slug].concat(this.recent.filter(x => x !== slug)).slice(0, 4);
+      this.save();
+    }
   };
   window.Store = Store;
 
@@ -70,7 +101,11 @@
     shield: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>',
     clock: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     needle: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20 20 4"/><path d="M14 4h6v6"/></svg>',
-    arrow: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+    arrow: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+    heart: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.6C19 15.4 12 20 12 20Z"/></svg>',
+    heartOn: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.6C19 15.4 12 20 12 20Z"/></svg>',
+    tag: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 13.5 13.5 20 4 10.5V4h6.5L20 13.5Z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg>',
+    share: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 10.7 7.4-4.3M8.3 13.3l7.4 4.3"/></svg>'
   };
 
   /* -------------------------------------------------------------- UPI apps */
@@ -116,12 +151,34 @@
 
   const fmtLabel = k => (k || '').toUpperCase();
 
+  function couponBox() {
+    const c = Store.coupon;
+    if (c) {
+      return `<div class="coupon-on">${I.tag}<b>${esc(c.code)}</b><span>${esc(c.label || '')}</span>
+        <button type="button" id="couponRemove" aria-label="Remove coupon">✕</button></div>`;
+    }
+    return `<form id="couponForm" class="coupon-form">
+      <input class="input" name="code" placeholder="Coupon code" autocomplete="off" style="text-transform:uppercase">
+      <button class="btn btn-dark btn-sm" type="submit">Apply</button>
+    </form>`;
+  }
+
+  function summaryRows(showPayment) {
+    const t = Store.totals();
+    return `<div class="sum-row"><span>${Store.count} design${Store.count > 1 ? 's' : ''}</span><b>${money(t.subtotal)}</b></div>
+      ${t.discount ? `<div class="sum-row discount"><span>Coupon ${esc(Store.coupon.code)}</span><b>− ${money(t.discount)}</b></div>` : ''}
+      <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
+      ${showPayment ? `<div class="sum-row"><span>Payment</span><b>UPI</b></div>` : ''}
+      <div class="sum-row total"><span>To pay</span><b>${money(t.total)}</b></div>`;
+  }
+
   function designCard(d) {
     return `<article class="dcard reveal">
       <a class="stage" href="#/d/${esc(d.slug)}" aria-label="${esc(d.name)}">
         ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy"></span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
+        <button class="fav ${Store.isWished(d.id) ? 'on' : ''}" data-fav="${d.id}" aria-label="Save ${esc(d.name)}">${Store.isWished(d.id) ? I.heartOn : I.heart}</button>
       </a>
       <div class="body">
         <span class="meta">${esc(d.hoop)} · ${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${(d.formats || []).length} formats</span>
@@ -154,6 +211,7 @@
         <input name="q" placeholder="Search designs, hoops, motifs…" autocomplete="off">
       </form>
       <div class="hdr-tools">
+        <a class="icon-btn" href="#/saved" aria-label="Saved designs">${I.heart}<span class="dot" id="wishDot" style="background:var(--brass)">${Store.wish.length}</span></a>
         <a class="icon-btn" href="#/order" aria-label="Find my order">${I.user}</a>
         <button class="icon-btn" id="openCart" aria-label="Bag">${I.bag}<span class="dot" id="cartDot">${Store.count}</span></button>
       </div>
@@ -238,6 +296,18 @@
       <div class="pgrid">${all.designs.slice(0, 6).map(designCard).join('')}</div>
     </div></section>
 
+    <section class="section tight"><div class="wrap"><div class="bundle reveal">
+      <div class="bundle-copy">
+        <span class="eyebrow" style="color:var(--brass-2)">Bundle · save 25%</span>
+        <h2>Complete the set</h2>
+        <p>All ${all.designs.length} designs — floral, blossom, magnolia and silhouette — in every format, for ${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))} instead of ${money(all.designs.reduce((s, d) => s + d.price, 0))}.</p>
+      </div>
+      <div class="bundle-cta">
+        <div class="bundle-price"><s>${money(all.designs.reduce((s, d) => s + d.price, 0))}</s><b>${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))}</b></div>
+        <button class="btn btn-gold" id="bundleAdd">Add all ${all.designs.length} ${I.arrow}</button>
+      </div>
+    </div></div></section>
+
     <section class="section tight" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
       <div class="wrap">
         <div class="sec-head reveal"><div><span class="eyebrow">How it works</span><h2>Pick a format, pay by UPI, sew</h2></div></div>
@@ -285,6 +355,8 @@
   async function viewDesign(slug) {
     const d = await api('/api/designs/' + encodeURIComponent(slug));
     const g = d.design;
+    if (!Store.designs.some(x => x.slug === g.slug)) Store.designs.push(g);
+    Store.pushRecent(g.slug);
     const keys = (g.formats || []).map(f => f.key);
     const chosen = (g.defaultFormats || []).filter(k => keys.includes(k));
     const state = { formats: chosen.length ? chosen : keys.slice(0, 2) };
@@ -388,6 +460,19 @@
           <div class="buybox" id="buybox">
             <button class="btn btn-primary" id="buyNow">Buy now · ${money(g.price)}</button>
             <button class="btn btn-ghost" id="addBag">+ Bag</button>
+            <button class="btn btn-ghost btn-icon" id="saveBtn" aria-label="Save design" title="Save for later">${Store.isWished(g.id) ? I.heartOn : I.heart}</button>
+            <button class="btn btn-ghost btn-icon" id="shareBtn" aria-label="Share" title="Copy link">${I.share}</button>
+          </div>
+
+          <div class="includes">
+            <div class="inc-head">${I.file}<b>What you get</b></div>
+            <ul>
+              <li>All ${g.formats.length} machine formats, or only the ones you pick</li>
+              <li>${nf(g.stitchCount)} stitches · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} · ${nf(g.trims)} trims · ${g.widthMm} × ${g.heightMm} mm</li>
+              <li>The designer's readme with the thread order and stabiliser notes</li>
+              <li>One-person commercial licence — sew it on anything you sell</li>
+              <li>Download straight after payment, live for ${Store.settings.link_hours} hours</li>
+            </ul>
           </div>
 
           <div class="trust">
@@ -408,6 +493,8 @@
       ${d.related.length ? `<section class="section tight"><div class="sec-head"><div><h2>Also in the library</h2></div></div>
         <div class="pgrid">${d.related.map(designCard).join('')}</div></section>` : ''}
 
+      ${recentStrip(g.slug)}
+
       <div class="stickybar" id="stickybar"><div class="wrap">
         <div style="flex:1">
           <div class="t">${esc(g.name)}</div>
@@ -416,6 +503,27 @@
         <button class="btn btn-ghost btn-sm" id="stickyAdd">+ Bag</button>
         <button class="btn btn-primary btn-sm" id="stickyBuy">Buy now</button>
       </div></div>
+    </div>`;
+  }
+
+  function recentStrip(currentSlug) {
+    const others = Store.recent.filter(sl => sl !== currentSlug)
+      .map(sl => Store.designs.find(d => d.slug === sl)).filter(Boolean).slice(0, 3);
+    if (!others.length) return '';
+    return `<section class="section tight"><div class="sec-head"><div><span class="eyebrow">Recently viewed</span><h2 style="font-size:1.5rem">Still thinking about these</h2></div></div>
+      <div class="pgrid">${others.map(designCard).join('')}</div></section>`;
+  }
+
+  async function viewSaved() {
+    const list = Store.designs.filter(d => Store.wish.includes(d.id));
+    return `<div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a> / Saved</div>
+      <div class="sec-head" style="margin-top:16px">
+        <div><h1 style="font-size:clamp(1.7rem,3vw,2.3rem)">Saved designs</h1>
+          <p>${list.length ? `${list.length} design${list.length > 1 ? 's' : ''} kept for later` : 'Tap the heart on any design to keep it here.'}</p></div>
+      </div>
+      ${list.length ? `<div class="pgrid" style="padding:20px 0 62px">${list.map(designCard).join('')}</div>`
+        : `<div class="empty" style="margin:20px 0 62px"><h3>Nothing saved yet</h3><p class="muted small">Hearts are stored in this browser — no account needed.</p><a class="btn btn-primary" href="#/designs" style="margin-top:8px">Browse designs</a></div>`}
     </div>`;
   }
 
@@ -438,10 +546,8 @@
         </div>
         <div class="summary">
           <h3>Order summary</h3>
-          <div class="sum-row"><span>${Store.count} design${Store.count > 1 ? 's' : ''}</span><b>${money(Store.subtotal)}</b></div>
-          <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
-          <div class="sum-row"><span>Payment</span><b>UPI</b></div>
-          <div class="sum-row total"><span>To pay</span><b>${money(Store.subtotal)}</b></div>
+          ${summaryRows(true)}
+          <div class="coupon-wrap">${couponBox()}</div>
           <a class="btn btn-primary btn-block" href="#/checkout" style="margin-top:14px">Continue to UPI payment ${I.arrow}</a>
           <p class="small muted center" style="margin-top:10px">${I.lock} Scan · pay · upload screenshot</p>
         </div>
@@ -463,7 +569,8 @@
         btn.disabled = true; btn.innerHTML = 'Creating your order…';
         try {
           const res = await api('/api/orders', { method: 'POST', body: {
-            items: Store.cart.map(l => ({ id: l.id, formats: l.formats })), name: v.name, email: v.email, phone: v.phone || ''
+            items: Store.cart.map(l => ({ id: l.id, formats: l.formats })), name: v.name, email: v.email,
+            phone: v.phone || '', coupon: Store.coupon ? Store.coupon.code : null
           } });
           location.hash = '#/pay/' + res.order.code;
         } catch (err) {
@@ -498,9 +605,8 @@
             <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
             <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(l.price)}</b></div>`).join('')}
-          <div class="sum-row" style="margin-top:10px"><span>Subtotal</span><b>${money(Store.subtotal)}</b></div>
-          <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
-          <div class="sum-row total"><span>To pay</span><b>${money(Store.subtotal)}</b></div>
+          <div style="margin-top:10px">${summaryRows(false)}</div>
+          <div class="coupon-wrap">${couponBox()}</div>
         </aside>
       </div></div>`;
   }
@@ -536,6 +642,14 @@
           <h3>Pay ${money(o.amount)} by UPI</h3>
           <p class="sub">Order <b class="mono">${esc(o.code)}</b> · ${o.items.length} design${o.items.length > 1 ? 's' : ''} · amount locked to this order</p>
 
+          <div class="apps-head"><span>Pay with an app</span><span class="line"></span></div>
+          <div class="upi-apps" id="upiApps">
+            ${UPI_APPS.map(a => `<button class="upi-app" data-app="${a.id}" title="Open ${esc(a.name)}">
+              <span class="lg">${logo(a, 24)}</span><span class="nm">${esc(a.name)}</span></button>`).join('')}
+          </div>
+          <p class="pay-hint">${I.lock}<span>These open the app on your phone with the amount filled in. On a laptop, scan the QR below — or <a class="link" href="#" id="copyHint">copy the UPI ID</a>.</span></p>
+
+          <div class="apps-head"><span>Or scan the QR</span><span class="line"></span></div>
           <div class="qr-card">
             <div class="qr-frame">${qrSvg(upi.link, 6)}</div>
             <div class="qr-side">
@@ -545,13 +659,6 @@
               <p class="small muted" style="margin:0">${I.zap} The QR carries the amount and the order code — nothing to type.</p>
             </div>
           </div>
-
-          <div class="apps-head"><span>Or pay with</span><span class="line"></span></div>
-          <div class="upi-apps" id="upiApps">
-            ${UPI_APPS.map(a => `<button class="upi-app" data-app="${a.id}" title="Open ${esc(a.name)}">
-              <span class="lg">${logo(a, 24)}</span><span class="nm">${esc(a.name)}</span></button>`).join('')}
-          </div>
-          <p class="pay-hint">${I.lock}<span>These open the app on your phone with the amount filled in. On a laptop, scan the QR instead — or <a class="link" href="#" id="copyHint">copy the UPI ID</a>.</span></p>
 
           <hr class="hairline" style="margin:24px 0">
           <h3 style="font-size:1.06rem">Then upload the payment screenshot</h3>
@@ -576,9 +683,12 @@
             <div class="pic">${it.preview ? `<img src="${esc(it.preview)}" alt="">` : ''}</div>
             <div><h4>${esc(it.name)}</h4><div class="meta">${(it.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(it.price)}</b></div>`).join('')}
-          <div class="sum-row" style="margin-top:10px"><span>Subtotal</span><b>${money(o.amount)}</b></div>
-          <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
-          <div class="sum-row total"><span>To pay</span><b>${money(o.amount)}</b></div>
+          <div style="margin-top:10px">
+            <div class="sum-row"><span>Subtotal</span><b>${money(o.subtotal || o.amount)}</b></div>
+            ${o.discount ? `<div class="sum-row discount"><span>Coupon ${esc(o.coupon || '')}</span><b>− ${money(o.discount)}</b></div>` : ''}
+            <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
+            <div class="sum-row total"><span>To pay</span><b>${money(o.amount)}</b></div>
+          </div>
         </aside>
       </div>`;
     wirePay(o, upi);
@@ -660,7 +770,7 @@
         <div class="ok-mark">${I.check}</div>
         <span class="status-chip paid">Payment confirmed</span>
         <h2 style="margin-top:12px">Your designs are ready</h2>
-        <p class="muted">Order <b class="mono">${esc(o.code)}</b> · ${money(o.amount)} · ${dt(o.paidAt)}<br>
+        <p class="muted">Order <b class="mono">${esc(o.code)}</b> · ${money(o.amount)}${o.discount ? ` <span class="small">(saved ${money(o.discount)} with ${esc(o.coupon || 'coupon')})</span>` : ''} · ${dt(o.paidAt)}<br>
         Each ZIP holds exactly the formats you chose. Downloads start on their own and land in your browser's Downloads folder.</p>
       </div>
       <div class="dl-list" id="dlList">
@@ -741,6 +851,8 @@
   function paintBadges() {
     const dot = $('#cartDot');
     if (dot) { dot.textContent = Store.count; dot.style.display = Store.count ? 'grid' : 'none'; }
+    const w = $('#wishDot');
+    if (w) { w.textContent = Store.wish.length; w.style.display = Store.wish.length ? 'grid' : 'none'; }
   }
 
   function openDrawer() {
@@ -812,6 +924,7 @@
       else if (seg === 'designs') view = await viewShop(params);
       else if (seg === 'd') view = await viewDesign(parts[1]);
       else if (seg === 'cart') view = await viewCart();
+      else if (seg === 'saved') { view = await viewSaved(); active = 'saved'; }
       else if (seg === 'checkout') view = await viewCheckout();
       else if (seg === 'pay') view = await viewPay(parts[1]);
       else if (seg === 'order') { view = await viewOrderLookup({ ...params, code: parts[1] }); active = 'order'; }
@@ -845,6 +958,67 @@
       $('#mClose').onclick = () => m.classList.remove('on');
       m.querySelectorAll('a').forEach(a => a.onclick = () => m.classList.remove('on'));
     };
+    // save / wishlist
+    $$('[data-fav]').forEach(b => b.onclick = e => {
+      e.preventDefault(); e.stopPropagation();
+      const id = Number(b.dataset.fav);
+      const on = Store.toggleWish(id);
+      b.classList.toggle('on', on);
+      b.innerHTML = on ? I.heartOn : I.heart;
+      toast(on ? 'Saved to your list' : 'Removed from saved', on ? 'ok' : '');
+      if (parseHash().parts[0] === 'saved') render();
+    });
+    const saveBtn = $('#saveBtn');
+    if (saveBtn) saveBtn.onclick = () => {
+      const d = Store.designs.find(x => x.slug === parseHash().parts[1]);
+      if (!d) return;
+      const on = Store.toggleWish(d.id);
+      saveBtn.innerHTML = on ? I.heartOn : I.heart;
+      saveBtn.style.color = on ? 'var(--maroon)' : '';
+      toast(on ? 'Saved to your list' : 'Removed from saved', on ? 'ok' : '');
+    };
+    const shareBtn = $('#shareBtn');
+    if (shareBtn) shareBtn.onclick = async () => {
+      try { await navigator.clipboard.writeText(location.href); toast('Link copied', 'ok'); }
+      catch { toast('Copy the address bar to share', 'bad'); }
+    };
+
+    // coupon
+    const cf = $('#couponForm');
+    if (cf) cf.onsubmit = async e => {
+      e.preventDefault();
+      const code = new FormData(cf).get('code').trim();
+      if (!code) return toast('Enter a coupon code', 'bad');
+      try {
+        const r = await api('/api/coupons/validate', { method: 'POST', body: { code, subtotal: Store.subtotal } });
+        Store.coupon = { ...r.coupon, discount: r.discount };
+        Store.save();
+        toast(`${r.coupon.code} applied — you saved ${money(r.discount)}`, 'ok');
+        render();
+      } catch (err) { toast(err.message, 'bad'); }
+    };
+    const cr = $('#couponRemove');
+    if (cr) cr.onclick = () => { Store.coupon = null; Store.save(); toast('Coupon removed'); render(); };
+
+    // bundle
+    const bundleAdd = $('#bundleAdd');
+    if (bundleAdd) bundleAdd.onclick = async () => {
+      Store.designs.forEach(d => {
+        if (!Store.cart.some(l => l.id === d.id)) {
+          Store.cart.push({ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview,
+            formats: d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : (d.formats || []).map(f => f.key).slice(0, 2) });
+        }
+      });
+      Store.save();
+      try {
+        const r = await api('/api/coupons/validate', { method: 'POST', body: { code: 'SET4', subtotal: Store.subtotal } });
+        Store.coupon = { ...r.coupon, discount: r.discount };
+        Store.save();
+        toast(`Bundle added — ${money(r.discount)} off with SET4`, 'ok');
+      } catch (err) { toast('Bundle added to your bag', 'ok'); }
+      location.hash = '#/cart';
+    };
+
     const sortSel = $('#sortSel');
     if (sortSel) sortSel.onchange = () => { const { params } = parseHash(); location.hash = '#/designs?' + qs({ ...params, sort: sortSel.value }); };
     const ff = $('#findForm');

@@ -26,7 +26,7 @@
     return data;
   }
 
-  const MENU = [['dashboard', 'Dashboard', '◍'], ['orders', 'Orders', '▤'], ['designs', 'Designs', '❖'], ['settings', 'Settings', '⚙']];
+  const MENU = [['dashboard', 'Dashboard', '◍'], ['orders', 'Orders', '▤'], ['designs', 'Designs', '❖'], ['coupons', 'Coupons', '⌗'], ['settings', 'Settings', '⚙']];
 
   function loginView(msg = '') {
     return `<div class="admin-login"><div class="login-card">
@@ -109,6 +109,13 @@
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px">
         <div class="card"><div class="card-h"><h3>Revenue · 14 days</h3></div>${chart}</div>
+        <div class="card"><h3>Coupons</h3>
+          ${(stats.coupons && stats.coupons.length)
+            ? stats.coupons.map(c => `<div class="between" style="padding:5px 0;border-bottom:1px solid var(--line-soft)">
+                <span class="mono small">${esc(c.code)}</span><span class="small">${c.n}× · <b>${money(c.discount || 0)}</b></span></div>`).join('')
+            : `<p class="muted small">No coupon redemptions yet.</p>`}
+          <div class="between" style="margin-top:10px"><span class="small muted">Orders with a coupon</span><b class="small">${stats.discounted || 0}</b></div>
+        </div>
         <div class="card"><h3>Formats bought</h3>
           ${(stats.formats && stats.formats.length) ? stats.formats.map(f => `<div style="margin-bottom:11px">
             <div class="between" style="margin-bottom:4px"><span class="small">${f.key.toUpperCase()}</span><b class="mono small">${f.n}</b></div>
@@ -182,6 +189,55 @@
         ${o.status === 'rejected' ? `<button class="btn btn-ghost btn-sm" data-set="awaiting">Reset to awaiting</button>` : ''}
       </div>
     </div>`;
+  }
+
+  async function sectionCoupons() {
+    const { coupons, usage } = await adminApi('/api/admin/coupons');
+    const useOf = code => (usage || []).find(u => u.code === code) || { n: 0, d: 0 };
+    return `<div class="ahead"><div><h1>Coupons</h1>
+        <p class="muted small" style="margin:2px 0 0">${coupons.filter(c => c.active).length} active · ${coupons.reduce((s, c) => s + c.used, 0)} redemptions</p></div>
+        <button class="btn btn-primary btn-sm" id="newCoupon">+ New coupon</button></div>
+      <div class="card"><div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>Code</th><th>Offer</th><th>Min order</th><th class="num">Used</th><th class="num">Given away</th><th>Status</th><th></th></tr></thead>
+        <tbody>${coupons.map(c => {
+          const u = useOf(c.code);
+          const status = !c.active ? 'paused' : c.expired ? 'expired' : c.exhausted ? 'used up' : 'active';
+          return `<tr>
+            <td class="mono"><b>${esc(c.code)}</b>${c.note ? `<div class="small muted">${esc(c.note)}</div>` : ''}</td>
+            <td>${c.type === 'percent' ? c.value + '% off' : money(c.value) + ' off'}</td>
+            <td>${c.minOrder ? money(c.minOrder) : '—'}</td>
+            <td class="num">${c.used}${c.maxUses ? ' / ' + c.maxUses : ''}</td>
+            <td class="num">${money(u.d || 0)}</td>
+            <td><span class="status-chip ${status === 'active' ? 'paid' : 'rejected'}">${status}</span></td>
+            <td style="white-space:nowrap"><button class="btn btn-xs btn-ghost" data-cedit="${c.id}">Edit</button>
+              <button class="btn btn-xs btn-ghost" data-cdel="${c.id}">Delete</button></td>
+          </tr>`;
+        }).join('')}</tbody></table></div></div>`;
+  }
+
+  function couponForm(c) {
+    const d = c || {};
+    return `<div class="modal" style="width:min(520px,100%)">
+      <header><div><span class="eyebrow">${d.id ? 'Edit' : 'New'} coupon</span><h3 style="margin-top:2px">${esc(d.code || 'Untitled')}</h3></div>
+        <button class="icon-btn" id="mClose">✕</button></header>
+      <form id="cForm" class="stack">
+        ${d.id ? '' : `<div class="field"><label>Code</label><input class="input mono" name="code" placeholder="SANDYA10" style="text-transform:uppercase" required></div>`}
+        <div class="grid-2">
+          <div class="field"><label>Type</label><select class="select" name="type">
+            <option value="percent" ${d.type !== 'flat' ? 'selected' : ''}>Percent off</option>
+            <option value="flat" ${d.type === 'flat' ? 'selected' : ''}>Flat ₹ off</option></select></div>
+          <div class="field"><label>Value</label><input class="input" name="value" type="number" min="1" value="${d.value || ''}" required></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Min order (₹)</label><input class="input" name="minOrder" type="number" min="0" value="${d.minOrder || 0}"></div>
+          <div class="field"><label>Max uses (0 = none)</label><input class="input" name="maxUses" type="number" min="0" value="${d.maxUses || 0}"></div>
+        </div>
+        <div class="field"><label>Expires (optional)</label><input class="input" name="expiresAt" type="date" value="${d.expiresAt ? String(d.expiresAt).slice(0, 10) : ''}"></div>
+        <div class="field"><label>Note</label><input class="input" name="note" value="${esc(d.note || '')}" placeholder="10% off orders over ₹999"></div>
+        <label class="row small"><input type="checkbox" name="active" ${d.active !== false ? 'checked' : ''}> Active</label>
+        <div class="row"><button class="btn btn-primary">${d.id ? 'Save coupon' : 'Create coupon'}</button>
+          <button type="button" class="btn btn-ghost" id="mCancel">Cancel</button></div>
+      </form></div>`;
   }
 
   async function sectionDesigns() {
@@ -287,6 +343,7 @@
       if (section === 'dashboard') body.innerHTML = await sectionDashboard();
       else if (section === 'orders') body.innerHTML = await sectionOrders();
       else if (section === 'designs') body.innerHTML = await sectionDesigns();
+      else if (section === 'coupons') body.innerHTML = await sectionCoupons();
       else if (section === 'settings') body.innerHTML = await sectionSettings();
       else body.innerHTML = await sectionDashboard();
     } catch (e) {
@@ -349,6 +406,34 @@
       if (!confirm('Hide this design from the store?')) return;
       await adminApi('/api/admin/designs/' + b.dataset.del, { method: 'DELETE' });
       window.toast('Design hidden'); rerender();
+    });
+
+    const openCoupon = c => {
+      openModal(couponForm(c));
+      $('#cForm').onsubmit = async e => {
+        e.preventDefault();
+        const f = new FormData(e.target);
+        const body = {
+          type: f.get('type'), value: Number(f.get('value')), minOrder: Number(f.get('minOrder') || 0),
+          maxUses: Number(f.get('maxUses') || 0), expiresAt: f.get('expiresAt') || null,
+          note: f.get('note') || '', active: !!f.get('active')
+        };
+        try {
+          if (c && c.id) await adminApi('/api/admin/coupons/' + c.id, { method: 'PUT', body });
+          else await adminApi('/api/admin/coupons', { method: 'POST', body: { ...body, code: f.get('code') } });
+          window.toast('Coupon saved', 'ok'); closeModal(); rerender();
+        } catch (err) { window.toast(err.message, 'bad'); }
+      };
+    };
+    const nc = $('#newCoupon'); if (nc) nc.onclick = () => openCoupon(null);
+    body.querySelectorAll('[data-cedit]').forEach(b => b.onclick = async () => {
+      const { coupons } = await adminApi('/api/admin/coupons');
+      openCoupon(coupons.find(c => c.id === Number(b.dataset.cedit)));
+    });
+    body.querySelectorAll('[data-cdel]').forEach(b => b.onclick = async () => {
+      if (!confirm('Delete this coupon?')) return;
+      await adminApi('/api/admin/coupons/' + b.dataset.cdel, { method: 'DELETE' });
+      window.toast('Coupon deleted'); rerender();
     });
 
     const sf = $('#sForm');

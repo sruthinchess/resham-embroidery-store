@@ -68,7 +68,11 @@
     const designs = (seed.designs || []).map((d, i) => ({ ...d, id: i + 1, downloads: 0, active: 1, created_at: now() }));
     const settings = { ...(seed.settings || {}) };
     settings.admin_password = '252525';
-    return { settings, designs, orders: [], tokens: {}, seq: { design: designs.length, order: 0 }, adminSessions: {} };
+    const coupons = (seed.settings.coupons || []).map((c, i) => ({
+      id: i + 1, code: c.code, type: c.type, value: c.value, min_order: c.min_order || 0,
+      max_uses: c.max_uses || 0, used: 0, active: 1, expires_at: c.expires_at || null, note: c.note || ''
+    }));
+    return { settings, designs, coupons, orders: [], tokens: {}, seq: { design: designs.length, order: 0, coupon: coupons.length }, adminSessions: {} };
   }
   let S = null;
   function load() {
@@ -80,6 +84,22 @@
   function save() { try { LS.setItem(KEY, JSON.stringify(S)); } catch {} }
   function reset() { S = freshState(); save(); }
   const fail = (msg, code) => { const e = new Error(msg); e.__code = code || 400; return e; };
+
+  function checkCoupon(code, subtotal) {
+    const raw = String(code || '').trim().toUpperCase();
+    if (!raw) throw fail('Enter a coupon code.');
+    const c = S.coupons.find(x => x.code.toUpperCase() === raw);
+    if (!c || !c.active) throw fail('That coupon is not available.');
+    if (c.expires_at && new Date(c.expires_at) < new Date()) throw fail('That coupon has expired.');
+    if (c.max_uses && c.used >= c.max_uses) throw fail('That coupon has been fully claimed.');
+    if (subtotal < c.min_order) throw fail(`Add ₹${(c.min_order - subtotal).toFixed(2)} more to use ${c.code}.`);
+    const discount = Math.min(subtotal, Math.round((c.type === 'percent' ? subtotal * c.value / 100 : c.value) * 100) / 100);
+    return { coupon: c, discount };
+  }
+  const cOut = c => ({ id: c.id, code: c.code, type: c.type, value: c.value, minOrder: c.min_order,
+    maxUses: c.max_uses, used: c.used, active: !!c.active, expiresAt: c.expires_at, note: c.note,
+    label: c.type === 'percent' ? `${c.value}% off` : `₹${c.value} off`,
+    expired: !!(c.expires_at && new Date(c.expires_at) < new Date()), exhausted: !!(c.max_uses && c.used >= c.max_uses) });
 
   function upi(o) {
     const s = S.settings;
@@ -103,7 +123,7 @@
         if (entry) parts.push({ name: entry.name, data: b64ToU8(entry.data.split(',')[1]) });
       }
       parts.push({ name: 'READ ME.txt', data: u8(
-        `${it.name}\n\nStitch count : ${it.stitchCount}\nFormats here : ${chosen.map(f => f.toUpperCase()).join(', ')}\n\nOpen the DST or EXP in your machine software.\nOne-person commercial licence.\n\nResham Atelier\n`) });
+        `${it.name}\n\nStitch count : ${it.stitchCount}\nFormats here : ${chosen.map(f => f.toUpperCase()).join(', ')}\n\nOpen the DST or EXP in your machine software.\nOne-person commercial licence.\n\nSandya Emb Designs\n`) });
       const blob = new Blob([zipFiles(parts)], { type: 'application/zip' });
       return {
         designId: it.designId, name: it.name, formats: chosen,
@@ -117,6 +137,7 @@
       id: o.id, code: o.code, name: o.name, email: o.email, phone: o.phone,
       items: o.items, amount: o.amount, status: o.status, note: o.note,
       upiRef: o.upi_ref, hasProof: !!o.screenshot, createdAt: o.created_at, paidAt: o.paid_at,
+      subtotal: o.subtotal ?? o.amount, discount: o.discount || 0, coupon: o.coupon_code || null,
       upi: o.status === 'awaiting' ? upi(o) : null
     };
     if (opts.withLinks && o.status === 'paid') out.downloads = linksFor(o, false);
@@ -162,6 +183,13 @@
     return { ok: true, design: d, related: S.designs.filter(x => x.active && x.id !== d.id).sort((a, b) => b.featured - a.featured).slice(0, 3) };
   });
 
+  R('GET', '/api/coupons', () => ({ ok: true, coupons: S.coupons.filter(c => c.active).map(cOut) }));
+  R('POST', '/api/coupons/validate', (m, q, p, b) => {
+    const sub = Number(b.subtotal || 0);
+    const r = checkCoupon(b.code, sub);
+    return { ok: true, coupon: cOut(r.coupon), discount: r.discount, total: Math.max(0, sub - r.discount) };
+  });
+
   R('POST', '/api/orders', (m, q, p, b) => {
     const items = b.items || [];
     if (!items.length) throw fail('Your bag is empty.');
@@ -178,11 +206,18 @@
       amount += d.price;
       lines.push({ designId: d.id, slug: d.slug, name: d.name, price: d.price, formats, stitchCount: d.stitchCount, hoop: d.hoop, preview: d.preview });
     }
+    const subtotal = Math.round(amount * 100) / 100;
+    let discount = 0, couponCode = null;
+    if (b.coupon) {
+      const r = checkCoupon(b.coupon, subtotal);
+      discount = r.discount; couponCode = r.coupon.code; r.coupon.used++;
+    }
     const o = {
       id: ++S.seq.order,
-      code: 'RSM-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100),
+      code: 'SDY-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100),
       name: b.name.trim(), email: b.email.trim(), phone: (b.phone || '').trim(),
-      items: lines, amount: Math.round(amount * 100) / 100, status: 'awaiting',
+      items: lines, subtotal, discount, coupon_code: couponCode,
+      amount: Math.max(0, Math.round((subtotal - discount) * 100) / 100), status: 'awaiting',
       upi_ref: '', screenshot: null, note: null, created_at: now(), paid_at: null
     };
     S.orders.unshift(o); save();
@@ -249,6 +284,8 @@
       aov: paid.length ? Math.round(revenue / paid.length) : 0,
       downloads: Object.keys(S.tokens).length, designs: S.designs.filter(d => d.active).length,
       series, topDesigns: Object.values(sold).sort((a, b) => b.units - a.units).slice(0, 5),
+      coupons: paid.filter(o => o.coupon_code).reduce((acc, o) => { const u = acc.find(x => x.code === o.coupon_code); if (u) { u.n++; u.discount += o.discount || 0; } else acc.push({ code: o.coupon_code, n: 1, discount: o.discount || 0 }); return acc; }, []),
+      discounted: paid.filter(o => o.coupon_code).length,
       formats: Object.entries(fmt).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, n })),
       recent: S.orders.slice(0, 8).map(o => oOut(o, { admin: true })) } };
   });
@@ -289,6 +326,40 @@
     save();
     return { ok: true, message: 'Design hidden from the store.' };
   });
+  R('GET', '/api/admin/coupons', () => {
+    guard();
+    const usage = S.orders.filter(o => o.status === 'paid' && o.coupon_code)
+      .reduce((acc, o) => { const u = acc.find(x => x.code === o.coupon_code); if (u) { u.n++; u.d += o.discount || 0; } else acc.push({ code: o.coupon_code, n: 1, d: o.discount || 0 }); return acc; }, []);
+    return { ok: true, coupons: S.coupons.map(cOut), usage };
+  });
+  R('POST', '/api/admin/coupons', (m, q, p, b) => {
+    guard();
+    const code = String(b.code || '').trim().toUpperCase();
+    if (!/^[A-Z0-9_-]{3,20}$/.test(code)) throw fail('Code must be 3–20 letters, numbers, - or _.');
+    if (S.coupons.some(c => c.code.toUpperCase() === code)) throw fail('That code already exists.');
+    if (!(Number(b.value) > 0)) throw fail('Value must be more than zero.');
+    const c = { id: ++S.seq.coupon, code, type: b.type === 'flat' ? 'flat' : 'percent', value: Number(b.value),
+      min_order: Number(b.minOrder || 0), max_uses: Number(b.maxUses || 0), used: 0,
+      active: b.active === false ? 0 : 1, expires_at: b.expiresAt || null, note: b.note || '' };
+    S.coupons.push(c); save();
+    return { ok: true, coupon: cOut(c) };
+  });
+  R('PUT', '/api/admin/coupons/:id', (m, q, p, b) => {
+    guard();
+    const c = S.coupons.find(x => String(x.id) === String(p.id));
+    if (!c) throw fail('Coupon not found.', 404);
+    Object.assign(c, { type: b.type === 'flat' ? 'flat' : 'percent', value: Number(b.value),
+      min_order: Number(b.minOrder || 0), max_uses: Number(b.maxUses || 0),
+      active: b.active === false ? 0 : 1, expires_at: b.expiresAt || null, note: b.note || '' });
+    save();
+    return { ok: true, coupon: cOut(c) };
+  });
+  R('DELETE', '/api/admin/coupons/:id', (m, q, p) => {
+    guard();
+    S.coupons = S.coupons.filter(x => String(x.id) !== String(p.id)); save();
+    return { ok: true, message: 'Coupon deleted.' };
+  });
+
   R('GET', '/api/admin/settings', () => { guard(); const s = { ...S.settings }; delete s.admin_password; return { ok: true, settings: s }; });
   R('PUT', '/api/admin/settings', (m, q, p, b) => {
     guard();
