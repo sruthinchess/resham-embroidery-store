@@ -6,7 +6,7 @@ const P = require('../src/pack.js');
 
 const ROOT = path.join(__dirname, '..');
 const seed = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/designs.json'), 'utf8'));
-const POPULAR = ['pes', 'dst', 'jef', 'exp', 'vp3', 'hus', 'xxx', 'sew', 'pec'];
+const POPULAR = ['pes', 'dst'];   // the static build ships the two most-used formats
 const MIME = { png: 'image/png', pes: 'application/octet-stream', dst: 'application/octet-stream' };
 
 const designs = [];
@@ -26,7 +26,7 @@ for (const d of seed.designs) {
     summary: d.summary, description: d.description,
     stitchCount: d.stitchCount, widthMm: d.widthMm, heightMm: d.heightMm,
     colorCount: d.colorCount, trims: d.trims, threads: d.threads,
-    sewMinutes: d.sewMinutes, pricePerColour: d.pricePerColour,
+    sewMinutes: d.sewMinutes, pricePer1k: d.pricePer1k,
     preview, stitchPreview, formats: formats.map(f => ({ key: f.key, label: f.label, note: f.note })),
     defaultFormats: d.defaultFormats.filter(k => formats.some(f => f.key === k)),
     featured: d.featured ? 1 : 0, badge: d.badge || null

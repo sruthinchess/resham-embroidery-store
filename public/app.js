@@ -71,9 +71,24 @@
   };
   window.Store = Store;
 
+  const CACHE = new Map();          // GET responses, so re-rendering a page costs nothing
+  const CACHE_TTL = 30000;
+  function bustCache() { CACHE.clear(); }
+
   async function api(path, opts = {}) {
     const method = opts.method || 'GET';
-    if (Store.demo) { await new Promise(r => setTimeout(r, 80)); return window.Demo.handle(method, path, opts.body, opts.query); }
+    if (method === 'GET' && !opts.fresh) {
+      const hit = CACHE.get(path);
+      if (hit && Date.now() - hit.at < CACHE_TTL) return hit.data;
+    }
+    const data = await apiFetch(path, opts, method);
+    if (method === 'GET') CACHE.set(path, { at: Date.now(), data });
+    else bustCache();
+    return data;
+  }
+
+  async function apiFetch(path, opts, method) {
+    if (Store.demo) { await new Promise(r => setTimeout(r, 40)); return window.Demo.handle(method, path, opts.body, opts.query); }
     const headers = { 'Content-Type': 'application/json' };
     if (opts.adminToken) headers['x-admin-token'] = opts.adminToken;
     let res;
@@ -166,12 +181,14 @@
     const c = Store.coupon;
     if (c) {
       return `<div class="coupon-on">${I.tag}<b>${esc(c.code)}</b><span>${esc(c.label || '')}</span>
-        <button type="button" id="couponRemove" aria-label="Remove coupon">✕</button></div>`;
+        <button type="button" id="couponRemove" aria-label="Remove coupon">✕</button></div>
+        <button type="button" class="offers-link" id="offersBtn">View all offers</button>`;
     }
     return `<div id="couponForm" class="coupon-form">
       <input class="input" name="code" placeholder="Coupon code" autocomplete="off" style="text-transform:uppercase">
       <button class="btn btn-dark btn-sm" type="button" id="couponApply">Apply</button>
-    </div>`;
+    </div>
+    <button type="button" class="offers-link" id="offersBtn">${I.tag} View all offers</button>`;
   }
 
   function summaryRows(showPayment) {
@@ -186,7 +203,7 @@
   function designCard(d) {
     return `<article class="dcard reveal">
       <a class="stage" href="#/d/${esc(d.slug)}" aria-label="${esc(d.name)}">
-        ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy"></span>` : ''}
+        ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy" decoding="async" width="400" height="400"></span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
         <button class="fav ${Store.isWished(d.id) ? 'on' : ''}" data-fav="${d.id}" aria-label="Save ${esc(d.name)}">${Store.isWished(d.id) ? I.heartOn : I.heart}</button>
@@ -285,6 +302,15 @@
       </div>
     </div></div>
 
+    ${LS.getItem('sd_welcome_off') ? '' : `<div class="welcome">
+      <div class="wrap welcome-in">
+        <span class="w-tag">${I.tag} Welcome offer</span>
+        <p><b>10% off your first order</b> with code <span class="mono">WELCOME</span></p>
+        <button class="btn btn-gold btn-sm" id="welcomeApply">Apply WELCOME</button>
+        <button class="icon-btn w-close" id="welcomeClose" aria-label="Dismiss">✕</button>
+      </div>
+    </div>`}
+
     <div class="marq"><div class="marq-in">
       ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff',
       'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff']
@@ -335,8 +361,11 @@
     </div></section>`;
   }
 
+  const PAGE = 12;
   async function viewShop(params) {
     const data = await api('/api/designs?' + qs({ q: params.q || '', tag: params.tag || 'all', sort: params.sort || 'featured' }));
+    const shown = Number(params.show || PAGE);
+    const visible = data.designs.slice(0, shown);
     return `<div class="wrap">
       <div class="crumbs"><a href="#/">Home</a> / Designs</div>
       <div class="sec-head" style="margin-top:16px">
@@ -351,7 +380,10 @@
         <a class="filter-chip ${!params.tag ? 'on' : ''}" href="#/designs">All</a>
         ${data.tags.map(t => `<a class="filter-chip ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
       </div>
-      ${data.designs.length ? `<div class="pgrid" style="padding:26px 0 62px">${data.designs.map(designCard).join('')}</div>`
+      ${data.designs.length ? `<div class="pgrid" style="padding:26px 0 12px">${visible.map(designCard).join('')}</div>
+        ${data.designs.length > visible.length ? `<div class="center" style="padding-bottom:52px">
+          <button class="btn btn-ghost" id="loadMore">Show ${Math.min(PAGE, data.designs.length - visible.length)} more of ${data.designs.length}</button>
+        </div>` : '<div style="height:50px"></div>'}`
         : `<div class="empty" style="margin:26px 0 62px"><h3>Nothing here</h3><p class="muted small">Try another tag or clear the search.</p><a class="btn btn-primary" href="#/designs" style="margin-top:8px">See everything</a></div>`}
     </div>`;
   }
@@ -378,7 +410,7 @@
         const pv = $('#pdpPrice'); if (pv) pv.textContent = money(total);
         const pn = $('#pdpPriceNote');
         if (pn) pn.textContent = n
-          ? `${money(g.price)} per format × ${n} format${n > 1 ? 's' : ''}${g.pricePerColour ? ` · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} × ${money(g.pricePerColour)}` : ''}`
+          ? `${money(g.price)} per format × ${n} format${n > 1 ? 's' : ''}${g.pricePer1k ? ` · ${nf(g.stitchCount)} stitches at ${money(g.pricePer1k)} per 1,000` : ''}`
           : 'One price per format — pick at least one';
       };
       const showAll = $('#fmtMore');
@@ -439,7 +471,7 @@
           <h1>${esc(g.name)}</h1>
           <p class="muted" style="font-size:15px">${esc(g.summary)}</p>
           <div class="price-big"><b id="pdpPrice">${money(g.price)}</b>${g.mrp > g.price ? `<s>${money(g.mrp)}</s><span class="off">${g.discount}% off</span>` : ''}</div>
-          <p class="small muted" style="margin:0" id="pdpPriceNote">${money(g.price)} per format${g.pricePerColour ? ` · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} × ${money(g.pricePerColour)}` : ''}</p>
+          <p class="small muted" style="margin:0" id="pdpPriceNote">${money(g.price)} per format${g.pricePer1k ? ` · ${nf(g.stitchCount)} stitches at ${money(g.pricePer1k)} per 1,000` : ''}</p>
 
           <div class="specs four">
             <div><span>Stitches</span><b>${nf(g.stitchCount)}</b></div>
@@ -642,7 +674,6 @@
             <div class="field">
               <label>Coupon code</label>
               ${couponBox()}
-              <button type="button" class="offers-link" id="offersBtn">${I.tag} View all offers</button>
             </div>
             <button class="btn btn-primary" type="submit" style="height:54px;margin-top:6px">Continue to UPI payment ${I.arrow}</button>
             <p class="small muted" style="margin:0">By paying you accept the one-person commercial licence. Files are delivered instantly — sales are final.</p>
@@ -691,7 +722,7 @@
     return `<aside class="summary">
       <h3>${o.items.length} design${o.items.length > 1 ? 's' : ''}</h3>
       ${o.items.map(it => `<div class="mini-line">
-        <div class="pic">${it.preview ? `<img src="${esc(it.preview)}" alt="">` : ''}</div>
+        <div class="pic">${it.preview ? `<img src="${esc(it.preview)}" alt="" loading="lazy" decoding="async">` : ''}</div>
         <div><h4>${esc(it.name)}</h4><div class="meta">${(it.formats || []).map(fmtLabel).join(' · ')}</div></div>
         <b class="mono small">${money(it.price)}</b></div>`).join('')}
       <div style="margin-top:10px">
@@ -1008,7 +1039,26 @@
     els.forEach(e => io.observe(e));
   }
 
+  function progress(on) {
+    let bar = document.getElementById('routebar');
+    if (on) {
+      if (!bar) {
+        bar = document.createElement('div');
+        bar.id = 'routebar';
+        document.body.appendChild(bar);
+      }
+      bar.style.opacity = '1';
+      bar.style.width = '0%';
+      requestAnimationFrame(() => { bar.style.width = '72%'; });
+    } else if (bar) {
+      bar.style.width = '100%';
+      setTimeout(() => { bar.style.opacity = '0'; }, 220);
+      setTimeout(() => { bar.style.width = '0%'; }, 520);
+    }
+  }
+
   async function render() {
+    progress(true);
     const { parts, params } = parseHash();
     const app = $('#app');
     const seg = parts[0] || 'home';
@@ -1031,6 +1081,7 @@
     }
 
     app.innerHTML = header(active) + `<main class="page">${view}</main>` + footer();
+    progress(false);
     closeDrawer();
     paintBadges();
     wireGlobal();
@@ -1172,6 +1223,12 @@
       location.hash = '#/cart';
     };
 
+    const loadMore = $('#loadMore');
+    if (loadMore) loadMore.onclick = () => {
+      const { params } = parseHash();
+      location.hash = '#/designs?' + qs({ ...params, show: Number(params.show || PAGE) + PAGE });
+    };
+
     const sortSel = $('#sortSel');
     if (sortSel) sortSel.onchange = () => { const { params } = parseHash(); location.hash = '#/designs?' + qs({ ...params, sort: sortSel.value }); };
     const ff = $('#findForm');
@@ -1213,7 +1270,7 @@
       const b = document.createElement('div');
       b.className = 'mode-badge';
       b.textContent = 'Demo · data in this browser';
-      b.title = 'Run npm start to use the real server and database.';
+      b.title = 'Static demo: PES and DST are included here. Run npm start for the full store with all five formats and a real database.';
       document.body.appendChild(b);
     }
     try {

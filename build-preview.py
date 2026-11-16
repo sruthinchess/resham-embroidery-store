@@ -13,7 +13,7 @@ LIMITS = {'logo': 300, 'logo-mark': 128, 'favicon': 64}
 for src in (ROOT / 'public' / 'img').glob('*.png'):
     limit = LIMITS.get(src.stem)
     if limit is None:
-        limit = 420 if src.stem.endswith('-stitch') else 400
+        limit = 360 if src.stem.endswith('-stitch') else 340
     im = Image.open(src).convert('RGBA')
     im.thumbnail((limit, limit), Image.LANCZOS)
     if not src.stem.startswith('logo') and src.stem != 'favicon':

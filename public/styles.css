@@ -682,3 +682,24 @@ input, select, textarea { font: inherit; color: inherit; }
   .hero-in.solo .hero-stats { grid-template-columns: 1fr; gap: 14px; text-align: center; }
   .hero-in.solo .hero-stats > div { border-left: 0; padding-left: 0; }
 }
+
+/* keep big grids cheap to paint */
+.dcard { content-visibility: auto; contain-intrinsic-size: 380px 480px; }
+.shot img { background: transparent; }
+
+/* route progress + staggered cards */
+#routebar {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0; z-index: 300;
+  background: linear-gradient(90deg, var(--maroon), var(--brass-2));
+  opacity: 0; transition: width .35s var(--ease), opacity .25s;
+  box-shadow: 0 0 12px rgba(180, 136, 75, .5);
+}
+.pgrid .dcard { animation: cardIn .5s var(--ease) both; }
+.pgrid .dcard:nth-child(2) { animation-delay: .04s; }
+.pgrid .dcard:nth-child(3) { animation-delay: .08s; }
+.pgrid .dcard:nth-child(4) { animation-delay: .12s; }
+.pgrid .dcard:nth-child(5) { animation-delay: .16s; }
+.pgrid .dcard:nth-child(6) { animation-delay: .2s; }
+@keyframes cardIn { from { opacity: 0; transform: translateY(14px); } }
+#loadMore { min-width: 240px; }
+@media (prefers-reduced-motion: reduce) { .pgrid .dcard { animation: none; } #routebar { display: none; } }

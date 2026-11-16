@@ -69,7 +69,7 @@
       "note": "5% off any design"
     }
   ],
-  "price_per_colour": 60,
   "min_price": 60,
-  "max_price": 500
+  "max_price": 500,
+  "price_per_1k_stitches": 50
 }

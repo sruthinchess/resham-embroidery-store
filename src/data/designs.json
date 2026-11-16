@@ -70,9 +70,9 @@
         "note": "5% off any design"
       }
     ],
-    "price_per_colour": 60,
     "min_price": 60,
-    "max_price": 500
+    "max_price": 500,
+    "price_per_1k_stitches": 50
   },
   "designs": [
     {
@@ -84,7 +84,7 @@
       "stitchImg": "img/floral-spray-stitch.png",
       "price": 300,
       "mrp": 510,
-      "pricePerColour": 60,
+      "pricePer1k": 50,
       "badge": "Bestseller",
       "featured": 1,
       "tags": [
@@ -179,9 +179,9 @@
       "dir": "src/designs/blue-blossom",
       "previewImg": "img/blue-blossom.png",
       "stitchImg": "img/blue-blossom-stitch.png",
-      "price": 180,
-      "mrp": 306,
-      "pricePerColour": 60,
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
       "badge": null,
       "featured": 1,
       "tags": [
@@ -268,7 +268,7 @@
       "stitchImg": "img/magnolia-branch-stitch.png",
       "price": 300,
       "mrp": 510,
-      "pricePerColour": 60,
+      "pricePer1k": 50,
       "badge": null,
       "featured": 0,
       "tags": [
@@ -363,9 +363,9 @@
       "dir": "src/designs/silhouette-10",
       "previewImg": "img/silhouette-10.png",
       "stitchImg": "img/silhouette-10-stitch.png",
-      "price": 60,
-      "mrp": 102,
-      "pricePerColour": 60,
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
       "badge": null,
       "featured": 0,
       "tags": [
@@ -440,9 +440,9 @@
       "dir": "src/designs/folk-floral-spray",
       "previewImg": "img/folk-floral-spray.png",
       "stitchImg": "img/folk-floral-spray-stitch.png",
-      "price": 360,
-      "mrp": 612,
-      "pricePerColour": 60,
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
       "badge": "New",
       "featured": 1,
       "tags": [
@@ -542,9 +542,9 @@
       "dir": "src/designs/gamer-wordmark",
       "previewImg": "img/gamer-wordmark.png",
       "stitchImg": "img/gamer-wordmark-stitch.png",
-      "price": 60,
-      "mrp": 102,
-      "pricePerColour": 60,
+      "price": 100,
+      "mrp": 170,
+      "pricePer1k": 50,
       "badge": null,
       "featured": 0,
       "tags": [
@@ -619,9 +619,9 @@
       "dir": "src/designs/jai-shree-ram",
       "previewImg": "img/jai-shree-ram.png",
       "stitchImg": "img/jai-shree-ram-stitch.png",
-      "price": 60,
-      "mrp": 102,
-      "pricePerColour": 60,
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
       "badge": "New",
       "featured": 1,
       "tags": [
@@ -696,9 +696,9 @@
       "dir": "src/designs/peony-bloom",
       "previewImg": "img/peony-bloom.png",
       "stitchImg": "img/peony-bloom-stitch.png",
-      "price": 360,
-      "mrp": 612,
-      "pricePerColour": 60,
+      "price": 400,
+      "mrp": 680,
+      "pricePer1k": 50,
       "badge": "Couture",
       "featured": 1,
       "tags": [
@@ -782,6 +782,764 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Peony-Bloom.vp3",
           "bytes": 16490
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "blue-bouquet",
+      "name": "Blue Bouquet",
+      "source": "pack",
+      "dir": "src/designs/blue-bouquet",
+      "previewImg": "img/blue-bouquet.png",
+      "stitchImg": "img/blue-bouquet-stitch.png",
+      "price": 350,
+      "mrp": 595,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "bouquet",
+        "hoop"
+      ],
+      "sewMinutes": 9,
+      "summary": "Bouquet of blue flowers with buds, leaves and dark stamen dots.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 6219,
+      "widthMm": 79.1,
+      "heightMm": 90,
+      "colorCount": 6,
+      "trims": 162,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#bccaf0",
+          "stitches": 2315
+        },
+        {
+          "name": "",
+          "hex": "#889cdb",
+          "stitches": 1435
+        },
+        {
+          "name": "",
+          "hex": "#a5c144",
+          "stitches": 945
+        },
+        {
+          "name": "",
+          "hex": "#679233",
+          "stitches": 1050
+        },
+        {
+          "name": "",
+          "hex": "#4d5f9d",
+          "stitches": 426
+        },
+        {
+          "name": "",
+          "hex": "#1b2733",
+          "stitches": 48
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Blue-Bouquet.pes",
+          "bytes": 44521
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Blue-Bouquet.dst",
+          "bytes": 21242
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Blue-Bouquet.jef",
+          "bytes": 14056
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Blue-Bouquet.exp",
+          "bytes": 14530
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Blue-Bouquet.vp3",
+          "bytes": 13910
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "eight-petal-star",
+      "name": "Eight Petal Star",
+      "source": "pack",
+      "dir": "src/designs/eight-petal-star",
+      "previewImg": "img/eight-petal-star.png",
+      "stitchImg": "img/eight-petal-star-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "geometric",
+        "star",
+        "hoop"
+      ],
+      "sewMinutes": 3,
+      "summary": "Eight petal star flower with a ring centre, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2386,
+      "widthMm": 89,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 17,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#151515",
+          "stitches": 2386
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Eight-Petal-Star.pes",
+          "bytes": 16148
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Eight-Petal-Star.dst",
+          "bytes": 7916
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Eight-Petal-Star.jef",
+          "bytes": 5086
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Eight-Petal-Star.exp",
+          "bytes": 5020
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Eight-Petal-Star.vp3",
+          "bytes": 5216
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "football-trophy",
+      "name": "Football Trophy",
+      "source": "pack",
+      "dir": "src/designs/football-trophy",
+      "previewImg": "img/football-trophy.png",
+      "stitchImg": "img/football-trophy-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "sport",
+        "trophy",
+        "jersey"
+      ],
+      "sewMinutes": 4,
+      "summary": "Football trophy silhouette with a ball held in the cup.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2971,
+      "widthMm": 52.9,
+      "heightMm": 90,
+      "colorCount": 2,
+      "trims": 38,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f2f2f2",
+          "stitches": 600
+        },
+        {
+          "name": "",
+          "hex": "#231f20",
+          "stitches": 2371
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Football-Trophy.pes",
+          "bytes": 20509
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Football-Trophy.dst",
+          "bytes": 9911
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Football-Trophy.jef",
+          "bytes": 6420
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Football-Trophy.exp",
+          "bytes": 6430
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Football-Trophy.vp3",
+          "bytes": 6548
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "hibiscus-red",
+      "name": "Hibiscus Red",
+      "source": "pack",
+      "dir": "src/designs/hibiscus-red",
+      "previewImg": "img/hibiscus-red.png",
+      "stitchImg": "img/hibiscus-red-stitch.png",
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 1,
+      "tags": [
+        "floral",
+        "hibiscus",
+        "cushion"
+      ],
+      "sewMinutes": 7,
+      "summary": "Single red hibiscus bloom with stem and two green leaves.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 5142,
+      "widthMm": 65.6,
+      "heightMm": 90,
+      "colorCount": 6,
+      "trims": 105,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#e2362a",
+          "stitches": 1332
+        },
+        {
+          "name": "",
+          "hex": "#64892c",
+          "stitches": 952
+        },
+        {
+          "name": "",
+          "hex": "#466c1f",
+          "stitches": 754
+        },
+        {
+          "name": "",
+          "hex": "#ca2e21",
+          "stitches": 1256
+        },
+        {
+          "name": "",
+          "hex": "#a32216",
+          "stitches": 691
+        },
+        {
+          "name": "",
+          "hex": "#6d130b",
+          "stitches": 157
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Hibiscus-Red.pes",
+          "bytes": 36455
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Hibiscus-Red.dst",
+          "bytes": 17087
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Hibiscus-Red.jef",
+          "bytes": 11170
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Hibiscus-Red.exp",
+          "bytes": 11416
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Hibiscus-Red.vp3",
+          "bytes": 11378
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "mitsudomoe-symbol",
+      "name": "Mitsudomoe Symbol",
+      "source": "pack",
+      "dir": "src/designs/mitsudomoe-symbol",
+      "previewImg": "img/mitsudomoe-symbol.png",
+      "stitchImg": "img/mitsudomoe-symbol-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "symbol",
+        "geometric",
+        "kids"
+      ],
+      "sewMinutes": 3,
+      "summary": "Circular three comma mitsudomoe symbol, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2116,
+      "widthMm": 90,
+      "heightMm": 89.4,
+      "colorCount": 1,
+      "trims": 7,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#050505",
+          "stitches": 2116
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Mitsudomoe-Symbol.pes",
+          "bytes": 14248
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Mitsudomoe-Symbol.dst",
+          "bytes": 6965
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Mitsudomoe-Symbol.jef",
+          "bytes": 4446
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Mitsudomoe-Symbol.exp",
+          "bytes": 4340
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Mitsudomoe-Symbol.vp3",
+          "bytes": 4620
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "panda-cub",
+      "name": "Panda Cub",
+      "source": "pack",
+      "dir": "src/designs/panda-cub",
+      "previewImg": "img/panda-cub.png",
+      "stitchImg": "img/panda-cub-stitch.png",
+      "price": 350,
+      "mrp": 595,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "animal",
+        "kids",
+        "jersey"
+      ],
+      "sewMinutes": 9,
+      "summary": "Sitting panda cub, black patches with white face and belly.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 6095,
+      "widthMm": 73.2,
+      "heightMm": 90,
+      "colorCount": 2,
+      "trims": 66,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f8f8f8",
+          "stitches": 3256
+        },
+        {
+          "name": "",
+          "hex": "#020202",
+          "stitches": 2839
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Panda-Cub.pes",
+          "bytes": 40037
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Panda-Cub.dst",
+          "bytes": 19604
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Panda-Cub.jef",
+          "bytes": 12864
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Panda-Cub.exp",
+          "bytes": 12986
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Panda-Cub.vp3",
+          "bytes": 12888
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "rama-medallion",
+      "name": "Rama Medallion",
+      "source": "pack",
+      "dir": "src/designs/rama-medallion",
+      "previewImg": "img/rama-medallion.png",
+      "stitchImg": "img/rama-medallion-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "medallion",
+        "hoop"
+      ],
+      "sewMinutes": 6,
+      "summary": "Line art medallion of Shri Ram with bow, arrows and halo circle.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4138,
+      "widthMm": 87,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 36,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#131612",
+          "stitches": 4138
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Rama-Medallion.pes",
+          "bytes": 27192
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Rama-Medallion.dst",
+          "bytes": 13334
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Rama-Medallion.jef",
+          "bytes": 8662
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Rama-Medallion.exp",
+          "bytes": 8672
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Rama-Medallion.vp3",
+          "bytes": 8782
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "seven-logo",
+      "name": "Seven Logo",
+      "source": "pack",
+      "dir": "src/designs/seven-logo",
+      "previewImg": "img/seven-logo.png",
+      "stitchImg": "img/seven-logo-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "wordmark",
+        "jersey",
+        "kids"
+      ],
+      "sewMinutes": 4,
+      "summary": "Stylised numeral seven built from two bold black ribbons.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2787,
+      "widthMm": 66,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 5,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#050505",
+          "stitches": 2787
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Seven-Logo.pes",
+          "bytes": 18218
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Seven-Logo.dst",
+          "bytes": 8993
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Seven-Logo.jef",
+          "bytes": 5828
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Seven-Logo.exp",
+          "bytes": 5714
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Seven-Logo.vp3",
+          "bytes": 5964
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "soccer-ball-motion",
+      "name": "Soccer Ball Motion",
+      "source": "pack",
+      "dir": "src/designs/soccer-ball-motion",
+      "previewImg": "img/soccer-ball-motion.png",
+      "stitchImg": "img/soccer-ball-motion-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "sport",
+        "football",
+        "jersey"
+      ],
+      "sewMinutes": 5,
+      "summary": "Soccer ball with sweeping motion streaks.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3258,
+      "widthMm": 77.7,
+      "heightMm": 90,
+      "colorCount": 2,
+      "trims": 33,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fbfbfb",
+          "stitches": 948
+        },
+        {
+          "name": "",
+          "hex": "#040404",
+          "stitches": 2310
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Soccer-Ball-Motion.pes",
+          "bytes": 22091
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Soccer-Ball-Motion.dst",
+          "bytes": 10712
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Soccer-Ball-Motion.jef",
+          "bytes": 6954
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Soccer-Ball-Motion.exp",
+          "bytes": 6944
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Soccer-Ball-Motion.vp3",
+          "bytes": 7088
         }
       ],
       "defaultFormats": [

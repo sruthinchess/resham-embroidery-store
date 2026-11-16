@@ -21,11 +21,11 @@ const { readDst } = require('../src/dst.js');
 const ROOT = path.join(__dirname, '..');
 const P = require('../src/pack.js');
 const SETTINGS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src/data/settings.json'), 'utf8'));
-const RATE = Number(SETTINGS.price_per_colour || 60);
+const RATE = Number(SETTINGS.price_per_1k_stitches || 50);
 const MIN = Number(SETTINGS.min_price || 60);
 const MAX = Number(SETTINGS.max_price || 500);
-/** price = colours x rate, kept inside the shop's floor and ceiling */
-const priceFor = colours => Math.max(MIN, Math.min(MAX, Math.round(colours * RATE)));
+/** price = stitches / 1000 x rate, kept inside the shop's floor and ceiling */
+const priceFor = stitches => Math.max(MIN, Math.min(MAX, Math.ceil((stitches || 0) / 1000) * RATE));
 const OUT_DIR = path.join(ROOT, 'src', 'designs');
 const IMG_DIR = path.join(ROOT, 'public', 'img');
 
@@ -37,7 +37,16 @@ const META = {
   'folk-floral-spray': { featured: 1, badge: 'New', tags: ['floral', 'folk', 'hoop'] },
   'gamer-wordmark': { featured: 0, badge: null, tags: ['wordmark', 'jersey', 'kids'] },
   'jai-shree-ram': { featured: 1, badge: 'New', tags: ['devotional', 'portrait', 'hoop'] },
-  'peony-bloom': { featured: 1, badge: 'Couture', tags: ['floral', 'peony', 'cushion'] }
+  'peony-bloom': { featured: 1, badge: 'Couture', tags: ['floral', 'peony', 'cushion'] },
+  'blue-bouquet': { featured: 1, badge: 'New', tags: ['floral', 'bouquet', 'hoop'] },
+  'eight-petal-star': { featured: 0, badge: null, tags: ['geometric', 'star', 'hoop'] },
+  'football-trophy': { featured: 0, badge: null, tags: ['sport', 'trophy', 'jersey'] },
+  'hibiscus-red': { featured: 1, badge: null, tags: ['floral', 'hibiscus', 'cushion'] },
+  'mitsudomoe-symbol': { featured: 0, badge: null, tags: ['symbol', 'geometric', 'kids'] },
+  'panda-cub': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'jersey'] },
+  'rama-medallion': { featured: 1, badge: null, tags: ['devotional', 'medallion', 'hoop'] },
+  'seven-logo': { featured: 0, badge: null, tags: ['wordmark', 'jersey', 'kids'] },
+  'soccer-ball-motion': { featured: 0, badge: null, tags: ['sport', 'football', 'jersey'] }
 };
 
 const COPY = {
@@ -136,7 +145,7 @@ for (const pack of packs) {
     if (stitchName) shrink(path.join(dir, stitchName), path.join(IMG_DIR, `${slug}-stitch.png`), 800, 128);
 
     const p = META[slug] || { featured: 0, badge: null, tags: ['floral'] };
-    const price = priceFor(meta.colors || 1);
+    const price = priceFor(meta.stitchCount || 0);
     const mrp = Math.round(price * 1.7);
     const formats = formatFiles
       .map(f => ({ key: f.key, label: f.key.toUpperCase(), note: (meta.formats.find(x => x.key === f.key) || {}).note || FORMAT_NOTE[f.key] || '', file: f.file, bytes: f.bytes }))
@@ -152,7 +161,7 @@ for (const pack of packs) {
       dir: `src/designs/${slug}`,
       previewImg: `img/${slug}.png`,
       stitchImg: stitchName ? `img/${slug}-stitch.png` : null,
-      price, mrp, pricePerColour: RATE, badge: p.badge, featured: p.featured, tags: p.tags,
+      price, mrp, pricePer1k: RATE, badge: p.badge, featured: p.featured, tags: p.tags,
       sewMinutes: Math.max(1, Math.round((meta.stitchCount || 0) / 700)),
       summary: (COPY[slug] || meta.artwork || '').split('. ')[0] + '.',
       description: COPY[slug] || '',
