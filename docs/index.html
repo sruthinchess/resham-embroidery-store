@@ -999,6 +999,55 @@ body::before { display: none; }
   .pgrid .dcard .stage, .pgrid.two .dcard .stage { aspect-ratio: 1 / 1; }
 }
 
+/* =========================================================================
+   Every surface light — no dark bands left anywhere in the storefront
+   ========================================================================= */
+.announce {
+  background: #f6efe3; color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+}
+.announce b, .announce strong { color: var(--ink); }
+
+.welcome, .welcome-in { color: var(--ink); }
+.welcome {
+  background: linear-gradient(100deg, #fdf6ea, #f8efe0 60%, #fdf6ea);
+  border-bottom: 1px solid var(--line);
+}
+.welcome-in p { color: var(--ink-soft); }
+.welcome-in .mono { color: var(--maroon); }
+.w-tag { color: var(--brass); }
+.w-close { color: var(--ink-mute); }
+.w-close:hover { color: var(--ink); background: rgba(29, 26, 22, .06); }
+
+.bundle {
+  background: radial-gradient(520px 180px at 84% 0%, rgba(217, 188, 134, .28), transparent 70%), linear-gradient(120deg, #fffdf9, #f8f0e2 62%, #fffdf9);
+  border: 1px solid var(--line-strong); box-shadow: var(--shadow-sm); color: var(--ink);
+}
+.bundle-copy h2 { color: var(--ink); }
+.bundle-copy p { color: var(--ink-soft); }
+.bundle-copy .eyebrow { color: var(--maroon); }
+.bundle-price s { color: var(--ink-mute); }
+.bundle-price b { color: var(--ink); }
+
+.foot { background: #fbf6ec; color: var(--ink-soft); border-top: 1px solid var(--line); }
+.foot h4 { color: var(--brass); }
+.foot a { color: var(--ink-soft); }
+.foot a:hover { color: var(--maroon); }
+.foot-bot { border-top-color: var(--line); color: var(--ink-mute); }
+
+.toast { background: #ffffff; color: var(--ink); border: 1px solid var(--line-strong); box-shadow: var(--shadow); }
+.toast.ok { background: #eef7f1; color: #1f4a33; border-color: #cfe3d6; }
+.toast.bad { background: #fdeeee; color: #7a2b2b; border-color: #f0d2d2; }
+.stickybar { background: rgba(255, 253, 249, .97); }
+.sk-card { background: var(--paper); }
+
+/* admin keeps the same daylight system */
+.side { background: #fffdf9; color: var(--ink-soft); border-right: 1px solid var(--line); }
+.side a { color: var(--ink-soft); }
+.side a.on, .side a:hover { background: var(--canvas-2); color: var(--ink); }
+.side .brand { color: var(--ink); }
+.amain, .admin { background: var(--canvas); }
+
 </style>
 </head>
 <body>
