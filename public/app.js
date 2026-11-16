@@ -131,7 +131,9 @@
     heart: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.6C19 15.4 12 20 12 20Z"/></svg>',
     heartOn: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.6C19 15.4 12 20 12 20Z"/></svg>',
     tag: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 13.5 13.5 20 4 10.5V4h6.5L20 13.5Z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg>',
-    share: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 10.7 7.4-4.3M8.3 13.3l7.4 4.3"/></svg>'
+    share: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 10.7 7.4-4.3M8.3 13.3l7.4 4.3"/></svg>',
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>',
+    grid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>'
   };
 
   /* -------------------------------------------------------------- UPI apps */
@@ -229,9 +231,10 @@
       <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)}"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
       <nav class="nav">
         <a href="#/" class="${a('home')}">Home</a>
-        <a href="#/designs" class="${a('designs')}">All designs</a>
-        <a href="#/downloads" class="${a('downloads')}">My downloads</a>
-        <a href="#/saved" class="${a('saved')}">Saved</a>
+        <a href="#/designs" class="${a('designs')}">Designs</a>
+        <a href="#/categories" class="${a('categories')}">Categories</a>
+        <a href="#/about" class="${a('about')}">About</a>
+        <a href="#/contact" class="${a('contact')}">Contact</a>
       </nav>
       <form class="searchbar" id="searchform" role="search">
         <span style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--ink-mute)">${I.search}</span>
@@ -243,6 +246,16 @@
         <button class="icon-btn" id="openCart" aria-label="Bag">${I.bag}<span class="dot" id="cartDot">${Store.count}</span></button>
       </div>
     </div></header>`;
+  }
+
+  function tabbar(active) {
+    const item = (href, key, icon, label) => `<a href="${href}" class="${active === key ? 'on' : ''}">${icon}<span>${label}</span></a>`;
+    return `<nav class="tabbar">
+      ${item('#/', 'home', I.home, 'Home')}
+      ${item('#/categories', 'categories', I.grid, 'Categories')}
+      ${item('#/saved', 'saved', I.heart, 'Wishlist')}
+      <a href="#/cart" class="${active === 'cart' ? 'on' : ''}">${I.bag}<span>Cart</span><span class="dot" id="tabDot">${Store.count}</span></a>
+    </nav>`;
   }
 
   function footer() {
@@ -289,11 +302,11 @@
     return `<div class="hero"><div class="wrap hero-in solo">
       <img class="hero-logo" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}">
       <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
-      <h1>Embroidery designs,<br>ready for <em>your machine</em>.</h1>
-      <p class="lede">Hand-digitised designs for commercial and home machines, in ${fmtCount} machine formats. Pick the one your machine reads and the ZIP lands the moment your UPI payment clears.</p>
+      <h1>Beautiful embroidery designs<br>for <em>every creation</em>.</h1>
+      <p class="lede">Hand-digitised motifs for home and commercial machines, in ${fmtCount} machine formats. Choose what your machine reads, pay by UPI, and the files land in your downloads.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#/designs">Browse ${all.designs.length} designs ${I.arrow}</a>
-        <a class="btn btn-ghost" href="#/downloads">My downloads</a>
+        <a class="btn btn-primary" href="#/designs">Shop now ${I.arrow}</a>
+        <a class="btn btn-ghost" href="#/categories">Browse categories</a>
       </div>
       <div class="hero-stats">
         <div><b>${all.designs.length} designs</b><span>in the library</span></div>
@@ -592,6 +605,72 @@
             <button class="btn btn-primary btn-sm">Find my order</button>
           </form>
         </div>`}
+    </div>`;
+  }
+
+  const CATEGORIES = [
+    ['Floral embroidery', 'floral', 'Blossoms, sprays and vines for everyday pieces'],
+    ['Bridal embroidery', 'bridal', 'Couture motifs for lehengas, veils and blouses'],
+    ['Traditional designs', 'devotional', 'Devotional and folk motifs, digitised with care'],
+    ['Border designs', 'border', 'Running borders and panels for dupattas and sarees'],
+    ['Modern embroidery', 'geometric', 'Clean geometry for contemporary pieces'],
+    ['Kids & jersey', 'kids', 'Characters and lettering for kidswear and jerseys'],
+    ['Sport & club', 'sport', 'Badges, crests and numbers for team kits'],
+    ['Wordmarks', 'wordmark', 'Names and logos set in stitch'],
+    ['Home & cushion', 'cushion', 'Wreaths and medallions for soft furnishing']
+  ];
+
+  async function viewCategories() {
+    const all = await api('/api/designs?' + qs({ sort: 'newest' }));
+    const counts = {};
+    all.designs.forEach(d => (d.tags || []).forEach(t => { counts[t] = (counts[t] || 0) + 1; }));
+    return `<div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a> / Categories</div>
+      <div class="sec-head" style="margin-top:16px">
+        <div><span class="eyebrow">Browse</span><h1 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-top:6px">Categories</h1>
+          <p>${all.designs.length} designs across nine collections.</p></div>
+      </div>
+      <div class="catgrid">
+        ${CATEGORIES.map(([name, tag, blurb]) => {
+          const first = all.designs.find(d => (d.tags || []).includes(tag));
+          return `<a class="catcard" href="#/designs?tag=${encodeURIComponent(tag)}">
+            <div class="catpic">${first ? `<img src="${esc(first.preview)}" alt="${esc(name)}" loading="lazy" decoding="async">` : ''}</div>
+            <div class="catcopy"><b>${esc(name)}</b><span>${esc(blurb)}</span>
+              <em>${counts[tag] || 0} design${(counts[tag] || 0) === 1 ? '' : 's'}</em></div>
+          </a>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+
+  async function viewAbout() {
+    return `<div class="wrap narrow">
+      <div class="crumbs"><a href="#/">Home</a> / About</div>
+      <span class="eyebrow">The studio</span>
+      <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:8px 0 14px">Digitised by hand, in India.</h1>
+      <p class="prose">Sandya Emb Designs is a small digitising studio. Every motif in the library is drawn, sequenced and test-sewn before it is listed — an underlay first, then the pull compensation, then the colour order, so the design behaves the same on a 4×4 home hoop and a commercial head.</p>
+      <p class="prose">You buy the file, not a subscription. Pick the formats your machine reads, pay by UPI, and the ZIP arrives with the stitch sequence, the thread order and the stabiliser notes inside.</p>
+      <div class="statrow">
+        <div><b>${Store.designs.length}</b><span>designs in the library</span></div>
+        <div><b>5</b><span>machine formats</span></div>
+        <div><b>72h</b><span>download window</span></div>
+      </div>
+      <a class="btn btn-primary" href="#/designs" style="margin-top:22px">Browse the library ${I.arrow}</a>
+    </div>`;
+  }
+
+  async function viewContact() {
+    return `<div class="wrap narrow">
+      <div class="crumbs"><a href="#/">Home</a> / Contact</div>
+      <span class="eyebrow">Say hello</span>
+      <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:8px 0 14px">Contact the studio</h1>
+      <p class="prose">Questions about a format, a custom digitisation or a bulk order — write to us and we usually reply the same day.</p>
+      <div class="contactgrid">
+        <div class="card"><h3>Email</h3><p class="small muted">${esc(Store.settings.support_email || 'hello@sandyaembdesigns.com')}</p></div>
+        <div class="card"><h3>UPI</h3><p class="small muted mono">${esc(Store.settings.upi_id)}</p></div>
+        <div class="card"><h3>Custom work</h3><p class="small muted">Send a sketch or reference — we quote per 1,000 stitches.</p></div>
+      </div>
+      <a class="btn btn-ghost" href="#/downloads" style="margin-top:22px">Find an order</a>
     </div>`;
   }
 
@@ -1111,6 +1190,9 @@
       else if (seg === 'cart') view = await viewCart();
       else if (seg === 'saved') { view = await viewSaved(); active = 'saved'; }
       else if (seg === 'downloads') { view = await viewDownloads(); active = 'downloads'; }
+      else if (seg === 'categories') { view = await viewCategories(); active = 'categories'; }
+      else if (seg === 'about') { view = await viewAbout(); active = 'about'; }
+      else if (seg === 'contact') { view = await viewContact(); active = 'contact'; }
       else if (seg === 'checkout') view = await viewCheckout();
       else if (seg === 'pay') view = await viewPay(parts[1], parts[2]);
       else if (seg === 'order') { view = await viewOrderLookup({ ...params, code: parts[1] }); active = 'order'; }
@@ -1119,7 +1201,7 @@
       view = `<div class="wrap"><div class="empty" style="margin:50px 0"><h3>Something went wrong</h3><p class="muted small">${esc(e.message)}</p><a class="btn btn-primary" href="#/" style="margin-top:8px">Back home</a></div></div>`;
     }
 
-    app.innerHTML = header(active) + `<main class="page">${view}</main>` + footer();
+    app.innerHTML = header(active) + `<main class="page">${view}</main>` + footer() + tabbar(active);
     progress(false);
     closeDrawer();
     paintBadges();
