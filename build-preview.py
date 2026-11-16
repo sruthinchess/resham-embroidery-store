@@ -11,8 +11,13 @@ imgdir = ROOT / 'build' / 'img'
 imgdir.mkdir(parents=True, exist_ok=True)
 LIMITS = {'logo': 300, 'logo-mark': 128, 'favicon': 64}
 for src in (ROOT / 'public' / 'img').glob('*.png'):
+    limit = LIMITS.get(src.stem)
+    if limit is None:
+        limit = 420 if src.stem.endswith('-stitch') else 400
     im = Image.open(src).convert('RGBA')
-    im.thumbnail((LIMITS.get(src.stem, 560),) * 2, Image.LANCZOS)
+    im.thumbnail((limit, limit), Image.LANCZOS)
+    if not src.stem.startswith('logo') and src.stem != 'favicon':
+        im = im.quantize(colors=128, method=Image.FASTOCTREE).convert('RGBA')
     im.save(imgdir / src.name, optimize=True)
 
 subprocess.run(['node', str(ROOT / 'tools' / 'build-assets.js')], check=True, cwd=ROOT)
