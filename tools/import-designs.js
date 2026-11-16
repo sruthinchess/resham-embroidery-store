@@ -65,7 +65,13 @@ const META = {
   'geo-peacock': { featured: 0, badge: 'New', tags: ['peacock', 'geometric', 'cushion'] },
   'green-parrot': { featured: 0, badge: 'New', tags: ['bird', 'parrot', 'kids'] },
   'magenta-pinwheel': { featured: 0, badge: 'New', tags: ['geometric', 'pinwheel', 'kids'] },
-  'panda-wave': { featured: 1, badge: 'New', tags: ['animal', 'kids', 'jersey'] }
+  'panda-wave': { featured: 1, badge: 'New', tags: ['animal', 'kids', 'jersey'] },
+  'diya-lamp': { featured: 1, badge: 'New', tags: ['devotional', 'diya', 'hoop'] },
+  'durga-trishul': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'jersey'] },
+  'krishna-flute': { featured: 1, badge: 'New', tags: ['devotional', 'krishna', 'hoop'] },
+  'krishna-profile': { featured: 0, badge: 'New', tags: ['devotional', 'krishna', 'cushion'] },
+  'om-badge': { featured: 1, badge: 'New', tags: ['devotional', 'om', 'jersey'] },
+  'peacock-feather': { featured: 0, badge: 'New', tags: ['peacock', 'feather', 'border'] }
 };
 
 const COPY = {

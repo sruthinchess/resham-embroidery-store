@@ -3300,6 +3300,488 @@
         "jef",
         "exp"
       ]
+    },
+    {
+      "slug": "diya-lamp",
+      "name": "Diya Lamp",
+      "source": "pack",
+      "dir": "src/designs/diya-lamp",
+      "previewImg": "img/diya-lamp.png",
+      "stitchImg": "img/diya-lamp-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "diya",
+        "hoop"
+      ],
+      "sewMinutes": 3,
+      "summary": "Oil lamp diya with a tall flame, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2043,
+      "widthMm": 71.1,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 19,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#232021",
+          "stitches": 2043
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Diya-Lamp.pes",
+          "bytes": 14146
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Diya-Lamp.dst",
+          "bytes": 6890
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Diya-Lamp.jef",
+          "bytes": 4388
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Diya-Lamp.exp",
+          "bytes": 4330
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Diya-Lamp.vp3",
+          "bytes": 4528
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "durga-trishul",
+      "name": "Durga Trishul",
+      "source": "pack",
+      "dir": "src/designs/durga-trishul",
+      "previewImg": "img/durga-trishul.png",
+      "stitchImg": "img/durga-trishul-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "trishul",
+        "jersey"
+      ],
+      "sewMinutes": 4,
+      "summary": "Durga face with trishul, red eyes and gold nose ring.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2742,
+      "widthMm": 66.5,
+      "heightMm": 90,
+      "colorCount": 3,
+      "trims": 60,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#d00c0c",
+          "stitches": 847
+        },
+        {
+          "name": "",
+          "hex": "#dbad39",
+          "stitches": 506
+        },
+        {
+          "name": "",
+          "hex": "#1c0b15",
+          "stitches": 1389
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Durga-Trishul.pes",
+          "bytes": 20014
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Durga-Trishul.dst",
+          "bytes": 9491
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Durga-Trishul.jef",
+          "bytes": 6150
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Durga-Trishul.exp",
+          "bytes": 6240
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Durga-Trishul.vp3",
+          "bytes": 6290
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "krishna-flute",
+      "name": "Krishna Flute",
+      "source": "pack",
+      "dir": "src/designs/krishna-flute",
+      "previewImg": "img/krishna-flute.png",
+      "stitchImg": "img/krishna-flute-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "krishna",
+        "hoop"
+      ],
+      "sewMinutes": 6,
+      "summary": "Krishna playing the flute inside a peacock feather circle.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4486,
+      "widthMm": 90,
+      "heightMm": 89.7,
+      "colorCount": 1,
+      "trims": 116,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#050505",
+          "stitches": 4486
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Krishna-Flute.pes",
+          "bytes": 31520
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Krishna-Flute.dst",
+          "bytes": 15323
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Krishna-Flute.jef",
+          "bytes": 9930
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Krishna-Flute.exp",
+          "bytes": 10260
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Krishna-Flute.vp3",
+          "bytes": 9812
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "krishna-profile",
+      "name": "Krishna Profile",
+      "source": "pack",
+      "dir": "src/designs/krishna-profile",
+      "previewImg": "img/krishna-profile.png",
+      "stitchImg": "img/krishna-profile-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "krishna",
+        "cushion"
+      ],
+      "sewMinutes": 5,
+      "summary": "Krishna profile in navy with a peacock feather in his hair.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3513,
+      "widthMm": 74.9,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 32,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#06243b",
+          "stitches": 3513
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Krishna-Profile.pes",
+          "bytes": 23330
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Krishna-Profile.dst",
+          "bytes": 11387
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Krishna-Profile.jef",
+          "bytes": 7348
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Krishna-Profile.exp",
+          "bytes": 7342
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Krishna-Profile.vp3",
+          "bytes": 7488
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "om-badge",
+      "name": "Om Badge",
+      "source": "pack",
+      "dir": "src/designs/om-badge",
+      "previewImg": "img/om-badge.png",
+      "stitchImg": "img/om-badge-stitch.png",
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "om",
+        "jersey"
+      ],
+      "sewMinutes": 8,
+      "summary": "Om symbol on a white disc inside an orange scalloped flower ring.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 5600,
+      "widthMm": 90,
+      "heightMm": 88.9,
+      "colorCount": 3,
+      "trims": 79,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fdfdfc",
+          "stitches": 2781
+        },
+        {
+          "name": "",
+          "hex": "#fa5340",
+          "stitches": 1888
+        },
+        {
+          "name": "",
+          "hex": "#052c52",
+          "stitches": 931
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Om-Badge.pes",
+          "bytes": 37694
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Om-Badge.dst",
+          "bytes": 18473
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Om-Badge.jef",
+          "bytes": 12238
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Om-Badge.exp",
+          "bytes": 12404
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Om-Badge.vp3",
+          "bytes": 12116
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "peacock-feather",
+      "name": "Peacock Feather",
+      "source": "pack",
+      "dir": "src/designs/peacock-feather",
+      "previewImg": "img/peacock-feather.png",
+      "stitchImg": "img/peacock-feather-stitch.png",
+      "price": 100,
+      "mrp": 170,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "peacock",
+        "feather",
+        "border"
+      ],
+      "sewMinutes": 3,
+      "summary": "Stylised peacock feather in solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 1907,
+      "widthMm": 40.3,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 22,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#262123",
+          "stitches": 1907
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Peacock-Feather.pes",
+          "bytes": 13414
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Peacock-Feather.dst",
+          "bytes": 6473
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Peacock-Feather.jef",
+          "bytes": 4088
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Peacock-Feather.exp",
+          "bytes": 4042
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Peacock-Feather.vp3",
+          "bytes": 4238
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
     }
   ]
 }
