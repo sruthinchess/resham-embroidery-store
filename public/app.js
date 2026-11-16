@@ -202,7 +202,7 @@
 
   function designCard(d) {
     return `<article class="dcard reveal">
-      <a class="stage" href="#/d/${esc(d.slug)}" aria-label="${esc(d.name)}">
+      <a class="stage" href="#/design/${esc(d.slug)}" aria-label="${esc(d.name)}">
         ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy" decoding="async" width="400" height="400"></span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
@@ -210,7 +210,7 @@
       </a>
       <div class="body">
         <span class="meta">${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${nf(d.stitchCount)} stitches · ${d.sewMinutes || Math.round(d.stitchCount / 700)} min</span>
-        <a href="#/d/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
+        <a href="#/design/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
         <p class="sum">${esc((d.summary || '').slice(0, 92))}${(d.summary || '').length > 92 ? '…' : ''}</p>
         <div class="price"><b>${money(d.price)}</b><span class="per">per format</span>${d.mrp > d.price ? `<s>${money(d.mrp)}</s>` : ''}</div>
         <div class="buyrow">
@@ -226,7 +226,7 @@
     return `<div class="announce">${esc(Store.settings.announcement)}</div>
     <header class="hdr" id="hdr"><div class="wrap hdr-in">
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
-      <a class="logo" href="#/"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)} logo"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
+      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)}"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
       <nav class="nav">
         <a href="#/" class="${a('home')}">Home</a>
         <a href="#/designs" class="${a('designs')}">All designs</a>
@@ -279,8 +279,8 @@
   /* ------------------------------------------------------------------ views */
   async function viewHome() {
     const [feat, all] = await Promise.all([
-      api('/api/designs?' + qs({ featured: '1' })),
-      api('/api/designs?' + qs({}))
+      api('/api/designs?' + qs({ featured: '1', sort: 'newest' })),
+      api('/api/designs?' + qs({ sort: 'newest' }))
     ]);
     const hero = feat.designs[0] || all.designs[0];
     const stitches = all.designs.reduce((s, d) => s + d.stitchCount, 0);
@@ -323,7 +323,7 @@
           <p>Each one is digitised with an underlay, a tested pull compensation and a colour sequence you can follow without guessing.</p></div>
         <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
       </div>
-      <div class="pgrid">${all.designs.slice(0, 6).map(designCard).join('')}</div>
+      <div class="pgrid two">${all.designs.slice(0, 6).map(designCard).join('')}</div>
     </div></section>
 
     <section class="section tight"><div class="wrap"><div class="bundle reveal">
@@ -357,13 +357,13 @@
 
     <section class="section"><div class="wrap">
       <div class="sec-head reveal"><div><span class="eyebrow">Studio picks</span><h2>Where most people start</h2></div></div>
-      <div class="pgrid">${feat.designs.map(designCard).join('')}</div>
+      <div class="pgrid two">${feat.designs.slice(0, 4).map(designCard).join('')}</div>
     </div></section>`;
   }
 
   const PAGE = 12;
   async function viewShop(params) {
-    const data = await api('/api/designs?' + qs({ q: params.q || '', tag: params.tag || 'all', sort: params.sort || 'featured' }));
+    const data = await api('/api/designs?' + qs({ q: params.q || '', tag: params.tag || 'all', sort: params.sort || 'newest' }));
     const shown = Number(params.show || PAGE);
     const visible = data.designs.slice(0, shown);
     return `<div class="wrap">
@@ -372,8 +372,8 @@
         <div><h1 style="font-size:clamp(1.7rem,3vw,2.3rem)">${params.q ? 'Search: “' + esc(params.q) + '”' : (params.tag ? params.tag[0].toUpperCase() + params.tag.slice(1) : 'All designs')}</h1>
           <p>${data.total} ${data.total === 1 ? 'design' : 'designs'} · instant download, your choice of format</p></div>
         <select class="select" id="sortSel" style="width:auto">
-          ${[['featured', 'Featured'], ['newest', 'Newest'], ['price_asc', 'Price: low to high'], ['price_desc', 'Price: high to low'], ['stitches', 'Most stitches'], ['name', 'A–Z']]
-        .map(([v, l]) => `<option value="${v}" ${(params.sort || 'featured') === v ? 'selected' : ''}>${l}</option>`).join('')}
+          ${[['newest', 'Newest first'], ['featured', 'Featured'], ['price_asc', 'Price: low to high'], ['price_desc', 'Price: high to low'], ['stitches', 'Most stitches'], ['name', 'A–Z']]
+        .map(([v, l]) => `<option value="${v}" ${(params.sort || 'newest') === v ? 'selected' : ''}>${l}</option>`).join('')}
         </select>
       </div>
       <div class="shopbar">
@@ -432,7 +432,7 @@
         if (!state.formats.length) return toast('Pick at least one format', 'bad');
         Store.cart = [{ id: g.id, slug: g.slug, name: g.name, price: g.price * state.formats.length,
           unitPrice: g.price, preview: g.preview, formats: state.formats.slice() }];
-        Store.save(); location.hash = '#/checkout';
+        Store.save(); go('#/checkout');
       };
       $('#buyNow').onclick = buy;
       // gallery
@@ -636,7 +636,7 @@
 
   /* -------------------------------------------------------------- checkout */
   async function viewCheckout() {
-    if (!Store.cart.length) { location.hash = '#/cart'; return '<div class="wrap"></div>'; }
+    if (!Store.cart.length) { go('#/cart'); return '<div class="wrap"></div>'; }
     setTimeout(() => {
       const f = $('#coForm');
       if (!f) return;
@@ -652,7 +652,7 @@
             items: Store.cart.map(l => ({ id: l.id, formats: l.formats })), name: v.name, email: v.email,
             phone: v.phone || '', coupon: Store.coupon ? Store.coupon.code : null
           } });
-          location.hash = '#/pay/' + res.order.code;
+          go('#/pay/' + res.order.code);
         } catch (err) {
           toast(err.message, 'bad'); btn.disabled = false; btn.innerHTML = 'Continue to UPI payment';
         }
@@ -828,7 +828,7 @@
     const paidBtn = $('#paidBtn');
     if (paidBtn) paidBtn.onclick = () => {
       LS.setItem('sd_paid_' + o.code, '1');
-      location.hash = `#/pay/${o.code}/upload`;
+      go(`#/pay/${o.code}/upload`);
     };
   }
 
@@ -1019,11 +1019,48 @@
   }
 
   /* --------------------------------------------------------------- router */
-  function parseHash() {
-    const raw = location.hash.replace(/^#\/?/, '');
-    const [p, q] = raw.split('?');
-    return { parts: p.split('/').filter(Boolean), params: Object.fromEntries(new URLSearchParams(q || '')) };
+  /* Real URLs: /designs, /design/peony-bloom, /pay/SDY-XXXX — not #/designs.
+     BASE is injected by the page ('/' on the server, the repo path on Pages). */
+  const BASE = (window.__BASE__ || '/').replace(/\/?$/, '/');
+  const HASH_MODE = location.protocol === 'file:';
+
+  function currentPath() {
+    if (HASH_MODE) return location.hash.replace(/^#\/?/, '');
+    let p = location.pathname || '/';
+    if (p.startsWith(BASE)) p = p.slice(BASE.length);
+    else p = p.replace(/^\//, '');
+    return p.replace(/\/+$/, '');
   }
+
+  function parseHash() {
+    const raw = currentPath();
+    const [p, q] = raw.split('?');
+    const search = HASH_MODE ? q : (q || location.search.replace(/^\?/, ''));
+    return { parts: (p || '').split('/').filter(Boolean), params: Object.fromEntries(new URLSearchParams(search || '')) };
+  }
+
+  function go(path, replace) {
+    const clean = String(path).replace(/^#?\/*/, '');
+    if (HASH_MODE) {
+      if (location.hash === '#/' + clean) return;
+      location.hash = '#/' + clean;
+      return;
+    }
+    const url = BASE + clean;
+    if (location.pathname + location.search === url) return;
+    history[replace ? 'replaceState' : 'pushState']({}, '', url);
+    render();
+  }
+  window.go = go;
+
+  /* internal links keep their #/ href, but the address bar shows a clean URL */
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href^="#/"]');
+    if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    go(a.getAttribute('href').slice(2));
+  });
+
 
   function reveals() {
     const els = $$('.reveal');
@@ -1068,7 +1105,7 @@
     try {
       if (seg === 'home') view = await viewHome();
       else if (seg === 'designs') view = await viewShop(params);
-      else if (seg === 'd') view = await viewDesign(parts[1]);
+      else if (seg === 'd' || seg === 'design') view = await viewDesign(parts[1]);
       else if (seg === 'cart') view = await viewCart();
       else if (seg === 'saved') { view = await viewSaved(); active = 'saved'; }
       else if (seg === 'downloads') { view = await viewDownloads(); active = 'downloads'; }
@@ -1091,7 +1128,11 @@
 
   function wireGlobal() {
     const s = $('#searchform');
-    if (s) s.onsubmit = e => { e.preventDefault(); const q = new FormData(s).get('q').trim(); location.hash = q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs'; };
+    if (s) s.onsubmit = e => {
+      e.preventDefault();
+      const q = new FormData(s).get('q').trim();
+      go(q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs');
+    };
     const oc = $('#openCart'); if (oc) oc.onclick = openDrawer;
     const bg = $('#burger');
     if (bg) bg.onclick = () => {
@@ -1193,12 +1234,12 @@
     // welcome coupon
     const welcomeApply = $('#welcomeApply');
     if (welcomeApply) welcomeApply.onclick = async () => {
-      if (!Store.cart.length) { toast('Add a design first, then apply WELCOME', 'bad'); location.hash = '#/designs'; return; }
+      if (!Store.cart.length) { toast('Add a design first, then apply WELCOME', 'bad'); go('#/designs'); return; }
       try {
         const r = await api('/api/coupons/validate', { method: 'POST', body: { code: 'WELCOME', subtotal: Store.subtotal } });
         Store.coupon = { ...r.coupon, discount: r.discount }; Store.save();
         toast(`WELCOME applied — ${money(r.discount)} off`, 'ok');
-        location.hash = '#/cart';
+        go('#/cart');
       } catch (err) { toast(err.message, 'bad'); }
     };
     const welcomeClose = $('#welcomeClose');
@@ -1220,23 +1261,23 @@
         Store.save();
         toast(`Bundle added — ${money(r.discount)} off with SET25`, 'ok');
       } catch (err) { toast('Bundle added to your bag', 'ok'); }
-      location.hash = '#/cart';
+      go('#/cart');
     };
 
     const loadMore = $('#loadMore');
     if (loadMore) loadMore.onclick = () => {
       const { params } = parseHash();
-      location.hash = '#/designs?' + qs({ ...params, show: Number(params.show || PAGE) + PAGE });
+      go('#/designs?' + qs({ ...params, show: Number(params.show || PAGE) + PAGE }));
     };
 
     const sortSel = $('#sortSel');
-    if (sortSel) sortSel.onchange = () => { const { params } = parseHash(); location.hash = '#/designs?' + qs({ ...params, sort: sortSel.value }); };
+    if (sortSel) sortSel.onchange = () => { const { params } = parseHash(); go('#/designs?' + qs({ ...params, sort: sortSel.value })); };
     const ff = $('#findForm');
     if (ff) ff.onsubmit = e => {
       e.preventDefault();
       const code = new FormData(ff).get('code').trim().toUpperCase();
       if (!code) return toast('Enter your order code', 'bad');
-      location.hash = '#/pay/' + encodeURIComponent(code);
+      go('#/pay/' + encodeURIComponent(code));
     };
     $$('[data-add]').forEach(b => b.onclick = async e => {
       e.preventDefault(); e.stopPropagation();
@@ -1249,7 +1290,7 @@
       if (!d) return;
       const one = (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : (d.formats || []).map(f => f.key)).slice(0, 1);
       Store.cart = [{ id: d.id, slug: d.slug, name: d.name, price: d.price * one.length, unitPrice: d.price, preview: d.preview, formats: one }];
-      Store.save(); location.hash = '#/checkout';
+      Store.save(); go('#/checkout');
     });
     $$('[data-remove]').forEach(b => b.onclick = () => {
       Store.cart = Store.cart.filter(l => l.id !== Number(b.dataset.remove)); Store.save(); render();
@@ -1281,6 +1322,7 @@
     } catch (e) { console.warn(e); }
 
     window.addEventListener('hashchange', render);
+    window.addEventListener('popstate', render);
     window.addEventListener('scroll', () => {
       const h = $('#hdr'); if (h) h.classList.toggle('scrolled', window.scrollY > 8);
     }, { passive: true });

@@ -9,9 +9,9 @@
     "support_email": "hello@sandyaembdesigns.com",
     "announcement": "Instant download · PES DST JEF EXP VP3 · pay by UPI",
     "admin_password": "252525",
-    "logo_url": "img/logo.png",
-    "logo_mark_url": "img/logo-mark.png",
-    "favicon_url": "img/favicon.png",
+    "logo_url": "/img/logo.png",
+    "logo_mark_url": "/img/logo-mark.png",
+    "favicon_url": "/img/favicon.png",
     "coupons": [
       {
         "code": "WELCOME",
@@ -68,6 +68,70 @@
         "min_order": 0,
         "max_uses": 0,
         "note": "5% off any design"
+      },
+      {
+        "code": "NEW20",
+        "type": "percent",
+        "value": 20,
+        "min_order": 0,
+        "max_uses": 50,
+        "note": "20% off — new arrivals"
+      },
+      {
+        "code": "FLAT75",
+        "type": "flat",
+        "value": 75,
+        "min_order": 500,
+        "max_uses": 0,
+        "note": "₹75 off orders over ₹500"
+      },
+      {
+        "code": "SPORT10",
+        "type": "percent",
+        "value": 10,
+        "min_order": 0,
+        "max_uses": 0,
+        "note": "10% off jerseys and sport"
+      },
+      {
+        "code": "BULK30",
+        "type": "percent",
+        "value": 30,
+        "min_order": 1200,
+        "max_uses": 0,
+        "note": "30% off bulk orders over ₹1,200"
+      },
+      {
+        "code": "BRIDAL15",
+        "type": "percent",
+        "value": 15,
+        "min_order": 0,
+        "max_uses": 0,
+        "note": "15% off bridal and couture"
+      },
+      {
+        "code": "FIRST50",
+        "type": "flat",
+        "value": 50,
+        "min_order": 199,
+        "max_uses": 0,
+        "note": "₹50 off your first order"
+      },
+      {
+        "code": "WEEKEND12",
+        "type": "percent",
+        "value": 12,
+        "min_order": 0,
+        "max_uses": 200,
+        "note": "Weekend offer — 12% off"
+      },
+      {
+        "code": "LOYAL20",
+        "type": "flat",
+        "value": 20,
+        "min_order": 0,
+        "max_uses": 0,
+        "note": "₹20 off — thank you for coming back"
       }
     ],
     "min_price": 60,
@@ -1540,6 +1604,926 @@
           "note": "Pfaff · Husqvarna Viking",
           "file": "Soccer-Ball-Motion.vp3",
           "bytes": 7088
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "amber-blossoms",
+      "name": "Amber Blossoms",
+      "source": "pack",
+      "dir": "src/designs/amber-blossoms",
+      "previewImg": "img/amber-blossoms.png",
+      "stitchImg": "img/amber-blossoms-stitch.png",
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "amber",
+        "hoop"
+      ],
+      "sewMinutes": 8,
+      "summary": "Amber and orange five petal blossoms on scrolling stems.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 5592,
+      "widthMm": 70.9,
+      "heightMm": 90,
+      "colorCount": 5,
+      "trims": 183,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f9cb71",
+          "stitches": 1593
+        },
+        {
+          "name": "",
+          "hex": "#f1814d",
+          "stitches": 1311
+        },
+        {
+          "name": "",
+          "hex": "#f6b236",
+          "stitches": 960
+        },
+        {
+          "name": "",
+          "hex": "#b74722",
+          "stitches": 816
+        },
+        {
+          "name": "",
+          "hex": "#6c1c0b",
+          "stitches": 912
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Amber-Blossoms.pes",
+          "bytes": 41084
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Amber-Blossoms.dst",
+          "bytes": 19565
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Amber-Blossoms.jef",
+          "bytes": 12882
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Amber-Blossoms.exp",
+          "bytes": 13448
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Amber-Blossoms.vp3",
+          "bytes": 12704
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "camellia-bouquet",
+      "name": "Camellia Bouquet",
+      "source": "pack",
+      "dir": "src/designs/camellia-bouquet",
+      "previewImg": "img/camellia-bouquet.png",
+      "stitchImg": "img/camellia-bouquet-stitch.png",
+      "price": 500,
+      "mrp": 850,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "bouquet",
+        "cushion"
+      ],
+      "sewMinutes": 18,
+      "summary": "Camellia bouquet, pink blooms with cream centres and green leaves.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 12883,
+      "widthMm": 63,
+      "heightMm": 90,
+      "colorCount": 7,
+      "trims": 695,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fbe1e4",
+          "stitches": 2422
+        },
+        {
+          "name": "",
+          "hex": "#fac9d3",
+          "stitches": 2354
+        },
+        {
+          "name": "",
+          "hex": "#8eb680",
+          "stitches": 1826
+        },
+        {
+          "name": "",
+          "hex": "#79a475",
+          "stitches": 1368
+        },
+        {
+          "name": "",
+          "hex": "#b5c889",
+          "stitches": 596
+        },
+        {
+          "name": "",
+          "hex": "#36322b",
+          "stitches": 216
+        },
+        {
+          "name": "",
+          "hex": "#110f0b",
+          "stitches": 4101
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Camellia-Bouquet.pes",
+          "bytes": 99692
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Camellia-Bouquet.dst",
+          "bytes": 47729
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Camellia-Bouquet.jef",
+          "bytes": 31612
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Camellia-Bouquet.exp",
+          "bytes": 34210
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Camellia-Bouquet.vp3",
+          "bytes": 30266
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "cherry-blossom-branch",
+      "name": "Cherry Blossom Branch",
+      "source": "pack",
+      "dir": "src/designs/cherry-blossom-branch",
+      "previewImg": "img/cherry-blossom-branch.png",
+      "stitchImg": "img/cherry-blossom-branch-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "floral",
+        "branch",
+        "border"
+      ],
+      "sewMinutes": 6,
+      "summary": "Cherry blossom branch with pink flowers, buds and green leaves.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4321,
+      "widthMm": 53.6,
+      "heightMm": 90,
+      "colorCount": 5,
+      "trims": 106,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fbb8bf",
+          "stitches": 1606
+        },
+        {
+          "name": "",
+          "hex": "#f18893",
+          "stitches": 1188
+        },
+        {
+          "name": "",
+          "hex": "#9e9a4b",
+          "stitches": 489
+        },
+        {
+          "name": "",
+          "hex": "#757838",
+          "stitches": 559
+        },
+        {
+          "name": "",
+          "hex": "#aa3c3a",
+          "stitches": 479
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Cherry-Blossom-Branch.pes",
+          "bytes": 31302
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Cherry-Blossom-Branch.dst",
+          "bytes": 14711
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Cherry-Blossom-Branch.jef",
+          "bytes": 9604
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Cherry-Blossom-Branch.exp",
+          "bytes": 9862
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Cherry-Blossom-Branch.vp3",
+          "bytes": 9684
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "damask-ornament",
+      "name": "Damask Ornament",
+      "source": "pack",
+      "dir": "src/designs/damask-ornament",
+      "previewImg": "img/damask-ornament.png",
+      "stitchImg": "img/damask-ornament-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "ornament",
+        "damask",
+        "home"
+      ],
+      "sewMinutes": 7,
+      "summary": "Symmetrical damask ornament in green and red.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4811,
+      "widthMm": 54.5,
+      "heightMm": 90,
+      "colorCount": 3,
+      "trims": 123,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#818c43",
+          "stitches": 2014
+        },
+        {
+          "name": "",
+          "hex": "#4d650c",
+          "stitches": 1613
+        },
+        {
+          "name": "",
+          "hex": "#a63b31",
+          "stitches": 1184
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Damask-Ornament.pes",
+          "bytes": 34192
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Damask-Ornament.dst",
+          "bytes": 16463
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Damask-Ornament.jef",
+          "bytes": 10792
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Damask-Ornament.exp",
+          "bytes": 11134
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Damask-Ornament.vp3",
+          "bytes": 10740
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "golden-peacock",
+      "name": "Golden Peacock",
+      "source": "pack",
+      "dir": "src/designs/golden-peacock",
+      "previewImg": "img/golden-peacock.png",
+      "stitchImg": "img/golden-peacock-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "Couture",
+      "featured": 1,
+      "tags": [
+        "peacock",
+        "bridal",
+        "hoop"
+      ],
+      "sewMinutes": 6,
+      "summary": "Golden peacock with a sweeping fan of eye feathers.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3872,
+      "widthMm": 68.5,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 91,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#d0af62",
+          "stitches": 3872
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Golden-Peacock.pes",
+          "bytes": 27136
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Golden-Peacock.dst",
+          "bytes": 13265
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Golden-Peacock.jef",
+          "bytes": 8646
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Golden-Peacock.exp",
+          "bytes": 8876
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Golden-Peacock.vp3",
+          "bytes": 8576
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "mickey-badge",
+      "name": "Mickey Badge",
+      "source": "pack",
+      "dir": "src/designs/mickey-badge",
+      "previewImg": "img/mickey-badge.png",
+      "stitchImg": "img/mickey-badge-stitch.png",
+      "price": 350,
+      "mrp": 595,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "character",
+        "kids",
+        "jersey"
+      ],
+      "sewMinutes": 9,
+      "summary": "Mickey Mouse badge with a double circle frame.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 6410,
+      "widthMm": 90,
+      "heightMm": 79.2,
+      "colorCount": 2,
+      "trims": 76,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fefefe",
+          "stitches": 3126
+        },
+        {
+          "name": "",
+          "hex": "#060606",
+          "stitches": 3284
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Mickey-Badge.pes",
+          "bytes": 42207
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Mickey-Badge.dst",
+          "bytes": 20663
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Mickey-Badge.jef",
+          "bytes": 13562
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Mickey-Badge.exp",
+          "bytes": 13724
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Mickey-Badge.vp3",
+          "bytes": 13586
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "peacock-folk-art",
+      "name": "Peacock Folk Art",
+      "source": "pack",
+      "dir": "src/designs/peacock-folk-art",
+      "previewImg": "img/peacock-folk-art.png",
+      "stitchImg": "img/peacock-folk-art-stitch.png",
+      "price": 500,
+      "mrp": 850,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "peacock",
+        "folk",
+        "cushion"
+      ],
+      "sewMinutes": 16,
+      "summary": "Folk art peacock with a fan of green and gold feathers.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 11015,
+      "widthMm": 85.9,
+      "heightMm": 90,
+      "colorCount": 7,
+      "trims": 240,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#476436",
+          "stitches": 4492
+        },
+        {
+          "name": "",
+          "hex": "#f9c00f",
+          "stitches": 1088
+        },
+        {
+          "name": "",
+          "hex": "#9bb166",
+          "stitches": 2087
+        },
+        {
+          "name": "",
+          "hex": "#ed7720",
+          "stitches": 1252
+        },
+        {
+          "name": "",
+          "hex": "#1c72b4",
+          "stitches": 722
+        },
+        {
+          "name": "",
+          "hex": "#e68e92",
+          "stitches": 735
+        },
+        {
+          "name": "",
+          "hex": "#c12c24",
+          "stitches": 639
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Peacock-Folk-Art.pes",
+          "bytes": 75744
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Peacock-Folk-Art.dst",
+          "bytes": 36539
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Peacock-Folk-Art.jef",
+          "bytes": 24232
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Peacock-Folk-Art.exp",
+          "bytes": 25010
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Peacock-Folk-Art.vp3",
+          "bytes": 23940
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "red-black-folk",
+      "name": "Red Black Folk",
+      "source": "pack",
+      "dir": "src/designs/red-black-folk",
+      "previewImg": "img/red-black-folk.png",
+      "stitchImg": "img/red-black-folk-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "folk",
+        "geometric",
+        "jersey"
+      ],
+      "sewMinutes": 7,
+      "summary": "Folk floral swirl in red and black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4896,
+      "widthMm": 90,
+      "heightMm": 89.6,
+      "colorCount": 2,
+      "trims": 74,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#d10711",
+          "stitches": 2044
+        },
+        {
+          "name": "",
+          "hex": "#0c090b",
+          "stitches": 2852
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Red-Black-Folk.pes",
+          "bytes": 33067
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Red-Black-Folk.dst",
+          "bytes": 16178
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Red-Black-Folk.jef",
+          "bytes": 10642
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Red-Black-Folk.exp",
+          "bytes": 10796
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Red-Black-Folk.vp3",
+          "bytes": 10572
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "seven-halftone",
+      "name": "Seven Halftone",
+      "source": "pack",
+      "dir": "src/designs/seven-halftone",
+      "previewImg": "img/seven-halftone.png",
+      "stitchImg": "img/seven-halftone-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "wordmark",
+        "sport",
+        "jersey"
+      ],
+      "sewMinutes": 3,
+      "summary": "Bold numeral seven with a halftone shaded tail.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2150,
+      "widthMm": 67.5,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 6,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#010101",
+          "stitches": 2150
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Seven-Halftone.pes",
+          "bytes": 14424
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Seven-Halftone.dst",
+          "bytes": 7061
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Seven-Halftone.jef",
+          "bytes": 4506
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Seven-Halftone.exp",
+          "bytes": 4396
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Seven-Halftone.vp3",
+          "bytes": 4686
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "soccer-flame-ball",
+      "name": "Soccer Flame Ball",
+      "source": "pack",
+      "dir": "src/designs/soccer-flame-ball",
+      "previewImg": "img/soccer-flame-ball.png",
+      "stitchImg": "img/soccer-flame-ball-stitch.png",
+      "price": 500,
+      "mrp": 850,
+      "pricePer1k": 50,
+      "badge": null,
+      "featured": 0,
+      "tags": [
+        "sport",
+        "football",
+        "jersey"
+      ],
+      "sewMinutes": 16,
+      "summary": "Soccer ball trailing orange flames.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 10910,
+      "widthMm": 90,
+      "heightMm": 84.8,
+      "colorCount": 7,
+      "trims": 234,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#fcfcfc",
+          "stitches": 2556
+        },
+        {
+          "name": "",
+          "hex": "#c03c18",
+          "stitches": 2256
+        },
+        {
+          "name": "",
+          "hex": "#ec8a26",
+          "stitches": 1339
+        },
+        {
+          "name": "",
+          "hex": "#e3e3e1",
+          "stitches": 1133
+        },
+        {
+          "name": "",
+          "hex": "#9a9897",
+          "stitches": 564
+        },
+        {
+          "name": "",
+          "hex": "#512a23",
+          "stitches": 295
+        },
+        {
+          "name": "",
+          "hex": "#0a0404",
+          "stitches": 2767
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Soccer-Flame-Ball.pes",
+          "bytes": 74946
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Soccer-Flame-Ball.dst",
+          "bytes": 36281
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Soccer-Flame-Ball.jef",
+          "bytes": 24122
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Soccer-Flame-Ball.exp",
+          "bytes": 24876
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Soccer-Flame-Ball.vp3",
+          "bytes": 23742
         }
       ],
       "defaultFormats": [

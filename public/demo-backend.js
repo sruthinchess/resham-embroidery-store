@@ -106,9 +106,10 @@
     const link = `upi://pay?pa=${s.upi_id}&pn=${encodeURIComponent(s.payee_name)}&am=${money2(o.amount)}&cu=INR&tn=${encodeURIComponent(o.code)}&tr=${encodeURIComponent(o.code)}`;
     return { id: s.upi_id, payee: s.payee_name, amount: money2(o.amount), currency: 'INR', link };
   }
-  function linksFor(o, fresh) {
+  async function linksFor(o, fresh) {
     const files = window.__FILES__ || {};
-    return o.items.map(it => {
+    const out = [];
+    for (const it of o.items) {
       let t = fresh ? null : Object.values(S.tokens).find(x => x.orderId === o.id && x.designId === it.designId);
       if (!t) {
         const hours = Number(S.settings.link_hours || 72);
@@ -120,19 +121,25 @@
       const parts = [];
       for (const f of chosen) {
         const entry = set[f];
-        if (entry) parts.push({ name: entry.name, data: b64ToU8(entry.data.split(',')[1]) });
+        if (!entry) continue;
+        try {
+          const res = await fetch(entry.url);
+          if (!res.ok) continue;
+          parts.push({ name: entry.name, data: new Uint8Array(await res.arrayBuffer()) });
+        } catch (e) { /* offline — skip this file */ }
       }
       parts.push({ name: 'READ ME.txt', data: u8(
         `${it.name}\n\nStitch count : ${it.stitchCount}\nFormats here : ${chosen.map(f => f.toUpperCase()).join(', ')}\n\nOpen the DST or EXP in your machine software.\nOne-person commercial licence.\n\nSandya Emb Designs\n`) });
       const blob = new Blob([zipFiles(parts)], { type: 'application/zip' });
-      return {
+      out.push({
         designId: it.designId, name: it.name, formats: chosen,
         fileName: `${String(it.slug).toUpperCase()}-${chosen.map(f => f.toUpperCase()).join('+')}.zip`,
         token: t.token, url: URL.createObjectURL(blob), expiresAt: t.expiresAt, expired: new Date(t.expiresAt) < new Date()
-      };
-    });
+      });
+    }
+    return out;
   }
-  function oOut(o, opts = {}) {
+  async function oOut(o, opts = {}) {
     const out = {
       id: o.id, code: o.code, name: o.name, email: o.email, phone: o.phone,
       items: o.items, amount: o.amount, status: o.status, note: o.note,
@@ -140,7 +147,7 @@
       subtotal: o.subtotal ?? o.amount, discount: o.discount || 0, coupon: o.coupon_code || null,
       upi: o.status === 'awaiting' ? upi(o) : null
     };
-    if (opts.withLinks && o.status === 'paid') out.downloads = linksFor(o, false);
+    if (opts.withLinks && o.status === 'paid') out.downloads = await linksFor(o, false);
     if (opts.admin) out.screenshotUrl = o.screenshot || null;
     return out;
   }
@@ -222,17 +229,17 @@
       upi_ref: '', screenshot: null, note: null, created_at: now(), paid_at: null
     };
     S.orders.unshift(o); save();
-    return { ok: true, order: oOut(o) };
+    return oOut(o).then(order => ({ ok: true, order }));
   });
   R('GET', '/api/orders/:code', (m, q, p) => {
     const o = S.orders.find(x => x.code.toUpperCase() === String(p.code).toUpperCase());
     if (!o) throw fail('No order with that code.', 404);
-    return { ok: true, order: oOut(o, { withLinks: true }) };
+    return oOut(o, { withLinks: true }).then(order => ({ ok: true, order }));
   });
   R('POST', '/api/orders/:code/proof', (m, q, p, b) => {
     const o = S.orders.find(x => x.code.toUpperCase() === String(p.code).toUpperCase());
     if (!o) throw fail('Order not found.', 404);
-    if (o.status === 'paid') return { ok: true, order: oOut(o, { withLinks: true }), message: 'Already confirmed.' };
+    if (o.status === 'paid') return oOut(o, { withLinks: true }).then(order => ({ ok: true, order, message: 'Already confirmed.' }));
     const shot = String(b.screenshot || '');
     if (!/^data:image\/(png|jpe?g|webp|gif);base64,/.test(shot)) throw fail('Attach a screenshot image (PNG, JPG or WebP).');
     if (shot.length < 2000) throw fail('That image looks empty — attach the payment screenshot again.');
@@ -242,14 +249,14 @@
     o.paid_at = auto ? now() : null;
     o.note = auto ? 'Auto-confirmed from uploaded payment proof' : 'Awaiting manual check';
     save();
-    return { ok: true, autoConfirmed: auto, order: oOut(o, { withLinks: auto }),
-      message: auto ? 'Payment screenshot received — order confirmed.' : 'Screenshot received. The studio will confirm shortly.' };
+    return oOut(o, { withLinks: auto }).then(order => ({ ok: true, autoConfirmed: auto, order,
+      message: auto ? 'Payment screenshot received — order confirmed.' : 'Screenshot received. The studio will confirm shortly.' }));
   });
   R('POST', '/api/orders/:code/links', (m, q, p) => {
     const o = S.orders.find(x => x.code.toUpperCase() === String(p.code).toUpperCase());
     if (!o) throw fail('Order not found.', 404);
     if (o.status !== 'paid') throw fail('This order is not confirmed yet.', 403);
-    return { ok: true, downloads: linksFor(o, true) };
+    return linksFor(o, true).then(downloads => ({ ok: true, downloads }));
   });
 
   /* admin */
@@ -261,7 +268,7 @@
   });
   R('GET', '/api/admin/session', () => ({ ok: true, admin: adminOK() }));
   R('POST', '/api/admin/logout', () => { LS.removeItem('ra_admin_token'); return { ok: true }; });
-  R('GET', '/api/admin/stats', () => {
+  R('GET', '/api/admin/stats', async () => {
     guard();
     const paid = S.orders.filter(o => o.status === 'paid');
     const revenue = paid.reduce((s, o) => s + o.amount, 0);
@@ -288,12 +295,12 @@
       coupons: paid.filter(o => o.coupon_code).reduce((acc, o) => { const u = acc.find(x => x.code === o.coupon_code); if (u) { u.n++; u.discount += o.discount || 0; } else acc.push({ code: o.coupon_code, n: 1, discount: o.discount || 0 }); return acc; }, []),
       discounted: paid.filter(o => o.coupon_code).length,
       formats: Object.entries(fmt).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, n })),
-      recent: S.orders.slice(0, 8).map(o => oOut(o, { admin: true })) } };
+      recent: await Promise.all(S.orders.slice(0, 8).map(o => oOut(o, { admin: true }))) } };
   });
   R('GET', '/api/admin/orders', (m, q) => {
     guard();
     const list = q.status && q.status !== 'all' ? S.orders.filter(o => o.status === q.status) : S.orders;
-    return { ok: true, orders: list.map(o => oOut(o, { admin: true, withLinks: true })) };
+    return Promise.all(list.map(o => oOut(o, { admin: true, withLinks: true }))).then(orders => ({ ok: true, orders }));
   });
   R('PATCH', '/api/admin/orders/:id', (m, q, p, b) => {
     guard();
@@ -306,7 +313,7 @@
     }
     if (b.note !== undefined) o.note = b.note;
     save();
-    return { ok: true, order: oOut(o, { admin: true, withLinks: true }) };
+    return oOut(o, { admin: true, withLinks: true }).then(order => ({ ok: true, order }));
   });
   R('GET', '/api/admin/designs', () => { guard(); return { ok: true, designs: S.designs.slice().reverse() }; });
   R('POST', '/api/admin/designs', () => { guard(); throw fail('New designs are imported with their machine files — run the import script.', 400); });

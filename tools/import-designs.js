@@ -46,7 +46,17 @@ const META = {
   'panda-cub': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'jersey'] },
   'rama-medallion': { featured: 1, badge: null, tags: ['devotional', 'medallion', 'hoop'] },
   'seven-logo': { featured: 0, badge: null, tags: ['wordmark', 'jersey', 'kids'] },
-  'soccer-ball-motion': { featured: 0, badge: null, tags: ['sport', 'football', 'jersey'] }
+  'soccer-ball-motion': { featured: 0, badge: null, tags: ['sport', 'football', 'jersey'] },
+  'amber-blossoms': { featured: 1, badge: 'New', tags: ['floral', 'amber', 'hoop'] },
+  'camellia-bouquet': { featured: 1, badge: 'New', tags: ['floral', 'bouquet', 'cushion'] },
+  'cherry-blossom-branch': { featured: 0, badge: 'New', tags: ['floral', 'branch', 'border'] },
+  'damask-ornament': { featured: 0, badge: null, tags: ['ornament', 'damask', 'home'] },
+  'golden-peacock': { featured: 1, badge: 'Couture', tags: ['peacock', 'bridal', 'hoop'] },
+  'mickey-badge': { featured: 0, badge: null, tags: ['character', 'kids', 'jersey'] },
+  'peacock-folk-art': { featured: 0, badge: null, tags: ['peacock', 'folk', 'cushion'] },
+  'red-black-folk': { featured: 0, badge: null, tags: ['folk', 'geometric', 'jersey'] },
+  'seven-halftone': { featured: 0, badge: null, tags: ['wordmark', 'sport', 'jersey'] },
+  'soccer-flame-ball': { featured: 0, badge: null, tags: ['sport', 'football', 'jersey'] }
 };
 
 const COPY = {
