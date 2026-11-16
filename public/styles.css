@@ -1035,3 +1035,8 @@ body::before { display: none; }
 .side a.on, .side a:hover { background: var(--canvas-2); color: var(--ink); }
 .side .brand { color: var(--ink); }
 .amain, .admin { background: var(--canvas); }
+
+/* home cards are links to the design, not buy buttons */
+.dcard.linkable { position: relative; cursor: pointer; }
+.dcard .cardlink { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.dcard .fav { z-index: 3; }

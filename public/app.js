@@ -202,8 +202,9 @@
       <div class="sum-row total"><span>To pay</span><b>${money(t.total)}</b></div>`;
   }
 
-  function designCard(d) {
-    return `<article class="dcard reveal">
+  function designCard(d, opts = {}) {
+    return `<article class="dcard reveal${opts.noBuy ? ' linkable' : ''}">
+      ${opts.noBuy ? `<a class="cardlink" href="#/design/${esc(d.slug)}" aria-label="${esc(d.name)}"></a>` : ''}
       <a class="stage" href="#/design/${esc(d.slug)}" aria-label="${esc(d.name)}">
         ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy" decoding="async" width="400" height="400"></span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
@@ -215,10 +216,10 @@
         <a href="#/design/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
         <p class="sum">${esc((d.summary || '').slice(0, 92))}${(d.summary || '').length > 92 ? '…' : ''}</p>
         <div class="price"><b>${money(d.price)}</b><span class="per">per format</span>${d.mrp > d.price ? `<s>${money(d.mrp)}</s>` : ''}</div>
-        <div class="buyrow">
+        ${opts.noBuy ? '' : `<div class="buyrow">
           <button class="btn btn-primary btn-sm" data-buy="${d.id}">Buy · ${money(d.price)}</button>
           <button class="btn btn-ghost btn-sm" data-add="${d.id}">+ Bag</button>
-        </div>
+        </div>`}
       </div>
     </article>`;
   }
@@ -291,16 +292,9 @@
 
   /* ------------------------------------------------------------------ views */
   async function viewHome() {
-    const [feat, all] = await Promise.all([
-      api('/api/designs?' + qs({ featured: '1', sort: 'newest' })),
-      api('/api/designs?' + qs({ sort: 'newest' }))
-    ]);
-    const hero = feat.designs[0] || all.designs[0];
-    const stitches = all.designs.reduce((s, d) => s + d.stitchCount, 0);
-    // how many formats this build actually serves (the static build carries the common ones)
-    const fmtCount = Math.max(0, ...all.designs.map(d => (d.formats || []).length));
+    const all = await api('/api/designs?' + qs({ sort: 'newest' }));
+    const fmtCount = Math.max(5, ...all.designs.map(d => (d.formats || []).length), 0);
     return `<div class="hero"><div class="wrap hero-in solo">
-      <img class="hero-logo" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}">
       <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
       <h1>Beautiful embroidery designs<br>for <em>every creation</em>.</h1>
       <p class="lede">Hand-digitised motifs for home and commercial machines, in ${fmtCount} machine formats. Choose what your machine reads, pay by UPI, and the files land in your downloads.</p>
@@ -308,73 +302,21 @@
         <a class="btn btn-primary" href="#/designs">Shop now ${I.arrow}</a>
         <a class="btn btn-ghost" href="#/categories">Browse categories</a>
       </div>
-      <div class="hero-stats">
-        <div><b>${all.designs.length} designs</b><span>in the library</span></div>
-        <div><b>${nf(stitches)}</b><span>stitches digitised</span></div>
-        <div><b>${fmtCount} formats</b><span>PES · DST · JEF · EXP · VP3</span></div>
-      </div>
-    </div></div>
-
-    ${LS.getItem('sd_welcome_off') ? '' : `<div class="welcome">
-      <div class="wrap welcome-in">
-        <span class="w-tag">${I.tag} Welcome offer</span>
-        <p><b>10% off your first order</b> with code <span class="mono">WELCOME</span></p>
-        <button class="btn btn-gold btn-sm" id="welcomeApply">Apply WELCOME</button>
-        <button class="icon-btn w-close" id="welcomeClose" aria-label="Dismiss">✕</button>
-      </div>
-    </div>`}
-
-    <div class="marq"><div class="marq-in">
-      ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff',
-      'PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff']
-        .map(t => `<span>${t}</span>`).join('')}
     </div></div>
 
     <section class="section"><div class="wrap">
       <div class="sec-head reveal">
-        <div><span class="eyebrow">The library</span><h2>Designs that sew out clean</h2>
+        <div><span class="eyebrow">The library</span><h2>Newest designs</h2>
           <p>Each one is digitised with an underlay, a tested pull compensation and a colour sequence you can follow without guessing.</p></div>
         <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
       </div>
-      <div class="pgrid two">${all.designs.slice(0, 6).map(designCard).join('')}</div>
-    </div></section>
-
-    <section class="section tight"><div class="wrap"><div class="bundle reveal">
-      <div class="bundle-copy">
-        <span class="eyebrow" style="color:var(--brass-2)">Bundle · save 25%</span>
-        <h2>Complete the set</h2>
-        <p>All ${all.designs.length} designs in every format for ${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))} instead of ${money(all.designs.reduce((s, d) => s + d.price, 0))}.</p>
-      </div>
-      <div class="bundle-cta">
-        <div class="bundle-price"><s>${money(all.designs.reduce((s, d) => s + d.price, 0))}</s><b>${money(Math.round(all.designs.reduce((s, d) => s + d.price, 0) * 0.75))}</b></div>
-        <button class="btn btn-gold" id="bundleAdd">Add all ${all.designs.length} ${I.arrow}</button>
-      </div>
-    </div></div></section>
-
-    <section class="section tight" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-      <div class="wrap">
-        <div class="sec-head reveal"><div><span class="eyebrow">How it works</span><h2>Pick a format, pay by UPI, sew</h2></div></div>
-        <div class="grid-3">
-          <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">01</span>
-            <h3 style="margin:8px 0 6px">Choose your formats</h3>
-            <p class="small muted">Tick what your machine reads — PES for Brother, DST for Tajima, JEF for Janome and the rest of the main formats. They arrive together in one ZIP.</p></div>
-          <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">02</span>
-            <h3 style="margin:8px 0 6px">Pay by UPI</h3>
-            <p class="small muted">Scan the QR or tap your UPI app — the amount and order code travel inside the link, so nothing is typed by hand.</p></div>
-          <div class="card reveal" style="background:var(--canvas)"><span class="eyebrow plain" style="color:var(--maroon)">03</span>
-            <h3 style="margin:8px 0 6px">Upload the screenshot</h3>
-            <p class="small muted">Drop in the payment confirmation and the ZIP downloads itself — straight to your Downloads folder.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section"><div class="wrap">
-      <div class="sec-head reveal"><div><span class="eyebrow">Studio picks</span><h2>Where most people start</h2></div></div>
-      <div class="pgrid two">${feat.designs.slice(0, 4).map(designCard).join('')}</div>
+      <div class="pgrid two">${all.designs.slice(0, 8).map(d => designCard(d, { noBuy: true })).join('')}</div>
+      <div class="center" style="padding:26px 0 58px"><a class="btn btn-primary" href="#/designs">See all ${all.designs.length} designs ${I.arrow}</a></div>
     </div></section>`;
   }
 
   const PAGE = 12;
+
   async function viewShop(params) {
     const data = await api('/api/designs?' + qs({ q: params.q || '', tag: params.tag || 'all', sort: params.sort || 'newest' }));
     const shown = Number(params.show || PAGE);
@@ -395,7 +337,7 @@
         ${data.tags.length > 9 ? `<button class="filter-chip more" id="chipsMore">+${data.tags.length - 9} more</button>` : ''}
         ${data.tags.slice(9).map(t => `<a class="filter-chip extra hide ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
       </div>
-      ${data.designs.length ? `<div class="pgrid" style="padding:26px 0 12px">${visible.map(designCard).join('')}</div>
+      ${data.designs.length ? `<div class="pgrid" style="padding:26px 0 12px">${visible.map(d => designCard(d)).join('')}</div>
         ${data.designs.length > visible.length ? `<div class="center" style="padding-bottom:52px">
           <button class="btn btn-ghost" id="loadMore">Show ${Math.min(PAGE, data.designs.length - visible.length)} more of ${data.designs.length}</button>
         </div>` : '<div style="height:50px"></div>'}`
@@ -571,7 +513,7 @@
       .map(sl => Store.designs.find(d => d.slug === sl)).filter(Boolean).slice(0, 3);
     if (!others.length) return '';
     return `<section class="section tight"><div class="sec-head"><div><span class="eyebrow">Recently viewed</span><h2 style="font-size:1.5rem">Still thinking about these</h2></div></div>
-      <div class="pgrid">${others.map(designCard).join('')}</div></section>`;
+      <div class="pgrid">${others.map(d => designCard(d)).join('')}</div></section>`;
   }
 
   async function viewDownloads() {
@@ -682,7 +624,7 @@
         <div><h1 style="font-size:clamp(1.7rem,3vw,2.3rem)">Saved designs</h1>
           <p>${list.length ? `${list.length} design${list.length > 1 ? 's' : ''} kept for later` : 'Tap the heart on any design to keep it here.'}</p></div>
       </div>
-      ${list.length ? `<div class="pgrid" style="padding:20px 0 62px">${list.map(designCard).join('')}</div>`
+      ${list.length ? `<div class="pgrid" style="padding:20px 0 62px">${list.map(d => designCard(d)).join('')}</div>`
         : `<div class="empty" style="margin:20px 0 62px"><h3>Nothing saved yet</h3><p class="muted small">Hearts are stored in this browser — no account needed.</p><a class="btn btn-primary" href="#/designs" style="margin-top:8px">Browse designs</a></div>`}
     </div>`;
   }

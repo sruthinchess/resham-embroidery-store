@@ -3782,6 +3782,851 @@
         "jef",
         "exp"
       ]
+    },
+    {
+      "slug": "adidas-logo",
+      "name": "Adidas Logo",
+      "source": "pack",
+      "dir": "src/designs/adidas-logo",
+      "previewImg": "img/adidas-logo.png",
+      "stitchImg": "img/adidas-logo-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "logo",
+        "sport",
+        "jersey"
+      ],
+      "sewMinutes": 4,
+      "summary": "Adidas three stripe mark and wordmark.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2999,
+      "widthMm": 90,
+      "heightMm": 84.6,
+      "colorCount": 1,
+      "trims": 22,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#040404",
+          "stitches": 2999
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Adidas-Logo.pes",
+          "bytes": 19966
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Adidas-Logo.dst",
+          "bytes": 9776
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Adidas-Logo.jef",
+          "bytes": 6304
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Adidas-Logo.exp",
+          "bytes": 6258
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Adidas-Logo.vp3",
+          "bytes": 6446
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "dragon-sword",
+      "name": "Dragon Sword",
+      "source": "pack",
+      "dir": "src/designs/dragon-sword",
+      "previewImg": "img/dragon-sword.png",
+      "stitchImg": "img/dragon-sword-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "fantasy",
+        "dragon",
+        "jersey"
+      ],
+      "sewMinutes": 5,
+      "summary": "Oriental dragon coiled around a sword, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3272,
+      "widthMm": 57.1,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 45,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#040404",
+          "stitches": 3272
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Dragon-Sword.pes",
+          "bytes": 22248
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Dragon-Sword.dst",
+          "bytes": 10790
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Dragon-Sword.jef",
+          "bytes": 6930
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Dragon-Sword.exp",
+          "bytes": 6976
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Dragon-Sword.vp3",
+          "bytes": 7026
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "dripping-heart",
+      "name": "Dripping Heart",
+      "source": "pack",
+      "dir": "src/designs/dripping-heart",
+      "previewImg": "img/dripping-heart.png",
+      "stitchImg": "img/dripping-heart-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "heart",
+        "street",
+        "jersey"
+      ],
+      "sewMinutes": 4,
+      "summary": "Melting heart silhouette with dripping paint.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2542,
+      "widthMm": 72.4,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 11,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#030303",
+          "stitches": 2542
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Dripping-Heart.pes",
+          "bytes": 16916
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Dripping-Heart.dst",
+          "bytes": 8285
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Dripping-Heart.jef",
+          "bytes": 5314
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Dripping-Heart.exp",
+          "bytes": 5224
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Dripping-Heart.vp3",
+          "bytes": 5486
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "gada-hand",
+      "name": "Gada Hand",
+      "source": "pack",
+      "dir": "src/designs/gada-hand",
+      "previewImg": "img/gada-hand.png",
+      "stitchImg": "img/gada-hand-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "gada",
+        "hoop"
+      ],
+      "sewMinutes": 3,
+      "summary": "Hand gripping a gada mace with a flowing wrap.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2057,
+      "widthMm": 36.4,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 34,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#070707",
+          "stitches": 2057
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Gada-Hand.pes",
+          "bytes": 14650
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Gada-Hand.dst",
+          "bytes": 7058
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Gada-Hand.jef",
+          "bytes": 4472
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Gada-Hand.exp",
+          "bytes": 4474
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Gada-Hand.vp3",
+          "bytes": 4568
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "krishna-face",
+      "name": "Krishna Face",
+      "source": "pack",
+      "dir": "src/designs/krishna-face",
+      "previewImg": "img/krishna-face.png",
+      "stitchImg": "img/krishna-face-stitch.png",
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "krishna",
+        "hoop"
+      ],
+      "sewMinutes": 8,
+      "summary": "Krishna face with peacock feather, blue skin and orange headband.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 5921,
+      "widthMm": 73.7,
+      "heightMm": 90,
+      "colorCount": 5,
+      "trims": 105,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#a2bedb",
+          "stitches": 1357
+        },
+        {
+          "name": "",
+          "hex": "#306756",
+          "stitches": 584
+        },
+        {
+          "name": "",
+          "hex": "#fbfcfb",
+          "stitches": 475
+        },
+        {
+          "name": "",
+          "hex": "#e89253",
+          "stitches": 630
+        },
+        {
+          "name": "",
+          "hex": "#040605",
+          "stitches": 2875
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Krishna-Face.pes",
+          "bytes": 40874
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Krishna-Face.dst",
+          "bytes": 19460
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Krishna-Face.jef",
+          "bytes": 12744
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Krishna-Face.exp",
+          "bytes": 12998
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Krishna-Face.vp3",
+          "bytes": 12852
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "namam-gold",
+      "name": "Namam Gold",
+      "source": "pack",
+      "dir": "src/designs/namam-gold",
+      "previewImg": "img/namam-gold.png",
+      "stitchImg": "img/namam-gold-stitch.png",
+      "price": 500,
+      "mrp": 850,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "namam",
+        "hoop"
+      ],
+      "sewMinutes": 13,
+      "summary": "Golden Tirumala namam with chakra, shanku and red centre.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 9007,
+      "widthMm": 90,
+      "heightMm": 83.7,
+      "colorCount": 6,
+      "trims": 395,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#e1a718",
+          "stitches": 1648
+        },
+        {
+          "name": "",
+          "hex": "#fafafa",
+          "stitches": 2033
+        },
+        {
+          "name": "",
+          "hex": "#d4cdbb",
+          "stitches": 1428
+        },
+        {
+          "name": "",
+          "hex": "#807f7e",
+          "stitches": 1029
+        },
+        {
+          "name": "",
+          "hex": "#bf130f",
+          "stitches": 123
+        },
+        {
+          "name": "",
+          "hex": "#3b393c",
+          "stitches": 2746
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Namam-Gold.pes",
+          "bytes": 67773
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Namam-Gold.dst",
+          "bytes": 32396
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Namam-Gold.jef",
+          "bytes": 21432
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Namam-Gold.exp",
+          "bytes": 22838
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Namam-Gold.vp3",
+          "bytes": 20756
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "shanku-chakra",
+      "name": "Shanku Chakra",
+      "source": "pack",
+      "dir": "src/designs/shanku-chakra",
+      "previewImg": "img/shanku-chakra.png",
+      "stitchImg": "img/shanku-chakra-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "symbol",
+        "jersey"
+      ],
+      "sewMinutes": 5,
+      "summary": "Lord Vishnu's Shanku and Chakra line drawing with title lettering.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3403,
+      "widthMm": 90,
+      "heightMm": 70.3,
+      "colorCount": 1,
+      "trims": 55,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#323540",
+          "stitches": 3403
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Shanku-Chakra.pes",
+          "bytes": 23314
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Shanku-Chakra.dst",
+          "bytes": 11339
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Shanku-Chakra.jef",
+          "bytes": 7312
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Shanku-Chakra.exp",
+          "bytes": 7398
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Shanku-Chakra.vp3",
+          "bytes": 7410
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "trishul-outline",
+      "name": "Trishul Outline",
+      "source": "pack",
+      "dir": "src/designs/trishul-outline",
+      "previewImg": "img/trishul-outline.png",
+      "stitchImg": "img/trishul-outline-stitch.png",
+      "price": 100,
+      "mrp": 170,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "trishul",
+        "border"
+      ],
+      "sewMinutes": 3,
+      "summary": "Trishul and damaru drawn as an outline.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 1863,
+      "widthMm": 77.8,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 6,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#010101",
+          "stitches": 1863
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Trishul-Outline.pes",
+          "bytes": 12702
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Trishul-Outline.dst",
+          "bytes": 6233
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Trishul-Outline.jef",
+          "bytes": 3980
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Trishul-Outline.exp",
+          "bytes": 3870
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Trishul-Outline.vp3",
+          "bytes": 4118
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "trishul-shiv",
+      "name": "Trishul Shiv",
+      "source": "pack",
+      "dir": "src/designs/trishul-shiv",
+      "previewImg": "img/trishul-shiv.png",
+      "stitchImg": "img/trishul-shiv-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "trishul",
+        "jersey"
+      ],
+      "sewMinutes": 4,
+      "summary": "Hand holding a trishul and damaru above the word Shiv.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2610,
+      "widthMm": 41.9,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 35,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#060606",
+          "stitches": 2610
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Trishul-Shiv.pes",
+          "bytes": 17996
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Trishul-Shiv.dst",
+          "bytes": 8732
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Trishul-Shiv.jef",
+          "bytes": 5582
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Trishul-Shiv.exp",
+          "bytes": 5588
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Trishul-Shiv.vp3",
+          "bytes": 5694
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "vaishnava-trio",
+      "name": "Vaishnava Trio",
+      "source": "pack",
+      "dir": "src/designs/vaishnava-trio",
+      "previewImg": "img/vaishnava-trio.png",
+      "stitchImg": "img/vaishnava-trio-stitch.png",
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "vaishnava",
+        "hoop"
+      ],
+      "sewMinutes": 8,
+      "summary": "Chakra, namam and shanku shown together in colour.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 5655,
+      "widthMm": 90,
+      "heightMm": 37.6,
+      "colorCount": 7,
+      "trims": 308,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#914526",
+          "stitches": 1812
+        },
+        {
+          "name": "",
+          "hex": "#d67a38",
+          "stitches": 694
+        },
+        {
+          "name": "",
+          "hex": "#796b52",
+          "stitches": 1304
+        },
+        {
+          "name": "",
+          "hex": "#c99959",
+          "stitches": 495
+        },
+        {
+          "name": "",
+          "hex": "#cd2726",
+          "stitches": 310
+        },
+        {
+          "name": "",
+          "hex": "#afa6a4",
+          "stitches": 387
+        },
+        {
+          "name": "",
+          "hex": "#453b23",
+          "stitches": 653
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Vaishnava-Trio.pes",
+          "bytes": 45488
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Vaishnava-Trio.dst",
+          "bytes": 21110
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Vaishnava-Trio.jef",
+          "bytes": 13804
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Vaishnava-Trio.exp",
+          "bytes": 14854
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Vaishnava-Trio.vp3",
+          "bytes": 13338
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
     }
   ]
 }

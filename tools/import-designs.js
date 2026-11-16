@@ -71,7 +71,17 @@ const META = {
   'krishna-flute': { featured: 1, badge: 'New', tags: ['devotional', 'krishna', 'hoop'] },
   'krishna-profile': { featured: 0, badge: 'New', tags: ['devotional', 'krishna', 'cushion'] },
   'om-badge': { featured: 1, badge: 'New', tags: ['devotional', 'om', 'jersey'] },
-  'peacock-feather': { featured: 0, badge: 'New', tags: ['peacock', 'feather', 'border'] }
+  'peacock-feather': { featured: 0, badge: 'New', tags: ['peacock', 'feather', 'border'] },
+  'adidas-logo': { featured: 0, badge: 'New', tags: ['logo', 'sport', 'jersey'] },
+  'dragon-sword': { featured: 0, badge: 'New', tags: ['fantasy', 'dragon', 'jersey'] },
+  'dripping-heart': { featured: 0, badge: 'New', tags: ['heart', 'street', 'jersey'] },
+  'gada-hand': { featured: 0, badge: 'New', tags: ['devotional', 'gada', 'hoop'] },
+  'krishna-face': { featured: 1, badge: 'New', tags: ['devotional', 'krishna', 'hoop'] },
+  'namam-gold': { featured: 1, badge: 'New', tags: ['devotional', 'namam', 'hoop'] },
+  'shanku-chakra': { featured: 0, badge: 'New', tags: ['devotional', 'symbol', 'jersey'] },
+  'trishul-outline': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'border'] },
+  'trishul-shiv': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'jersey'] },
+  'vaishnava-trio': { featured: 1, badge: 'New', tags: ['devotional', 'vaishnava', 'hoop'] }
 };
 
 const COPY = {
