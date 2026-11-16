@@ -4627,6 +4627,806 @@
         "jef",
         "exp"
       ]
+    },
+    {
+      "slug": "adidas-trefoil",
+      "name": "Adidas Trefoil",
+      "source": "pack",
+      "dir": "src/designs/adidas-trefoil",
+      "previewImg": "img/adidas-trefoil.png",
+      "stitchImg": "img/adidas-trefoil-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "logo",
+        "sport",
+        "jersey"
+      ],
+      "sewMinutes": 5,
+      "summary": "Adidas trefoil mark and wordmark.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3212,
+      "widthMm": 90,
+      "heightMm": 87.4,
+      "colorCount": 1,
+      "trims": 32,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#070707",
+          "stitches": 3212
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Adidas-Trefoil.pes",
+          "bytes": 21524
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Adidas-Trefoil.dst",
+          "bytes": 10610
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Adidas-Trefoil.jef",
+          "bytes": 6910
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Adidas-Trefoil.exp",
+          "bytes": 6904
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Adidas-Trefoil.vp3",
+          "bytes": 6952
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "dollar-at",
+      "name": "Dollar AT",
+      "source": "pack",
+      "dir": "src/designs/dollar-at",
+      "previewImg": "img/dollar-at.png",
+      "stitchImg": "img/dollar-at-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "logo",
+        "street",
+        "jersey"
+      ],
+      "sewMinutes": 3,
+      "summary": "Dollar sign interlocked with the letters AT, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2017,
+      "widthMm": 58,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 18,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#050505",
+          "stitches": 2017
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Dollar-AT.pes",
+          "bytes": 13962
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Dollar-AT.dst",
+          "bytes": 6776
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Dollar-AT.jef",
+          "bytes": 4304
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Dollar-AT.exp",
+          "bytes": 4242
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Dollar-AT.vp3",
+          "bytes": 4462
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "ganesha-flame",
+      "name": "Ganesha Flame",
+      "source": "pack",
+      "dir": "src/designs/ganesha-flame",
+      "previewImg": "img/ganesha-flame.png",
+      "stitchImg": "img/ganesha-flame-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "ganesha",
+        "hoop"
+      ],
+      "sewMinutes": 5,
+      "summary": "Ganesha in a warm orange to red gradient, seated with lotus.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3585,
+      "widthMm": 60.7,
+      "heightMm": 90,
+      "colorCount": 4,
+      "trims": 80,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#ed7f44",
+          "stitches": 1754
+        },
+        {
+          "name": "",
+          "hex": "#f4ab2e",
+          "stitches": 1157
+        },
+        {
+          "name": "",
+          "hex": "#ea5d3e",
+          "stitches": 629
+        },
+        {
+          "name": "",
+          "hex": "#ecae69",
+          "stitches": 45
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Ganesha-Flame.pes",
+          "bytes": 25891
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Ganesha-Flame.dst",
+          "bytes": 12212
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Ganesha-Flame.jef",
+          "bytes": 7940
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Ganesha-Flame.exp",
+          "bytes": 8102
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Ganesha-Flame.vp3",
+          "bytes": 8094
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "ganesha-monogram",
+      "name": "Ganesha Monogram",
+      "source": "pack",
+      "dir": "src/designs/ganesha-monogram",
+      "previewImg": "img/ganesha-monogram.png",
+      "stitchImg": "img/ganesha-monogram-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "ganesha",
+        "cushion"
+      ],
+      "sewMinutes": 5,
+      "summary": "Ganesha monogram in maroon and gold with the Om symbol.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3769,
+      "widthMm": 80.4,
+      "heightMm": 90,
+      "colorCount": 3,
+      "trims": 78,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#a57b52",
+          "stitches": 517
+        },
+        {
+          "name": "",
+          "hex": "#b19b93",
+          "stitches": 513
+        },
+        {
+          "name": "",
+          "hex": "#3e1522",
+          "stitches": 2739
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Ganesha-Monogram.pes",
+          "bytes": 26680
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Ganesha-Monogram.dst",
+          "bytes": 12782
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Ganesha-Monogram.jef",
+          "bytes": 8340
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Ganesha-Monogram.exp",
+          "bytes": 8502
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Ganesha-Monogram.vp3",
+          "bytes": 8392
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "gap-letters",
+      "name": "Gap Letters",
+      "source": "pack",
+      "dir": "src/designs/gap-letters",
+      "previewImg": "img/gap-letters.png",
+      "stitchImg": "img/gap-letters-stitch.png",
+      "price": 100,
+      "mrp": 170,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "logo",
+        "wordmark",
+        "jersey"
+      ],
+      "sewMinutes": 2,
+      "summary": "The word GAP in heavy collegiate letterforms.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 1697,
+      "widthMm": 90,
+      "heightMm": 49.7,
+      "colorCount": 1,
+      "trims": 14,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#010101",
+          "stitches": 1697
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Gap-Letters.pes",
+          "bytes": 11930
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Gap-Letters.dst",
+          "bytes": 5780
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Gap-Letters.jef",
+          "bytes": 3648
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Gap-Letters.exp",
+          "bytes": 3570
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Gap-Letters.vp3",
+          "bytes": 3814
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "maa-heart",
+      "name": "Maa Heart",
+      "source": "pack",
+      "dir": "src/designs/maa-heart",
+      "previewImg": "img/maa-heart.png",
+      "stitchImg": "img/maa-heart-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "maa",
+        "hoop"
+      ],
+      "sewMinutes": 4,
+      "summary": "Mother holding a child above the word Maa and a heart.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2984,
+      "widthMm": 90,
+      "heightMm": 79.4,
+      "colorCount": 1,
+      "trims": 44,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#020202",
+          "stitches": 2984
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Maa-Heart.pes",
+          "bytes": 20492
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Maa-Heart.dst",
+          "bytes": 9965
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Maa-Heart.jef",
+          "bytes": 6402
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Maa-Heart.exp",
+          "bytes": 6444
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Maa-Heart.vp3",
+          "bytes": 6490
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "pinwheel-burst",
+      "name": "Pinwheel Burst",
+      "source": "pack",
+      "dir": "src/designs/pinwheel-burst",
+      "previewImg": "img/pinwheel-burst.png",
+      "stitchImg": "img/pinwheel-burst-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "geometric",
+        "pinwheel",
+        "kids"
+      ],
+      "sewMinutes": 5,
+      "summary": "Twelve blade pinwheel sunburst, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3152,
+      "widthMm": 90,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 40,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#080808",
+          "stitches": 3152
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Pinwheel-Burst.pes",
+          "bytes": 21388
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Pinwheel-Burst.dst",
+          "bytes": 10466
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Pinwheel-Burst.jef",
+          "bytes": 6778
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Pinwheel-Burst.exp",
+          "bytes": 6804
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Pinwheel-Burst.vp3",
+          "bytes": 6872
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "ram-sita",
+      "name": "Ram Sita",
+      "source": "pack",
+      "dir": "src/designs/ram-sita",
+      "previewImg": "img/ram-sita.png",
+      "stitchImg": "img/ram-sita-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "ram",
+        "hoop"
+      ],
+      "sewMinutes": 4,
+      "summary": "Silhouette of Ram and Sita standing together with a bow.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2790,
+      "widthMm": 83.2,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 21,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#010101",
+          "stitches": 2790
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Ram-Sita.pes",
+          "bytes": 18684
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Ram-Sita.dst",
+          "bytes": 9122
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Ram-Sita.jef",
+          "bytes": 5858
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Ram-Sita.exp",
+          "bytes": 5808
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Ram-Sita.vp3",
+          "bytes": 6008
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "shiv-triskel",
+      "name": "Shiv Triskel",
+      "source": "pack",
+      "dir": "src/designs/shiv-triskel",
+      "previewImg": "img/shiv-triskel.png",
+      "stitchImg": "img/shiv-triskel-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "shiv",
+        "jersey"
+      ],
+      "sewMinutes": 3,
+      "summary": "The word Shiv with a red trishul above and an orange tilak dot.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2353,
+      "widthMm": 90,
+      "heightMm": 83.9,
+      "colorCount": 2,
+      "trims": 34,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#cf3a1f",
+          "stitches": 662
+        },
+        {
+          "name": "",
+          "hex": "#050904",
+          "stitches": 1691
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Shiv-Triskel.pes",
+          "bytes": 16689
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Shiv-Triskel.dst",
+          "bytes": 7997
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Shiv-Triskel.jef",
+          "bytes": 5148
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Shiv-Triskel.exp",
+          "bytes": 5142
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Shiv-Triskel.vp3",
+          "bytes": 5286
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "trishul-damaru",
+      "name": "Trishul Damaru",
+      "source": "pack",
+      "dir": "src/designs/trishul-damaru",
+      "previewImg": "img/trishul-damaru.png",
+      "stitchImg": "img/trishul-damaru-stitch.png",
+      "price": 100,
+      "mrp": 170,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "devotional",
+        "trishul",
+        "border"
+      ],
+      "sewMinutes": 3,
+      "summary": "Trishul with a damaru drum and beaded cord, solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 1761,
+      "widthMm": 37.4,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 18,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#232021",
+          "stitches": 1761
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Trishul-Damaru.pes",
+          "bytes": 12426
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Trishul-Damaru.dst",
+          "bytes": 6002
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Trishul-Damaru.jef",
+          "bytes": 3788
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Trishul-Damaru.exp",
+          "bytes": 3726
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Trishul-Damaru.vp3",
+          "bytes": 3938
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
     }
   ]
 }

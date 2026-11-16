@@ -203,24 +203,25 @@
   }
 
   function designCard(d, opts = {}) {
+    const url = `#/design/${esc(d.slug)}`;
+    const wished = Store.isWished(d.id);
     return `<article class="dcard reveal${opts.noBuy ? ' linkable' : ''}">
-      ${opts.noBuy ? `<a class="cardlink" href="#/design/${esc(d.slug)}" aria-label="${esc(d.name)}"></a>` : ''}
-      <a class="stage" href="#/design/${esc(d.slug)}" aria-label="${esc(d.name)}">
+      <a class="stage" href="${url}" aria-label="${esc(d.name)}">
         ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy" decoding="async" width="400" height="400"></span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
-        <button class="fav ${Store.isWished(d.id) ? 'on' : ''}" data-fav="${d.id}" aria-label="Save ${esc(d.name)}">${Store.isWished(d.id) ? I.heartOn : I.heart}</button>
       </a>
-      <div class="body">
+      <button class="fav ${wished ? 'on' : ''}" data-fav="${d.id}" aria-label="Save ${esc(d.name)}">${wished ? I.heartOn : I.heart}</button>
+      ${opts.noBuy ? `<a class="body" href="${url}">` : '<div class="body">'}
         <span class="meta">${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${nf(d.stitchCount)} stitches · ${d.sewMinutes || Math.round(d.stitchCount / 700)} min</span>
-        <a href="#/design/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
+        <h3>${esc(d.name)}</h3>
         <p class="sum">${esc((d.summary || '').slice(0, 92))}${(d.summary || '').length > 92 ? '…' : ''}</p>
         <div class="price"><b>${money(d.price)}</b><span class="per">per format</span>${d.mrp > d.price ? `<s>${money(d.mrp)}</s>` : ''}</div>
         ${opts.noBuy ? '' : `<div class="buyrow">
           <button class="btn btn-primary btn-sm" data-buy="${d.id}">Buy · ${money(d.price)}</button>
           <button class="btn btn-ghost btn-sm" data-add="${d.id}">+ Bag</button>
         </div>`}
-      </div>
+      ${opts.noBuy ? '</a>' : '</div>'}
     </article>`;
   }
 
@@ -291,8 +292,12 @@
   }
 
   /* ------------------------------------------------------------------ views */
+  const HOME_BATCH = 8;
+  let HOME_LIST = [];
+
   async function viewHome() {
     const all = await api('/api/designs?' + qs({ sort: 'newest' }));
+    HOME_LIST = all.designs;
     const fmtCount = Math.max(5, ...all.designs.map(d => (d.formats || []).length), 0);
     return `<div class="hero"><div class="wrap hero-in solo">
       <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
@@ -310,8 +315,10 @@
           <p>Each one is digitised with an underlay, a tested pull compensation and a colour sequence you can follow without guessing.</p></div>
         <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
       </div>
-      <div class="pgrid two">${all.designs.slice(0, 8).map(d => designCard(d, { noBuy: true })).join('')}</div>
-      <div class="center" style="padding:26px 0 58px"><a class="btn btn-primary" href="#/designs">See all ${all.designs.length} designs ${I.arrow}</a></div>
+      <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
+      <div id="homeSentinel" class="center" style="padding:30px 0 64px">
+        <span class="small muted">Loading more designs…</span>
+      </div>
     </div></section>`;
   }
 
@@ -539,14 +546,7 @@
             </div>`).join('')}
           </div>
         </div>`).join('')}</div>`
-      : `<div class="empty" style="margin:20px 0 62px">
-          <h3>No downloads yet</h3>
-          <p class="muted small">Your paid orders appear here automatically. Bought on another device?</p>
-          <form id="findForm" class="row" style="justify-content:center;margin-top:12px;gap:8px;flex-wrap:wrap">
-            <input class="input mono" name="code" placeholder="SDY-XXXXXX" style="max-width:220px">
-            <button class="btn btn-primary btn-sm">Find my order</button>
-          </form>
-        </div>`}
+      : `<p class="muted small" style="padding:14px 0 70px">No downloads yet — paid orders appear here automatically, and the ZIP saves itself the moment payment is confirmed.</p>`}
     </div>`;
   }
 
@@ -729,6 +729,26 @@
     }).join('')}</div>`;
   };
 
+  const AUTO_SAVED = new Set();
+
+  /* the browser drops the ZIP straight into the Downloads folder — no second tap */
+  function autoSave(order) {
+    const first = (order.downloads || [])[0];
+    if (!first || !first.url) return;
+    const key = order.code + '|' + first.fileName;
+    if (AUTO_SAVED.has(key)) return;
+    AUTO_SAVED.add(key);
+    setTimeout(() => {
+      const a = document.createElement('a');
+      a.href = first.url;
+      a.download = first.fileName;
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }, 350);
+  }
+
   function mountPay(o, step) {
     const root = $('#payRoot');
     if (!root) return;
@@ -898,8 +918,11 @@
           LS.removeItem('sd_paid_' + o.code);
           if (res.autoConfirmed) {
             Store.cart = []; Store.coupon = null; Store.save();
-            toast('Payment confirmed — your files are downloading', 'ok');
-            mountPay({ ...o, ...res.order, status: 'paid' });
+            ['#cartDot', '#tabDot'].forEach(sel => { const el = $(sel); if (el) el.textContent = '0'; });
+            toast('Payment confirmed — saving your ZIP to Downloads', 'ok');
+            const paid = { ...o, ...res.order, status: 'paid' };
+            mountPay(paid, 3);
+            autoSave(paid);
           } else {
             toast(res.message || 'Screenshot received', 'ok');
             mountPay({ ...o, status: 'submitted' });
@@ -914,6 +937,7 @@
   /* ------------------------------------------------------------ paid view */
   function paidHTML(o) {
     const links = o.downloads || [];
+    if (o.status === 'paid') autoSave(o);
     return `<div class="panel" style="max-width:700px;margin:0 auto">
       <div class="ok-hero">
         <div class="ok-mark">${I.check}</div>
@@ -1174,8 +1198,32 @@
       $('#mClose').onclick = () => m.classList.remove('on');
       m.querySelectorAll('a').forEach(a => a.onclick = () => m.classList.remove('on'));
     };
-    // save / wishlist
-    $$('[data-fav]').forEach(b => b.onclick = e => {
+    wireFavDelegation();
+    wirePage();
+
+    const loadMore = $('#loadMore');
+    if (loadMore) loadMore.onclick = () => {
+      const { params } = parseHash();
+      go('#/designs?' + qs({ ...params, show: Number(params.show || PAGE) + PAGE }));
+    };
+
+    const sortSel = $('#sortSel');
+    if (sortSel) sortSel.onchange = () => { const { params } = parseHash(); go('#/designs?' + qs({ ...params, sort: sortSel.value })); };
+    const ff = $('#findForm');
+    if (ff) ff.onsubmit = e => {
+      e.preventDefault();
+      const code = new FormData(ff).get('code').trim().toUpperCase();
+      if (code) go('#/pay/' + encodeURIComponent(code));
+    };
+  }
+
+  /* one delegated handler for every heart, including cards added by infinite scroll */
+  function wireFavDelegation() {
+    if (window.__favBound) return;
+    window.__favBound = true;
+    document.addEventListener('click', e => {
+      const b = e.target.closest && e.target.closest('[data-fav]');
+      if (!b) return;
       e.preventDefault(); e.stopPropagation();
       const id = Number(b.dataset.fav);
       const on = Store.toggleWish(id);
@@ -1184,6 +1232,10 @@
       toast(on ? 'Saved to your list' : 'Removed from saved', on ? 'ok' : '');
       if (parseHash().parts[0] === 'saved') render();
     });
+  }
+
+  function wirePage() {
+
     const saveBtn = $('#saveBtn');
     if (saveBtn) saveBtn.onclick = () => {
       const d = Store.designs.find(x => x.slug === parseHash().parts[1]);
@@ -1295,6 +1347,36 @@
       $$('.filter-chip.extra').forEach(c => c.classList.remove('hide'));
       chipsMore.remove();
     };
+
+    // infinite scroll: the next batch lands as the sentinel comes into view
+    const sentinel = $('#homeSentinel');
+    if (sentinel && HOME_LIST.length) {
+      let shown = HOME_BATCH;
+      let busy = false;
+      const grid = $('#homeGrid');
+      const loadBatch = () => {
+        if (busy || shown >= HOME_LIST.length) {
+          if (shown >= HOME_LIST.length) sentinel.innerHTML = `<a class="btn btn-ghost btn-sm" href="#/designs">See all ${HOME_LIST.length} designs ${I.arrow}</a>`;
+          return;
+        }
+        busy = true;
+        const next = HOME_LIST.slice(shown, shown + HOME_BATCH);
+        grid.insertAdjacentHTML('beforeend', next.map(d => designCard(d, { noBuy: true })).join(''));
+        shown += next.length;
+        busy = false;
+        if (shown >= HOME_LIST.length) sentinel.innerHTML = `<a class="btn btn-ghost btn-sm" href="#/designs">See all ${HOME_LIST.length} designs ${I.arrow}</a>`;
+      };
+      if ('IntersectionObserver' in window) {
+        if (window.__homeIO) window.__homeIO.disconnect();
+        const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) loadBatch(); }, { rootMargin: '500px 0px' });
+        io.observe(sentinel);
+        window.__homeIO = io;
+      } else {
+        window.addEventListener('scroll', () => {
+          if (window.innerHeight + window.scrollY > document.body.offsetHeight - 700) loadBatch();
+        }, { passive: true });
+      }
+    }
 
     const loadMore = $('#loadMore');
     if (loadMore) loadMore.onclick = () => {

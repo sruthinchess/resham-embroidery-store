@@ -81,7 +81,17 @@ const META = {
   'shanku-chakra': { featured: 0, badge: 'New', tags: ['devotional', 'symbol', 'jersey'] },
   'trishul-outline': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'border'] },
   'trishul-shiv': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'jersey'] },
-  'vaishnava-trio': { featured: 1, badge: 'New', tags: ['devotional', 'vaishnava', 'hoop'] }
+  'vaishnava-trio': { featured: 1, badge: 'New', tags: ['devotional', 'vaishnava', 'hoop'] },
+  'adidas-trefoil': { featured: 0, badge: 'New', tags: ['logo', 'sport', 'jersey'] },
+  'dollar-at': { featured: 0, badge: 'New', tags: ['logo', 'street', 'jersey'] },
+  'ganesha-flame': { featured: 1, badge: 'New', tags: ['devotional', 'ganesha', 'hoop'] },
+  'ganesha-monogram': { featured: 0, badge: 'New', tags: ['devotional', 'ganesha', 'cushion'] },
+  'gap-letters': { featured: 0, badge: 'New', tags: ['logo', 'wordmark', 'jersey'] },
+  'maa-heart': { featured: 1, badge: 'New', tags: ['devotional', 'maa', 'hoop'] },
+  'pinwheel-burst': { featured: 0, badge: 'New', tags: ['geometric', 'pinwheel', 'kids'] },
+  'ram-sita': { featured: 1, badge: 'New', tags: ['devotional', 'ram', 'hoop'] },
+  'shiv-triskel': { featured: 0, badge: 'New', tags: ['devotional', 'shiv', 'jersey'] },
+  'trishul-damaru': { featured: 0, badge: 'New', tags: ['devotional', 'trishul', 'border'] }
 };
 
 const COPY = {
