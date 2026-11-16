@@ -1,21 +1,21 @@
 {
-  "name": "resham-embroidery-store",
+  "name": "resham-atelier-designs",
   "version": "1.0.0",
   "private": true,
-  "description": "Resham & Co. \u2014 full-stack hand-embroidery store with admin panel",
+  "description": "Resham Atelier — machine embroidery designs with format selection and UPI checkout",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
     "seed": "node src/seed.js",
     "reset": "node src/seed.js --force",
-    "vercel-build": "echo \"static + serverless function \u2014 nothing to build\""
+    "build": "python3 build-preview.py",
+    "vercel-build": "echo \"static + serverless function — nothing to build\""
   },
-  "engines": {
-    "node": "22.x"
-  },
+  "engines": { "node": "22.x" },
   "dependencies": {
     "better-sqlite3": "^12.11.1",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "qrcode-generator": "^1.4.4"
   }
 }

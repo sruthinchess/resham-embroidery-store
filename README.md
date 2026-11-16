@@ -1,15 +1,14 @@
-# Resham & Co. — Full-Stack Embroidery Store
+# Resham Atelier — embroidery designs, sold as files
 
-A complete online store for hand-embroidered clothing and home linen, with a
-premium checkout and a password-protected admin panel. Storefront and admin are
-one dependency-light Node app: **Express + SQLite (better-sqlite3) + vanilla JS SPA**.
-
-**Live demo (static build, no server needed):**
-<https://sruthinchess.github.io/resham-embroidery-store/>
+A store for **machine embroidery designs**. Buyers pick the machine format they
+need (DST, EXP, SVG, PNG, PDF), pay by UPI, upload the payment screenshot, and
+the ZIP is generated on the fly and downloads itself — containing exactly the
+formats they chose.
 
 ```
-Storefront   →  http://localhost:3000
-Admin panel  →  http://localhost:3000/#/admin      password: 252525
+Storefront  →  http://localhost:3000
+Admin       →  http://localhost:3000/#/admin      password: 252525
+UPI ID      →  6301928345@fam  (change in Admin → Settings)
 ```
 
 ---
@@ -17,220 +16,158 @@ Admin panel  →  http://localhost:3000/#/admin      password: 252525
 ## Quick start
 
 ```bash
-git clone https://github.com/sruthinchess/resham-embroidery-store.git
-cd resham-embroidery-store
-npm install          # express + better-sqlite3
-npm start            # seeds the catalogue on first run, then serves on :3000
+npm install
+npm start            # seeds 8 designs, serves on :3000
 ```
-
-The database file is created at `data/resham.db` and seeded with 16 products,
-9 categories, 3 coupons and a few reviews, so the store is browsable immediately.
 
 ```bash
-npm run dev          # same, with --watch reload
-npm run reset        # wipe catalogue + orders and re-seed from src/data/seed.json
-PORT=8080 npm start  # run on another port
+npm run reset        # wipe designs + orders and re-seed
+npm run build        # rebuild the single-file static bundle (docs/index.html)
+PORT=8080 npm start
 ```
-
-**Admin password: `252525`** — change it in Admin → Settings → Admin password
-(stored as a scrypt hash, never in plain text).
 
 ---
 
-## What's included
+## The formats are real files, not placeholders
 
-### Storefront
-- **Home** — editorial hero with a stitched mandala, craft-cluster marquee,
-  category tiles, featured pieces, why-us strip, top-rated shelf, testimonials,
-  newsletter.
-- **Shop** — category filters, search, six sort orders, out-of-stock handling.
-- **Product page** — three motif variants, size & colour pickers, quantity
-  stepper, wishlist, related products, care/shipping accordions, reviews with a
-  moderated review form.
-- **Bag** — slide-over drawer plus a full cart page, quantity edits, coupon
-  field, free-shipping progress.
-- **Account** — register, sign in, profile, order history, wishlist.
-- **Order confirmation & tracking** — order code (`RSM-XXXXX`), 4-step timeline,
-  cancellation while the order is still `placed`/`packed`.
+Every download is generated at request time by `src/embroidery.js`:
 
-### Payment studio (checkout)
-A two-step checkout — delivery, then a dedicated payment surface:
+| Format | What it is |
+|---|---|
+| **DST** | Tajima binary — 512-byte ASCII header + 3-byte records (jump, colour change, end), y-axis flipped as the format requires |
+| **EXP** | Melco binary — 2 bytes per stitch, `0x80`-prefixed jump/colour commands, long moves split into jump runs |
+| **SVG** | Vector stitch paths, one path per thread colour |
+| **PNG** | Rasterised stitch-out, drawn stitch by stitch |
+| **PDF** | Printable design sheet: stitch count, size, colour sequence, licence |
 
-- **Step rail** with hairlines and a gold fill animation (Bag → Delivery → Payment).
-- **Four method tiles** — UPI, Card, Net banking, Cash on delivery — each with
-  its own panel that swaps in place.
-- **Card panel** — a live 3-D card that tilts with the cursor, updates as you
-  type (number formatting, brand detection for Visa / Mastercard / RuPay / Amex)
-  and flips to the CVV side on focus. Client-side expiry and CVV validation.
-- **UPI panel** — app chips (GPay / PhonePe / Paytm / BHIM), UPI-ID validation
-  and a collect-request note showing the exact amount.
-- **Net banking** — bank chips with a selected state.
-- **COD** — fee-aware copy and a due-on-delivery total.
-- **Receipt** — a perforated receipt card on the right that recalculates
-  shipping, coupon, COD handling and the amount due as you switch methods.
-- Authorising state with a spinner, then the order is placed.
+Stitch data comes from a small geometry engine (`src/embroidery.js`) — each
+design is a motif (`petalRing`, `medallion`, `paisley`, `border`, `wreath`,
+`vine`, `dots`) sampled into 0.6 mm stitches, with satin fills where a digitizer
+would lay them. **The stitch count, size in mm and preview on the page are
+computed from the same stitches that go into the files**, so they always match.
 
-> Payments are **simulated** — nothing is charged. The receipt is stamped
-> "sandbox · no real money moves" so it is never mistaken for a live gateway.
-> The README section *Customising* says where to drop in Razorpay or Stripe.
-
-### Admin panel (`#/admin`)
-- **6-digit keypad login** (password `252525`) with a session token.
-- **Dashboard** — revenue, orders, AOV, customers, 14-day revenue chart, order
-  pipeline, top sellers, low stock, recent orders.
-- **Orders** — filter by status, open any order for address, payment, items and
-  the event timeline; advance status, cancel (returns stock), mark paid.
-- **Products** — create, edit, archive; price/MRP/stock, fabric, badge, colours,
-  sizes, description, embroidery motif and thread palette (the artwork
-  regenerates from motif + palette), featured flag, visibility.
-- **Customers** — registered accounts with order count and lifetime spend, plus
-  guest checkouts grouped by email.
-- **Reviews** — approve / hide / delete; approving recalculates the rating.
-- **Coupons** — percent or flat, minimum order, usage cap, pause.
-- **Settings** — store name, tagline, announcement, support details, free-shipping
-  threshold, shipping and COD fees, admin password change.
-
-### Under the hood
-- Server-side pricing, coupon and stock checks — the client cannot set a total.
-- scrypt password hashing, random session tokens, admin routes behind a separate
-  `x-admin-token` session.
-- Stock decremented on order, restored on cancellation; soft-deletes keep order
-  history intact.
-- No image assets: every product visual is a procedurally generated SVG
-  "stitched" motif (8 patterns × per-product thread palette).
-- Responsive to 390px; no external fonts, CDNs or trackers.
+Both binaries were verified against [pyembroidery](https://github.com/EmbroidePy/pyembroidery)
+as an independent reference: every record's absolute position reads back
+identical to the source, with the right colour changes and bounds.
 
 ---
 
-## Project structure
+## How checkout works
+
+1. **Design page** — stitch count, size, thread colours, and a format picker
+   (DST + EXP preselected; "select all" / "clear").
+2. **Checkout** — name and email only, no account.
+3. **UPI page** — a QR generated in the browser from
+   `upi://pay?pa=6301928345@fam&pn=…&am=749.00&cu=INR&tn=RSM-XXXXXX`, the UPI ID
+   with a copy button, and **four app buttons with their official logos**
+   (Google Pay, PhonePe, Paytm, BHIM) that deep-link into the app:
+
+   | App | Scheme |
+   |---|---|
+   | Google Pay | `tez://upi/pay?…` |
+   | PhonePe | `phonepe://pay?…` |
+   | Paytm | `paytmmp://pay?…` |
+   | BHIM | `upi://pay?…` (generic sheet) |
+
+   Each carries the amount and order code. If the app does not take over within
+   1.5 s the page falls back to the generic `upi://` sheet.
+4. **Screenshot upload** — drag-drop, PNG/JPG/WebP up to 8 MB, optional UTR.
+5. **Auto-confirm** — the order flips to paid and signed, expiring download
+   tokens are minted.
+6. **Download** — one ZIP per design, named
+   `MUGHAL-BLOOM-DST+PDF.zip`, triggered automatically.
+
+### The honest limits
+
+- **Auto-confirmation trusts the upload.** No bank or UPI API is called, so
+  nobody checks the money arrived — any image would pass. Admin → Settings has
+  an **auto-confirm switch**; turn it off and orders wait in `submitted` for you
+  to check the screenshot in Orders. For real verification, wire a
+  Razorpay/Cashfree webhook or the PSP's transaction-status API.
+- **The browser chooses the folder.** A page cannot write to an arbitrary path;
+  the file goes wherever downloads go (usually `~/Downloads`). Chrome may ask to
+  "allow multiple downloads" when an order has more than one design.
+- **Logos are trademarks** of their owners, embedded from Wikimedia Commons to
+  label payment methods. Replace them with your own licensed assets before
+  commercial use.
+
+---
+
+## Admin (`#/admin`, password `252525`)
+
+Dashboard (revenue, orders, AOV, downloads, 14-day chart, **which formats sell**,
+top designs), Orders (filter by status, view the payment screenshot at full size,
+confirm/reject), Designs (create/edit/hide — stitch count, size and preview are
+regenerated from the motif on save), Settings (UPI ID, payee name, link lifetime,
+announcement, auto-confirm, password).
+
+## Project layout
 
 ```
-embroidery-store/
-├── server.js                 Express app + full REST API
+├── server.js               API: designs, orders, proof upload, ZIP downloads
 ├── src/
-│   ├── db.js                 SQLite schema, password helpers
-│   ├── seed.js               idempotent seeder (npm run seed / --force)
-│   └── data/seed.json        catalogue: products, categories, coupons, reviews
+│   ├── embroidery.js       geometry engine + DST/EXP/SVG/PNG/PDF/ZIP writers
+│   ├── db.js               SQLite schema (designs, orders, download_tokens)
+│   ├── seed.js             seeds settings + catalogue, computes real geometry
+│   └── data/designs.json   the catalogue (8 designs)
 ├── public/
-│   ├── index.html            app shell
-│   ├── styles.css            design system (storefront + admin)
-│   ├── app.js                storefront SPA, hash router, SVG art engine
-│   ├── admin.js              admin panel
-│   └── demo-backend.js       offline fallback used by the static build
-├── docs/index.html           static build served by GitHub Pages
-└── data/resham.db            created on first run (git-ignored)
+│   ├── app.js              storefront, format picker, UPI page, auto-download
+│   ├── admin.js            admin panel
+│   ├── demo-backend.js     offline fallback (browser ZIP writer)
+│   ├── upi-logos.js        embedded official app marks
+│   ├── vendor/qrcode.js    QR encoder (MIT, Kazuhiko Arase)
+│   └── styles.css          design system
+├── tools/build-assets.js   builds catalogue + per-format files for the static build
+├── api/index.js            Vercel function entry
+├── vercel.json             rewrites + bundled files
+└── docs/index.html         single-file build (GitHub Pages)
 ```
 
-## API reference
+## API
 
 | Method | Route | Notes |
 |---|---|---|
-| GET | `/api/health` | liveness |
-| GET | `/api/settings` | public store settings |
-| GET | `/api/categories` | with product counts |
-| GET | `/api/products` | `?category=&q=&sort=&featured=1&page=&limit=` |
-| GET | `/api/products/:slugOrId` | product + related + approved reviews |
-| POST | `/api/products/:id/reviews` | rating 1–5, queued as `pending` |
-| POST | `/api/auth/register` \| `/api/auth/login` | returns `{token, user}` |
-| GET | `/api/auth/me` · POST `/api/auth/logout` | bearer token |
-| POST | `/api/coupons/validate` | `{code, subtotal}` |
-| POST | `/api/orders` | guest or signed-in; server recomputes totals |
-| GET | `/api/orders/mine` | signed-in order history |
-| GET | `/api/orders/track/:code` | public tracking |
-| POST | `/api/orders/:code/cancel` | only while placed/packed |
+| GET | `/api/settings` · `/api/formats` | public config |
+| GET | `/api/designs` | `?q=&tag=&sort=&featured=1` |
+| GET | `/api/designs/:slugOrId` | design + related |
+| POST | `/api/orders` | `{items:[{slug, formats[]}], name, email}` |
+| GET | `/api/orders/:code` | status + links when paid |
+| POST | `/api/orders/:code/proof` | `{screenshot: dataURL, ref}` |
+| POST | `/api/orders/:code/links` | fresh links |
+| GET | `/api/download/:token` | generates and streams the ZIP |
 | POST | `/api/admin/login` | `{password}` → admin token |
 | GET | `/api/admin/stats` | dashboard aggregates |
-| GET/POST/PUT/DELETE | `/api/admin/products[/:id]` | catalogue CRUD |
-| GET/PATCH | `/api/admin/orders[/:id]` | list, filter, status, payment |
-| GET | `/api/admin/customers` | accounts + guests |
-| GET/PATCH/DELETE | `/api/admin/reviews[/:id]` | moderation |
-| GET/POST/PUT/DELETE | `/api/admin/coupons[/:id]` | coupon CRUD |
-| GET/PUT | `/api/admin/settings` | store settings |
-| POST | `/api/admin/password` | `{current, next}` |
+| GET/PATCH | `/api/admin/orders[/:id]` | list / change status |
+| GET | `/api/admin/screenshot/:code` | payment proof (admin only) |
+| GET/POST/PUT/DELETE | `/api/admin/designs[/:id]` | design CRUD |
+| GET/PUT | `/api/admin/settings` · POST `/api/admin/password` | config |
 
-Admin routes need the header `x-admin-token: <token>`.
-
-## Database
-
-`settings · categories · products · users · sessions · reviews · coupons ·
-orders · order_events`
-
-Orders store a JSON snapshot of their line items, so a later price change never
-rewrites history. `order_events` is the append-only timeline shown to customers
-and staff.
-
-## Customising
-
-- **Brand palette** — `:root` at the top of `public/styles.css` (`--maroon`,
-  `--gold`, `--cream`, `--ink` …).
-- **Catalogue** — edit `src/data/seed.json` then `npm run reset`, or use the
-  admin panel.
-- **New embroidery motifs** — add a branch to `art()` in `public/app.js` and list
-  it in the motif dropdown in `public/admin.js`.
-- **Real payments** — checkout is simulated. Replace the `POST /api/orders`
-  handler body with a gateway call (Razorpay/Stripe), return the gateway order id
-  and set `payment_status` from the webhook.
-
-## Deploying the Node app
+## Deploying
 
 ### Vercel (serverless)
 
-The repo ships a function entrypoint (`api/index.js`) and `vercel.json`, so it deploys as-is:
+The repo ships `api/index.js` and `vercel.json` — import the repo, framework
+preset *Other*, deploy. No environment variables needed.
 
-1. **vercel.com → Add New → Project → import this repo.** Framework preset: *Other*.
-2. Leave the build settings alone — `vercel-build` is a no-op and the API is a single function.
-3. Deploy. No environment variables are needed to boot.
+Two things to know: Vercel's filesystem is read-only apart from `/tmp`, so the app
+detects `VERCEL` and puts the SQLite file and screenshots in `/tmp` — data
+survives while an instance is warm and is lost when it recycles. Downloads are
+generated on the fly, so product files need no storage at all. For real orders,
+host where there is a disk (Render, Railway, Fly, a VPS) and set
+`DATA_DIR=/var/data`.
 
-`vercel.json` rewrites every path to the function and includes `public/` in the
-bundle, so the SPA, the API and the product files are all served by that one function.
-
-**Two things to know before you rely on it:**
-
-- **Storage is ephemeral.** Vercel's filesystem is read-only apart from `/tmp`, so the app
-  detects `VERCEL` and puts the database in `/tmp`. Data survives while an instance is
-  warm and disappears when it recycles — fine for a demo, not for real orders.
-- **Node 22 is pinned** in `engines` and `better-sqlite3` is `^12.11.1`, which ships a prebuilt
-  binary for every Node from 22 to 26. Older pins compile from source and fail on Node 26 with
-  `v8::Object has no member named 'GetPrototype'`.
-
-**For real use**, host the app where it has a disk — Render, Railway, Fly.io or a VPS — and
-point `DATA_DIR` at a persistent volume:
-
-```bash
-DATA_DIR=/var/data npm start
-```
-
-Or swap SQLite for Postgres/Neon/Supabase: the queries all live in `server.js` and `src/db.js`,
-so only those two files change.
-
-## Static build & deployment
-
-`docs/index.html` is a single-file build of the same UI with the API swapped for
-an in-browser demo backend (localStorage) — that is what GitHub Pages serves, so
-the store and the admin panel are clickable without any server. Data resets from
-Admin → Settings → Danger zone.
-
-Regenerate it after changing the storefront:
-
-```bash
-python3 build-preview.py     # writes Embroidery-Store-Preview.html + docs/index.html
-```
-
-The Node app itself needs a host that runs Node (Render, Railway, Fly.io, a VPS).
-`npm start` is the only command required; set `PORT` and keep `data/` on a
-persistent volume.
-
-## Security notes before going live
-
-- Serve over HTTPS and prefer `httpOnly` cookies over localStorage bearer tokens.
-- Add rate limiting on `/api/auth/login` and `/api/admin/login`.
-- Move the admin password to an environment variable and rotate it.
-- Back up `data/resham.db` (WAL mode: copy `.db`, `-wal` and `-shm`).
+Node is pinned to `22.x` and `better-sqlite3` to `^12.11.1`, which ships prebuilt
+binaries for Node 22–26 (older pins fail to compile on Node 26).
 
 ## Tests
 
-The API was exercised end to end (68 checks: catalogue, auth, coupons, order
-maths, stock, cancellation, admin CRUD, moderation, password rotation) and the
-UI with a headless DOM (128 checks across the live API and the static build:
-routing, cart, coupon, payment studio, order placement, tracking, admin login
-and every admin section).
+- **49 API checks** — catalogue, tag filter, order maths, format filtering,
+  proof upload, auto-confirm, ZIP contents, expired links (410), admin CRUD,
+  settings and password rotation.
+- **86 UI checks** — storefront, format picker (preselection, select-all, clear),
+  checkout, QR, four app buttons with logos, upload, auto-confirm, downloads,
+  admin — run against both the live API and the static build.
+- **15 browser checks** — the QR on the page screenshotted and decoded back to
+  the exact UPI link; all four app deep links inspected in the DOM; the ZIP
+  confirmed **on disk in the Downloads folder**, containing exactly the chosen
+  formats, and its DST parsed by pyembroidery (3,532 stitches, 12 colour changes).
