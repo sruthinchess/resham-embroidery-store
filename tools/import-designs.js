@@ -56,7 +56,16 @@ const META = {
   'peacock-folk-art': { featured: 0, badge: null, tags: ['peacock', 'folk', 'cushion'] },
   'red-black-folk': { featured: 0, badge: null, tags: ['folk', 'geometric', 'jersey'] },
   'seven-halftone': { featured: 0, badge: null, tags: ['wordmark', 'sport', 'jersey'] },
-  'soccer-flame-ball': { featured: 0, badge: null, tags: ['sport', 'football', 'jersey'] }
+  'soccer-flame-ball': { featured: 0, badge: null, tags: ['sport', 'football', 'jersey'] },
+  'adiyogi-portrait': { featured: 1, badge: 'New', tags: ['devotional', 'portrait', 'hoop'] },
+  'apple-mark': { featured: 0, badge: 'New', tags: ['wordmark', 'logo', 'jersey'] },
+  'autumn-wreath': { featured: 1, badge: 'New', tags: ['floral', 'wreath', 'home'] },
+  'bmw-roundel': { featured: 0, badge: 'New', tags: ['logo', 'motorsport', 'jersey'] },
+  'durga-eyes': { featured: 1, badge: 'New', tags: ['devotional', 'durga', 'hoop'] },
+  'geo-peacock': { featured: 0, badge: 'New', tags: ['peacock', 'geometric', 'cushion'] },
+  'green-parrot': { featured: 0, badge: 'New', tags: ['bird', 'parrot', 'kids'] },
+  'magenta-pinwheel': { featured: 0, badge: 'New', tags: ['geometric', 'pinwheel', 'kids'] },
+  'panda-wave': { featured: 1, badge: 'New', tags: ['animal', 'kids', 'jersey'] }
 };
 
 const COPY = {

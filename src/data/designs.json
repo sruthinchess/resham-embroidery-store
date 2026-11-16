@@ -2532,6 +2532,774 @@
         "jef",
         "exp"
       ]
+    },
+    {
+      "slug": "adiyogi-portrait",
+      "name": "Adiyogi Portrait",
+      "source": "pack",
+      "dir": "src/designs/adiyogi-portrait",
+      "previewImg": "img/adiyogi-portrait.png",
+      "stitchImg": "img/adiyogi-portrait-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "portrait",
+        "hoop"
+      ],
+      "sewMinutes": 5,
+      "summary": "Adiyogi portrait with rudraksha beads, gold earrings and calligraphic lettering.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3614,
+      "widthMm": 81.3,
+      "heightMm": 90,
+      "colorCount": 4,
+      "trims": 51,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#644530",
+          "stitches": 450
+        },
+        {
+          "name": "",
+          "hex": "#c79e6e",
+          "stitches": 24
+        },
+        {
+          "name": "",
+          "hex": "#d2181c",
+          "stitches": 19
+        },
+        {
+          "name": "",
+          "hex": "#060505",
+          "stitches": 3121
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Adiyogi-Portrait.pes",
+          "bytes": 25257
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Adiyogi-Portrait.dst",
+          "bytes": 12026
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Adiyogi-Portrait.jef",
+          "bytes": 7850
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Adiyogi-Portrait.exp",
+          "bytes": 7896
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Adiyogi-Portrait.vp3",
+          "bytes": 7986
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "apple-mark",
+      "name": "Apple Mark",
+      "source": "pack",
+      "dir": "src/designs/apple-mark",
+      "previewImg": "img/apple-mark.png",
+      "stitchImg": "img/apple-mark-stitch.png",
+      "price": 200,
+      "mrp": 340,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "wordmark",
+        "logo",
+        "jersey"
+      ],
+      "sewMinutes": 4,
+      "summary": "Apple logo silhouette with leaf.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 3066,
+      "widthMm": 75.4,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 4,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#020202",
+          "stitches": 3066
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Apple-Mark.pes",
+          "bytes": 19864
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Apple-Mark.dst",
+          "bytes": 9788
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Apple-Mark.jef",
+          "bytes": 6334
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Apple-Mark.exp",
+          "bytes": 6216
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Apple-Mark.vp3",
+          "bytes": 6508
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "autumn-wreath",
+      "name": "Autumn Wreath",
+      "source": "pack",
+      "dir": "src/designs/autumn-wreath",
+      "previewImg": "img/autumn-wreath.png",
+      "stitchImg": "img/autumn-wreath-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "floral",
+        "wreath",
+        "home"
+      ],
+      "sewMinutes": 6,
+      "summary": "Circular wreath of brown and orange blooms with blue leaves.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4041,
+      "widthMm": 88.5,
+      "heightMm": 90,
+      "colorCount": 5,
+      "trims": 105,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#5e3912",
+          "stitches": 1660
+        },
+        {
+          "name": "",
+          "hex": "#dd3f09",
+          "stitches": 385
+        },
+        {
+          "name": "",
+          "hex": "#fafb37",
+          "stitches": 503
+        },
+        {
+          "name": "",
+          "hex": "#98999a",
+          "stitches": 0
+        },
+        {
+          "name": "",
+          "hex": "#082caf",
+          "stitches": 1493
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Autumn-Wreath.pes",
+          "bytes": 29562
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Autumn-Wreath.dst",
+          "bytes": 14003
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Autumn-Wreath.jef",
+          "bytes": 9208
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Autumn-Wreath.exp",
+          "bytes": 9462
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Autumn-Wreath.vp3",
+          "bytes": 9152
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "bmw-roundel",
+      "name": "BMW Roundel",
+      "source": "pack",
+      "dir": "src/designs/bmw-roundel",
+      "previewImg": "img/bmw-roundel.png",
+      "stitchImg": "img/bmw-roundel-stitch.png",
+      "price": 350,
+      "mrp": 595,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "logo",
+        "motorsport",
+        "jersey"
+      ],
+      "sewMinutes": 9,
+      "summary": "BMW roundel with blue and white quadrants.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 6372,
+      "widthMm": 90,
+      "heightMm": 89.4,
+      "colorCount": 3,
+      "trims": 99,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f7f9f9",
+          "stitches": 2460
+        },
+        {
+          "name": "",
+          "hex": "#177db6",
+          "stitches": 822
+        },
+        {
+          "name": "",
+          "hex": "#080305",
+          "stitches": 3090
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "BMW-Roundel.pes",
+          "bytes": 42886
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "BMW-Roundel.dst",
+          "bytes": 21527
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "BMW-Roundel.jef",
+          "bytes": 14578
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "BMW-Roundel.exp",
+          "bytes": 14824
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "BMW-Roundel.vp3",
+          "bytes": 13940
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "durga-eyes",
+      "name": "Durga Eyes",
+      "source": "pack",
+      "dir": "src/designs/durga-eyes",
+      "previewImg": "img/durga-eyes.png",
+      "stitchImg": "img/durga-eyes-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "devotional",
+        "durga",
+        "hoop"
+      ],
+      "sewMinutes": 3,
+      "summary": "Durga face with trishul, third eye and nose ring.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2107,
+      "widthMm": 83.6,
+      "heightMm": 90,
+      "colorCount": 4,
+      "trims": 36,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#858484",
+          "stitches": 123
+        },
+        {
+          "name": "",
+          "hex": "#464646",
+          "stitches": 45
+        },
+        {
+          "name": "",
+          "hex": "#e90f11",
+          "stitches": 22
+        },
+        {
+          "name": "",
+          "hex": "#080808",
+          "stitches": 1917
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Durga-Eyes.pes",
+          "bytes": 15795
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Durga-Eyes.dst",
+          "bytes": 7313
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Durga-Eyes.jef",
+          "bytes": 4732
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Durga-Eyes.exp",
+          "bytes": 4718
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Durga-Eyes.vp3",
+          "bytes": 4966
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "geo-peacock",
+      "name": "Geo Peacock",
+      "source": "pack",
+      "dir": "src/designs/geo-peacock",
+      "previewImg": "img/geo-peacock.png",
+      "stitchImg": "img/geo-peacock-stitch.png",
+      "price": 250,
+      "mrp": 425,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "peacock",
+        "geometric",
+        "cushion"
+      ],
+      "sewMinutes": 6,
+      "summary": "Geometric stencil peacock in solid black.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 4347,
+      "widthMm": 90,
+      "heightMm": 87.5,
+      "colorCount": 1,
+      "trims": 79,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#101010",
+          "stitches": 4347
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Geo-Peacock.pes",
+          "bytes": 29650
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Geo-Peacock.dst",
+          "bytes": 14528
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Geo-Peacock.jef",
+          "bytes": 9484
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Geo-Peacock.exp",
+          "bytes": 9666
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Geo-Peacock.vp3",
+          "bytes": 9442
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "green-parrot",
+      "name": "Green Parrot",
+      "source": "pack",
+      "dir": "src/designs/green-parrot",
+      "previewImg": "img/green-parrot.png",
+      "stitchImg": "img/green-parrot-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "bird",
+        "parrot",
+        "kids"
+      ],
+      "sewMinutes": 4,
+      "summary": "Green parrot in flight, two tone wings.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2948,
+      "widthMm": 66.5,
+      "heightMm": 90,
+      "colorCount": 2,
+      "trims": 37,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#48a349",
+          "stitches": 1247
+        },
+        {
+          "name": "",
+          "hex": "#0d3921",
+          "stitches": 1701
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Green-Parrot.pes",
+          "bytes": 20343
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Green-Parrot.dst",
+          "bytes": 9770
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Green-Parrot.jef",
+          "bytes": 6290
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Green-Parrot.exp",
+          "bytes": 6296
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Green-Parrot.vp3",
+          "bytes": 6458
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "magenta-pinwheel",
+      "name": "Magenta Pinwheel",
+      "source": "pack",
+      "dir": "src/designs/magenta-pinwheel",
+      "previewImg": "img/magenta-pinwheel.png",
+      "stitchImg": "img/magenta-pinwheel-stitch.png",
+      "price": 150,
+      "mrp": 255,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 0,
+      "tags": [
+        "geometric",
+        "pinwheel",
+        "kids"
+      ],
+      "sewMinutes": 4,
+      "summary": "Six petal pinwheel flower in magenta.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 2881,
+      "widthMm": 80.8,
+      "heightMm": 90,
+      "colorCount": 1,
+      "trims": 19,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#f22278",
+          "stitches": 2881
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Magenta-Pinwheel.pes",
+          "bytes": 19174
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Magenta-Pinwheel.dst",
+          "bytes": 9371
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Magenta-Pinwheel.jef",
+          "bytes": 6028
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Magenta-Pinwheel.exp",
+          "bytes": 5970
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Magenta-Pinwheel.vp3",
+          "bytes": 6180
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
+    },
+    {
+      "slug": "panda-wave",
+      "name": "Panda Wave",
+      "source": "pack",
+      "dir": "src/designs/panda-wave",
+      "previewImg": "img/panda-wave.png",
+      "stitchImg": "img/panda-wave-stitch.png",
+      "price": 300,
+      "mrp": 510,
+      "pricePer1k": 50,
+      "badge": "New",
+      "featured": 1,
+      "tags": [
+        "animal",
+        "kids",
+        "jersey"
+      ],
+      "sewMinutes": 7,
+      "summary": "Cheerful panda cub waving, with pink cheeks.",
+      "description": "",
+      "hoop": "4 × 4 in",
+      "stitchCount": 5162,
+      "widthMm": 71.5,
+      "heightMm": 90,
+      "colorCount": 3,
+      "trims": 117,
+      "threads": [
+        {
+          "name": "",
+          "hex": "#ffffff",
+          "stitches": 1587
+        },
+        {
+          "name": "",
+          "hex": "#e6c8c8",
+          "stitches": 1713
+        },
+        {
+          "name": "",
+          "hex": "#030202",
+          "stitches": 1862
+        }
+      ],
+      "formats": [
+        {
+          "key": "pes",
+          "label": "PES",
+          "note": "Brother / Babylock / Bernina",
+          "file": "Panda-Wave.pes",
+          "bytes": 36130
+        },
+        {
+          "key": "dst",
+          "label": "DST",
+          "note": "Tajima - commercial standard",
+          "file": "Panda-Wave.dst",
+          "bytes": 17423
+        },
+        {
+          "key": "jef",
+          "label": "JEF",
+          "note": "Janome",
+          "file": "Panda-Wave.jef",
+          "bytes": 11410
+        },
+        {
+          "key": "exp",
+          "label": "EXP",
+          "note": "Melco / Bernina",
+          "file": "Panda-Wave.exp",
+          "bytes": 11728
+        },
+        {
+          "key": "vp3",
+          "label": "VP3",
+          "note": "Pfaff · Husqvarna Viking",
+          "file": "Panda-Wave.vp3",
+          "bytes": 11382
+        }
+      ],
+      "defaultFormats": [
+        "pes",
+        "dst",
+        "jef",
+        "exp"
+      ]
     }
   ]
 }

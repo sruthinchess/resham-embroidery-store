@@ -378,7 +378,9 @@
       </div>
       <div class="shopbar">
         <a class="filter-chip ${!params.tag ? 'on' : ''}" href="#/designs">All</a>
-        ${data.tags.map(t => `<a class="filter-chip ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
+        ${data.tags.slice(0, 9).map(t => `<a class="filter-chip ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
+        ${data.tags.length > 9 ? `<button class="filter-chip more" id="chipsMore">+${data.tags.length - 9} more</button>` : ''}
+        ${data.tags.slice(9).map(t => `<a class="filter-chip extra hide ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
       </div>
       ${data.designs.length ? `<div class="pgrid" style="padding:26px 0 12px">${visible.map(designCard).join('')}</div>
         ${data.designs.length > visible.length ? `<div class="center" style="padding-bottom:52px">
@@ -1262,6 +1264,12 @@
         toast(`Bundle added — ${money(r.discount)} off with SET25`, 'ok');
       } catch (err) { toast('Bundle added to your bag', 'ok'); }
       go('#/cart');
+    };
+
+    const chipsMore = $('#chipsMore');
+    if (chipsMore) chipsMore.onclick = () => {
+      $$('.filter-chip.extra').forEach(c => c.classList.remove('hide'));
+      chipsMore.remove();
     };
 
     const loadMore = $('#loadMore');
