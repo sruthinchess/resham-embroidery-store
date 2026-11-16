@@ -213,9 +213,11 @@ app.post('/api/orders', (req, res) => {
     const allowed = jparse(row.formats, []).map(f => f.key);
     let formats = Array.isArray(raw.formats) ? raw.formats.filter(f => allowed.includes(f)) : [];
     if (!formats.length) formats = jparse(row.default_formats, []).length ? jparse(row.default_formats, []) : allowed.slice();
-    amount += row.price;
+    // one price per machine format — two formats cost twice as much
+    const linePrice = Math.round(row.price * formats.length * 100) / 100;
+    amount += linePrice;
     lines.push({
-      designId: row.id, slug: row.slug, name: row.name, price: row.price,
+      designId: row.id, slug: row.slug, name: row.name, price: linePrice, unitPrice: row.price,
       formats, stitchCount: row.stitch_count, hoop: row.hoop,
       preview: row.preview_img ? `/${row.preview_img}` : null
     });

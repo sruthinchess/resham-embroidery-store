@@ -195,7 +195,7 @@
         <span class="meta">${d.colorCount} colour${d.colorCount > 1 ? 's' : ''} · ${nf(d.stitchCount)} stitches · ${d.sewMinutes || Math.round(d.stitchCount / 700)} min</span>
         <a href="#/d/${esc(d.slug)}"><h3>${esc(d.name)}</h3></a>
         <p class="sum">${esc((d.summary || '').slice(0, 92))}${(d.summary || '').length > 92 ? '…' : ''}</p>
-        <div class="price"><b>${money(d.price)}</b>${d.mrp > d.price ? `<s>${money(d.mrp)}</s><span class="off">${d.discount}% off</span>` : ''}</div>
+        <div class="price"><b>${money(d.price)}</b><span class="per">per format</span>${d.mrp > d.price ? `<s>${money(d.mrp)}</s>` : ''}</div>
         <div class="buyrow">
           <button class="btn btn-primary btn-sm" data-buy="${d.id}">Buy · ${money(d.price)}</button>
           <button class="btn btn-ghost btn-sm" data-add="${d.id}">+ Bag</button>
@@ -269,36 +269,21 @@
     const stitches = all.designs.reduce((s, d) => s + d.stitchCount, 0);
     // how many formats this build actually serves (the static build carries the common ones)
     const fmtCount = Math.max(0, ...all.designs.map(d => (d.formats || []).length));
-    return `<div class="hero"><div class="wrap hero-in">
-      <div>
-        <span class="eyebrow">Digitised by hand · India</span>
-        <h1>Embroidery designs,<br>ready for <em>your machine</em>.</h1>
-        <p class="lede">Hand-digitised designs for commercial and home machines, in ${fmtCount} machine formats. Pick PES, DST, JEF, EXP or any of the others at checkout — you get exactly the files you choose, in one ZIP, the moment your UPI payment clears.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#/designs">Browse ${all.designs.length} designs ${I.arrow}</a>
-          <a class="btn btn-ghost" href="#/order">I already paid — get my files</a>
-        </div>
-        <div class="hero-stats">
-          <div><b>${all.designs.length} designs</b><span>in the library</span></div>
-          <div><b>${nf(stitches)}</b><span>stitches digitised</span></div>
-          <div><b>${fmtCount} formats</b><span>PES · DST · JEF · EXP · VP3</span></div>
-        </div>
+    return `<div class="hero"><div class="wrap hero-in solo">
+      <img class="hero-logo" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}">
+      <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
+      <h1>Embroidery designs,<br>ready for <em>your machine</em>.</h1>
+      <p class="lede">Hand-digitised designs for commercial and home machines, in ${fmtCount} machine formats. Pick the one your machine reads — PES, DST, JEF, EXP or VP3 — and the ZIP lands the moment your UPI payment clears.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#/designs">Browse ${all.designs.length} designs ${I.arrow}</a>
+        <a class="btn btn-ghost" href="#/downloads">My downloads</a>
       </div>
-      <div class="hero-art">
-        <div class="stitch-stage">${hero && hero.preview ? `<span class="shot"><img src="${esc(hero.preview)}" alt="${esc(hero.name)}"></span>` : ''}</div>
-        <div class="hero-tag t1">${I.needle}<div>Machine ready<small>DST &amp; EXP</small></div></div>
-        <div class="hero-tag t2">${I.zap}<div>Instant download<small>UPI · auto-confirmed</small></div></div>
+      <div class="hero-stats">
+        <div><b>${all.designs.length} designs</b><span>in the library</span></div>
+        <div><b>${nf(stitches)}</b><span>stitches digitised</span></div>
+        <div><b>${fmtCount} formats</b><span>PES · DST · JEF · EXP · VP3</span></div>
       </div>
     </div></div>
-
-    ${LS.getItem('sd_welcome_off') ? '' : `<div class="welcome">
-      <div class="wrap welcome-in">
-        <span class="w-tag">${I.tag} Welcome offer</span>
-        <p><b>10% off your first order</b> with code <span class="mono">WELCOME</span></p>
-        <button class="btn btn-gold btn-sm" id="welcomeApply">Apply WELCOME</button>
-        <button class="icon-btn w-close" id="welcomeClose" aria-label="Dismiss">✕</button>
-      </div>
-    </div>`}
 
     <div class="marq"><div class="marq-in">
       ${['PES · Brother', 'DST · Tajima', 'JEF · Janome', 'EXP · Melco', 'VP3 · Pfaff',
@@ -377,8 +362,8 @@
     if (!Store.designs.some(x => x.slug === g.slug)) Store.designs.push(g);
     Store.pushRecent(g.slug);
     const keys = (g.formats || []).map(f => f.key);
-    const chosen = (g.defaultFormats || []).filter(k => keys.includes(k));
-    const state = { formats: chosen.length ? chosen : keys.slice(0, 2) };
+    const chosen = (g.defaultFormats || []).filter(k => keys.includes(k)).slice(0, 1);
+    const state = { formats: chosen.length ? chosen : keys.slice(0, 1) };
 
     setTimeout(() => {
       const box = $('#fmtBox');
@@ -386,8 +371,15 @@
       const refresh = () => {
         $$('#fmtBox .fmt').forEach(b => b.classList.toggle('on', state.formats.includes(b.dataset.fmt)));
         const n = state.formats.length;
-        $('#fmtCount').textContent = n ? `${n} format${n > 1 ? 's' : ''} · ${n} file${n > 1 ? 's' : ''} in one ZIP` : 'Pick at least one format';
+        const total = g.price * Math.max(1, n);
+        $('#fmtCount').textContent = n ? `${n} format${n > 1 ? 's' : ''} · ${money(total)}` : 'Pick at least one format';
         $('#buyNow').disabled = !n;
+        $('#buyNow').innerHTML = n ? `Buy now · ${money(total)}` : 'Pick a format';
+        const pv = $('#pdpPrice'); if (pv) pv.textContent = money(total);
+        const pn = $('#pdpPriceNote');
+        if (pn) pn.textContent = n
+          ? `${money(g.price)} per format × ${n} format${n > 1 ? 's' : ''}${g.pricePerColour ? ` · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} × ${money(g.pricePerColour)}` : ''}`
+          : 'One price per format — pick at least one';
       };
       const showAll = $('#fmtMore');
       if (showAll) showAll.onclick = () => {
@@ -404,10 +396,13 @@
       refresh();
       const add = () => addToCart(g, state.formats);
       $('#addBag').onclick = add;
-      $('#buyNow').onclick = () => {
-        Store.cart = [{ id: g.id, slug: g.slug, name: g.name, price: g.price, preview: g.preview, formats: state.formats.slice() }];
+      const buy = () => {
+        if (!state.formats.length) return toast('Pick at least one format', 'bad');
+        Store.cart = [{ id: g.id, slug: g.slug, name: g.name, price: g.price * state.formats.length,
+          unitPrice: g.price, preview: g.preview, formats: state.formats.slice() }];
         Store.save(); location.hash = '#/checkout';
       };
+      $('#buyNow').onclick = buy;
       // gallery
       $$('.gthumb').forEach(b => b.onclick = () => {
         const main = $('#pdpMain');
@@ -425,10 +420,7 @@
       }
       if (bar) {
         $('#stickyAdd').onclick = () => { add(); };
-        $('#stickyBuy').onclick = () => {
-          Store.cart = [{ id: g.id, slug: g.slug, name: g.name, price: g.price, preview: g.preview, formats: state.formats.slice() }];
-          Store.save(); location.hash = '#/checkout';
-        };
+        $('#stickyBuy').onclick = buy;
       }
     }, 0);
 
@@ -446,9 +438,8 @@
           <span class="eyebrow">${esc(g.hoop)} hoop · ${g.colorCount} thread colours</span>
           <h1>${esc(g.name)}</h1>
           <p class="muted" style="font-size:15px">${esc(g.summary)}</p>
-          <div class="price-big"><b>${money(g.price)}</b>${g.mrp > g.price ? `<s>${money(g.mrp)}</s><span class="off">${g.discount}% off</span>` : ''}</div>
-          <p class="small muted" style="margin:0">
-            ${g.pricePerColour ? `${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} × ${money(g.pricePerColour)} = ${money(g.price)} · ` : ''}one-time payment · commercial licence · no subscription</p>
+          <div class="price-big"><b id="pdpPrice">${money(g.price)}</b>${g.mrp > g.price ? `<s>${money(g.mrp)}</s><span class="off">${g.discount}% off</span>` : ''}</div>
+          <p class="small muted" style="margin:0" id="pdpPriceNote">${money(g.price)} per format${g.pricePerColour ? ` · ${g.colorCount} colour${g.colorCount > 1 ? 's' : ''} × ${money(g.pricePerColour)}` : ''}</p>
 
           <div class="specs four">
             <div><span>Stitches</span><b>${nf(g.stitchCount)}</b></div>
@@ -947,8 +938,8 @@
   function addToCart(d, formats) {
     if (Store.cart.some(l => l.id === d.id)) { toast('Already in your bag'); return; }
     const keys = (d.formats || []).map(f => f.key);
-    const pick = (formats && formats.length ? formats : (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : keys.slice(0, 2)));
-    Store.cart.push({ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview, formats: pick });
+    const pick = (formats && formats.length ? formats : (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : keys.slice(0, 1)));
+    Store.cart.push({ id: d.id, slug: d.slug, name: d.name, price: d.price * pick.length, unitPrice: d.price, preview: d.preview, formats: pick });
     Store.save(); toast(`${d.name} added`, 'ok'); openDrawer();
   }
   window.addToCart = addToCart;
@@ -1199,8 +1190,8 @@
       e.preventDefault(); e.stopPropagation();
       const d = await findDesign(Number(b.dataset.buy));
       if (!d) return;
-      Store.cart = [{ id: d.id, slug: d.slug, name: d.name, price: d.price, preview: d.preview,
-        formats: (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : (d.formats || []).map(f => f.key).slice(0, 2)) }];
+      const one = (d.defaultFormats && d.defaultFormats.length ? d.defaultFormats : (d.formats || []).map(f => f.key)).slice(0, 1);
+      Store.cart = [{ id: d.id, slug: d.slug, name: d.name, price: d.price * one.length, unitPrice: d.price, preview: d.preview, formats: one }];
       Store.save(); location.hash = '#/checkout';
     });
     $$('[data-remove]').forEach(b => b.onclick = () => {

@@ -667,3 +667,18 @@ input, select, textarea { font: inherit; color: inherit; }
 /* my downloads */
 .dl-orders { display: grid; gap: 16px; padding-bottom: 60px; }
 .dl-order { padding: 18px; }
+
+/* brand-led hero: the logo leads, no artwork panel */
+.hero-in.solo { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; text-align: center; padding: 56px 0 64px; }
+.hero-logo { width: min(210px, 44vw); height: auto; margin: 0 auto 24px; display: block; filter: drop-shadow(0 18px 30px rgba(126, 43, 51, .12)); }
+.hero-in.solo .eyebrow { justify-content: center; }
+.hero-in.solo .lede { margin-left: auto; margin-right: auto; }
+.hero-in.solo .hero-cta { justify-content: center; }
+.hero-in.solo .hero-stats { grid-template-columns: repeat(3, 1fr); max-width: 620px; margin-left: auto; margin-right: auto; text-align: left; }
+.dcard .price .per { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mute); }
+@media (max-width: 680px) {
+  .hero-in.solo { padding: 38px 0 46px; }
+  .hero-logo { width: 150px; }
+  .hero-in.solo .hero-stats { grid-template-columns: 1fr; gap: 14px; text-align: center; }
+  .hero-in.solo .hero-stats > div { border-left: 0; padding-left: 0; }
+}

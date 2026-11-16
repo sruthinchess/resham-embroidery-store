@@ -203,8 +203,9 @@
       const allowed = (d.formats || []).map(f => f.key);
       let formats = Array.isArray(raw.formats) ? raw.formats.filter(f => allowed.includes(f)) : [];
       if (!formats.length) formats = (d.defaultFormats && d.defaultFormats.length) ? d.defaultFormats.slice() : allowed.slice();
-      amount += d.price;
-      lines.push({ designId: d.id, slug: d.slug, name: d.name, price: d.price, formats, stitchCount: d.stitchCount, hoop: d.hoop, preview: d.preview });
+      const linePrice = Math.round(d.price * formats.length * 100) / 100;
+      amount += linePrice;
+      lines.push({ designId: d.id, slug: d.slug, name: d.name, price: linePrice, unitPrice: d.price, formats, stitchCount: d.stitchCount, hoop: d.hoop, preview: d.preview });
     }
     const subtotal = Math.round(amount * 100) / 100;
     let discount = 0, couponCode = null;
