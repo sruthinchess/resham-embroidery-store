@@ -523,7 +523,12 @@
           <div><span class="eyebrow">The library</span><h2>All designs</h2></div>
           <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
         </div>
-        <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
+        ${all.designs.length ? '' : `<div class="panel" style="margin:20px 0;text-align:center">
+        <h2 style="margin:6px 0 8px">The store did not load</h2>
+        <p class="small muted">Check your connection — nothing in your bag is lost.</p>
+        <button class="btn btn-primary" id="retryRoute" style="margin-top:12px">Try again</button>
+      </div>`}
+      <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
         <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
       </div></section>`;
     }
@@ -548,6 +553,11 @@
         <input name="q" placeholder="Search designs — floral, peacock, jersey, kids…" autocomplete="off" aria-label="Search designs">
         <button class="btn btn-primary btn-sm" type="submit">Search</button>
       </form>
+      ${all.designs.length ? '' : `<div class="panel" style="margin:20px 0;text-align:center">
+        <h2 style="margin:6px 0 8px">The store did not load</h2>
+        <p class="small muted">Check your connection — nothing in your bag is lost.</p>
+        <button class="btn btn-primary" id="retryRoute" style="margin-top:12px">Try again</button>
+      </div>`}
       <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
       <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
     </div>`;
@@ -1884,13 +1894,35 @@
       else if (seg === 'order') { view = await viewOrderLookup({ ...params, code: parts[1] }); active = 'order'; }
       else view = `<div class="wrap"><div class="empty" style="margin:50px 0"><h3>Page not found</h3><a class="btn btn-primary" href="#/" style="margin-top:8px">Go home</a></div></div>`;
     } catch (e) {
-      view = `<div class="wrap"><div class="empty" style="margin:50px 0"><h3>Something went wrong</h3><p class="muted small">${esc(e.message)}</p><a class="btn btn-primary" href="#/" style="margin-top:8px">Back home</a></div></div>`;
+      // a missing order or a bad code is not a crash — say so plainly
+      const msg = String((e && e.message) || '');
+      const missing = /not found|no order|no membership|404|check the code/i.test(msg);
+      console.warn('[route]', seg, msg);
+      view = missing
+        ? `<div class="wrap narrow"><div class="panel" style="margin:34px 0 60px;text-align:center">
+            <h2 style="margin:6px 0 8px">We could not find that</h2>
+            <p class="small muted">${esc(msg)}</p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+              <a class="btn btn-primary" href="#/downloads">My downloads</a>
+              <a class="btn btn-ghost" href="#/designs">Browse designs</a>
+            </div>
+          </div></div>`
+        : `<div class="wrap narrow"><div class="panel" style="margin:34px 0 60px;text-align:center">
+            <h2 style="margin:6px 0 8px">That did not load</h2>
+            <p class="small muted">A connection hiccup, most likely. Your bag and orders are safe.</p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+              <button class="btn btn-primary" id="retryRoute">Try again</button>
+              <a class="btn btn-ghost" href="#/">Home</a>
+            </div>
+          </div></div>`;
     }
 
     app.innerHTML = header(active) + `<main class="page">${view}</main>` + footer() + tabbar(active);
     linkify(app);
     setMeta(active || 'home');
     progress(false);
+    const retry = $('#retryRoute');
+    if (retry) retry.onclick = () => render();
     closeDrawer();
     paintBadges();
     wireGlobal();
@@ -2276,7 +2308,10 @@
       Store.settings = { ...Store.settings, ...s.settings };
       Store.designs = p.designs; Store.tags = p.tags || [];
       Store.formats = f.formats || [];
-    } catch (e) { console.warn(e); }
+    } catch (e) {
+      console.warn('[boot] catalogue failed to load', e);
+      Store.offline = true;
+    }
 
     window.addEventListener('hashchange', render);
     window.addEventListener('popstate', render);
