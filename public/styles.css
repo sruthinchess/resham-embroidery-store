@@ -1375,3 +1375,12 @@ a.body h3 { margin: 0; }
 /* no collapsing cards: they caused a tall blank gap near the footer */
 .pgrid .dcard { content-visibility: visible; contain-intrinsic-size: auto; }
 #homeSentinel, #shopSentinel { min-height: 56px; }
+
+/* VIP badge */
+.vip-badge {
+  display: inline-block; margin-left: 8px; padding: 3px 8px; border-radius: 6px;
+  background: linear-gradient(180deg, #e8c98d, #c9a063); color: #241d12;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .14em; font-weight: 700;
+  vertical-align: middle;
+}
+@media (max-width: 900px) { .vip-badge { margin-left: 6px; font-size: 8px; padding: 2px 6px; } }

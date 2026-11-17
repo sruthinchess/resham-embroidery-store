@@ -303,10 +303,10 @@ app.post('/api/memberships/:code/proof', (req, res) => {
   const ext = m[1].toLowerCase().replace('jpeg', 'jpg');
   const saved = `${row.code}-${Date.now()}.${ext}`;
   fs.writeFileSync(path.join(UPLOAD_DIR, saved), buf);
-  db.prepare(`UPDATE memberships SET screenshot=?, status='submitted', upi_ref=?, note=? WHERE id=?`)
-    .run(saved, String((req.body || {}).ref || ''), 'Payment proof received', row.id);
+  db.prepare(`UPDATE memberships SET screenshot=?, status='active', upi_ref=?, note=?, activated_at=? WHERE id=?`)
+    .run(saved, String((req.body || {}).ref || ''), 'VIP activated on payment proof', nowISO(), row.id);
   ok(res, { membership: membershipOut(db.prepare('SELECT * FROM memberships WHERE id=?').get(row.id)),
-            message: 'Your payment proof has been submitted. The studio activates VIP within 24 hours.' });
+            message: 'VIP is active — member prices and the monthly pack are on your account.' });
 });
 
 app.get('/api/admin/memberships', requireAdmin, (req, res) => {

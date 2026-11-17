@@ -1388,6 +1388,15 @@ a.body h3 { margin: 0; }
 .pgrid .dcard { content-visibility: visible; contain-intrinsic-size: auto; }
 #homeSentinel, #shopSentinel { min-height: 56px; }
 
+/* VIP badge */
+.vip-badge {
+  display: inline-block; margin-left: 8px; padding: 3px 8px; border-radius: 6px;
+  background: linear-gradient(180deg, #e8c98d, #c9a063); color: #241d12;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .14em; font-weight: 700;
+  vertical-align: middle;
+}
+@media (max-width: 900px) { .vip-badge { margin-left: 6px; font-size: 8px; padding: 2px 6px; } }
+
 </style>
 </head>
 <body>
@@ -4328,6 +4337,24 @@ window.UPI_LOGOS = {
   }
 
   /** Deep-links into the chosen UPI app, falling back to the generic sheet. */
+  /* when the shopper taps an app we remember where they were, and the moment
+     they come back to the tab we take them straight to the upload step */
+  let PENDING_PAY = null;
+
+  function watchReturn(path, delay = 400) {
+    PENDING_PAY = path;
+    const onBack = () => {
+      if (document.visibilityState !== 'visible' || !PENDING_PAY) return;
+      const target = PENDING_PAY;
+      PENDING_PAY = null;
+      document.removeEventListener('visibilitychange', onBack);
+      window.removeEventListener('focus', onBack);
+      setTimeout(() => { if (!location.pathname.endsWith('/upload')) go(target); }, delay);
+    };
+    document.addEventListener('visibilitychange', onBack);
+    window.addEventListener('focus', onBack);
+  }
+
   function openUpiApp(app, upi) {
     const query = (upi.link || '').split('?')[1] || '';
     const deep = query ? `${app.scheme}?${query}` : app.scheme;
@@ -4421,7 +4448,7 @@ window.UPI_LOGOS = {
     return `<div class="announce ${XMAS_LIVE ? 'xmas' : ''}">${esc(note)}</div>
     <header class="hdr" id="hdr"><div class="wrap hdr-in">
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
-      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)}"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span></a>
+      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)}"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span>${vipBadge()}</a>
       <nav class="nav">
         <a href="#/" class="${a('home')}">Home</a>
         <a href="#/designs" class="${a('designs')}">Designs</a>
@@ -5310,7 +5337,9 @@ window.UPI_LOGOS = {
     const hint = $('#copyHint'); if (hint) hint.onclick = e => { e.preventDefault(); doCopy(); };
     $$('#upiApps .upi-app').forEach(b => b.onclick = () => {
       const app = UPI_APPS.find(a => a.id === b.dataset.app);
-      if (app) openUpiApp(app, upi);
+      if (!app) return;
+      watchReturn(`#/pay/${o.code}/upload`);
+      openUpiApp(app, upi);
     });
     const paidBtn = $('#paidBtn');
     if (paidBtn) paidBtn.onclick = () => {
@@ -5526,10 +5555,28 @@ window.UPI_LOGOS = {
     };
   }
 
-  async function viewVipPay(code) {
+  async function viewVipPay(code, step) {
     const r = await api('/api/memberships/' + encodeURIComponent(code));
     const v = r.membership;
+    if (step === 'upload' && v.status !== 'active' && v.status !== 'submitted') {
+      return `<div class="wrap narrow">
+        <div class="crumbs"><a href="#/">Home</a> / <a href="#/vip">VIP</a> / Upload</div>
+        <div class="panel" style="margin:20px 0 26px">
+          <h3>Upload the payment screenshot</h3>
+          <p class="sub">${esc(v.planName)} membership · <b class="mono">${esc(v.code)}</b> · ${money(v.amount)}</p>
+          <input type="file" id="vipProof" accept="image/png,image/jpeg,image/webp" style="display:none">
+          <div class="upload-zone" id="vipZone">
+            <b>Drop the screenshot here, or tap to choose</b>
+            <span class="small muted">PNG, JPG or WebP up to 8 MB</span>
+          </div>
+          <div id="vipPreview" style="margin-top:12px"></div>
+          <button class="btn btn-primary btn-block" id="vipSubmit" disabled style="margin-top:14px;height:52px">Submit payment proof</button>
+          <button class="btn btn-ghost btn-block" id="vipBack" style="margin-top:8px">Back to payment</button>
+        </div>
+      </div>`;
+    }
     const upi = v.upi || { id: Store.settings.upi_id, link: '' };
+    if (v.status === 'active') activateVipLocal(v);
     if (v.status === 'submitted' || v.status === 'active') {
       return `<div class="wrap narrow">
         <div class="crumbs"><a href="#/">Home</a> / <a href="#/vip">VIP</a> / ${esc(v.code)}</div>
@@ -5563,7 +5610,8 @@ window.UPI_LOGOS = {
               <div class="upi-row"><span>${esc(upi.id)}</span><button class="copy-btn" id="vipCopyUpi">Copy</button></div></div>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" id="vipPaid" style="margin-top:16px">I have paid — upload the screenshot ${I.arrow}</button>
+        <p class="pay-hint" style="margin-top:14px">${I.lock}<span>Tap an app above — when you come back here we will open the screenshot upload automatically. Scanning the QR on another device? Use the button below.</span></p>
+        <button class="btn btn-ghost btn-block" id="vipPaid" style="margin-top:10px">I have paid — upload the screenshot ${I.arrow}</button>
       </div>
     </div>`;
   }
@@ -5572,7 +5620,9 @@ window.UPI_LOGOS = {
     const upi = v.upi || { id: Store.settings.upi_id, link: '' };
     $$('#vipApps .upi-app').forEach(b => b.onclick = () => {
       const app = UPI_APPS.find(a => a.id === b.dataset.app);
-      if (app) openUpiApp(app, upi);
+      if (!app) return;
+      watchReturn(`#/vip/pay/${v.code}/upload`);
+      openUpiApp(app, upi);
     });
     const copy = $('#vipCopyUpi');
     if (copy) copy.onclick = async () => {
@@ -5580,7 +5630,59 @@ window.UPI_LOGOS = {
       catch { toast('Copy failed — select the ID manually', 'bad'); }
     };
     const paid = $('#vipPaid');
-    if (paid) paid.onclick = () => openVipProof(v);
+    if (paid) paid.onclick = () => go('#/vip/pay/' + v.code + '/upload');
+  }
+
+  function wireVipUpload(v) {
+    const input = $('#vipProof');
+    const zone = $('#vipZone');
+    if (!input) return;
+    let file = null;
+    const pick = () => input.click();
+    if (zone) zone.onclick = pick;
+    const back = $('#vipBack');
+    if (back) back.onclick = () => go('#/vip/pay/' + v.code);
+    input.onchange = () => {
+      file = input.files && input.files[0];
+      if (!file) return;
+      if (!/^image\/(png|jpe?g|webp)$/.test(file.type)) return toast('Use a PNG, JPG or WebP image.', 'bad');
+      if (file.size > 8 * 1024 * 1024) return toast('That image is over 8 MB.', 'bad');
+      $('#vipPreview').innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Payment screenshot" style="width:100%;border-radius:12px;border:1px solid var(--line)">`;
+      $('#vipSubmit').disabled = false;
+    };
+    $('#vipSubmit').onclick = async () => {
+      if (!file) return;
+      const btn = $('#vipSubmit');
+      btn.disabled = true; btn.textContent = 'Uploading…';
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          await api('/api/memberships/' + encodeURIComponent(v.code) + '/proof', { method: 'POST', body: { screenshot: reader.result } });
+          activateVipLocal(v);
+          toast('VIP activated — welcome to the club', 'ok');
+          go('#/vip/pay/' + v.code);
+        } catch (err) { toast(err.message, 'bad'); btn.disabled = false; btn.textContent = 'Submit payment proof'; }
+      };
+      reader.readAsDataURL(file);
+    };
+  }
+
+  /* --------- VIP badge: remembered in this browser --------- */
+  function vipInfo() {
+    try { return JSON.parse(LS.getItem('sd_vip') || 'null'); } catch (e) { return null; }
+  }
+
+  function activateVipLocal(v) {
+    const plan = v.plan || 'vip';
+    const months = plan === 'yearly' ? 12 : plan === 'quarterly' ? 3 : 1;
+    const until = new Date(Date.now() + months * 30 * 86400000).toISOString();
+    LS.setItem('sd_vip', JSON.stringify({ plan: v.planName || plan, code: v.code, until }));
+  }
+
+  function vipBadge() {
+    const v = vipInfo();
+    if (!v || new Date(v.until) < new Date()) return '';
+    return `<span class="vip-badge" title="Sandya VIP · ${esc(v.plan)}">VIP</span>`;
   }
 
   function openVipProof(v) {
@@ -5764,9 +5866,10 @@ window.UPI_LOGOS = {
       else if (seg === 'offers') { view = await viewOffers(); active = 'offers'; }
       else if (seg === 'vip' && parts[1] === 'pay' && parts[2]) {
         const r = await api('/api/memberships/' + encodeURIComponent(parts[2]));
-        view = await viewVipPay(parts[2]);
+        view = await viewVipPay(parts[2], parts[3]);
         active = 'vip';
-        setTimeout(() => wireVipPay(r.membership), 0);
+        if (parts[3] === 'upload') setTimeout(() => wireVipUpload(r.membership), 0);
+        else setTimeout(() => wireVipPay(r.membership), 0);
       }
       else if (seg === 'vip') { view = await viewVip(); active = 'vip'; }
       else if (seg === 'about') { view = await viewAbout(); active = 'about'; }
