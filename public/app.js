@@ -19,13 +19,23 @@
   const dt = s => { const d = new Date(s); return isNaN(d) ? '—' : d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ' · ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }); };
 
   /* ------------------------------------------------------------------ state */
+  /* any stored value that will not parse falls back to the default */
+  function readJSON(key, fallback) {
+    try {
+      const raw = LS.getItem(key);
+      if (raw == null) return fallback;
+      const v = JSON.parse(raw);
+      return v == null ? fallback : v;
+    } catch (e) { LS.removeItem(key); return fallback; }
+  }
+
   const Store = {
     settings: { store_name: 'Sandya Emb Designs', upi_id: '6301928345@fam', payee_name: 'Sandya Emb Designs', auto_approve: true, link_hours: 72 },
     designs: [], tags: [], formats: [], demo: false,
-    cart: JSON.parse(LS.getItem('sd_cart') || LS.getItem('ra_cart') || '[]'),
-    coupon: JSON.parse(LS.getItem('sd_coupon') || 'null'),
-    wish: JSON.parse(LS.getItem('sd_wish') || '[]'),
-    recent: JSON.parse(LS.getItem('sd_recent') || '[]'),
+    cart: readJSON('sd_cart', readJSON('ra_cart', [])),
+    coupon: readJSON('sd_coupon', null),
+    wish: readJSON('sd_wish', []),
+    recent: readJSON('sd_recent', []),
     save() {
       LS.setItem('sd_cart', JSON.stringify(this.cart));
       LS.setItem('sd_coupon', JSON.stringify(this.coupon));
@@ -63,7 +73,7 @@
       this.save();
       return this.wish.includes(id);
     },
-    orders: JSON.parse(LS.getItem('sd_orders') || '[]'),
+    orders: readJSON('sd_orders', []),
     rememberOrder(o) {
       if (!o || o.status !== 'paid') return;
       const entry = {
@@ -618,6 +628,7 @@
     }, 0);
 
     setTimeout(() => {
+      try {
       const box = $('#fmtBox');
       if (!box) return;
       const refresh = () => {
@@ -674,6 +685,7 @@
         $('#stickyAdd').onclick = () => { add(); };
         $('#stickyBuy').onclick = buy;
       }
+      } catch (err) { console.warn('[design mount]', err && err.message); }
     }, 0);
 
     return `<div class="wrap">
@@ -2294,6 +2306,10 @@
 
   /* ------------------------------------------------------------------ boot */
   async function boot() {
+    if (/[?&]reset=1/.test(location.search)) {
+      try { Object.keys(localStorage).filter(k => /^s[dr]_/.test(k)).forEach(k => localStorage.removeItem(k)); } catch (e) {}
+      toast('Cleared the data saved in this browser.');
+    }
     try { const r = await fetch('/api/health', { cache: 'no-store' }); if (!r.ok) throw 0; }
     catch { Store.demo = true; }
     if (Store.demo) {

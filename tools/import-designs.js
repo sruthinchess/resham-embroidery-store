@@ -163,7 +163,17 @@ const META = {
   'mom-dad-crown': { featured: 1, badge: 'New', tags: ['wordmark', 'family', 'cushion'] },
   'mosque-crescent': { featured: 0, badge: 'New', tags: ['devotional', 'symbol', 'hoop'] },
   'om-namah-shivaya': { featured: 1, badge: 'New', tags: ['devotional', 'om', 'hoop'] },
-  'parrot-head': { featured: 0, badge: 'New', tags: ['bird', 'parrot', 'jersey'] }
+  'parrot-head': { featured: 0, badge: 'New', tags: ['bird', 'parrot', 'jersey'] },
+  'blossom-flying': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'chelsea-crest': { featured: 0, badge: 'New', tags: ['crest', 'sport', 'jersey'] },
+  'king-crown-ornate': { featured: 1, badge: 'New', tags: ['crown', 'ornament', 'hoop'] },
+  'ornate-f-monogram': { featured: 0, badge: 'New', tags: ['monogram', 'ornament', 'cushion'] },
+  'ornate-k-monogram': { featured: 0, badge: 'New', tags: ['monogram', 'ornament', 'cushion'] },
+  'pikachu-sitting': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'powerpuff-trio': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'stacked-bears': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'hoop'] },
+  'stitch-alien': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'the-boys-title': { featured: 0, badge: 'New', tags: ['wordmark', 'title', 'jersey'] }
 };
 
 const COPY = {
@@ -250,11 +260,12 @@ for (const pack of packs) {
     fs.copyFileSync(path.join(dir, readmeName), readmeOut);
 
     // images: the clean artwork is the shop image, the stitch-out is the proof
+    // "Stitch-Alien" is a design name, so only the preview suffix marks a preview
+    const isPreview = f => /stitch[-_ ]?preview/i.test(f);
     const artName = files.find(f => /-transparent\.png$/i.test(f))
-      || files.find(f => /-4k\.png$/i.test(f) && !/stitch/i.test(f))
-      || files.find(f => /\.png$/i.test(f) && !/stitch/i.test(f));
-    const stitchName = files.find(f => /-stitch-preview\.png$/i.test(f))
-      || files.find(f => /stitch.*\.png$/i.test(f));
+      || files.find(f => /-4k\.png$/i.test(f) && !isPreview(f))
+      || files.find(f => /\.png$/i.test(f) && !isPreview(f));
+    const stitchName = files.find(f => isPreview(f) && /\.png$/i.test(f));
     const shrink = (src, out, max, colors) => {
       // nothing to do when the output is already newer than the source
       try { if (fs.statSync(out).mtimeMs >= fs.statSync(src).mtimeMs) return; } catch {}
