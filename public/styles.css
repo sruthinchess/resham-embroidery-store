@@ -1386,12 +1386,12 @@ a.body h3 { margin: 0; }
 @media (max-width: 900px) { .vip-badge { margin-left: 6px; font-size: 8px; padding: 2px 6px; } }
 
 /* the header carries the name lockup, not the flower mark */
-.logo .brand-full { height: 68px; width: auto; display: block; }
-.hdr-in { height: 84px; }
-@media (max-width: 1100px) { .logo .brand-full { height: 58px; } .hdr-in { height: 76px; } }
+.logo .brand-full { height: 78px; width: auto; display: block; }
+.hdr-in { height: 94px; }
+@media (max-width: 1100px) { .logo .brand-full { height: 64px; } .hdr-in { height: 82px; } }
 @media (max-width: 900px) {
-  .logo .brand-full { height: 54px; }
-  .hdr-in { height: 76px; }
+  .logo .brand-full { height: 62px; }
+  .hdr-in { height: 86px; }
 }
 
 /* active membership panel */
