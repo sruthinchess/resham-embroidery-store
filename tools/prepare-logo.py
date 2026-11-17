@@ -22,12 +22,23 @@ W, H = full.size
 lock = full.copy(); lock.thumbnail((400, 400), Image.LANCZOS)
 lock.save('public/img/logo.png', optimize=True)
 
-mark = full.crop((int(W * 0.60), int(H * 0.005), int(W * 0.90), int(H * 0.30)))
-mark = mark.crop(mark.getbbox())
-side = int(max(mark.size) * 1.06)
-sq = Image.new('RGBA', (side, side), (0, 0, 0, 0))
-sq.paste(mark, ((side - mark.size[0]) // 2, (side - mark.size[1]) // 2))
-sq = sq.resize((192, 192), Image.LANCZOS)
+# a dedicated mark is better than cropping the lockup — use it when supplied
+MARK_SRC = 'tools/assets/logo-mark-src.png'
+import os
+if os.path.exists(MARK_SRC):
+    mark = Image.open(MARK_SRC).convert('RGBA')
+    mark = mark.crop(mark.getbbox())
+    side = int(max(mark.size) * 1.04)
+    sq = Image.new('RGBA', (side, side), (0, 0, 0, 0))
+    sq.paste(mark, ((side - mark.size[0]) // 2, (side - mark.size[1]) // 2))
+    sq = sq.resize((192, 192), Image.LANCZOS)
+else:
+    mark = full.crop((int(W * 0.60), int(H * 0.005), int(W * 0.90), int(H * 0.30)))
+    mark = mark.crop(mark.getbbox())
+    side = int(max(mark.size) * 1.06)
+    sq = Image.new('RGBA', (side, side), (0, 0, 0, 0))
+    sq.paste(mark, ((side - mark.size[0]) // 2, (side - mark.size[1]) // 2))
+    sq = sq.resize((192, 192), Image.LANCZOS)
 sq.save('public/img/logo-mark.png', optimize=True)
 fav = sq.copy(); fav.thumbnail((64, 64), Image.LANCZOS)
 fav.save('public/img/favicon.png', optimize=True)
