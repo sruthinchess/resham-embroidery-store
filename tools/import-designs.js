@@ -132,7 +132,11 @@ const META = {
   'om-symbol': { featured: 0, badge: 'New', tags: ['devotional', 'om', 'hoop'] },
   'penguin-balloons': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'jersey'] },
   'star-shield': { featured: 0, badge: 'New', tags: ['crest', 'sport', 'jersey'] },
-  'straw-hat-pirate': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] }
+  'straw-hat-pirate': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'blue-floral-spray': { featured: 1, badge: 'New', tags: ['floral', 'spray', 'cushion'] },
+  'lotus-bloom': { featured: 1, badge: 'New', tags: ['floral', 'lotus', 'hoop'] },
+  'pikachu-peek': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'shiva-portrait': { featured: 1, badge: 'New', tags: ['devotional', 'shiva', 'hoop'] }
 };
 
 const COPY = {

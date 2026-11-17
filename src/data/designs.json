@@ -9439,6 +9439,349 @@
     "jef",
     "exp"
    ]
+  },
+  {
+   "slug": "blue-floral-spray",
+   "name": "Blue Floral Spray",
+   "source": "pack",
+   "dir": "src/designs/blue-floral-spray",
+   "previewImg": "img/blue-floral-spray.png",
+   "stitchImg": "img/blue-floral-spray-stitch.png",
+   "price": 350,
+   "mrp": 595,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "floral",
+    "spray",
+    "cushion"
+   ],
+   "sewMinutes": 9,
+   "summary": "Blue and white lilies with yellow centres on navy stems and leaves.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 6054,
+   "widthMm": 50.9,
+   "heightMm": 90,
+   "colorCount": 4,
+   "trims": 164,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#4d82b5",
+     "stitches": 1368
+    },
+    {
+     "name": "",
+     "hex": "#f7fbfb",
+     "stitches": 1378
+    },
+    {
+     "name": "",
+     "hex": "#e0dcb5",
+     "stitches": 447
+    },
+    {
+     "name": "",
+     "hex": "#19334e",
+     "stitches": 2861
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Blue-Floral-Spray.pes",
+     "bytes": 43061
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Blue-Floral-Spray.dst",
+     "bytes": 20621
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Blue-Floral-Spray.jef",
+     "bytes": 13522
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Blue-Floral-Spray.exp",
+     "bytes": 14020
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Blue-Floral-Spray.vp3",
+     "bytes": 13362
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "lotus-bloom",
+   "name": "Lotus Bloom",
+   "source": "pack",
+   "dir": "src/designs/lotus-bloom",
+   "previewImg": "img/lotus-bloom.png",
+   "stitchImg": "img/lotus-bloom-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "floral",
+    "lotus",
+    "hoop"
+   ],
+   "sewMinutes": 5,
+   "summary": "Lotus flower with pink petals and olive green leaves.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3611,
+   "widthMm": 90,
+   "heightMm": 68.5,
+   "colorCount": 3,
+   "trims": 30,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#6e6624",
+     "stitches": 1435
+    },
+    {
+     "name": "",
+     "hex": "#de5d5a",
+     "stitches": 1219
+    },
+    {
+     "name": "",
+     "hex": "#e59996",
+     "stitches": 957
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Lotus-Bloom.pes",
+     "bytes": 24388
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Lotus-Bloom.dst",
+     "bytes": 11738
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Lotus-Bloom.jef",
+     "bytes": 7652
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Lotus-Bloom.exp",
+     "bytes": 7622
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Lotus-Bloom.vp3",
+     "bytes": 7854
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "pikachu-peek",
+   "name": "Pikachu Peek",
+   "source": "pack",
+   "dir": "src/designs/pikachu-peek",
+   "previewImg": "img/pikachu-peek.png",
+   "stitchImg": "img/pikachu-peek-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 4,
+   "summary": "Pikachu peeking over a ledge with red cheeks and black ear tips.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3127,
+   "widthMm": 90,
+   "heightMm": 52.7,
+   "colorCount": 3,
+   "trims": 39,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#f7d316",
+     "stitches": 1500
+    },
+    {
+     "name": "",
+     "hex": "#e72427",
+     "stitches": 120
+    },
+    {
+     "name": "",
+     "hex": "#0c0807",
+     "stitches": 1507
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Pikachu-Peek.pes",
+     "bytes": 21736
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Pikachu-Peek.dst",
+     "bytes": 10397
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Pikachu-Peek.jef",
+     "bytes": 6756
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Pikachu-Peek.exp",
+     "bytes": 6762
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Pikachu-Peek.vp3",
+     "bytes": 6916
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "shiva-portrait",
+   "name": "Shiva Portrait",
+   "source": "pack",
+   "dir": "src/designs/shiva-portrait",
+   "previewImg": "img/shiva-portrait.png",
+   "stitchImg": "img/shiva-portrait-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "devotional",
+    "shiva",
+    "hoop"
+   ],
+   "sewMinutes": 5,
+   "summary": "High contrast portrait of Shiva with crescent moon, third eye and rudraksha beads.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3424,
+   "widthMm": 87,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 39,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#101010",
+     "stitches": 3424
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Shiva-Portrait.pes",
+     "bytes": 22992
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Shiva-Portrait.dst",
+     "bytes": 11234
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Shiva-Portrait.jef",
+     "bytes": 7262
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Shiva-Portrait.exp",
+     "bytes": 7284
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Shiva-Portrait.vp3",
+     "bytes": 7372
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
   }
  ]
 }

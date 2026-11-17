@@ -1415,3 +1415,9 @@ a.body h3 { margin: 0; }
 .side .brand { padding: 2px 8px 18px; justify-content: flex-start; }
 .side .brand .side-logo { width: auto; height: 58px; max-width: 100%; object-fit: contain; }
 .login-card .brand-logo { width: 120px; }
+
+/* home is just the catalogue now */
+.home-clean { padding-top: 22px; }
+.home-clean .pgrid { padding: 4px 0 10px; }
+.home-flash { margin: 0 0 18px; max-width: none; }
+#homeSentinel { padding: 10px 0 46px; }

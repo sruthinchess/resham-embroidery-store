@@ -412,6 +412,13 @@
   const HOME_BATCH = 8;
   let HOME_LIST = [];
 
+  /* how long the bag has been sitting there */
+  function abandonedCart() {
+    const raw = LS.getItem('sd_cart_at');
+    if (!Store.cart.length || !raw) return 0;
+    return Date.now() - Number(raw) > 20 * 60 * 1000 ? Store.cart.length : 0;
+  }
+
   async function viewHome() {
     const [all, pr] = await Promise.all([api('/api/designs?' + qs({ sort: 'newest' })), promos()]);
     HOME_LIST = all.designs;
@@ -469,25 +476,14 @@
         <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
       </div></section>`;
     }
-    return `<div class="hero"><div class="wrap hero-in solo">
+    // the home page is the catalogue: no hero, no section headers
+    return `<div class="wrap home-clean">
       ${cartIdle ? `<div class="resume-bar">
         <span>${I.bag} You left ${cartIdle} design${cartIdle > 1 ? 's' : ''} in your bag.</span>
         <a class="btn btn-primary btn-sm" href="#/cart">Finish the order ${I.arrow}</a>
         <button class="icon-btn" id="resumeDismiss" aria-label="Dismiss">✕</button>
       </div>` : ''}
-      <span class="eyebrow" style="justify-content:center">Digitised by hand · India</span>
-      <h1>Beautiful designs.<br><em>Perfect stitches</em>.</h1>
-      <p class="lede">Hand-digitised motifs for home and commercial machines. Pick the format your machine reads, pay by UPI, and the files are yours in seconds.</p>
-      <form class="hero-search" id="heroSearch" role="search">
-        <span class="hs-ic">${I.search}</span>
-        <input name="q" placeholder="Search floral, peacock, jersey, kids…" autocomplete="off" aria-label="Search designs">
-        <button class="btn btn-primary">Search</button>
-      </form>
-      <div class="hero-cta">
-        <a class="btn btn-gold" href="#/designs">Shop all ${all.designs.length} designs ${I.arrow}</a>
-        <a class="btn btn-ghost" href="#/categories">Explore collections</a>
-      </div>
-      ${flash.live ? `<div class="hero-flash">
+      ${flash.live ? `<div class="hero-flash home-flash">
         <div class="hf-left">
           <span class="flash-dot"></span>
           <div><b>Sunday flash sale · ${flash.percent}% off</b>
@@ -495,25 +491,9 @@
         </div>
         <div class="hf-clock"><span>Ends in</span><b data-ends="${esc(flash.ends_at)}">—</b></div>
       </div>` : ''}
-    </div></div>
-
-    <section class="section"><div class="wrap">
-      <div class="sec-head reveal">
-        <div><span class="eyebrow">The library</span><h2>Newest designs</h2>
-          <p>Each one is digitised with an underlay, a tested pull compensation and a colour sequence you can follow without guessing.</p></div>
-        <a class="btn btn-ghost btn-sm" href="#/designs">All ${all.designs.length} designs ${I.arrow}</a>
-      </div>
       <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
       <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
-    </div></section>`;
-  }
-
-  /* how long the bag has been sitting there */
-  function abandonedCart() {
-    const raw = LS.getItem('sd_cart_at');
-    if (!Store.cart.length || !raw) return 0;
-    const idle = Date.now() - Number(raw);
-    return idle > 20 * 60 * 1000 ? Store.cart.length : 0;
+    </div>`;
   }
 
   const PAGE = 12;
