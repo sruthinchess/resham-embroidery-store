@@ -226,6 +226,49 @@
     return tiers.find(b => Store.count >= b.qty) || null;
   }
 
+  /* how close the bag is to the next automatic discount */
+  function cartProgress(compact) {
+    const tiers = ((PROMOS && PROMOS.bulk) || []).slice().sort((a, b) => a.qty - b.qty);
+    const gift = (PROMOS && PROMOS.gift) || {};
+    if (!tiers.length && !gift.min_subtotal) return '';
+    const count = Store.count;
+    const subtotal = Store.subtotal;
+
+    // the next thing the shopper can unlock: a quantity tier or the free design
+    const nextTier = tiers.find(t => count < t.qty);
+    const giftLeft = gift.min_subtotal ? Math.max(0, gift.min_subtotal - subtotal) : 0;
+    const tierLeft = nextTier ? nextTier.qty - count : 0;
+
+    let pct = 100, headline = '', sub = '';
+    if (nextTier) {
+      // progress across the whole ladder, so the bar keeps climbing as you add
+      const topQty = tiers[tiers.length - 1].qty;
+      pct = Math.round((count / topQty) * 100);
+      headline = `Add ${tierLeft} more design${tierLeft === 1 ? '' : 's'} for ${nextTier.percent}% off`;
+      sub = `You have ${count} · ${nextTier.qty} unlocks ${nextTier.percent}% off`;
+    } else if (giftLeft > 0) {
+      pct = Math.round(((subtotal / gift.min_subtotal) * 100));
+      headline = `Add ${money(giftLeft)} more for a free design`;
+      sub = `Free design from ${money(gift.min_subtotal)}`;
+    } else {
+      headline = 'Every discount in this bag is unlocked';
+      sub = `Bundle ${count} designs · free design included`;
+    }
+    pct = Math.max(3, Math.min(100, pct));
+
+    const marks = tiers.map(t => {
+      const done = count >= t.qty;
+      return `<span class="cp-mark ${done ? 'done' : ''}">${t.qty} → ${t.percent}%</span>`;
+    }).join('');
+
+    return `<div class="cart-progress ${compact ? 'compact' : ''}">
+      <div class="cp-top"><b>${esc(headline)}</b><span>${pct}%</span></div>
+      <div class="cp-bar"><i style="width:${pct}%"></i></div>
+      <div class="cp-sub">${esc(sub)}</div>
+      ${compact ? '' : `<div class="cp-marks">${marks}${gift.min_subtotal ? `<span class="cp-mark ${subtotal >= gift.min_subtotal ? 'done' : ''}">${money(gift.min_subtotal)} → free design</span>` : ''}</div>`}
+    </div>`;
+  }
+
   function summaryRows(showPayment) {
     const t = Store.totals();
     const tier = bulkTier();
@@ -234,7 +277,6 @@
     return `<div class="sum-row"><span>${Store.count} design${Store.count > 1 ? 's' : ''}</span><b>${money(t.subtotal)}</b></div>
       ${t.flashDiscount ? `<div class="sum-row discount"><span>Flash sale · ${PROMOS.flash.percent}% off</span><b>− ${money(t.flashDiscount)}</b></div>` : ''}
       ${t.bulkDiscount ? `<div class="sum-row discount"><span>Bundle ${tier.qty}+ · ${tier.percent}% off</span><b>− ${money(t.bulkDiscount)}</b></div>` : ''}
-      ${!tier && next ? `<div class="sum-row hint"><span>Add ${next.qty - Store.count} more → ${next.percent}% off</span><b></b></div>` : ''}
       ${gift.min_subtotal && t.subtotal >= gift.min_subtotal ? `<div class="sum-row"><span>Free design</span><b style="color:var(--green)">Unlocked</b></div>` : ''}
       ${t.discount ? `<div class="sum-row discount"><span>Coupon ${esc(Store.coupon.code)}</span><b>− ${money(t.discount)}</b></div>` : ''}
       <div class="sum-row"><span>Delivery</span><b style="color:var(--green)">Instant</b></div>
@@ -944,6 +986,7 @@
         </div>
         <div class="summary">
           <h3>Order summary</h3>
+          ${Store.count ? cartProgress(false) : ''}
           ${summaryRows(true)}
           <div class="coupon-wrap">${couponBox()}</div>
           <a class="btn btn-primary btn-block" href="#/checkout" style="margin-top:14px">Continue to UPI payment ${I.arrow}</a>
@@ -1003,7 +1046,7 @@
             <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
             <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(l.price)}</b></div>`).join('')}
-          <div style="margin-top:10px">${summaryRows(false)}</div>
+          <div style="margin-top:10px">${Store.count ? cartProgress(false) : ''}${summaryRows(false)}</div>
         </aside>
       </div></div>`;
   }
@@ -1562,6 +1605,7 @@
           <b class="mono small">${money(l.price)}</b></div>`).join('')
         : `<div style="text-align:center;padding:44px 8px"><p class="muted">Nothing in the bag yet.</p><a class="btn btn-primary btn-sm" href="#/designs" data-close>Browse designs</a></div>`}</div>
       ${Store.cart.length ? `<footer>
+        ${cartProgress(true)}
         <div class="between" style="margin-bottom:10px"><span class="muted small">Total</span><b class="mono">${money(Store.subtotal)}</b></div>
         <a class="btn btn-primary btn-block" href="#/checkout" data-close>Pay by UPI</a></footer>` : ''}`;
     dr.classList.add('on'); $('#scrim').classList.add('on'); document.body.classList.add('locked');

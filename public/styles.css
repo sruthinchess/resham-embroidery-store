@@ -1421,3 +1421,32 @@ a.body h3 { margin: 0; }
 .home-clean .pgrid { padding: 4px 0 10px; }
 .home-flash { margin: 0 0 18px; max-width: none; }
 #homeSentinel { padding: 10px 0 46px; }
+
+/* cart discount progress */
+.cart-progress {
+  margin: 4px 0 14px; padding: 14px 16px; border-radius: 14px;
+  background: linear-gradient(120deg, #fdf6ea, #f9efe0 60%, #fdf6ea);
+  border: 1px solid var(--line-strong);
+}
+.cart-progress.compact { padding: 11px 13px; margin-bottom: 12px; }
+.cp-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.cp-top b { font-size: 12.5px; color: var(--ink); font-weight: 600; }
+.cp-top span { font-family: var(--mono); font-size: 11px; color: var(--maroon); }
+.cp-bar { height: 8px; border-radius: 999px; background: #eadfcc; overflow: hidden; margin: 9px 0 7px; }
+.cp-bar i {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--brass), var(--brass-2));
+  transition: width .45s var(--ease);
+}
+.cp-sub { font-size: 11px; color: var(--ink-mute); }
+.cp-marks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.cp-mark {
+  font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px; border: 1px dashed var(--line-strong); color: var(--ink-mute);
+}
+.cp-mark.done { background: var(--maroon); border-color: var(--maroon); color: #fff; border-style: solid; }
+@media (max-width: 900px) {
+  .cart-progress { padding: 12px 14px; }
+  .cp-top b { font-size: 12px; }
+  .cp-mark { font-size: 9px; }
+}
