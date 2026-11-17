@@ -78,7 +78,7 @@
   function shell(section) {
     return `<div class="admin">
       <aside class="side">
-        <div class="brand"><img src="${esc(Store.settings.logo_mark_url || 'img/logo-mark.png')}" alt="">${esc(String(Store.settings.store_name || '').split(' ')[0])}</div>
+        <div class="brand"><img class="side-logo" src="${esc(Store.settings.logo_url || 'img/logo.png')}" alt="${esc(Store.settings.store_name || '')}"></div>
         ${MENU.map(([k, label, ic]) => `<a href="#/admin/${k}" class="${section === k ? 'on' : ''}"><span style="width:14px;text-align:center">${ic}</span>${label}</a>`).join('')}
         <div class="sep"></div>
         <a href="#/"><span style="width:14px;text-align:center">↗</span>View store</a>

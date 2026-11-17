@@ -40,6 +40,13 @@ else:
     sq.paste(mark, ((side - mark.size[0]) // 2, (side - mark.size[1]) // 2))
     sq = sq.resize((192, 192), Image.LANCZOS)
 sq.save('public/img/logo-mark.png', optimize=True)
-fav = sq.copy(); fav.thumbnail((64, 64), Image.LANCZOS)
-fav.save('public/img/favicon.png', optimize=True)
+# the tab icon is the lockup itself, on a soft ivory tile so the gold reads
+fav = lock.copy()
+fav.thumbnail((56, 56), Image.LANCZOS)
+tile = Image.new('RGBA', (64, 64), (253, 251, 247, 255))
+tile.alpha_composite(fav, ((64 - fav.size[0]) // 2, (64 - fav.size[1]) // 2))
+tile.save('public/img/favicon.png', optimize=True)
+# a wider mark for the admin sidebar and share cards
+side = lock.copy(); side.thumbnail((360, 360), Image.LANCZOS)
+side.save('public/img/logo-wide.png', optimize=True)
 print('logo assets written:', lock.size, sq.size)

@@ -874,6 +874,15 @@
   async function viewVip() {
     const pr = await promos();
     const plans = (pr.vip && pr.vip.plans) || [];
+    // an active membership shows how long is left, counted down to the day
+    const mem = vipInfo();
+    const msLeft = mem ? new Date(mem.until).getTime() - Date.now() : -1;
+    const daysLeft = msLeft > 0 ? Math.ceil(msLeft / 86400000) : 0;
+    if (mem && daysLeft <= 0) LS.removeItem('sd_vip');
+    const pct = mem && daysLeft > 0
+      ? Math.max(4, Math.min(100, Math.round(100 - (daysLeft / ((mem.plan || '').toLowerCase().includes('year') ? 365 : (mem.plan || '').toLowerCase().includes('quarter') ? 90 : 30)) * 100)))
+      : 0;
+    const until = mem && daysLeft > 0 ? new Date(mem.until).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
     const perks = [
       ['Exclusive collections', 'Designs that never reach the public shop'],
       ['Member-only prices', 'An extra 10% off every order, on top of any code'],
@@ -885,8 +894,19 @@
       <div class="crumbs"><a href="#/">Home</a> / Sandya VIP</div>
       <span class="eyebrow">Membership</span>
       <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:8px 0 12px">Sandya Emb VIP</h1>
+      ${daysLeft > 0 ? `<div class="vip-member">
+        <div class="vm-top">
+          <span class="vip-badge" style="margin:0">VIP</span>
+          <b>You are a member · ${esc(mem.plan)}</b>
+          <span class="vm-code mono">${esc(mem.code || '')}</span>
+        </div>
+        <div class="vm-days"><b>${daysLeft}</b><span>day${daysLeft === 1 ? '' : 's'} left</span></div>
+        <div class="vm-bar"><i style="width:${pct}%"></i></div>
+        <p class="small muted" style="margin:0">Active until ${esc(until)}.${daysLeft <= 7 ? ' Renew now to keep your member prices.' : ''}</p>
+      </div>` : ''}
       <p class="prose">A small studio subscription for people who sew often. Cancel any time — nothing is locked, and the designs you have already downloaded stay yours.</p>
       <ul class="tick-list big">${perks.map(([t, s]) => `<li><b>${t}</b><span>${s}</span></li>`).join('')}</ul>
+      ${daysLeft > 0 ? '<h3 class="offer-head" style="margin-top:22px">Extend your membership</h3>' : ''}
       <div class="plan-grid">
         ${plans.map(p => `<div class="card plan ${p.id === 'quarterly' ? 'best' : ''}">
           ${p.id === 'quarterly' ? '<span class="plan-flag">Most popular</span>' : ''}
@@ -1506,7 +1526,8 @@
   function vipBadge() {
     const v = vipInfo();
     if (!v || new Date(v.until) < new Date()) return '';
-    return `<span class="vip-badge" title="Sandya VIP · ${esc(v.plan)}">VIP</span>`;
+    const days = Math.max(0, Math.ceil((new Date(v.until).getTime() - Date.now()) / 86400000));
+    return `<span class="vip-badge" title="Sandya VIP · ${esc(v.plan)} · ${days} day${days === 1 ? '' : 's'} left">VIP</span>`;
   }
 
   function openVipProof(v) {

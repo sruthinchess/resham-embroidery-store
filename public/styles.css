@@ -1393,3 +1393,25 @@ a.body h3 { margin: 0; }
   .logo .brand-full { height: 54px; }
   .hdr-in { height: 76px; }
 }
+
+/* active membership panel */
+.vip-member {
+  margin: 18px 0 22px; padding: 20px; border-radius: 16px;
+  background: linear-gradient(120deg, #fdf6ea, #f8efe0 60%, #fdf6ea);
+  border: 1px solid var(--line-strong); box-shadow: var(--shadow-sm);
+  display: grid; gap: 10px;
+}
+.vm-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.vm-top b { font-family: var(--display); font-size: 1.1rem; color: var(--ink); }
+.vm-code { font-size: 11px; color: var(--ink-mute); margin-left: auto; }
+.vm-days { display: flex; align-items: baseline; gap: 8px; }
+.vm-days b { font-family: var(--display); font-size: 2.4rem; line-height: 1; color: var(--maroon); }
+.vm-days span { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
+.vm-bar { height: 8px; border-radius: 999px; background: #ece2d1; overflow: hidden; }
+.vm-bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--brass), var(--brass-2)); }
+@media (max-width: 900px) { .vm-days b { font-size: 2rem; } }
+
+/* the studio lockup in the admin, at a readable size */
+.side .brand { padding: 2px 8px 18px; justify-content: flex-start; }
+.side .brand .side-logo { width: auto; height: 58px; max-width: 100%; object-fit: contain; }
+.login-card .brand-logo { width: 120px; }

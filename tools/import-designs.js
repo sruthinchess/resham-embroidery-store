@@ -30,7 +30,7 @@ const priceFor = stitches => Math.max(MIN, Math.min(MAX, Math.ceil((stitches || 
 const OUT_DIR = path.join(ROOT, 'src', 'designs');
 const IMG_DIR = path.join(ROOT, 'public', 'img');
 
-const CHRISTMAS = new Set(['autumn-wreath', 'ornament-mandala', 'teal-damask', 'ornamental-spray',
+const CHRISTMAS = new Set(['folk-floral-round', 'crocus-spray', 'autumn-wreath', 'ornament-mandala', 'teal-damask', 'ornamental-spray',
   'damask-ornament', 'pinwheel-burst', 'midnight-floral', 'floral-sprig', 'tulip', 'koi-yinyang',
   'red-bird', 'yellow-bird', 'blue-bird-logo', 'squirrel', 'snow']);
 
@@ -123,7 +123,16 @@ const META = {
   'sasuke-chibi': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
   'squirrel': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'hoop'] },
   'teal-damask': { featured: 0, badge: 'New', tags: ['damask', 'ornament', 'home'] },
-  'tulip': { featured: 0, badge: 'New', tags: ['floral', 'tulip', 'hoop'] }
+  'tulip': { featured: 0, badge: 'New', tags: ['floral', 'tulip', 'hoop'] },
+  'crocus-spray': { featured: 0, badge: 'New', tags: ['floral', 'crocus', 'hoop'] },
+  'folk-floral-round': { featured: 1, badge: 'New', tags: ['folk', 'floral', 'cushion'] },
+  'folk-floral-tall': { featured: 0, badge: 'New', tags: ['folk', 'floral', 'border'] },
+  'krishna-silhouette': { featured: 1, badge: 'New', tags: ['devotional', 'krishna', 'jersey'] },
+  'navy-soccer-ball': { featured: 0, badge: 'New', tags: ['sport', 'football', 'jersey'] },
+  'om-symbol': { featured: 0, badge: 'New', tags: ['devotional', 'om', 'hoop'] },
+  'penguin-balloons': { featured: 0, badge: 'New', tags: ['animal', 'kids', 'jersey'] },
+  'star-shield': { featured: 0, badge: 'New', tags: ['crest', 'sport', 'jersey'] },
+  'straw-hat-pirate': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] }
 };
 
 const COPY = {

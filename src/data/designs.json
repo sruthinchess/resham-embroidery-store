@@ -8604,6 +8604,841 @@
     "jef",
     "exp"
    ]
+  },
+  {
+   "slug": "crocus-spray",
+   "name": "Crocus Spray",
+   "source": "pack",
+   "dir": "src/designs/crocus-spray",
+   "previewImg": "img/crocus-spray.png",
+   "stitchImg": "img/crocus-spray-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "floral",
+    "crocus",
+    "hoop",
+    "christmas"
+   ],
+   "sewMinutes": 4,
+   "summary": "Purple crocus stems with buds and green leaves.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3065,
+   "widthMm": 54,
+   "heightMm": 90,
+   "colorCount": 5,
+   "trims": 72,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#dca9c5",
+     "stitches": 1472
+    },
+    {
+     "name": "",
+     "hex": "#b950a8",
+     "stitches": 503
+    },
+    {
+     "name": "",
+     "hex": "#a1bc6c",
+     "stitches": 621
+    },
+    {
+     "name": "",
+     "hex": "#e3a24a",
+     "stitches": 205
+    },
+    {
+     "name": "",
+     "hex": "#678a55",
+     "stitches": 264
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Crocus-Spray.pes",
+     "bytes": 22814
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Crocus-Spray.dst",
+     "bytes": 10559
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Crocus-Spray.jef",
+     "bytes": 6864
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Crocus-Spray.exp",
+     "bytes": 6986
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Crocus-Spray.vp3",
+     "bytes": 7086
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "folk-floral-round",
+   "name": "Folk Floral Round",
+   "source": "pack",
+   "dir": "src/designs/folk-floral-round",
+   "previewImg": "img/folk-floral-round.png",
+   "stitchImg": "img/folk-floral-round-stitch.png",
+   "price": 450,
+   "mrp": 765,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "folk",
+    "floral",
+    "cushion",
+    "christmas"
+   ],
+   "sewMinutes": 12,
+   "summary": "Circular folk floral with pink blooms, paisley leaves and brown vines.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 8260,
+   "widthMm": 87.8,
+   "heightMm": 90,
+   "colorCount": 7,
+   "trims": 226,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#4e6511",
+     "stitches": 1944
+    },
+    {
+     "name": "",
+     "hex": "#87644f",
+     "stitches": 1961
+    },
+    {
+     "name": "",
+     "hex": "#6d7b3f",
+     "stitches": 1143
+    },
+    {
+     "name": "",
+     "hex": "#ea6683",
+     "stitches": 1157
+    },
+    {
+     "name": "",
+     "hex": "#127498",
+     "stitches": 662
+    },
+    {
+     "name": "",
+     "hex": "#e1b82e",
+     "stitches": 409
+    },
+    {
+     "name": "",
+     "hex": "#2b3525",
+     "stitches": 984
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Folk-Floral-Round.pes",
+     "bytes": 58818
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Folk-Floral-Round.dst",
+     "bytes": 28373
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Folk-Floral-Round.jef",
+     "bytes": 18922
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Folk-Floral-Round.exp",
+     "bytes": 19644
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Folk-Floral-Round.vp3",
+     "bytes": 18408
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "folk-floral-tall",
+   "name": "Folk Floral Tall",
+   "source": "pack",
+   "dir": "src/designs/folk-floral-tall",
+   "previewImg": "img/folk-floral-tall.png",
+   "stitchImg": "img/folk-floral-tall-stitch.png",
+   "price": 450,
+   "mrp": 765,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "folk",
+    "floral",
+    "border"
+   ],
+   "sewMinutes": 12,
+   "summary": "Tall folk floral spray with salmon blooms and layered green leaves.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 8402,
+   "widthMm": 50,
+   "heightMm": 90,
+   "colorCount": 7,
+   "trims": 326,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#c96865",
+     "stitches": 1596
+    },
+    {
+     "name": "",
+     "hex": "#465b4a",
+     "stitches": 1836
+    },
+    {
+     "name": "",
+     "hex": "#dd8c8b",
+     "stitches": 456
+    },
+    {
+     "name": "",
+     "hex": "#8fac94",
+     "stitches": 662
+    },
+    {
+     "name": "",
+     "hex": "#37302a",
+     "stitches": 1218
+    },
+    {
+     "name": "",
+     "hex": "#7c5d5a",
+     "stitches": 234
+    },
+    {
+     "name": "",
+     "hex": "#17110d",
+     "stitches": 2400
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Folk-Floral-Tall.pes",
+     "bytes": 62474
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Folk-Floral-Tall.dst",
+     "bytes": 29645
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Folk-Floral-Tall.jef",
+     "bytes": 19538
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Folk-Floral-Tall.exp",
+     "bytes": 20660
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Folk-Floral-Tall.vp3",
+     "bytes": 19120
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "krishna-silhouette",
+   "name": "Krishna Silhouette",
+   "source": "pack",
+   "dir": "src/designs/krishna-silhouette",
+   "previewImg": "img/krishna-silhouette.png",
+   "stitchImg": "img/krishna-silhouette-stitch.png",
+   "price": 100,
+   "mrp": 170,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "devotional",
+    "krishna",
+    "jersey"
+   ],
+   "sewMinutes": 2,
+   "summary": "Krishna playing the flute with the word KRISHNA beneath.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 1688,
+   "widthMm": 53.3,
+   "heightMm": 90,
+   "colorCount": 2,
+   "trims": 58,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#85827f",
+     "stitches": 834
+    },
+    {
+     "name": "",
+     "hex": "#1e1d1d",
+     "stitches": 854
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Krishna-Silhouette.pes",
+     "bytes": 13371
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Krishna-Silhouette.dst",
+     "bytes": 6266
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Krishna-Silhouette.jef",
+     "bytes": 3970
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Krishna-Silhouette.exp",
+     "bytes": 4060
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Krishna-Silhouette.vp3",
+     "bytes": 4016
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "navy-soccer-ball",
+   "name": "Navy Soccer Ball",
+   "source": "pack",
+   "dir": "src/designs/navy-soccer-ball",
+   "previewImg": "img/navy-soccer-ball.png",
+   "stitchImg": "img/navy-soccer-ball-stitch.png",
+   "price": 350,
+   "mrp": 595,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "sport",
+    "football",
+    "jersey"
+   ],
+   "sewMinutes": 10,
+   "summary": "Soccer ball in navy and white with a star pattern.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 6756,
+   "widthMm": 90,
+   "heightMm": 89.9,
+   "colorCount": 3,
+   "trims": 70,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#fdfefe",
+     "stitches": 2438
+    },
+    {
+     "name": "",
+     "hex": "#728eb1",
+     "stitches": 1240
+    },
+    {
+     "name": "",
+     "hex": "#16345f",
+     "stitches": 3078
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Navy-Soccer-Ball.pes",
+     "bytes": 44378
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Navy-Soccer-Ball.dst",
+     "bytes": 21662
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Navy-Soccer-Ball.jef",
+     "bytes": 14278
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Navy-Soccer-Ball.exp",
+     "bytes": 14408
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Navy-Soccer-Ball.vp3",
+     "bytes": 14344
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "om-symbol",
+   "name": "Om Symbol",
+   "source": "pack",
+   "dir": "src/designs/om-symbol",
+   "previewImg": "img/om-symbol.png",
+   "stitchImg": "img/om-symbol-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "devotional",
+    "om",
+    "hoop"
+   ],
+   "sewMinutes": 4,
+   "summary": "Om symbol drawn in a flowing brush style, solid black.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3005,
+   "widthMm": 78.2,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 18,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#010101",
+     "stitches": 3005
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Om-Symbol.pes",
+     "bytes": 19890
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Om-Symbol.dst",
+     "bytes": 9755
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Om-Symbol.jef",
+     "bytes": 6304
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Om-Symbol.exp",
+     "bytes": 6242
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Om-Symbol.vp3",
+     "bytes": 6456
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "penguin-balloons",
+   "name": "Penguin Balloons",
+   "source": "pack",
+   "dir": "src/designs/penguin-balloons",
+   "previewImg": "img/penguin-balloons.png",
+   "stitchImg": "img/penguin-balloons-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "animal",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 7,
+   "summary": "Penguin in a bow holding three pink balloons.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4965,
+   "widthMm": 67.3,
+   "heightMm": 90,
+   "colorCount": 4,
+   "trims": 58,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#fcfbfa",
+     "stitches": 1299
+    },
+    {
+     "name": "",
+     "hex": "#eb8290",
+     "stitches": 1058
+    },
+    {
+     "name": "",
+     "hex": "#ec9f43",
+     "stitches": 173
+    },
+    {
+     "name": "",
+     "hex": "#0c0807",
+     "stitches": 2435
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Penguin-Balloons.pes",
+     "bytes": 33559
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Penguin-Balloons.dst",
+     "bytes": 16127
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Penguin-Balloons.jef",
+     "bytes": 10576
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Penguin-Balloons.exp",
+     "bytes": 10650
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Penguin-Balloons.vp3",
+     "bytes": 10744
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "star-shield",
+   "name": "Star Shield",
+   "source": "pack",
+   "dir": "src/designs/star-shield",
+   "previewImg": "img/star-shield.png",
+   "stitchImg": "img/star-shield-stitch.png",
+   "price": 300,
+   "mrp": 510,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "crest",
+    "sport",
+    "jersey"
+   ],
+   "sewMinutes": 8,
+   "summary": "Concentric red and white rings around a navy disc with a white star.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 5582,
+   "widthMm": 90,
+   "heightMm": 90,
+   "colorCount": 3,
+   "trims": 31,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#a81529",
+     "stitches": 2827
+    },
+    {
+     "name": "",
+     "hex": "#fefcfc",
+     "stitches": 2160
+    },
+    {
+     "name": "",
+     "hex": "#040242",
+     "stitches": 595
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Star-Shield.pes",
+     "bytes": 36242
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Star-Shield.dst",
+     "bytes": 17723
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Star-Shield.jef",
+     "bytes": 11678
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Star-Shield.exp",
+     "bytes": 11652
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Star-Shield.vp3",
+     "bytes": 11840
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "straw-hat-pirate",
+   "name": "Straw Hat Pirate",
+   "source": "pack",
+   "dir": "src/designs/straw-hat-pirate",
+   "previewImg": "img/straw-hat-pirate.png",
+   "stitchImg": "img/straw-hat-pirate-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 11,
+   "summary": "Round badge portrait of a grinning pirate in a straw hat.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7879,
+   "widthMm": 89,
+   "heightMm": 90,
+   "colorCount": 5,
+   "trims": 100,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#0a648f",
+     "stitches": 1746
+    },
+    {
+     "name": "",
+     "hex": "#e4b289",
+     "stitches": 1326
+    },
+    {
+     "name": "",
+     "hex": "#dfa038",
+     "stitches": 1132
+    },
+    {
+     "name": "",
+     "hex": "#a53023",
+     "stitches": 644
+    },
+    {
+     "name": "",
+     "hex": "#100e0a",
+     "stitches": 3031
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Straw-Hat-Pirate.pes",
+     "bytes": 52482
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Straw-Hat-Pirate.dst",
+     "bytes": 25331
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Straw-Hat-Pirate.jef",
+     "bytes": 16696
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Straw-Hat-Pirate.exp",
+     "bytes": 16930
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Straw-Hat-Pirate.vp3",
+     "bytes": 16830
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
   }
  ]
 }
