@@ -1,7 +1,17 @@
 {
   "version": 2,
   "functions": {
-    "api/index.js": { "includeFiles": "{public/**,package.json}" }
+    "api/index.js": {
+      "includeFiles": "{public/**,src/**,docs/index.html,docs/404.html,docs/img/**,package.json}",
+      "memory": 1024,
+      "maxDuration": 30
+    }
   },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/index.js" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/index.js" }],
+  "headers": [
+    {
+      "source": "/img/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }]
+    }
+  ]
 }

@@ -672,8 +672,8 @@
         <div>
           <div class="stage">${g.preview ? `<span class="shot"><img id="pdpMain" src="${esc(g.preview)}" alt="${esc(g.name)} embroidery design" decoding="async"></span>` : ''}</div>
           <div class="gal">
-            <button class="gthumb on" data-shot="${esc(g.preview || '')}"><img src="${esc(String(g.preview || '').replace(/\.png$/i, '.webp'))}" alt="artwork" loading="lazy" decoding="async"></button>
-            ${g.stitchPreview ? `<button class="gthumb" data-shot="${esc(g.stitchPreview)}"><img src="${esc(String(g.stitchPreview).replace(/\.png$/i, '.webp'))}" alt="stitch preview" loading="lazy" decoding="async"></button>` : ''}
+            <button class="gthumb on" data-shot="${esc(g.preview || '')}"><img src="${esc(String(g.preview || '').replace(/\.png$/i, '.webp'))}" alt="${esc(g.name)} embroidery design artwork" loading="lazy" decoding="async"></button>
+            ${g.stitchPreview ? `<button class="gthumb" data-shot="${esc(g.stitchPreview)}"><img src="${esc(String(g.stitchPreview).replace(/\.png$/i, '.webp'))}" alt="${esc(g.name)} stitch preview on fabric" loading="lazy" decoding="async"></button>` : ''}
           </div>
         </div>
         <div>
@@ -1709,12 +1709,30 @@
   }
   window.go = go;
 
-  /* internal links keep their #/ href, but the address bar shows a clean URL */
+  /* every internal link gets a real, crawlable href; the router still owns the
+     click so navigation stays instant */
+  function linkify(root) {
+    if (HASH_MODE) return;
+    (root || document).querySelectorAll('a[href^="#/"]').forEach(a => {
+      const raw = a.getAttribute('href').slice(1);       // "#/designs?tag=floral" → "/designs?tag=floral"
+      a.setAttribute('href', BASE.replace(/\/$/, '') + raw);
+    });
+  }
+  window.linkify = linkify;
+
   document.addEventListener('click', e => {
-    const a = e.target.closest && e.target.closest('a[href^="#/"]');
+    const a = e.target.closest && e.target.closest('a[href]');
     if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    const href = a.getAttribute('href') || '';
+    if (HASH_MODE) {
+      if (!href.startsWith('#/')) return;
+      e.preventDefault();
+      go(href.slice(2));
+      return;
+    }
+    if (!href.startsWith(BASE) || a.hasAttribute('download')) return;
     e.preventDefault();
-    go(a.getAttribute('href').slice(2));
+    go(href.slice(BASE.length));
   });
 
 
@@ -1870,6 +1888,7 @@
     }
 
     app.innerHTML = header(active) + `<main class="page">${view}</main>` + footer() + tabbar(active);
+    linkify(app);
     setMeta(active || 'home');
     progress(false);
     closeDrawer();
