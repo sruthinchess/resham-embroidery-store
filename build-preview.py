@@ -156,6 +156,19 @@ one_files = {slug: {k: {**v, 'url': 'data:application/octet-stream;base64,' + ba
 SINGLE = ROOT.parent / 'Sandya-Emb-Designs-Preview.html'
 SINGLE.write_text(page(one['settings'], one['designs'], one_files, '/', True))
 
+# search engines: sitemap and robots for the static build
+site = 'https://sruthinchess.github.io' + PAGES_BASE.rstrip('/')
+pages = ['', 'designs', 'categories', 'offers', 'vip', 'about', 'contact']
+lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+for pg in pages:
+    lines.append(f'  <url><loc>{site}/{pg}</loc><changefreq>{"daily" if pg == "" else "weekly"}</changefreq><priority>{"1.0" if pg == "" else "0.8"}</priority></url>')
+for d in designs:
+    lines.append(f'  <url><loc>{site}/design/{d["slug"]}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>')
+lines.append('</urlset>')
+(DOCS / 'sitemap.xml').write_text('\n'.join(lines))
+(DOCS / 'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: ' + site + '/sitemap.xml\n')
+
 size = (DOCS / 'index.html').stat().st_size
 imgs = sum(f.stat().st_size for f in IMG.glob('*.png'))
 fls = sum(f.stat().st_size for f in FILES.rglob('*') if f.is_file())

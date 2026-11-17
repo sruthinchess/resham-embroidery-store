@@ -280,4 +280,12 @@ for (const pack of packs) {
 
 const out = { settings: JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/settings.json'), 'utf8')), designs };
 fs.writeFileSync(path.join(ROOT, 'src/data/designs.json'), JSON.stringify(out, null, 2) + '\n');
-console.log(`\nwrote src/data/designs.json — ${designs.length} designs`);
+// every count in the file we are about to write must match its DST
+let mismatched = 0;
+for (const d of designs) {
+  const dst = (d.formats || []).find(f => f.key === 'dst');
+  const m = readDst(fs.readFileSync(path.join(ROOT, d.dir, dst.file)));
+  if (m.stitches !== d.stitchCount) { mismatched++; console.error(`! ${d.slug}: ${d.stitchCount} vs ${m.stitches}`); }
+}
+if (mismatched) { console.error(`\nrefusing to write: ${mismatched} designs disagree with their DST files`); process.exit(1); }
+console.log(`\nwrote src/data/designs.json — ${designs.length} designs, every stitch count verified against its DST`);

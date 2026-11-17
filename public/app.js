@@ -323,10 +323,6 @@
         <a href="#/vip" class="${a('vip')}">VIP</a>
         <a href="#/about" class="${a('about')}">About</a>
       </nav>
-      <form class="searchbar" id="searchform" role="search">
-        <span style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--ink-mute)">${I.search}</span>
-        <input name="q" placeholder="Search designs, hoops, motifs…" autocomplete="off">
-      </form>
       <div class="hdr-tools">
         <a class="icon-btn" href="#/downloads" aria-label="My downloads">${I.dl}</a>
         <a class="icon-btn" href="#/saved" aria-label="Saved designs">${I.heart}<span class="dot" id="wishDot" style="background:var(--brass)">${Store.wish.length}</span></a>
@@ -533,6 +529,7 @@
         </div>
         <div class="hf-clock"><span>Ends in</span><b data-ends="${esc(flash.ends_at)}">—</b></div>
       </div>` : ''}
+      <h1 class="home-h1">Machine embroidery designs, ready to download</h1>
       <form class="home-search" id="homeSearchForm" role="search">
         <span class="hs-ic">${I.search}</span>
         <input name="q" placeholder="Search designs — floral, peacock, jersey, kids…" autocomplete="off" aria-label="Search designs">
@@ -561,6 +558,11 @@
         .map(([v, l]) => `<option value="${v}" ${(params.sort || 'newest') === v ? 'selected' : ''}>${l}</option>`).join('')}
         </select>
       </div>
+      <form class="home-search" id="shopSearchForm" role="search" style="margin-top:14px">
+        <span class="hs-ic">${I.search}</span>
+        <input name="q" value="${esc(params.q || '')}" placeholder="Search designs — floral, peacock, jersey, kids…" autocomplete="off" aria-label="Search designs">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+      </form>
       <div class="shopbar">
         <a class="filter-chip ${!params.tag ? 'on' : ''}" href="#/designs">All</a>
         ${data.tags.slice(0, 9).map(t => `<a class="filter-chip ${params.tag === t.tag ? 'on' : ''}" href="#/designs?tag=${encodeURIComponent(t.tag)}">${esc(t.tag)} <span class="muted">${t.c}</span></a>`).join('')}
@@ -581,6 +583,15 @@
     const keys = (g.formats || []).map(f => f.key);
     const chosen = (g.defaultFormats || []).filter(k => keys.includes(k)).slice(0, 1);
     const state = { formats: chosen.length ? chosen : keys.slice(0, 1) };
+
+    setTimeout(() => {
+      setMeta('designs', {
+        title: `${g.name} embroidery design — ${nf(g.stitchCount)} stitches | Sandya Emb Designs`,
+        desc: `${g.name}: ${g.colorCount} colours, ${nf(g.stitchCount)} stitches, ${g.widthMm}×${g.heightMm} mm. Instant download in PES, DST, JEF, EXP and VP3 for ${money(g.price)} per format.`,
+        path: 'design/' + g.slug
+      });
+      productLd(g);
+    }, 0);
 
     setTimeout(() => {
       const box = $('#fmtBox');
@@ -1701,6 +1712,62 @@
     els.forEach(e => REVEAL_IO.observe(e));
   }
 
+  /* search engines read these; keep them honest per page */
+  const SEO = {
+    home: ['Machine Embroidery Designs — PES, DST, JEF, EXP, VP3 | Sandya Emb Designs',
+      'Buy hand-digitised machine embroidery designs online in India. Instant download in PES, DST, JEF, EXP and VP3 for Brother, Tajima, Janome, Melco and Pfaff machines.'],
+    designs: ['All Machine Embroidery Designs — Instant Download | Sandya Emb Designs',
+      'Browse every machine embroidery design in the library: floral, peacock, devotional, jersey and kids motifs, priced by stitch count, in five machine formats.'],
+    categories: ['Embroidery Design Categories — Floral, Bridal, Devotional | Sandya Emb Designs',
+      'Shop embroidery designs by collection: floral, bridal, traditional, borders, modern, kids, sport, wordmarks and home.'],
+    offers: ['Embroidery Design Offers & Coupon Codes | Sandya Emb Designs',
+      'Live offers on machine embroidery designs: bundle discounts, seasonal sales, coupon codes and a free design over ₹999.'],
+    vip: ['Sandya VIP Membership — Monthly Embroidery Design Packs',
+      'Join Sandya VIP for member prices, monthly design packs, early access and exclusive collections. Plans from ₹199 a month.'],
+    about: ['About Sandya Emb Designs — Hand-Digitised in India',
+      'A small digitising studio in India. Every embroidery design is drawn, sequenced and test-sewn before it is listed.'],
+    contact: ['Contact Sandya Emb Designs — Custom Digitising & Bulk Orders',
+      'Questions about a format, a custom digitisation or a bulk order? Write to the studio.'],
+    downloads: ['My Downloads — Sandya Emb Designs', 'Your paid embroidery orders, ready to download again.'],
+    saved: ['Saved Embroidery Designs — Sandya Emb Designs', 'The designs you saved for later.'],
+    cart: ['Your Bag — Sandya Emb Designs', 'Review your embroidery designs before paying by UPI.']
+  };
+
+  function setMeta(key, extra) {
+    const [title, desc] = SEO[key] || SEO.home;
+    document.title = (extra && extra.title) || title;
+    const d = document.querySelector('meta[name="description"]');
+    if (d) d.setAttribute('content', (extra && extra.desc) || desc);
+    const c = document.querySelector('link[rel="canonical"]');
+    if (c) c.setAttribute('href', BASE + ((extra && extra.path) || (key === 'home' ? '' : key)));
+    let og = document.querySelector('meta[property="og:title"]');
+    if (og) og.setAttribute('content', (extra && extra.title) || title);
+    og = document.querySelector('meta[property="og:description"]');
+    if (og) og.setAttribute('content', (extra && extra.desc) || desc);
+  }
+
+  function productLd(d) {
+    const data = {
+      '@context': 'https://schema.org', '@type': 'Product',
+      name: `${d.name} embroidery design`,
+      description: d.summary || `${d.name} machine embroidery design, ${d.stitchCount} stitches, five formats.`,
+      sku: d.slug,
+      brand: { '@type': 'Brand', name: Store.settings.store_name || 'Sandya Emb Designs' },
+      image: location.origin + BASE + (d.preview || '').replace(/^\//, ''),
+      offers: {
+        '@type': 'Offer', price: d.price, priceCurrency: 'INR', availability: 'https://schema.org/InStock',
+        url: location.origin + BASE + 'design/' + d.slug
+      }
+    };
+    const el = document.getElementById('ld-product');
+    if (el) el.remove();
+    const tag = document.createElement('script');
+    tag.type = 'application/ld+json';
+    tag.id = 'ld-product';
+    tag.textContent = JSON.stringify(data);
+    document.head.appendChild(tag);
+  }
+
   function progress(on) {
     let bar = document.getElementById('routebar');
     if (on) {
@@ -1757,6 +1824,7 @@
     }
 
     app.innerHTML = header(active) + `<main class="page">${view}</main>` + footer() + tabbar(active);
+    setMeta(active || 'home');
     progress(false);
     closeDrawer();
     paintBadges();
@@ -1766,12 +1834,6 @@
   }
 
   function wireGlobal() {
-    const s = $('#searchform');
-    if (s) s.onsubmit = e => {
-      e.preventDefault();
-      const q = new FormData(s).get('q').trim();
-      go(q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs');
-    };
     const oc = $('#openCart'); if (oc) oc.onclick = openDrawer;
     const bg = $('#burger');
     if (bg) bg.onclick = () => {
@@ -1816,6 +1878,13 @@
     };
     wireFavDelegation();
     wirePage();
+
+    const ssf = $('#shopSearchForm');
+    if (ssf) ssf.onsubmit = e => {
+      e.preventDefault();
+      const q = new FormData(ssf).get('q').trim();
+      go(q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs');
+    };
 
     const hsf = $('#homeSearchForm');
     if (hsf) hsf.onsubmit = e => {

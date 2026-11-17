@@ -322,6 +322,31 @@ app.patch('/api/admin/memberships/:id', requireAdmin, (req, res) => {
   ok(res, { ok: true });
 });
 
+/* search engines: a real sitemap built from the catalogue */
+app.get('/sitemap.xml', (req, res) => {
+  const base = `${req.protocol}://${req.get('host')}`;
+  const rows = db.prepare('SELECT slug FROM designs WHERE active = 1 ORDER BY id DESC').all();
+  const pages = ['', 'designs', 'categories', 'offers', 'vip', 'about', 'contact'];
+  const url = (loc, pri, freq) => `  <url><loc>${base}/${loc}</loc><changefreq>${freq}</changefreq><priority>${pri}</priority></url>`;
+  const body = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...pages.map(p => url(p, p === '' ? '1.0' : '0.8', p === '' ? 'daily' : 'weekly')),
+    ...rows.map(r => url('design/' + r.slug, '0.7', 'monthly')),
+    '</urlset>'
+  ].join('\n');
+  res.type('application/xml').send(body);
+});
+
+app.get('/robots.txt', (req, res) => {
+  const base = `${req.protocol}://${req.get('host')}`;
+  res.type('text/plain').send([
+    'User-agent: *', 'Allow: /',
+    'Disallow: /admin', 'Disallow: /api/', 'Disallow: /pay/', 'Disallow: /vip/pay/',
+    '', `Sitemap: ${base}/sitemap.xml`, ''
+  ].join('\n'));
+});
+
 app.get('/api/promos', (req, res) => {
   const rows = db.prepare('SELECT price FROM designs WHERE active = 1').all();
   ok(res, {
