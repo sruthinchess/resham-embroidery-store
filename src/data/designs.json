@@ -9782,6 +9782,591 @@
     "jef",
     "exp"
    ]
+  },
+  {
+   "slug": "cliff-silhouette",
+   "name": "Cliff Silhouette",
+   "source": "pack",
+   "dir": "src/designs/cliff-silhouette",
+   "previewImg": "img/cliff-silhouette.png",
+   "stitchImg": "img/cliff-silhouette-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "landscape",
+    "silhouette",
+    "jersey"
+   ],
+   "sewMinutes": 4,
+   "summary": "Two figures on a rock ledge, one kneeling and one standing.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2648,
+   "widthMm": 90,
+   "heightMm": 76.1,
+   "colorCount": 1,
+   "trims": 16,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#000000",
+     "stitches": 2648
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Cliff-Silhouette.pes",
+     "bytes": 17692
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Cliff-Silhouette.dst",
+     "bytes": 8642
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Cliff-Silhouette.jef",
+     "bytes": 5546
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Cliff-Silhouette.exp",
+     "bytes": 5476
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Cliff-Silhouette.vp3",
+     "bytes": 5720
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "folk-floral-ornament",
+   "name": "Folk Floral Ornament",
+   "source": "pack",
+   "dir": "src/designs/folk-floral-ornament",
+   "previewImg": "img/folk-floral-ornament.png",
+   "stitchImg": "img/folk-floral-ornament-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "folk",
+    "floral",
+    "cushion",
+    "christmas"
+   ],
+   "sewMinutes": 7,
+   "summary": "Folk floral ornament with red blooms, curling green stems and berries.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4890,
+   "widthMm": 49.6,
+   "heightMm": 90,
+   "colorCount": 4,
+   "trims": 142,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#818847",
+     "stitches": 2553
+    },
+    {
+     "name": "",
+     "hex": "#4d630f",
+     "stitches": 1164
+    },
+    {
+     "name": "",
+     "hex": "#b5534a",
+     "stitches": 915
+    },
+    {
+     "name": "",
+     "hex": "#212011",
+     "stitches": 258
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Folk-Floral-Ornament.pes",
+     "bytes": 35461
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Folk-Floral-Ornament.dst",
+     "bytes": 16976
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Folk-Floral-Ornament.jef",
+     "bytes": 11162
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Folk-Floral-Ornament.exp",
+     "bytes": 11572
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Folk-Floral-Ornament.vp3",
+     "bytes": 11020
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "leaf-swirl-symbol",
+   "name": "Leaf Swirl Symbol",
+   "source": "pack",
+   "dir": "src/designs/leaf-swirl-symbol",
+   "previewImg": "img/leaf-swirl-symbol.png",
+   "stitchImg": "img/leaf-swirl-symbol-stitch.png",
+   "price": 100,
+   "mrp": 170,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "symbol",
+    "leaf",
+    "hoop"
+   ],
+   "sewMinutes": 2,
+   "summary": "Swirling leaf emblem with a pointed tail.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 1543,
+   "widthMm": 90,
+   "heightMm": 55.7,
+   "colorCount": 1,
+   "trims": 10,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#080808",
+     "stitches": 1543
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Leaf-Swirl-Symbol.pes",
+     "bytes": 10894
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Leaf-Swirl-Symbol.dst",
+     "bytes": 5267
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Leaf-Swirl-Symbol.jef",
+     "bytes": 3308
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Leaf-Swirl-Symbol.exp",
+     "bytes": 3214
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Leaf-Swirl-Symbol.vp3",
+     "bytes": 3474
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "love-heart",
+   "name": "Love Heart",
+   "source": "pack",
+   "dir": "src/designs/love-heart",
+   "previewImg": "img/love-heart.png",
+   "stitchImg": "img/love-heart-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "heart",
+    "love",
+    "jersey"
+   ],
+   "sewMinutes": 4,
+   "summary": "The word love shaped into a heart with flowing ribbon strokes.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2774,
+   "widthMm": 90,
+   "heightMm": 73.3,
+   "colorCount": 1,
+   "trims": 16,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#020202",
+     "stitches": 2774
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Love-Heart.pes",
+     "bytes": 18448
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Love-Heart.dst",
+     "bytes": 9059
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Love-Heart.jef",
+     "bytes": 5846
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Love-Heart.exp",
+     "bytes": 5776
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Love-Heart.vp3",
+     "bytes": 5990
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "om-trishul",
+   "name": "Om Trishul",
+   "source": "pack",
+   "dir": "src/designs/om-trishul",
+   "previewImg": "img/om-trishul.png",
+   "stitchImg": "img/om-trishul-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "devotional",
+    "om",
+    "hoop"
+   ],
+   "sewMinutes": 3,
+   "summary": "Om symbol fused with a trishul in one flowing stroke.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2180,
+   "widthMm": 76,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 19,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#080808",
+     "stitches": 2180
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Om-Trishul.pes",
+     "bytes": 14968
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Om-Trishul.dst",
+     "bytes": 7295
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Om-Trishul.jef",
+     "bytes": 4662
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Om-Trishul.exp",
+     "bytes": 4604
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Om-Trishul.vp3",
+     "bytes": 4790
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "purple-elephant",
+   "name": "Purple Elephant",
+   "source": "pack",
+   "dir": "src/designs/purple-elephant",
+   "previewImg": "img/purple-elephant.png",
+   "stitchImg": "img/purple-elephant-stitch.png",
+   "price": 500,
+   "mrp": 850,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "animal",
+    "elephant",
+    "cushion"
+   ],
+   "sewMinutes": 14,
+   "summary": "Elephant in deep purple with orange ceremonial markings.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 9888,
+   "widthMm": 90,
+   "heightMm": 70.9,
+   "colorCount": 4,
+   "trims": 246,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#e2923d",
+     "stitches": 3239
+    },
+    {
+     "name": "",
+     "hex": "#9c6343",
+     "stitches": 936
+    },
+    {
+     "name": "",
+     "hex": "#f1e1b7",
+     "stitches": 1473
+    },
+    {
+     "name": "",
+     "hex": "#301845",
+     "stitches": 4240
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Purple-Elephant.pes",
+     "bytes": 68361
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Purple-Elephant.dst",
+     "bytes": 33053
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Purple-Elephant.jef",
+     "bytes": 21746
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Purple-Elephant.exp",
+     "bytes": 22572
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Purple-Elephant.vp3",
+     "bytes": 21482
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "royal-elephant",
+   "name": "Royal Elephant",
+   "source": "pack",
+   "dir": "src/designs/royal-elephant",
+   "previewImg": "img/royal-elephant.png",
+   "stitchImg": "img/royal-elephant-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "animal",
+    "elephant",
+    "hoop"
+   ],
+   "sewMinutes": 11,
+   "summary": "Ceremonial elephant in blue with gold trappings and a maroon blanket.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7397,
+   "widthMm": 90,
+   "heightMm": 70.1,
+   "colorCount": 4,
+   "trims": 183,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#8bc6e9",
+     "stitches": 2101
+    },
+    {
+     "name": "",
+     "hex": "#8c3e4a",
+     "stitches": 1727
+    },
+    {
+     "name": "",
+     "hex": "#bfa36b",
+     "stitches": 1868
+    },
+    {
+     "name": "",
+     "hex": "#2e73aa",
+     "stitches": 1701
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Royal-Elephant.pes",
+     "bytes": 51651
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Royal-Elephant.dst",
+     "bytes": 25028
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Royal-Elephant.jef",
+     "bytes": 16536
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Royal-Elephant.exp",
+     "bytes": 17110
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Royal-Elephant.vp3",
+     "bytes": 16218
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
   }
  ]
 }

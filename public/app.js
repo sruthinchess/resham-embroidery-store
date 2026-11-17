@@ -533,6 +533,11 @@
         </div>
         <div class="hf-clock"><span>Ends in</span><b data-ends="${esc(flash.ends_at)}">—</b></div>
       </div>` : ''}
+      <form class="home-search" id="homeSearchForm" role="search">
+        <span class="hs-ic">${I.search}</span>
+        <input name="q" placeholder="Search designs — floral, peacock, jersey, kids…" autocomplete="off" aria-label="Search designs">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+      </form>
       <div class="pgrid two" id="homeGrid">${all.designs.slice(0, HOME_BATCH).map(d => designCard(d, { noBuy: true })).join('')}</div>
       <div id="homeSentinel" class="center"><span class="small muted">Loading more designs…</span></div>
     </div>`;
@@ -1811,6 +1816,13 @@
     };
     wireFavDelegation();
     wirePage();
+
+    const hsf = $('#homeSearchForm');
+    if (hsf) hsf.onsubmit = e => {
+      e.preventDefault();
+      const q = new FormData(hsf).get('q').trim();
+      go(q ? `#/designs?q=${encodeURIComponent(q)}` : '#/designs');
+    };
 
     const hs = $('#heroSearch');
     if (hs) hs.onsubmit = e => {

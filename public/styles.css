@@ -1450,3 +1450,26 @@ a.body h3 { margin: 0; }
   .cp-top b { font-size: 12px; }
   .cp-mark { font-size: 9px; }
 }
+
+/* search bar on the home page, and one that survives on phones */
+.home-search {
+  display: flex; align-items: center; gap: 8px; margin: 0 0 18px;
+  background: var(--paper); border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: 6px 6px 6px 18px; box-shadow: var(--shadow-sm);
+}
+.home-search:focus-within { border-color: var(--brass); box-shadow: 0 0 0 4px rgba(184, 147, 79, .12); }
+.home-search .hs-ic { color: var(--ink-mute); display: grid; place-items: center; }
+.home-search input { flex: 1; border: 0; background: transparent; font-size: 14.5px; color: var(--ink); outline: none; }
+.home-search .btn { height: 38px; border-radius: 999px; padding: 0 20px; }
+
+@media (max-width: 900px) {
+  /* the header keeps its search on phones, as a second row */
+  .hdr-in { flex-wrap: wrap; height: auto; padding: 10px 0 12px; row-gap: 10px; }
+  .hdr .searchbar {
+    display: block; order: 5; flex: 1 1 100%; max-width: none; margin: 0;
+  }
+  .hdr .searchbar input { height: 40px; font-size: 13px; }
+  .home-search { padding: 5px 5px 5px 14px; }
+  .home-search input { font-size: 13.5px; }
+  .home-search .btn { height: 36px; padding: 0 14px; font-size: 10px; }
+}
