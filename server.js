@@ -84,7 +84,8 @@ function flashConfig() {
   ends.setDate(ist.getDate() + (daysToSunday === 0 ? 0 : daysToSunday));
   ends.setHours(23, 59, 59, 999);
   const endsUtc = new Date(ends.getTime() - (5.5 * 60 - now.getTimezoneOffset()) * 60000);
-  const live = !!cfg.active && endsUtc > now && !christmasLive();
+  const istDay = new Date(now.getTime() + (330 + now.getTimezoneOffset()) * 60000).getDay();
+  const live = !!cfg.active && endsUtc > now && !christmasLive() && istDay === 0;   // Sundays only
   return { active: !!cfg.active, live, percent: num(cfg.percent, 0), label: cfg.label || 'Flash sale',
            note: cfg.note || '', ends_at: endsUtc.toISOString() };
 }
@@ -259,6 +260,66 @@ app.post('/api/coupons/validate', (req, res) => {
   const r = checkCoupon(code, num(subtotal, 0));
   if (r.error) return fail(res, 400, r.error);
   ok(res, { coupon: r.coupon, discount: r.discount, total: Math.max(0, num(subtotal, 0) - r.discount) });
+});
+
+function membershipOut(row) {
+  if (!row) return null;
+  return {
+    code: row.code, plan: row.plan, planName: row.plan_name, amount: row.amount,
+    name: row.name, email: row.email, status: row.status, note: row.note,
+    screenshot: !!row.screenshot, createdAt: row.created_at, activatedAt: row.activated_at,
+    upi: upiPayload(row.code, row.amount)
+  };
+}
+
+app.post('/api/memberships', (req, res) => {
+  const { plan, name = '', email = '' } = req.body || {};
+  const vip = getJSON('vip', {}) || {};
+  const chosen = (vip.plans || []).find(p => p.id === plan);
+  if (!chosen) return fail(res, 400, 'Pick a membership plan first.');
+  if (!String(name).trim()) return fail(res, 400, 'Please enter your name.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) return fail(res, 400, 'Please enter a valid email.');
+  const code = 'VIP-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100);
+  db.prepare(`INSERT INTO memberships(code,plan,plan_name,amount,name,email,status) VALUES (?,?,?,?,?,?,'pending')`)
+    .run(code, chosen.id, chosen.name, num(chosen.price, 0), String(name).trim(), String(email).trim());
+  ok(res, { membership: membershipOut(db.prepare('SELECT * FROM memberships WHERE code=?').get(code)) });
+});
+
+app.get('/api/memberships/:code', (req, res) => {
+  const row = db.prepare('SELECT * FROM memberships WHERE code=?').get(String(req.params.code).toUpperCase());
+  if (!row) return fail(res, 404, 'That membership was not found.');
+  ok(res, { membership: membershipOut(row) });
+});
+
+app.post('/api/memberships/:code/proof', (req, res) => {
+  const row = db.prepare('SELECT * FROM memberships WHERE code=?').get(String(req.params.code).toUpperCase());
+  if (!row) return fail(res, 404, 'That membership was not found.');
+  const shot = String((req.body || {}).screenshot || '');
+  const m = /^data:image\/(png|jpe?g|webp|gif);base64,([A-Za-z0-9+/=\s]+)$/.exec(shot);
+  if (!m) return fail(res, 400, 'Attach a screenshot image (PNG, JPG or WebP).');
+  const buf = Buffer.from(m[2].replace(/\s/g, ''), 'base64');
+  if (buf.length < 1024) return fail(res, 400, 'That image looks empty — please attach the payment screenshot again.');
+  if (buf.length > 8 * 1024 * 1024) return fail(res, 413, 'Screenshot is larger than 8 MB — please compress it.');
+  const ext = m[1].toLowerCase().replace('jpeg', 'jpg');
+  const saved = `${row.code}-${Date.now()}.${ext}`;
+  fs.writeFileSync(path.join(UPLOAD_DIR, saved), buf);
+  db.prepare(`UPDATE memberships SET screenshot=?, status='submitted', upi_ref=?, note=? WHERE id=?`)
+    .run(saved, String((req.body || {}).ref || ''), 'Payment proof received', row.id);
+  ok(res, { membership: membershipOut(db.prepare('SELECT * FROM memberships WHERE id=?').get(row.id)),
+            message: 'Your payment proof has been submitted. The studio activates VIP within 24 hours.' });
+});
+
+app.get('/api/admin/memberships', requireAdmin, (req, res) => {
+  const rows = db.prepare('SELECT * FROM memberships ORDER BY id DESC').all();
+  ok(res, { memberships: rows.map(membershipOut) });
+});
+
+app.patch('/api/admin/memberships/:id', requireAdmin, (req, res) => {
+  const { status } = req.body || {};
+  if (!['pending', 'submitted', 'active', 'cancelled'].includes(status)) return fail(res, 400, 'Unknown status.');
+  db.prepare('UPDATE memberships SET status=?, activated_at=? WHERE id=?')
+    .run(status, status === 'active' ? new Date().toISOString() : null, num(req.params.id, 0));
+  ok(res, { ok: true });
 });
 
 app.get('/api/promos', (req, res) => {

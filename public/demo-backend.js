@@ -198,7 +198,7 @@
     const ends = new Date(now);
     ends.setDate(now.getDate() + ((7 - now.getDay()) % 7));
     ends.setHours(23, 59, 59, 999);
-    const flash = { active: !!cfg.active, live: !!cfg.active && ends > now, percent: cfg.percent || 0,
+    const flash = { active: !!cfg.active, live: !!cfg.active && ends > now && now.getDay() === 0, percent: cfg.percent || 0,
                     label: cfg.label || 'Flash sale', note: cfg.note || '', ends_at: ends.toISOString() };
     return { ok: true, flash, bulk: (S.settings && S.settings.bulk) || [],
              gift: (S.settings && S.settings.gift) || {}, vip: (S.settings && S.settings.vip) || {},
@@ -231,7 +231,7 @@
     }
     const subtotal = Math.round(amount * 100) / 100;
     const fcfg = (S.settings && S.settings.flash) || {};
-    const flashPct = fcfg.active ? (fcfg.percent || 0) : 0;
+    const flashPct = (fcfg.active && new Date().getDay() === 0) ? (fcfg.percent || 0) : 0;
     const flashDiscount = Math.round(subtotal * flashPct) / 100;
     const tiers = (S.settings && S.settings.bulk) || [];
     const tier = tiers.slice().sort((a, b2) => b2.qty - a.qty).find(t => lines.length >= t.qty);

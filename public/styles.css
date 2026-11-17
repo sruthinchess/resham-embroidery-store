@@ -688,7 +688,7 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* keep big grids cheap to paint */
-.dcard { content-visibility: auto; contain-intrinsic-size: 380px 480px; }
+
 .shot img { background: transparent; }
 
 /* route progress + staggered cards */
@@ -1340,3 +1340,38 @@ a.body h3 { margin: 0; }
 .hero.xmas { min-height: 0; }
 .xmas-clock div b { color: #fff8ea; }
 .announce.xmas { background: #0b2a20; color: #f3d9a4; border-bottom-color: #1d4a37; }
+
+/* sunday flash banner inside the hero */
+.hero-flash {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin: 22px auto 0; max-width: 760px; padding: 14px 20px; border-radius: 16px;
+  background: linear-gradient(100deg, #fdf3e6, #fbe9e4); border: 1px solid #ecd3c8;
+  box-shadow: var(--shadow-sm); text-align: left;
+}
+.hf-left { display: flex; align-items: center; gap: 12px; }
+.hf-left b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.hf-left span { font-size: 12.5px; color: var(--ink-soft); }
+.hf-clock { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mute); }
+.hf-clock b { font-family: var(--mono); font-size: 15px; color: var(--maroon); letter-spacing: 0; text-transform: none; }
+@media (max-width: 900px) {
+  .hero-flash { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 16px; }
+  .hf-clock { width: 100%; justify-content: space-between; }
+}
+
+/* referral card in the sidebar */
+.ref-card {
+  margin-top: 16px; padding: 16px; border-radius: 14px;
+  background: var(--canvas-2); border: 1px dashed var(--line-strong);
+}
+.ref-card .small { color: var(--ink-soft); margin: 6px 0 10px; }
+.ref-code {
+  font-size: 17px; letter-spacing: .12em; font-weight: 700; color: var(--maroon);
+  background: var(--paper); border: 1px solid var(--line-strong); border-radius: 10px;
+  padding: 10px 12px; text-align: center; margin-bottom: 10px;
+}
+.ref-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+
+/* no collapsing cards: they caused a tall blank gap near the footer */
+.pgrid .dcard { content-visibility: visible; contain-intrinsic-size: auto; }
+#homeSentinel, #shopSentinel { min-height: 56px; }

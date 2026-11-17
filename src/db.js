@@ -85,6 +85,19 @@ CREATE TABLE IF NOT EXISTS orders (
   created_at TEXT DEFAULT (datetime('now')),
   paid_at TEXT
 );
+CREATE TABLE IF NOT EXISTS memberships (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  code TEXT UNIQUE NOT NULL,
+  plan TEXT NOT NULL,
+  plan_name TEXT,
+  amount REAL NOT NULL,
+  name TEXT, email TEXT,
+  upi_ref TEXT, screenshot TEXT,
+  status TEXT NOT NULL DEFAULT 'pending',
+  note TEXT,
+  created_at TEXT DEFAULT (datetime('now')),
+  activated_at TEXT
+);
 CREATE TABLE IF NOT EXISTS download_tokens (
   token TEXT PRIMARY KEY,
   order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,

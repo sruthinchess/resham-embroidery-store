@@ -469,33 +469,15 @@
         <a class="btn btn-gold" href="#/designs">Shop all ${all.designs.length} designs ${I.arrow}</a>
         <a class="btn btn-ghost" href="#/categories">Explore collections</a>
       </div>
-      ${flash.live ? `<div class="flash-strip">
-        <span class="flash-dot"></span>
-        <b>${esc(flash.label || 'Flash sale')}</b>
-        <span>${flash.percent}% off every design, applied automatically</span>
-        <span class="flash-clock">ends in <b data-ends="${esc(flash.ends_at)}">—</b></span>
+      ${flash.live ? `<div class="hero-flash">
+        <div class="hf-left">
+          <span class="flash-dot"></span>
+          <div><b>Sunday flash sale · ${flash.percent}% off</b>
+            <span>Every design, applied automatically at checkout — today only.</span></div>
+        </div>
+        <div class="hf-clock"><span>Ends in</span><b data-ends="${esc(flash.ends_at)}">—</b></div>
       </div>` : ''}
     </div></div>
-
-    <section class="section tight"><div class="wrap">
-      <div class="promo-row">
-        ${flash.live ? `<a class="promo-card flash" href="#/offers">
-          <span class="eyebrow">Limited time</span>
-          <b>${flash.percent}% off everything</b>
-          <span class="small">Automatic — no code needed. Ends in <b data-ends="${esc(flash.ends_at)}">—</b></span>
-        </a>` : ''}
-        <a class="promo-card" href="#/offers">
-          <span class="eyebrow">Buy more, save more</span>
-          <b>${bulk.length ? `Up to ${bulk[0].percent}% off` : 'Bundle discount'}</b>
-          <span class="small">${bulk.slice().reverse().map(b => `Buy ${b.qty} → ${b.percent}%`).join(' · ') || 'Add designs to save'}</span>
-        </a>
-        <a class="promo-card" href="#/vip">
-          <span class="eyebrow">Sandya VIP</span>
-          <b>From ₹199 a month</b>
-          <span class="small">Monthly packs, member prices, early access</span>
-        </a>
-      </div>
-    </div></section>
 
     <section class="section"><div class="wrap">
       <div class="sec-head reveal">
@@ -1357,22 +1339,123 @@
     m.innerHTML = `<div class="modal">
       <header><div><span class="eyebrow">Sandya VIP</span><h3 style="margin-top:2px">${esc(plan.name)} membership</h3></div>
         <button class="icon-btn" id="mClose" aria-label="Close">✕</button></header>
-      <p class="small muted">Pay ${money(plan.price)} by UPI with the note <b class="mono">VIP ${esc(plan.name).toUpperCase()}</b>. The studio activates it within 24 hours.</p>
-      <div class="qr-frame" id="vipQr"></div>
-      <p class="small mono" style="text-align:center;margin:12px 0 4px">${esc(Store.settings.upi_id)}</p>
-      <p class="small muted" style="text-align:center">Amount ${money(plan.price)} · ${esc(plan.note || '')}</p>
-      <button class="btn btn-ghost btn-block" id="vipCopy">Copy UPI ID</button>
+      <p class="small muted">${money(plan.price)} · ${esc(plan.note || '')}</p>
+      <form id="vipForm" class="stack">
+        <div class="field"><label>Your name</label><input class="input" name="name" required placeholder="Your full name"></div>
+        <div class="field"><label>Email</label><input class="input" name="email" type="email" required placeholder="you@example.com"></div>
+        <button class="btn btn-primary btn-block">Continue to payment ${I.arrow}</button>
+      </form>
     </div>`;
     m.classList.add('on');
     $('#mClose').onclick = () => m.classList.remove('on');
-    $('#vipCopy').onclick = async () => {
-      try { await navigator.clipboard.writeText(Store.settings.upi_id); toast('UPI ID copied', 'ok'); }
-      catch { toast('Copy failed — long press the ID above.', 'bad'); }
+    $('#vipForm').onsubmit = async e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      try {
+        const res = await api('/api/memberships', { method: 'POST', body: { plan: plan.id, name: f.get('name'), email: f.get('email') } });
+        m.classList.remove('on');
+        go('#/vip/pay/' + res.membership.code);
+      } catch (err) { toast(err.message, 'bad'); }
     };
-    const upi = Store.settings.upi_id;
-    const link = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent(Store.settings.store_name)}&am=${plan.price.toFixed(2)}&cu=INR&tn=${encodeURIComponent('VIP ' + plan.name)}`;
-    const box = $('#vipQr');
-    if (box) { try { box.innerHTML = qrSvg(link, 6); } catch (e) { box.textContent = upi; } }
+  }
+
+  async function viewVipPay(code) {
+    const r = await api('/api/memberships/' + encodeURIComponent(code));
+    const v = r.membership;
+    const upi = v.upi || { id: Store.settings.upi_id, link: '' };
+    if (v.status === 'submitted' || v.status === 'active') {
+      return `<div class="wrap narrow">
+        <div class="crumbs"><a href="#/">Home</a> / <a href="#/vip">VIP</a> / ${esc(v.code)}</div>
+        <div class="panel" style="margin:20px 0 60px;text-align:center">
+          <div class="ok-mark">${I.check}</div>
+          <h2 style="margin:12px 0 6px">${v.status === 'active' ? 'Your VIP is active' : 'Payment proof received'}</h2>
+          <p class="small muted">${esc(v.planName)} membership · ${money(v.amount)} · ${esc(v.code)}</p>
+          <p class="small muted" style="margin-top:10px">${v.status === 'active'
+            ? 'Member prices and the monthly design pack are live on this account.'
+            : 'The studio activates VIP within 24 hours of the payment. You will get a confirmation on this page.'}</p>
+          <a class="btn btn-ghost" href="#/designs" style="margin-top:14px">Browse designs</a>
+        </div>
+      </div>`;
+    }
+    return `<div class="wrap narrow">
+      <div class="crumbs"><a href="#/">Home</a> / <a href="#/vip">VIP</a> / Pay</div>
+      <div class="panel" style="margin:20px 0 26px">
+        <h3>Pay ${money(v.amount)} by UPI</h3>
+        <p class="sub">${esc(v.planName)} membership · <b class="mono">${esc(v.code)}</b></p>
+        <div class="apps-head"><span>Pay with an app</span><span class="line"></span></div>
+        <div class="upi-apps" id="vipApps">
+          ${UPI_APPS.map(a => `<button class="upi-app" data-app="${a.id}" title="Open ${esc(a.name)}">
+            <span class="lg">${logo(a, 24)}</span><span class="nm">${esc(a.name)}</span></button>`).join('')}
+        </div>
+        <div class="apps-head"><span>Or scan the QR</span><span class="line"></span></div>
+        <div class="qr-card">
+          <div class="qr-frame">${qrSvg(upi.link, 6)}</div>
+          <div class="qr-side">
+            <div><div class="qr-lab">Amount</div><div class="qr-amt">${money(v.amount)}</div></div>
+            <div><div class="qr-lab">UPI ID</div>
+              <div class="upi-row"><span>${esc(upi.id)}</span><button class="copy-btn" id="vipCopyUpi">Copy</button></div></div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" id="vipPaid" style="margin-top:16px">I have paid — upload the screenshot ${I.arrow}</button>
+      </div>
+    </div>`;
+  }
+
+  function wireVipPay(v) {
+    const upi = v.upi || { id: Store.settings.upi_id, link: '' };
+    $$('#vipApps .upi-app').forEach(b => b.onclick = () => {
+      const app = UPI_APPS.find(a => a.id === b.dataset.app);
+      if (app) openUpiApp(app, upi);
+    });
+    const copy = $('#vipCopyUpi');
+    if (copy) copy.onclick = async () => {
+      try { await navigator.clipboard.writeText(upi.id); toast('UPI ID copied', 'ok'); }
+      catch { toast('Copy failed — select the ID manually', 'bad'); }
+    };
+    const paid = $('#vipPaid');
+    if (paid) paid.onclick = () => openVipProof(v);
+  }
+
+  function openVipProof(v) {
+    const m = $('#modal');
+    m.innerHTML = `<div class="modal">
+      <header><div><span class="eyebrow">VIP · ${esc(v.code)}</span><h3 style="margin-top:2px">Upload the payment screenshot</h3></div>
+        <button class="icon-btn" id="mClose" aria-label="Close">✕</button></header>
+      <p class="small muted">PNG, JPG or WebP up to 8 MB.</p>
+      <input type="file" id="vipProof" accept="image/png,image/jpeg,image/webp" style="display:none">
+      <button class="btn btn-ghost btn-block" id="vipPick">Choose screenshot</button>
+      <div id="vipPreview" style="margin-top:12px"></div>
+      <button class="btn btn-primary btn-block" id="vipSubmit" disabled style="margin-top:12px">Submit payment proof</button>
+    </div>`;
+    m.classList.add('on');
+    $('#mClose').onclick = () => m.classList.remove('on');
+    let file = null;
+    const input = $('#vipProof');
+    $('#vipPick').onclick = () => input.click();
+    input.onchange = () => {
+      file = input.files && input.files[0];
+      if (!file) return;
+      if (!/^image\/(png|jpe?g|webp)$/.test(file.type)) return toast('Use a PNG, JPG or WebP image.', 'bad');
+      if (file.size > 8 * 1024 * 1024) return toast('That image is over 8 MB.', 'bad');
+      const url = URL.createObjectURL(file);
+      $('#vipPreview').innerHTML = `<img src="${url}" alt="Payment screenshot" style="width:100%;border-radius:12px;border:1px solid var(--line)">`;
+      $('#vipSubmit').disabled = false;
+    };
+    $('#vipSubmit').onclick = async () => {
+      if (!file) return;
+      const btn = $('#vipSubmit');
+      btn.disabled = true; btn.textContent = 'Uploading…';
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          await api('/api/memberships/' + encodeURIComponent(v.code) + '/proof', { method: 'POST', body: { screenshot: reader.result } });
+          m.classList.remove('on');
+          toast('Payment proof submitted', 'ok');
+          go('#/vip/pay/' + v.code);
+        } catch (err) { toast(err.message, 'bad'); btn.disabled = false; btn.textContent = 'Submit payment proof'; }
+      };
+      reader.readAsDataURL(file);
+    };
   }
 
   function openDrawer() {
@@ -1455,18 +1538,24 @@
   });
 
 
+  let REVEAL_IO = null;
+
   function reveals() {
-    const els = $$('.reveal');
+    // only the ones not shown yet, and one shared observer, so cards appended by
+    // infinite scroll also fade in instead of staying invisible
+    const els = $$('.reveal:not(.in)');
     if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('in'), i * 60);
-          io.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
-    els.forEach(e => io.observe(e));
+    if (!REVEAL_IO) {
+      REVEAL_IO = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('in'), i * 60);
+            REVEAL_IO.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    }
+    els.forEach(e => REVEAL_IO.observe(e));
   }
 
   function progress(on) {
@@ -1506,6 +1595,12 @@
       else if (seg === 'downloads') { view = await viewDownloads(); active = 'downloads'; }
       else if (seg === 'categories') { view = await viewCategories(); active = 'categories'; }
       else if (seg === 'offers') { view = await viewOffers(); active = 'offers'; }
+      else if (seg === 'vip' && parts[1] === 'pay' && parts[2]) {
+        const r = await api('/api/memberships/' + encodeURIComponent(parts[2]));
+        view = await viewVipPay(parts[2]);
+        active = 'vip';
+        setTimeout(() => wireVipPay(r.membership), 0);
+      }
       else if (seg === 'vip') { view = await viewVip(); active = 'vip'; }
       else if (seg === 'about') { view = await viewAbout(); active = 'about'; }
       else if (seg === 'contact') { view = await viewContact(); active = 'contact'; }
@@ -1545,10 +1640,35 @@
           <a class="btn btn-ghost btn-block" href="#/vip">Sandya VIP</a>
           <a class="btn btn-ghost btn-block" href="#/downloads">My downloads</a>
           <a class="btn btn-ghost btn-block" href="#/saved">Saved designs</a>
+        </div>
+        <div class="ref-card">
+          <span class="eyebrow">Refer &amp; earn</span>
+          <p class="small">Share your link — they save 15% with <b class="mono">REFER15</b>, and so do you.</p>
+          <div class="ref-code mono" id="sideRefCode">${esc(referralCode())}</div>
+          <div class="ref-actions">
+            <button class="btn btn-primary btn-sm" id="sideRefShare">Share link</button>
+            <button class="btn btn-ghost btn-sm" id="sideRefCopy">Copy code</button>
+          </div>
         </div></div>`;
       m.classList.add('on');
       $('#mClose').onclick = () => m.classList.remove('on');
       m.querySelectorAll('a').forEach(a => a.onclick = () => m.classList.remove('on'));
+      const refCode = referralCode();
+      const refUrl = location.origin + BASE + '?ref=' + refCode;
+      const sc = $('#sideRefCopy');
+      if (sc) sc.onclick = async () => {
+        try { await navigator.clipboard.writeText(refCode); toast('Referral code copied', 'ok'); }
+        catch { toast('Code: ' + refCode, ''); }
+      };
+      const ss = $('#sideRefShare');
+      if (ss) ss.onclick = async () => {
+        const text = `Get 15% off embroidery designs at Sandya Emb Designs with code REFER15 — ${refUrl}`;
+        if (navigator.share) {
+          try { await navigator.share({ title: 'Sandya Emb Designs', text, url: refUrl }); return; } catch (e) { /* cancelled */ }
+        }
+        try { await navigator.clipboard.writeText(text); toast('Share message copied', 'ok'); }
+        catch { toast('Link: ' + refUrl, ''); }
+      };
     };
     wireFavDelegation();
     wirePage();
@@ -1588,6 +1708,7 @@
         busy = true;
         const next = SHOP_LIST.slice(shown, shown + PAGE);
         grid.insertAdjacentHTML('beforeend', next.map(d => designCard(d)).join(''));
+        reveals();
         wirePage();
         shown += next.length;
         busy = false;
@@ -1798,6 +1919,7 @@
         busy = true;
         const next = HOME_LIST.slice(shown, shown + HOME_BATCH);
         grid.insertAdjacentHTML('beforeend', next.map(d => designCard(d, { noBuy: true })).join(''));
+        reveals();
         shown += next.length;
         busy = false;
         if (shown >= HOME_LIST.length) sentinel.innerHTML = `<a class="btn btn-ghost btn-sm" href="#/designs">See all ${HOME_LIST.length} designs ${I.arrow}</a>`;
