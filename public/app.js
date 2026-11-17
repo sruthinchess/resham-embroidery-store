@@ -272,7 +272,7 @@
     return `<div class="announce ${XMAS_LIVE ? 'xmas' : ''}">${esc(note)}</div>
     <header class="hdr" id="hdr"><div class="wrap hdr-in">
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
-      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="mark" src="${esc(logoMark())}" alt="${esc(Store.settings.store_name)}"><span>${esc(brandWords().first)}<small>${esc(brandWords().rest)}</small></span>${vipBadge()}</a>
+      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="brand-full" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}">${vipBadge()}</a>
       <nav class="nav">
         <a href="#/" class="${a('home')}">Home</a>
         <a href="#/designs" class="${a('designs')}">Designs</a>
