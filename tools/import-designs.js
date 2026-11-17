@@ -143,7 +143,17 @@ const META = {
   'love-heart': { featured: 0, badge: 'New', tags: ['heart', 'love', 'jersey'] },
   'om-trishul': { featured: 1, badge: 'New', tags: ['devotional', 'om', 'hoop'] },
   'purple-elephant': { featured: 1, badge: 'New', tags: ['animal', 'elephant', 'cushion'] },
-  'royal-elephant': { featured: 0, badge: 'New', tags: ['animal', 'elephant', 'hoop'] }
+  'royal-elephant': { featured: 0, badge: 'New', tags: ['animal', 'elephant', 'hoop'] },
+  'family-script': { featured: 0, badge: 'New', tags: ['wordmark', 'family', 'cushion'] },
+  'happy-birthday-script': { featured: 0, badge: 'New', tags: ['wordmark', 'celebration', 'cushion'] },
+  'honda-wing': { featured: 0, badge: 'New', tags: ['logo', 'motorsport', 'jersey'] },
+  'king-crest': { featured: 0, badge: 'New', tags: ['crest', 'crown', 'jersey'] },
+  'lion-s-monogram': { featured: 0, badge: 'New', tags: ['monogram', 'lion', 'cushion'] },
+  'ornate-crown': { featured: 1, badge: 'New', tags: ['crown', 'ornament', 'hoop'] },
+  'pikachu-wordmark': { featured: 0, badge: 'New', tags: ['wordmark', 'kids', 'jersey'] },
+  'royatly-script': { featured: 0, badge: 'New', tags: ['wordmark', 'script', 'cushion'] },
+  'star-crown-s': { featured: 0, badge: 'New', tags: ['monogram', 'crown', 'jersey'] },
+  'toyota-logo': { featured: 0, badge: 'New', tags: ['logo', 'motorsport', 'jersey'] }
 };
 
 const COPY = {

@@ -27,13 +27,16 @@ IMG.mkdir(parents=True)
 FILES.mkdir(parents=True)
 
 LIMITS = {'logo': 300, 'logo-mark': 128, 'favicon': 64}
-for src in (PUB / 'img').glob('*.png'):
+for src in list((PUB / 'img').glob('*.png')) + list((PUB / 'img').glob('*.webp')):
     limit = LIMITS.get(src.stem) or (360 if src.stem.endswith('-stitch') else 340)
     im = Image.open(src).convert('RGBA')
     im.thumbnail((limit, limit), Image.LANCZOS)
-    if not src.stem.startswith('logo') and src.stem != 'favicon':
-        im = im.quantize(colors=128, method=Image.FASTOCTREE).convert('RGBA')
-    im.save(IMG / src.name, optimize=True)
+    if src.suffix.lower() == '.webp':
+        im.save(IMG / src.name, 'WEBP', quality=80, method=4)
+    else:
+        if not src.stem.startswith('logo') and src.stem != 'favicon':
+            im = im.quantize(colors=128, method=Image.FASTOCTREE).convert('RGBA')
+        im.save(IMG / src.name, optimize=True)
 
 # ---- machine files for the demo
 files = {}

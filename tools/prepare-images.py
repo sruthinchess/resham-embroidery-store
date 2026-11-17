@@ -15,3 +15,7 @@ im.thumbnail((limit, limit), Image.LANCZOS)
 if colors:
     im = im.quantize(colors=colors, method=Image.FASTOCTREE).convert('RGBA')
 im.save(out, optimize=True)
+
+# a WebP twin: same pixels, a fraction of the bytes
+webp = out[:-4] + '.webp' if out.lower().endswith('.png') else out + '.webp'
+im.save(webp, 'WEBP', quality=82, method=6)

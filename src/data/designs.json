@@ -10367,6 +10367,801 @@
     "jef",
     "exp"
    ]
+  },
+  {
+   "slug": "family-script",
+   "name": "Family Script",
+   "source": "pack",
+   "dir": "src/designs/family-script",
+   "previewImg": "img/family-script.png",
+   "stitchImg": "img/family-script-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "wordmark",
+    "family",
+    "cushion"
+   ],
+   "sewMinutes": 3,
+   "summary": "Flowing script word Family with swashes.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2015,
+   "widthMm": 90,
+   "heightMm": 50.3,
+   "colorCount": 1,
+   "trims": 19,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#131313",
+     "stitches": 2015
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Family-Script.pes",
+     "bytes": 13978
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Family-Script.dst",
+     "bytes": 6770
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Family-Script.jef",
+     "bytes": 4296
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Family-Script.exp",
+     "bytes": 4238
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Family-Script.vp3",
+     "bytes": 4466
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "happy-birthday-script",
+   "name": "Happy Birthday Script",
+   "source": "pack",
+   "dir": "src/designs/happy-birthday-script",
+   "previewImg": "img/happy-birthday-script.png",
+   "stitchImg": "img/happy-birthday-script-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "wordmark",
+    "celebration",
+    "cushion"
+   ],
+   "sewMinutes": 5,
+   "summary": "Happy Birthday in tall flourishing script.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3578,
+   "widthMm": 90,
+   "heightMm": 85.5,
+   "colorCount": 1,
+   "trims": 44,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#060606",
+     "stitches": 3578
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Happy-Birthday-Script.pes",
+     "bytes": 24056
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Happy-Birthday-Script.dst",
+     "bytes": 11735
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Happy-Birthday-Script.jef",
+     "bytes": 7582
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Happy-Birthday-Script.exp",
+     "bytes": 7624
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Happy-Birthday-Script.vp3",
+     "bytes": 7672
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "honda-wing",
+   "name": "Honda Wing",
+   "source": "pack",
+   "dir": "src/designs/honda-wing",
+   "previewImg": "img/honda-wing.png",
+   "stitchImg": "img/honda-wing-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "logo",
+    "motorsport",
+    "jersey"
+   ],
+   "sewMinutes": 5,
+   "summary": "Honda wing emblem above the HONDA wordmark.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3455,
+   "widthMm": 90,
+   "heightMm": 71.5,
+   "colorCount": 2,
+   "trims": 62,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#c7c7c7",
+     "stitches": 683
+    },
+    {
+     "name": "",
+     "hex": "#010101",
+     "stitches": 2772
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Honda-Wing.pes",
+     "bytes": 24085
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Honda-Wing.dst",
+     "bytes": 11669
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Honda-Wing.jef",
+     "bytes": 7596
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Honda-Wing.exp",
+     "bytes": 7702
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Honda-Wing.vp3",
+     "bytes": 7618
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "king-crest",
+   "name": "King Crest",
+   "source": "pack",
+   "dir": "src/designs/king-crest",
+   "previewImg": "img/king-crest.png",
+   "stitchImg": "img/king-crest-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "crest",
+    "crown",
+    "jersey"
+   ],
+   "sewMinutes": 3,
+   "summary": "Gothic KING lettering inside a shield with a crown.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2164,
+   "widthMm": 60.9,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 25,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#020202",
+     "stitches": 2164
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "King-Crest.pes",
+     "bytes": 15040
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "King-Crest.dst",
+     "bytes": 7274
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "King-Crest.jef",
+     "bytes": 4622
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "King-Crest.exp",
+     "bytes": 4588
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "King-Crest.vp3",
+     "bytes": 4776
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "lion-s-monogram",
+   "name": "Lion S Monogram",
+   "source": "pack",
+   "dir": "src/designs/lion-s-monogram",
+   "previewImg": "img/lion-s-monogram.png",
+   "stitchImg": "img/lion-s-monogram-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "monogram",
+    "lion",
+    "cushion"
+   ],
+   "sewMinutes": 4,
+   "summary": "Letter S formed with a lions head wearing a crown.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2975,
+   "widthMm": 57.5,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 35,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#19191a",
+     "stitches": 2975
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Lion-S-Monogram.pes",
+     "bytes": 20186
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Lion-S-Monogram.dst",
+     "bytes": 9851
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Lion-S-Monogram.jef",
+     "bytes": 6340
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Lion-S-Monogram.exp",
+     "bytes": 6346
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Lion-S-Monogram.vp3",
+     "bytes": 6442
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "ornate-crown",
+   "name": "Ornate Crown",
+   "source": "pack",
+   "dir": "src/designs/ornate-crown",
+   "previewImg": "img/ornate-crown.png",
+   "stitchImg": "img/ornate-crown-stitch.png",
+   "price": 400,
+   "mrp": 680,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "crown",
+    "ornament",
+    "hoop"
+   ],
+   "sewMinutes": 10,
+   "summary": "Ornate filigree crown with a pointed finial.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 7187,
+   "widthMm": 90,
+   "heightMm": 89.9,
+   "colorCount": 2,
+   "trims": 226,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#b1b1b1",
+     "stitches": 3243
+    },
+    {
+     "name": "",
+     "hex": "#030303",
+     "stitches": 3944
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Ornate-Crown.pes",
+     "bytes": 51069
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Ornate-Crown.dst",
+     "bytes": 24941
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Ornate-Crown.jef",
+     "bytes": 16464
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Ornate-Crown.exp",
+     "bytes": 17226
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Ornate-Crown.vp3",
+     "bytes": 15950
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "pikachu-wordmark",
+   "name": "Pikachu Wordmark",
+   "source": "pack",
+   "dir": "src/designs/pikachu-wordmark",
+   "previewImg": "img/pikachu-wordmark.png",
+   "stitchImg": "img/pikachu-wordmark-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "wordmark",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 6,
+   "summary": "Pikachu wordmark in yellow with ears and tail.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4027,
+   "widthMm": 90,
+   "heightMm": 35.3,
+   "colorCount": 3,
+   "trims": 154,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#ede75f",
+     "stitches": 1525
+    },
+    {
+     "name": "",
+     "hex": "#716947",
+     "stitches": 1147
+    },
+    {
+     "name": "",
+     "hex": "#17150d",
+     "stitches": 1355
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Pikachu-Wordmark.pes",
+     "bytes": 30356
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Pikachu-Wordmark.dst",
+     "bytes": 14450
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Pikachu-Wordmark.jef",
+     "bytes": 9412
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Pikachu-Wordmark.exp",
+     "bytes": 9878
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Pikachu-Wordmark.vp3",
+     "bytes": 9186
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "royatly-script",
+   "name": "Royatly Script",
+   "source": "pack",
+   "dir": "src/designs/royatly-script",
+   "previewImg": "img/royatly-script.png",
+   "stitchImg": "img/royatly-script-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "wordmark",
+    "script",
+    "cushion"
+   ],
+   "sewMinutes": 3,
+   "summary": "Script word Royatly with a small crown over the R.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2190,
+   "widthMm": 90,
+   "heightMm": 44,
+   "colorCount": 1,
+   "trims": 23,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#070707",
+     "stitches": 2190
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Royatly-Script.pes",
+     "bytes": 15140
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Royatly-Script.dst",
+     "bytes": 7337
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Royatly-Script.jef",
+     "bytes": 4670
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Royatly-Script.exp",
+     "bytes": 4628
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Royatly-Script.vp3",
+     "bytes": 4818
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "star-crown-s",
+   "name": "Star Crown S",
+   "source": "pack",
+   "dir": "src/designs/star-crown-s",
+   "previewImg": "img/star-crown-s.png",
+   "stitchImg": "img/star-crown-s-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "monogram",
+    "crown",
+    "jersey"
+   ],
+   "sewMinutes": 5,
+   "summary": "Letter S beneath a crown tipped with stars.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3589,
+   "widthMm": 69.3,
+   "heightMm": 90,
+   "colorCount": 2,
+   "trims": 110,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#a9a9a9",
+     "stitches": 1542
+    },
+    {
+     "name": "",
+     "hex": "#1a1a1a",
+     "stitches": 2047
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Star-Crown-S.pes",
+     "bytes": 26233
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Star-Crown-S.dst",
+     "bytes": 12734
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Star-Crown-S.jef",
+     "bytes": 8356
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Star-Crown-S.exp",
+     "bytes": 8654
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Star-Crown-S.vp3",
+     "bytes": 8318
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "toyota-logo",
+   "name": "Toyota Logo",
+   "source": "pack",
+   "dir": "src/designs/toyota-logo",
+   "previewImg": "img/toyota-logo.png",
+   "stitchImg": "img/toyota-logo-stitch.png",
+   "price": 150,
+   "mrp": 255,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "logo",
+    "motorsport",
+    "jersey"
+   ],
+   "sewMinutes": 3,
+   "summary": "Toyota emblem of three overlapping ellipses above the wordmark.",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 2014,
+   "widthMm": 90,
+   "heightMm": 64.8,
+   "colorCount": 1,
+   "trims": 28,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#050505",
+     "stitches": 2014
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Babylock / Bernina",
+     "file": "Toyota-Logo.pes",
+     "bytes": 14224
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Toyota-Logo.dst",
+     "bytes": 6890
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Toyota-Logo.jef",
+     "bytes": 4374
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Toyota-Logo.exp",
+     "bytes": 4352
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Toyota-Logo.vp3",
+     "bytes": 4500
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
   }
  ]
 }

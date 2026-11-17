@@ -1476,3 +1476,6 @@ a.body h3 { margin: 0; }
   color: var(--ink); margin: 0 0 14px; line-height: 1.3;
 }
 @media (max-width: 900px) { .home-h1 { font-size: 1.05rem; margin-bottom: 10px; } }
+
+/* <picture> wrappers behave like the image they hold */
+.shot picture, .catpic picture, .pic picture, .logo picture { display: contents; }

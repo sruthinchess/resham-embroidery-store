@@ -7,11 +7,32 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
+const zlib = require('zlib');
 const D = require('./src/db');
 const P = require('./src/pack');
 const { db, UPLOAD_DIR, hashPassword, verifyPassword, token, getSetting, getJSON, setSetting, settingsMap } = D;
 
 const app = express();
+
+app.use((req, res, next) => {
+  const accept = String(req.headers['accept-encoding'] || '');
+  if (!/\bgzip\b/.test(accept)) return next();
+  const send = res.send.bind(res);
+  res.send = (body) => {
+    if (body == null || res.getHeader('Content-Encoding')) return send(body);
+    const type = String(res.getHeader('Content-Type') || '');
+    const compressible = /json|javascript|css|html|svg|xml|text/.test(type);
+    const buf = Buffer.isBuffer(body) ? body : Buffer.from(String(body));
+    if (!compressible || buf.length < 1024) return send(body);
+    const gz = zlib.gzipSync(buf, { level: 6 });
+    res.setHeader('Content-Encoding', 'gzip');
+    res.setHeader('Vary', 'Accept-Encoding');
+    res.setHeader('Content-Length', gz.length);
+    return send(gz);
+  };
+  next();
+});
+
 const PORT = process.env.PORT || 3000;
 const PUB = path.join(__dirname, 'public');
 
@@ -676,6 +697,47 @@ app.post('/api/admin/password', requireAdmin, (req, res) => {
 });
 
 /* --------------------------------------------------------------- SPA + 404 */
+/* static text files ship a .gz twin and are served from it when the browser
+   accepts gzip — express.static streams and would otherwise skip compression */
+function precompress() {
+  const files = [];
+  const walk = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) { if (!/node_modules|build/.test(full)) walk(full); continue; }
+      if (!/\.(js|css|html|svg|json|txt)$/.test(e.name)) continue;
+      if (e.name.endsWith('.gz')) continue;
+      const gz = full + '.gz';
+      const src = fs.statSync(full);
+      if (!fs.existsSync(gz) || fs.statSync(gz).mtimeMs < src.mtimeMs) {
+        fs.writeFileSync(gz, zlib.gzipSync(fs.readFileSync(full), { level: 9 }));
+      }
+      files.push(full);
+    }
+  };
+  walk(PUB);
+  return files.length;
+}
+const PRECOMPRESSED = precompress();
+
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  if (!/\bgzip\b/.test(String(req.headers['accept-encoding'] || ''))) return next();
+  const clean = decodeURIComponent(req.path).replace(/\.\./g, '');
+  const gz = path.join(PUB, clean + '.gz');
+  if (!fs.existsSync(gz)) return next();
+  const type = clean.endsWith('.css') ? 'text/css'
+    : clean.endsWith('.js') ? 'application/javascript'
+    : clean.endsWith('.svg') ? 'image/svg+xml'
+    : clean.endsWith('.json') ? 'application/json'
+    : clean.endsWith('.html') ? 'text/html' : 'text/plain';
+  res.setHeader('Content-Encoding', 'gzip');
+  res.setHeader('Vary', 'Accept-Encoding');
+  res.setHeader('Content-Type', type);
+  res.setHeader('Cache-Control', clean.endsWith('.html') ? 'no-cache' : 'public, max-age=3600');
+  res.sendFile(gz);
+});
+
 app.use('/img', express.static(path.join(PUB, 'img'), { maxAge: '30d', immutable: true }));
 app.use('/vendor', express.static(path.join(PUB, 'vendor'), { maxAge: '30d', immutable: true }));
 app.use(express.static(PUB, { extensions: ['html'], maxAge: '1h', setHeaders: (res, file) => {

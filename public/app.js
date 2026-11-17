@@ -207,6 +207,15 @@
 
   const fmtLabel = k => (k || '').toUpperCase();
 
+  /* <picture> so the browser takes the WebP when it can and the PNG otherwise */
+  function pic(src, alt, cls, lazy) {
+    if (!src) return '';
+    const webp = String(src).replace(/\.png$/i, '.webp');
+    const attrs = `${cls ? ` class="${cls}"` : ''}${lazy ? ' loading="lazy"' : ''} decoding="async"`;
+    if (webp === src) return `<img src="${esc(src)}" alt="${esc(alt || '')}"${attrs}>`;
+    return `<picture><source srcset="${esc(webp)}" type="image/webp"><img src="${esc(src)}" alt="${esc(alt || '')}"${attrs}></picture>`;
+  }
+
   function couponBox() {
     const c = Store.coupon;
     if (c) {
@@ -289,7 +298,7 @@
     const wished = Store.isWished(d.id);
     return `<article class="dcard reveal${opts.noBuy ? ' linkable' : ''}">
       <a class="stage" href="${url}" aria-label="${esc(d.name)}">
-        ${d.preview ? `<span class="shot"><img src="${esc(d.preview)}" alt="${esc(d.name)} embroidery design" loading="lazy" decoding="async" width="400" height="400"></span>` : ''}
+        ${d.preview ? `<span class="shot">${pic(d.preview, d.name + ' embroidery design', '', true)}</span>` : ''}
         ${d.badge ? `<span class="pill ${d.badge === 'New' ? 'brass' : 'maroon'}">${esc(d.badge)}</span>` : ''}
         <span class="stitch-badge">${nf(d.stitchCount)} stitches</span>
       </a>
@@ -314,7 +323,7 @@
     return `<div class="announce ${XMAS_LIVE ? 'xmas' : ''}">${esc(note)}</div>
     <header class="hdr" id="hdr"><div class="wrap hdr-in">
       <button class="icon-btn burger" id="burger" aria-label="Menu">${I.burger}</button>
-      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><img class="brand-full" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}">${vipBadge()}</a>
+      <a class="logo" href="#/" aria-label="${esc(Store.settings.store_name)}"><picture><source srcset="${esc(String(logoFull()).replace(/\.png$/i, '.webp'))}" type="image/webp"><img class="brand-full" src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}" decoding="async"></picture>${vipBadge()}</a>
       <nav class="nav">
         <a href="#/" class="${a('home')}">Home</a>
         <a href="#/designs" class="${a('designs')}">Designs</a>
@@ -345,7 +354,7 @@
     return `<footer class="foot"><div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <a class="logo foot-logo" href="#/"><img src="${esc(logoFull())}" alt="${esc(Store.settings.store_name)}"></a>
+          <a class="logo foot-logo" href="#/">${pic(logoFull(), Store.settings.store_name, '', true)}</a>
           <p class="small foot-about">${esc(Store.settings.tagline)} Every design is digitised by hand, sold once, and delivered the moment your UPI payment is confirmed.</p>
           <div class="foot-pay"><span>UPI</span><b class="mono">${esc(Store.settings.upi_id)}</b></div>
         </div>
@@ -458,7 +467,11 @@
   }
 
   async function viewHome() {
-    const [all, pr] = await Promise.all([api('/api/designs?' + qs({ sort: 'newest' })), promos()]);
+    // boot already loaded the catalogue; sort locally rather than asking again
+    const pr = await promos();
+    let designs = Store.designs.length ? Store.designs.slice() : (await api('/api/designs?' + qs({}))).designs;
+    designs.sort((a, b) => (b.id || 0) - (a.id || 0));
+    const all = { designs, total: designs.length };
     HOME_LIST = all.designs;
     const flash = pr.flash || {};
     const bulk = pr.bulk || [];
@@ -591,6 +604,7 @@
         path: 'design/' + g.slug
       });
       productLd(g);
+      breadcrumbLd([{ name: 'Home', path: '' }, { name: 'Designs', path: 'designs' }, { name: g.name, path: 'design/' + g.slug }]);
     }, 0);
 
     setTimeout(() => {
@@ -656,10 +670,10 @@
       <div class="crumbs"><a href="#/">Home</a> / <a href="#/designs">Designs</a> / ${esc(g.name)}</div>
       <div class="pdp">
         <div>
-          <div class="stage">${g.preview ? `<span class="shot"><img id="pdpMain" src="${esc(g.preview)}" alt="${esc(g.name)} embroidery design"></span>` : ''}</div>
+          <div class="stage">${g.preview ? `<span class="shot"><img id="pdpMain" src="${esc(g.preview)}" alt="${esc(g.name)} embroidery design" decoding="async"></span>` : ''}</div>
           <div class="gal">
-            <button class="gthumb on" data-shot="${esc(g.preview || '')}"><img src="${esc(g.preview || '')}" alt="artwork"></button>
-            ${g.stitchPreview ? `<button class="gthumb" data-shot="${esc(g.stitchPreview)}"><img src="${esc(g.stitchPreview)}" alt="stitch preview"></button>` : ''}
+            <button class="gthumb on" data-shot="${esc(g.preview || '')}"><img src="${esc(String(g.preview || '').replace(/\.png$/i, '.webp'))}" alt="artwork" loading="lazy" decoding="async"></button>
+            ${g.stitchPreview ? `<button class="gthumb" data-shot="${esc(g.stitchPreview)}"><img src="${esc(String(g.stitchPreview).replace(/\.png$/i, '.webp'))}" alt="stitch preview" loading="lazy" decoding="async"></button>` : ''}
           </div>
         </div>
         <div>
@@ -808,7 +822,7 @@
         ${CATEGORIES.map(([name, tag, blurb]) => {
           const first = all.designs.find(d => (d.tags || []).includes(tag));
           return `<a class="catcard" href="#/designs?tag=${encodeURIComponent(tag)}">
-            <div class="catpic">${first ? `<img src="${esc(first.preview)}" alt="${esc(name)}" loading="lazy" decoding="async">` : ''}</div>
+            <div class="catpic">${first ? pic(first.preview, name + ' embroidery designs', '', true) : ''}</div>
             <div class="catcopy"><b>${esc(name)}</b><span>${esc(blurb)}</span>
               <em>${counts[tag] || 0} design${(counts[tag] || 0) === 1 ? '' : 's'}</em></div>
           </a>`;
@@ -992,7 +1006,7 @@
           <h1 style="font-size:1.8rem;margin:12px 0 4px">Your bag (${Store.count})</h1>
           <p class="muted small">Each design arrives as one ZIP containing the formats you chose.</p>
           <div>${Store.cart.map(l => `<div class="cart-line">
-            <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
+            <div class="pic">${l.preview ? pic(l.preview, l.name, '', true) : ''}</div>
             <div><h4>${esc(l.name)}</h4>
               <div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div>
               <button class="btn btn-xs btn-ghost" data-remove="${l.id}" style="margin-top:7px">Remove</button></div>
@@ -1059,7 +1073,7 @@
         <aside class="summary">
           <h3>${Store.count} design${Store.count > 1 ? 's' : ''}</h3>
           ${Store.cart.map(l => `<div class="mini-line">
-            <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
+            <div class="pic">${l.preview ? pic(l.preview, l.name, '', true) : ''}</div>
             <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div></div>
             <b class="mono small">${money(l.price)}</b></div>`).join('')}
           <div style="margin-top:10px">${Store.count ? cartProgress(false) : ''}${summaryRows(false)}</div>
@@ -1615,7 +1629,7 @@
     const dr = $('#drawer');
     dr.innerHTML = `<header><h3>Your bag (${Store.count})</h3><button class="icon-btn" id="closeDrawer">${I.close}</button></header>
       <div class="items">${Store.cart.length ? Store.cart.map(l => `<div class="mini-line">
-          <div class="pic">${l.preview ? `<img src="${esc(l.preview)}" alt="">` : ''}</div>
+          <div class="pic">${l.preview ? pic(l.preview, l.name, '', true) : ''}</div>
           <div><h4>${esc(l.name)}</h4><div class="meta">${(l.formats || []).map(fmtLabel).join(' · ')}</div>
             <button class="btn btn-xs btn-ghost" data-drem="${l.id}" style="margin-top:5px">Remove</button></div>
           <b class="mono small">${money(l.price)}</b></div>`).join('')
@@ -1740,10 +1754,30 @@
     if (d) d.setAttribute('content', (extra && extra.desc) || desc);
     const c = document.querySelector('link[rel="canonical"]');
     if (c) c.setAttribute('href', BASE + ((extra && extra.path) || (key === 'home' ? '' : key)));
+    const priv = ['cart', 'downloads', 'saved'].includes(key) || /^pay\//.test((extra && extra.path) || '');
+    let rb = document.querySelector('meta[name="robots"]');
+    if (!rb) { rb = document.createElement('meta'); rb.setAttribute('name', 'robots'); document.head.appendChild(rb); }
+    rb.setAttribute('content', priv ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
     let og = document.querySelector('meta[property="og:title"]');
     if (og) og.setAttribute('content', (extra && extra.title) || title);
     og = document.querySelector('meta[property="og:description"]');
     if (og) og.setAttribute('content', (extra && extra.desc) || desc);
+  }
+
+  function breadcrumbLd(parts) {
+    const el = document.getElementById('ld-crumbs');
+    if (el) el.remove();
+    const tag = document.createElement('script');
+    tag.type = 'application/ld+json';
+    tag.id = 'ld-crumbs';
+    tag.textContent = JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+      itemListElement: parts.map((p, i) => ({
+        '@type': 'ListItem', position: i + 1, name: p.name,
+        item: location.origin + BASE + p.path
+      }))
+    });
+    document.head.appendChild(tag);
   }
 
   function productLd(d) {
