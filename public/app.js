@@ -965,7 +965,9 @@
           <h3>${esc(p.name)}</h3>
           <div class="plan-price"><b>${money(p.price)}</b></div>
           <p class="small muted">${esc(p.note || '')}</p>
-          <button class="btn ${p.id === 'quarterly' ? 'btn-primary' : 'btn-ghost'} btn-block" data-plan="${esc(p.id)}">Join ${esc(p.name)}</button>
+          <button class="btn ${p.id === 'quarterly' ? 'btn-primary' : 'btn-ghost'} btn-block" data-plan="${esc(p.id)}">
+            ${daysLeft > 0 ? `Extend by ${p.id === 'yearly' ? '12' : p.id === 'quarterly' ? '3' : '1'} month${p.id === 'monthly' ? '' : 's'}` : `Join ${esc(p.name)}`}
+          </button>
         </div>`).join('')}
       </div>
       <p class="small muted" style="margin-top:18px">Memberships are activated by the studio within 24 hours of the UPI payment — you will get a confirmation on your order page.</p>
@@ -1479,10 +1481,13 @@
         <div class="crumbs"><a href="#/">Home</a> / <a href="#/vip">VIP</a> / ${esc(v.code)}</div>
         <div class="panel" style="margin:20px 0 60px;text-align:center">
           <div class="ok-mark">${I.check}</div>
-          <h2 style="margin:12px 0 6px">${v.status === 'active' ? 'Your VIP is active' : 'Payment proof received'}</h2>
+          <h2 style="margin:12px 0 6px">${v.status === 'active'
+            ? (v.extended || (v.note || '').includes('extended') ? 'Your VIP has been extended' : 'Your VIP is active')
+            : 'Payment proof received'}</h2>
           <p class="small muted">${esc(v.planName)} membership · ${money(v.amount)} · ${esc(v.code)}</p>
+          ${v.expiresAt ? `<p class="small" style="margin:8px 0 0"><b>${v.daysLeft} day${v.daysLeft === 1 ? '' : 's'} left</b> · active until ${new Date(v.expiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>` : ''}
           <p class="small muted" style="margin-top:10px">${v.status === 'active'
-            ? 'Member prices and the monthly design pack are live on this account.'
+            ? 'Member prices and the monthly design pack are live on this account. Buying another plan adds to the time you have left.'
             : 'The studio activates VIP within 24 hours of the payment. You will get a confirmation on this page.'}</p>
           <a class="btn btn-ghost" href="#/designs" style="margin-top:14px">Browse designs</a>
         </div>
@@ -1572,7 +1577,14 @@
   function activateVipLocal(v) {
     const plan = v.plan || 'vip';
     const months = plan === 'yearly' ? 12 : plan === 'quarterly' ? 3 : 1;
-    const until = new Date(Date.now() + months * 30 * 86400000).toISOString();
+    const running = vipInfo();
+    const base = running && new Date(running.until).getTime() > Date.now()
+      ? new Date(running.until) : new Date();
+    const until = v.expiresAt || (() => {
+      const d = new Date(base);
+      d.setMonth(d.getMonth() + months);
+      return d.toISOString();
+    })();
     LS.setItem('sd_vip', JSON.stringify({ plan: v.planName || plan, code: v.code, until }));
   }
 

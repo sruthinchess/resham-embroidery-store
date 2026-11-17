@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS memberships (
   status TEXT NOT NULL DEFAULT 'pending',
   note TEXT,
   created_at TEXT DEFAULT (datetime('now')),
-  activated_at TEXT
+  activated_at TEXT,
+  expires_at TEXT
 );
 CREATE TABLE IF NOT EXISTS download_tokens (
   token TEXT PRIMARY KEY,
@@ -123,6 +124,9 @@ function verifyPassword(password, hash, salt) {
   } catch { return false; }
 }
 const token = () => crypto.randomBytes(24).toString('hex');
+// older databases predate the expiry column
+try { db.exec('ALTER TABLE memberships ADD COLUMN expires_at TEXT'); } catch { /* already there */ }
+
 const getSetting = (k, d = null) => { const r = db.prepare('SELECT value FROM settings WHERE key=?').get(k); return r ? r.value : d; };
 const setSetting = (k, v) => db.prepare('INSERT INTO settings(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value')
   .run(k, typeof v === 'string' ? v : JSON.stringify(v));

@@ -153,7 +153,17 @@ const META = {
   'pikachu-wordmark': { featured: 0, badge: 'New', tags: ['wordmark', 'kids', 'jersey'] },
   'royatly-script': { featured: 0, badge: 'New', tags: ['wordmark', 'script', 'cushion'] },
   'star-crown-s': { featured: 0, badge: 'New', tags: ['monogram', 'crown', 'jersey'] },
-  'toyota-logo': { featured: 0, badge: 'New', tags: ['logo', 'motorsport', 'jersey'] }
+  'toyota-logo': { featured: 0, badge: 'New', tags: ['logo', 'motorsport', 'jersey'] },
+  'heart-eyes-smiley': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'king-crown-badge': { featured: 0, badge: 'New', tags: ['crest', 'crown', 'jersey'] },
+  'king-crown-word': { featured: 0, badge: 'New', tags: ['wordmark', 'crown', 'jersey'] },
+  'mickey-d-monogram': { featured: 0, badge: 'New', tags: ['monogram', 'character', 'cushion'] },
+  'mickey-heart': { featured: 0, badge: 'New', tags: ['character', 'kids', 'jersey'] },
+  'mickey-sketch': { featured: 0, badge: 'New', tags: ['character', 'kids', 'hoop'] },
+  'mom-dad-crown': { featured: 1, badge: 'New', tags: ['wordmark', 'family', 'cushion'] },
+  'mosque-crescent': { featured: 0, badge: 'New', tags: ['devotional', 'symbol', 'hoop'] },
+  'om-namah-shivaya': { featured: 1, badge: 'New', tags: ['devotional', 'om', 'hoop'] },
+  'parrot-head': { featured: 0, badge: 'New', tags: ['bird', 'parrot', 'jersey'] }
 };
 
 const COPY = {
@@ -240,9 +250,14 @@ for (const pack of packs) {
     fs.copyFileSync(path.join(dir, readmeName), readmeOut);
 
     // images: the clean artwork is the shop image, the stitch-out is the proof
-    const artName = files.find(f => /-transparent\.png$/i.test(f));
-    const stitchName = files.find(f => /-stitch-preview\.png$/i.test(f));
+    const artName = files.find(f => /-transparent\.png$/i.test(f))
+      || files.find(f => /-4k\.png$/i.test(f) && !/stitch/i.test(f))
+      || files.find(f => /\.png$/i.test(f) && !/stitch/i.test(f));
+    const stitchName = files.find(f => /-stitch-preview\.png$/i.test(f))
+      || files.find(f => /stitch.*\.png$/i.test(f));
     const shrink = (src, out, max, colors) => {
+      // nothing to do when the output is already newer than the source
+      try { if (fs.statSync(out).mtimeMs >= fs.statSync(src).mtimeMs) return; } catch {}
       try {
         require('child_process').execFileSync('python3',
           [path.join(__dirname, 'prepare-images.py'), src, out, String(max), String(colors)], { stdio: 'ignore' });

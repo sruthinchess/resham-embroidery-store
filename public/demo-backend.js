@@ -72,7 +72,7 @@
       id: i + 1, code: c.code, type: c.type, value: c.value, min_order: c.min_order || 0,
       max_uses: c.max_uses || 0, used: 0, active: 1, expires_at: c.expires_at || null, note: c.note || ''
     }));
-    return { settings, designs, coupons, orders: [], tokens: {}, seq: { design: designs.length, order: 0, coupon: coupons.length }, adminSessions: {} };
+    return { settings, designs, coupons, orders: [], memberships: [], tokens: {}, seq: { design: designs.length, order: 0, coupon: coupons.length }, adminSessions: {} };
   }
   let S = null;
   function load() {
@@ -210,6 +210,54 @@
     const sub = Number(b.subtotal || 0);
     const r = checkCoupon(b.code, sub);
     return { ok: true, coupon: cOut(r.coupon), discount: r.discount, total: Math.max(0, sub - r.discount) };
+  });
+
+  /* ---- memberships: joining again extends the running term ---- */
+  const vipMonths = plan => (plan === 'yearly' ? 12 : plan === 'quarterly' ? 3 : 1);
+
+  const mOut = (row) => ({
+    code: row.code, plan: row.plan, planName: row.plan_name, amount: row.amount,
+    name: row.name, email: row.email, status: row.status, note: row.note,
+    expiresAt: row.expires_at || null,
+    daysLeft: row.expires_at ? Math.max(0, Math.ceil((new Date(row.expires_at) - new Date()) / 86400000)) : null,
+    upi: { id: S.settings.upi_id, link: `upi://pay?pa=${encodeURIComponent(S.settings.upi_id)}&pn=${encodeURIComponent(S.settings.store_name || 'Sandya Emb Designs')}&am=${Number(row.amount).toFixed(2)}&cu=INR&tn=${encodeURIComponent(row.code)}` }
+  });
+
+  R('POST', '/api/memberships', (m, q, p, b) => {
+    const plan = ((S.settings.vip || {}).plans || []).find(x => x.id === b.plan);
+    if (!plan) throw fail('Pick a membership plan first.');
+    if (!String(b.name || '').trim()) throw fail('Please enter your name.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(b.email || ''))) throw fail('Please enter a valid email.');
+    const row = {
+      code: 'VIP-' + Date.now().toString(36).toUpperCase().slice(-4) + Math.floor(Math.random() * 900 + 100),
+      plan: plan.id, plan_name: plan.name, amount: plan.price,
+      name: String(b.name).trim(), email: String(b.email).trim(),
+      status: 'pending', created_at: now()
+    };
+    S.memberships.push(row); save();
+    return { ok: true, membership: mOut(row) };
+  });
+
+  R('GET', '/api/memberships/:code', (m, q, p) => {
+    const row = S.memberships.find(x => x.code === String(p.code).toUpperCase());
+    if (!row) throw fail('That membership was not found.');
+    return { ok: true, membership: mOut(row) };
+  });
+
+  R('POST', '/api/memberships/:code/proof', (m, q, p, b) => {
+    const row = S.memberships.find(x => x.code === String(p.code).toUpperCase());
+    if (!row) throw fail('That membership was not found.');
+    if (!String(b.screenshot || '').startsWith('data:image/')) throw fail('Attach the payment screenshot.');
+    const running = S.memberships
+      .filter(x => x.email === row.email && x.status === 'active' && x.expires_at)
+      .map(x => new Date(x.expires_at).getTime()).sort((a, c) => c - a)[0];
+    const from = running && running > Date.now() ? running : Date.now();
+    const d = new Date(from); d.setMonth(d.getMonth() + vipMonths(row.plan));
+    row.expires_at = d.toISOString();
+    row.extended = !!(running && running > Date.now());
+    row.status = 'active'; row.activated_at = now();
+    save();
+    return { ok: true, extended: row.extended, membership: mOut(row) };
   });
 
   R('POST', '/api/orders', (m, q, p, b) => {

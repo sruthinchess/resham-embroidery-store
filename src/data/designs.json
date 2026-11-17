@@ -11162,6 +11162,846 @@
     "jef",
     "exp"
    ]
+  },
+  {
+   "slug": "heart-eyes-smiley",
+   "name": "Heart Eyes Smiley",
+   "source": "pack",
+   "dir": "src/designs/heart-eyes-smiley",
+   "previewImg": "img/heart-eyes-smiley.png",
+   "stitchImg": "img/heart-eyes-smiley-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 5,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3734,
+   "widthMm": 90,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 10,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#010101",
+     "stitches": 3734
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Heart-Eyes-Smiley.pes",
+     "bytes": 24040
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Heart-Eyes-Smiley.dst",
+     "bytes": 11849
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Heart-Eyes-Smiley.jef",
+     "bytes": 7694
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Heart-Eyes-Smiley.exp",
+     "bytes": 7600
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Heart-Eyes-Smiley.vp3",
+     "bytes": 7868
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "king-crown-badge",
+   "name": "King Crown Badge",
+   "source": "pack",
+   "dir": "src/designs/king-crown-badge",
+   "previewImg": "img/king-crown-badge.png",
+   "stitchImg": "img/king-crown-badge-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "crest",
+    "crown",
+    "jersey"
+   ],
+   "sewMinutes": 6,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3880,
+   "widthMm": 72.5,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 25,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#292526",
+     "stitches": 3880
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "King-Crown-Badge.pes",
+     "bytes": 25336
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "King-Crown-Badge.dst",
+     "bytes": 12428
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "King-Crown-Badge.jef",
+     "bytes": 8062
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "King-Crown-Badge.exp",
+     "bytes": 8028
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "King-Crown-Badge.vp3",
+     "bytes": 8196
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "king-crown-word",
+   "name": "King Crown Word",
+   "source": "pack",
+   "dir": "src/designs/king-crown-word",
+   "previewImg": "img/king-crown-word.png",
+   "stitchImg": "img/king-crown-word-stitch.png",
+   "price": 200,
+   "mrp": 340,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "wordmark",
+    "crown",
+    "jersey"
+   ],
+   "sewMinutes": 6,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 3970,
+   "widthMm": 90,
+   "heightMm": 74.6,
+   "colorCount": 1,
+   "trims": 34,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#1e1d1c",
+     "stitches": 3970
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "King-Crown-Word.pes",
+     "bytes": 26128
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "King-Crown-Word.dst",
+     "bytes": 12833
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "King-Crown-Word.jef",
+     "bytes": 8342
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "King-Crown-Word.exp",
+     "bytes": 8344
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "King-Crown-Word.vp3",
+     "bytes": 8424
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "mickey-d-monogram",
+   "name": "Mickey D Monogram",
+   "source": "pack",
+   "dir": "src/designs/mickey-d-monogram",
+   "previewImg": "img/mickey-d-monogram.png",
+   "stitchImg": "img/mickey-d-monogram-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "monogram",
+    "character",
+    "cushion"
+   ],
+   "sewMinutes": 6,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4033,
+   "widthMm": 86.7,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 18,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#040404",
+     "stitches": 4033
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Mickey-D-Monogram.pes",
+     "bytes": 26058
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Mickey-D-Monogram.dst",
+     "bytes": 12860
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Mickey-D-Monogram.jef",
+     "bytes": 8376
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Mickey-D-Monogram.exp",
+     "bytes": 8314
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Mickey-D-Monogram.vp3",
+     "bytes": 8506
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "mickey-heart",
+   "name": "Mickey Heart",
+   "source": "pack",
+   "dir": "src/designs/mickey-heart",
+   "previewImg": "img/mickey-heart.png",
+   "stitchImg": "img/mickey-heart-stitch.png",
+   "price": 350,
+   "mrp": 595,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "jersey"
+   ],
+   "sewMinutes": 9,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 6002,
+   "widthMm": 63.6,
+   "heightMm": 90,
+   "colorCount": 4,
+   "trims": 47,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#040202",
+     "stitches": 2852
+    },
+    {
+     "name": "",
+     "hex": "#df3a3e",
+     "stitches": 1700
+    },
+    {
+     "name": "",
+     "hex": "#fcfcfc",
+     "stitches": 1438
+    },
+    {
+     "name": "",
+     "hex": "#382626",
+     "stitches": 12
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Mickey-Heart.pes",
+     "bytes": 39473
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Mickey-Heart.dst",
+     "bytes": 19067
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Mickey-Heart.jef",
+     "bytes": 12518
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Mickey-Heart.exp",
+     "bytes": 12548
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Mickey-Heart.vp3",
+     "bytes": 12730
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "mickey-sketch",
+   "name": "Mickey Sketch",
+   "source": "pack",
+   "dir": "src/designs/mickey-sketch",
+   "previewImg": "img/mickey-sketch.png",
+   "stitchImg": "img/mickey-sketch-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "character",
+    "kids",
+    "hoop"
+   ],
+   "sewMinutes": 6,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4418,
+   "widthMm": 73.5,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 26,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#070707",
+     "stitches": 4418
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Mickey-Sketch.pes",
+     "bytes": 28592
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Mickey-Sketch.dst",
+     "bytes": 14054
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Mickey-Sketch.jef",
+     "bytes": 9142
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Mickey-Sketch.exp",
+     "bytes": 9112
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Mickey-Sketch.vp3",
+     "bytes": 9286
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "mom-dad-crown",
+   "name": "Mom Dad Crown",
+   "source": "pack",
+   "dir": "src/designs/mom-dad-crown",
+   "previewImg": "img/mom-dad-crown.png",
+   "stitchImg": "img/mom-dad-crown-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "wordmark",
+    "family",
+    "cushion"
+   ],
+   "sewMinutes": 6,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4194,
+   "widthMm": 87.5,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 58,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#050505",
+     "stitches": 4194
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Mom-Dad-Crown.pes",
+     "bytes": 28144
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Mom-Dad-Crown.dst",
+     "bytes": 13883
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Mom-Dad-Crown.jef",
+     "bytes": 9094
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Mom-Dad-Crown.exp",
+     "bytes": 9192
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Mom-Dad-Crown.vp3",
+     "bytes": 9070
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "mosque-crescent",
+   "name": "Mosque Crescent",
+   "source": "pack",
+   "dir": "src/designs/mosque-crescent",
+   "previewImg": "img/mosque-crescent.png",
+   "stitchImg": "img/mosque-crescent-stitch.png",
+   "price": 300,
+   "mrp": 510,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "devotional",
+    "symbol",
+    "hoop"
+   ],
+   "sewMinutes": 8,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 5428,
+   "widthMm": 90,
+   "heightMm": 89.1,
+   "colorCount": 1,
+   "trims": 31,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#181818",
+     "stitches": 5428
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Mosque-Crescent.pes",
+     "bytes": 34792
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Mosque-Crescent.dst",
+     "bytes": 17177
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Mosque-Crescent.jef",
+     "bytes": 11246
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Mosque-Crescent.exp",
+     "bytes": 11236
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Mosque-Crescent.vp3",
+     "bytes": 11340
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "om-namah-shivaya",
+   "name": "Om Namah Shivaya",
+   "source": "pack",
+   "dir": "src/designs/om-namah-shivaya",
+   "previewImg": "img/om-namah-shivaya.png",
+   "stitchImg": "img/om-namah-shivaya-stitch.png",
+   "price": 450,
+   "mrp": 765,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 1,
+   "tags": [
+    "devotional",
+    "om",
+    "hoop"
+   ],
+   "sewMinutes": 13,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 8795,
+   "widthMm": 82.1,
+   "heightMm": 90,
+   "colorCount": 12,
+   "trims": 184,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#1e262f",
+     "stitches": 4644
+    },
+    {
+     "name": "",
+     "hex": "#863e11",
+     "stitches": 1358
+    },
+    {
+     "name": "",
+     "hex": "#e46b1f",
+     "stitches": 1223
+    },
+    {
+     "name": "",
+     "hex": "#4d2511",
+     "stitches": 445
+    },
+    {
+     "name": "",
+     "hex": "#a9712e",
+     "stitches": 270
+    },
+    {
+     "name": "",
+     "hex": "#f1a345",
+     "stitches": 228
+    },
+    {
+     "name": "",
+     "hex": "#c9944d",
+     "stitches": 225
+    },
+    {
+     "name": "",
+     "hex": "#edc985",
+     "stitches": 186
+    },
+    {
+     "name": "",
+     "hex": "#b5bec7",
+     "stitches": 174
+    },
+    {
+     "name": "",
+     "hex": "#848485",
+     "stitches": 24
+    },
+    {
+     "name": "",
+     "hex": "#a3a2a2",
+     "stitches": 18
+    },
+    {
+     "name": "",
+     "hex": "#5d5f62",
+     "stitches": 0
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Om-Namah-Shivaya.pes",
+     "bytes": 62139
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Om-Namah-Shivaya.dst",
+     "bytes": 29285
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Om-Namah-Shivaya.jef",
+     "bytes": 19492
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Om-Namah-Shivaya.exp",
+     "bytes": 20006
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Om-Namah-Shivaya.vp3",
+     "bytes": 19532
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
+  },
+  {
+   "slug": "parrot-head",
+   "name": "Parrot Head",
+   "source": "pack",
+   "dir": "src/designs/parrot-head",
+   "previewImg": "img/parrot-head.png",
+   "stitchImg": "img/parrot-head-stitch.png",
+   "price": 250,
+   "mrp": 425,
+   "pricePer1k": 50,
+   "badge": "New",
+   "featured": 0,
+   "tags": [
+    "bird",
+    "parrot",
+    "jersey"
+   ],
+   "sewMinutes": 7,
+   "summary": ".",
+   "description": "",
+   "hoop": "4 \u00d7 4 in",
+   "stitchCount": 4935,
+   "widthMm": 82.9,
+   "heightMm": 90,
+   "colorCount": 1,
+   "trims": 21,
+   "threads": [
+    {
+     "name": "",
+     "hex": "#231f20",
+     "stitches": 4935
+    }
+   ],
+   "formats": [
+    {
+     "key": "pes",
+     "label": "PES",
+     "note": "Brother / Baby Lock",
+     "file": "Parrot-Head.pes",
+     "bytes": 31554
+    },
+    {
+     "key": "dst",
+     "label": "DST",
+     "note": "Tajima - commercial standard",
+     "file": "Parrot-Head.dst",
+     "bytes": 15587
+    },
+    {
+     "key": "jef",
+     "label": "JEF",
+     "note": "Janome",
+     "file": "Parrot-Head.jef",
+     "bytes": 10188
+    },
+    {
+     "key": "exp",
+     "label": "EXP",
+     "note": "Melco / Bernina",
+     "file": "Parrot-Head.exp",
+     "bytes": 10138
+    },
+    {
+     "key": "vp3",
+     "label": "VP3",
+     "note": "Pfaff \u00b7 Husqvarna Viking",
+     "file": "Parrot-Head.vp3",
+     "bytes": 10328
+    }
+   ],
+   "defaultFormats": [
+    "pes",
+    "dst",
+    "jef",
+    "exp"
+   ]
   }
  ]
 }

@@ -283,12 +283,33 @@ app.post('/api/coupons/validate', (req, res) => {
   ok(res, { coupon: r.coupon, discount: r.discount, total: Math.max(0, num(subtotal, 0) - r.discount) });
 });
 
+/* a new membership extends the one already running, it does not restart it */
+function monthsFor(plan) {
+  if (plan === 'yearly') return 12;
+  if (plan === 'quarterly') return 3;
+  return 1;
+}
+
+function nextExpiry(plan, email) {
+  const running = db.prepare(`SELECT expires_at FROM memberships
+    WHERE lower(email)=lower(?) AND status='active' AND expires_at IS NOT NULL
+    ORDER BY expires_at DESC LIMIT 1`).get(String(email || ''));
+  const now = Date.now();
+  const from = running && new Date(running.expires_at).getTime() > now
+    ? new Date(running.expires_at).getTime() : now;
+  const d = new Date(from);
+  d.setMonth(d.getMonth() + monthsFor(plan));
+  return { expires_at: d.toISOString(), extended: from > now, from: new Date(from).toISOString() };
+}
+
 function membershipOut(row) {
   if (!row) return null;
   return {
     code: row.code, plan: row.plan, planName: row.plan_name, amount: row.amount,
     name: row.name, email: row.email, status: row.status, note: row.note,
     screenshot: !!row.screenshot, createdAt: row.created_at, activatedAt: row.activated_at,
+    expiresAt: row.expires_at || null,
+    daysLeft: row.expires_at ? Math.max(0, Math.ceil((new Date(row.expires_at).getTime() - Date.now()) / 86400000)) : null,
     upi: upiPayload(row.code, row.amount)
   };
 }
@@ -324,10 +345,19 @@ app.post('/api/memberships/:code/proof', (req, res) => {
   const ext = m[1].toLowerCase().replace('jpeg', 'jpg');
   const saved = `${row.code}-${Date.now()}.${ext}`;
   fs.writeFileSync(path.join(UPLOAD_DIR, saved), buf);
-  db.prepare(`UPDATE memberships SET screenshot=?, status='active', upi_ref=?, note=?, activated_at=? WHERE id=?`)
-    .run(saved, String((req.body || {}).ref || ''), 'VIP activated on payment proof', nowISO(), row.id);
-  ok(res, { membership: membershipOut(db.prepare('SELECT * FROM memberships WHERE id=?').get(row.id)),
-            message: 'VIP is active — member prices and the monthly pack are on your account.' });
+  const next = nextExpiry(row.plan, row.email);
+  db.prepare(`UPDATE memberships SET screenshot=?, status='active', upi_ref=?, note=?, activated_at=?, expires_at=? WHERE id=?`)
+    .run(saved, String((req.body || {}).ref || ''),
+         next.extended ? 'VIP extended from the running membership' : 'VIP activated on payment proof',
+         nowISO(), next.expires_at, row.id);
+  const out = membershipOut(db.prepare('SELECT * FROM memberships WHERE id=?').get(row.id));
+  ok(res, {
+    membership: out,
+    extended: next.extended,
+    message: next.extended
+      ? `VIP extended — now active until ${new Date(next.expires_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}.`
+      : 'VIP is active — member prices and the monthly pack are on your account.'
+  });
 });
 
 app.get('/api/admin/memberships', requireAdmin, (req, res) => {
